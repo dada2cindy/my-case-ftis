@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="WuDada.Core.SystemApplications.Domain" assembly="WuDada.Core.SystemApplications">
+
+  <class name="ItemParamVO" lazy="true" table="SYSTEM_ITEM_PARAM" dynamic-update="true" dynamic-insert="true">
+
+    <id name="ItemParamId" column="ItemParamId" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="Classify" column="Classify" type="String" length="50" not-null="true"/>
+    <property name="Name" column="Name" type="String" length="50" not-null="true"/>
+    <property name="Value" type="StringClob" not-null="true">
+      <column name="Value" sql-type="nvarchar(max)"/>
+    </property>
+    <property name="Deleted" column="Deleted" type="Boolean" not-null="true"/>
+
+
+  </class>
+
+</hibernate-mapping>

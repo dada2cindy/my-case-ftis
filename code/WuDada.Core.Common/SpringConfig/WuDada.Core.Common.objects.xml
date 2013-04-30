@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <!-- Index:
+        * DAO objects 設定
+        * Service objects 設定
+    -->
+  <!-- DAO objects 設定 -->
+  <object id="CommonDao" type="WuDada.Core.Common.Persistence.CommonDao, WuDada.Core.Common">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
+
+  <!-- Service objects 設定 --> 
+
+  <object id="CommonServiceProxy" parent="TxProxyConfigurationTemplate">
+    <property name="Target" ref="CommonService"/>
+  </object>
+  <object id="CommonService" type="WuDada.Core.Common.Service.Impl.CommonService, WuDada.Core.Common">                                   
+    <property name="CommonDao" ref="CommonDao"/>
+  </object>
+
+</objects>

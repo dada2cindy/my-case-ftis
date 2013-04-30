@@ -1,0 +1,9 @@
+E:\我的case\小布\產基會\SVN上傳\trunk\code\lib\WuDada.Core.dll
+E:\我的case\小布\產基會\SVN上傳\trunk\code\lib\WuDada.Core.pdb
+E:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core\obj\Release\ResolveAssemblyReference.cache
+E:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core\obj\Release\WuDada.Core.dll
+E:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core\obj\Release\WuDada.Core.pdb
+D:\我的case\小布\產基會\SVN上傳\trunk\code\lib\WuDada.Core.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\lib\WuDada.Core.pdb
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core\obj\Release\WuDada.Core.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core\obj\Release\WuDada.Core.pdb

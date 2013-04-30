@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <!--
+    AdoTemplate 設定檔
+        1. 需要先引用 FDC.DBProvider.xml
+    -->
+
+  <!-- AdoTemplate 設定 -->
+  <object id="AdoTemplate" type="Spring.Data.Core.AdoTemplate, Spring.Data">
+    <property name="DbProvider" ref="DbProvider"/>
+    <property name="DataReaderWrapperType" value="Spring.Data.Support.NullMappingDataReader, Spring.Data"/>
+    <property name="CommandTimeout" value ="180" />
+  </object>
+
+  <!-- Transaction 設定 -->
+  <object id="AdoTransactionManager" type="Spring.Data.Core.AdoPlatformTransactionManager, Spring.Data">
+    <property name="DbProvider" ref="DbProvider"/>
+  </object>
+
+  <object id="TxProxyConfigurationTemplate" abstract="true"
+           type="Spring.Transaction.Interceptor.TransactionProxyFactoryObject, Spring.Data">
+    <property name="PlatformTransactionManager" ref="AdoTransactionManager"/>
+    <property name="PlatformTransactionManager" ref="HibernateTransactionManager"/>
+    <property name="TransactionAttributes">
+      <name-values>
+        <!-- 你要把哪些 method(s) 納入交易控管 -->                     
+        <!--<add key="Create*" value="PROPAGATION_REQUIRED, +SpecifiesCommitException"/>-->
+        <add key="Create*" value="PROPAGATION_REQUIRED"/>
+        <add key="Insert*" value="PROPAGATION_REQUIRED" />
+        <add key="Add*" value="PROPAGATION_REQUIRED"/>
+        <add key="Update*" value="PROPAGATION_REQUIRED"/>
+        <add key="Save*" value="PROPAGATION_REQUIRED"/>
+        <add key="Delete*" value="PROPAGATION_REQUIRED"/>                
+        <add key="Get*" value="PROPAGATION_REQUIRED,readOnly"/>
+        <add key="Find*" value="PROPAGATION_REQUIRED,readOnly"/>
+        <add key="Query*" value="PROPAGATION_REQUIRED,readOnly"/>
+        <add key="Search*" value="PROPAGATION_REQUIRED,readOnly"/>
+        <add key="Select*" value="PROPAGATION_REQUIRED,readOnly"/>
+        <add key="Count*" value="PROPAGATION_REQUIRED,readOnly"/>
+        
+        <!-- -代表回滚+就代表提交。預設沒寫則為錯誤就回滾  -->
+        <!--<add key="TestRollBack*" value="PROPAGATION_REQUIRED,+Exception"/>-->
+      </name-values>
+    </property>
+    <!--<property name="PreInterceptors" ref="ResourceHandleAdvice" />-->
+  </object>
+
+  <!--<object id="ResourceHandleAdvice" type="Spring.Aop.Support.NameMatchMethodPointcutAdvisor">
+    <property name="mappedNames">
+      <list>
+        <value>*</value>
+      </list>
+    </property>
+    <property name="advice">
+      <object type="FDC.Provider.ResourceHandle.DBProviderHandleAdvice, FDC.Provider.ResourceHandle">
+        <property name="DefaultDbProviderName" ref="DefaultDbProviderName"/>
+      </object>
+    </property>
+  </object>-->
+</objects>

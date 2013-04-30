@@ -1,0 +1,17 @@
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\WuDada.Core.Post.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\WuDada.Core.Post.pdb
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\antlr.runtime.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\Common.Logging.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\Common.Logging.Log4Net.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\Iesi.Collections.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\log4net.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\NHibernate.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\Spring.Aop.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\Spring.Core.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\Spring.Data.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\Spring.Data.NHibernate32.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\WuDada.Core.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\bin\Debug\WuDada.Core.pdb
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\obj\Debug\WuDada.Core.Post.csprojResolveAssemblyReference.cache
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\obj\Debug\WuDada.Core.Post.dll
+D:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.Post\obj\Debug\WuDada.Core.Post.pdb

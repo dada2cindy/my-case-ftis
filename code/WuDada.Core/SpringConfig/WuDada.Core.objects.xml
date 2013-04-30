@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <!-- Index:
+        * DAO objects 設定
+        * Service objects 設定
+    -->
+  <!-- DAO objects 設定 -->
+  <object id="NHibernateDao" type="WuDada.Core.Persistence.NHibernate.NHibernateDao, WuDada.Core">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+    <!--<property name="SessionFactory" ref="NHibernateSessionFactory"/>-->
+  </object>
+  <object id="AdoDao" type="WuDada.Core.Persistence.Ado.AdoDao, WuDada.Core">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+  </object>
+
+  <!-- Service objects 設定 --> 
+  <object id="NHibernateServiceProxy" parent="TxProxyConfigurationTemplate">
+    <property name="Target" ref="NHibernateService"/>
+  </object>
+  <object id="NHibernateService" type="WuDada.Core.Service.Impl.NHibernateService, WuDada.Core">
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
+
+</objects>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="WuDada.Core.SystemApplications.Domain" assembly="WuDada.Core.SystemApplications">
+
+  <class name="TemplateVO" lazy="true" table="SYSTEM_TEMPLATE" dynamic-update="true" dynamic-insert="true">
+
+    <id name="TemplateId" column="TemplateId" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="TemplateType" column="TemplateType" type="Int32"/>
+    <property name="Name" column="Name" type="String" length="50" not-null="true"/>
+    <property name="CSS" column="CSS" type="String" length="200"/>
+    <property name="FileName" column="FileName" type="String" length="50"/>
+    <property name="FileName2" column="FileName2" type="String" length="50"/>
+    <property name="StartDate" column="StartDate" type="String" length="4"/>
+    <property name="EndDate" column="EndDate" type="String" length="4"/>
+    <property name="Flag" column="Flag" type="Int32" length="50"/>
+
+  </class>
+
+</hibernate-mapping>

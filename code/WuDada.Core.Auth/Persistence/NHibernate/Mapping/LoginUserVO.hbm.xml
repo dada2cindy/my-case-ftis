@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="WuDada.Core.Auth.Domain" assembly="WuDada.Core.Auth">
+
+  <class name="LoginUserVO" lazy="true" optimistic-lock="version" table="AUTH_LOGIN_USER" dynamic-update="true" dynamic-insert="true">
+    <id name="UserId">
+      <column name="UserId"/>
+      <generator class="assigned" />
+    </id>
+    <version name="Version"/>
+
+    <bag name="LoginRoleList" table="AUTH_USER_IN_ROLE" cascade="save-update" lazy="true" >
+      <key column="UserId"  />
+      <many-to-many class="WuDada.Core.Auth.Domain.LoginRoleVO" column="RoleId" lazy="proxy"/>
+    </bag>
+    
+    <property name ="Password" length="50" type="String" />
+    <property name ="Comment" />
+    <property name ="CreateDate"  type="DateTime"/>
+
+    <!--員工資料-->
+    <property column="FullNameInChinese" type="String" name="FullNameInChinese"  length="50"/>
+    <property column="FullNameInEnglish" type="String" name="FullNameInEnglish"  length="50"/>
+    <property column="Sex" type="String" name="Sex"  length="10"/>
+    <property column="ContactAddress" type="String" name="ContactAddress"  length="500"/>
+    <property column="ContactZipCode" type="String" name="ContactZipCode"  length="10"/>
+    <property column="HousePhoneAreaCode" type="String" name="HousePhoneAreaCode"  length="10"/>
+    <property column="HousePhone" type="String" name="HousePhone"  length="20"/>
+    <property column="HouseOtherPhone" type="String" name="HouseOtherPhone"  length="20"/>
+    <property column="Email" type="String" name="Email" length="50" />
+    <property column="SSID" type="String" name="SSID"  length="20"/>
+    <property column="Birthday" type="DateTime" name="Birthday" />
+    <property column="Height" type="Int32" name="Height"  length="20"/>
+    <property column="Weight" type="Int32" name="Weight"  length="20"/>
+    <property column="Blood" type="String" name="Blood"  length="10"/>
+    <property column="JobTitle" type="String" name="JobTitle"  length="50"/>
+    <property column="Mobile" type="String" name="Mobile"  length="50"/>
+    <property column="ArrivedDate" type="DateTime" name="ArrivedDate" />
+    <property column="LeaveDate" type="DateTime" name="LeaveDate" />
+    <property column="EmergencyContactPerson" type="String" name="EmergencyContactPerson"  length="50"/>
+    <property column="EmergencyRelationship" type="String" name="EmergencyRelationship"  length="50"/>
+    <property column="EmergencyPhone" type="String" name="EmergencyPhone"  length="50"/>
+    <property column="EmergencyAddress" type="String" name="EmergencyAddress"  length="50"/>
+    <property column="UpdatedBy" type="String" name="UpdatedBy"  length="50"/>
+    <property column="UpdatedDate" type="DateTime" name="UpdatedDate" />
+    <property column="IsAlive" type="Int32" name="IsAlive" />
+
+  </class>
+
+</hibernate-mapping>

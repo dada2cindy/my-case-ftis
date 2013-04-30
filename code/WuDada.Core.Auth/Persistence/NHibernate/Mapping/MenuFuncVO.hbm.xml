@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="WuDada.Core.Auth.Domain" assembly="WuDada.Core.Auth">
+
+  <class name="MenuFuncVO" lazy="true" table="AUTH_MENU_FUNC" dynamic-update="true" dynamic-insert="true">
+
+    <id name="MenuFuncId" column="MenuFuncId" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property name="MenuFuncName" />
+
+    <bag name="SubFuncs"
+               inverse="true"
+               lazy="true"
+               order-by="ListOrder , MenuFuncId"
+               cascade="save-update">
+
+      <key column="ParentId" />
+      <one-to-many class="MenuFuncVO"/>
+    </bag>
+
+    <bag name="FuncionPaths"
+               inverse="true"
+               lazy="true"
+               order-by="FunctionPathId"
+               cascade="save-update">
+      <key column="MenuFuncId" />
+      <one-to-many class="FunctionPathVO"/>
+    </bag>
+
+    <many-to-one name="ParentMenu" class="MenuFuncVO" column="ParentId" unique="false" />
+
+    <property name ="ListOrder" />
+    <property name ="MainPath" type="String" length="255" />
+    <property name ="Note" length="30" type="String" />
+
+  </class>
+
+</hibernate-mapping>

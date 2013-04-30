@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="WuDada.Core.Post.Domain" assembly="WuDada.Core.Post">
+
+  <class name="PostVO" table="POST" lazy="true" dynamic-update="true" dynamic-insert="true">
+
+    <id name="PostId" column="PostId" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property column="Title" type="String" name="Title" />
+    <property column="Summary" type="String" name="Summary" />
+    <property name="HtmlContent" type="StringClob" >
+      <column name="HtmlContent" sql-type="nvarchar(max)"/>
+    </property>
+    <property column="KeyWord" type="String" name="KeyWord" />
+    <many-to-one name="Node" class="NodeVO" column="NodeId" unique="false" />
+    <property column="SortNo" type="Int32" name="SortNo" />
+    <property column="Flag" type="Int32" name="Flag" />
+    <property column="PicFileName" type="String" name="PicFileName" />
+
+    <property column="DocFileName" type="String" name="DocFileName" />
+    <property column="StoreName" type="String" name="StoreName" />
+    <property column="Phone" type="String" name="Phone" />
+    <property column="Fax" type="String" name="Fax" />
+    <property column="Address" type="String" name="Address" />
+    <property column="GoogleMap" type="String" name="GoogleMap" />
+
+    <property column="CreatedBy" type="String" name="CreatedBy"  />
+    <property column="UpdatedBy" type="String" name="UpdatedBy"  />
+    <property column="UpdatedDate" type="DateTime" name="UpdatedDate"  />
+    <property column="CreatedDate" type="DateTime" name="CreatedDate"  />
+
+    <property column="ShowDate" type="DateTime" name="ShowDate"  />
+    <property column="Type" type="Int32" name="Type" />
+    <property column="LinkUrl" type="String" name="LinkUrl" />
+    <property name="HtmlContent2" type="StringClob" >
+      <column name="HtmlContent2" sql-type="nvarchar(max)"/>
+    </property>
+    <property name="HtmlContent3" type="StringClob" >
+      <column name="HtmlContent3" sql-type="nvarchar(max)"/>
+    </property>
+    <property name="HtmlContent4" type="StringClob" >
+      <column name="HtmlContent4" sql-type="nvarchar(max)"/>
+    </property>
+
+  </class>
+
+</hibernate-mapping>

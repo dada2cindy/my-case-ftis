@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <!-- Index:
+        * DAO objects 設定
+        * Service objects 設定
+    -->
+  <!-- DAO objects 設定 -->
+  <object id="LoginUserDao" type="WuDada.Core.Auth.Persistence.LoginUserDao, WuDada.Core.Auth">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
+
+  <object id="LoginRoleDao" type="WuDada.Core.Auth.Persistence.LoginRoleDao, WuDada.Core.Auth">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
+
+  <object id="MenuFuncDao" type="WuDada.Core.Auth.Persistence.MenuFuncDao, WuDada.Core.Auth">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
+
+  <!-- Service objects 設定 --> 
+
+  <object id="AuthServiceProxy" parent="TxProxyConfigurationTemplate">
+    <property name="Target" ref="AuthService"/>
+  </object>
+  <object id="AuthService" type="WuDada.Core.Auth.Service.Impl.AuthService, WuDada.Core.Auth">
+    <property name="LoginRoleDao" ref="LoginRoleDao"/>
+    <property name="LoginUserDao" ref="LoginUserDao"/>    
+    <property name="MenuFuncDao" ref="MenuFuncDao"/>
+  </object>
+
+</objects>

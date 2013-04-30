@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="WuDada.Core.Common.Domain" assembly="WuDada.Core.Common">
+
+  <class name="SerialVO" lazy="true" table="COMMON_SERIAL" dynamic-update="true" dynamic-insert="true">
+
+    <id name="SerialId" column="SerialId" type="String" length="255">
+      <generator class="assigned"></generator>
+    </id>
+
+    <property name ="Count" column="Count" type="Int32" />
+    <property name="Date" column="Date" type="DateTime"/>
+
+  </class>
+
+</hibernate-mapping>

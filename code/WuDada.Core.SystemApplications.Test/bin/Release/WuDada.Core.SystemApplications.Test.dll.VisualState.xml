@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1024]E:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.SystemApplications.Test\bin\Release\WuDada.Core.SystemApplications.Test.dll</TopNode>
+  <SelectedNode>[0-1024]E:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.SystemApplications.Test\bin\Release\WuDada.Core.SystemApplications.Test.dll</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1024]E:\我的case\小布\產基會\SVN上傳\trunk\code\WuDada.Core.SystemApplications.Test\bin\Release\WuDada.Core.SystemApplications.Test.dll" Expanded="true" />
+    <Node UniqueName="[0-1025]WuDada" Expanded="true" />
+    <Node UniqueName="[0-1026]WuDada.Core" Expanded="true" />
+    <Node UniqueName="[0-1027]WuDada.Core.SystemApplications" Expanded="true" />
+    <Node UniqueName="[0-1028]WuDada.Core.SystemApplications.Test" Expanded="true" />
+    <Node UniqueName="[0-1029]WuDada.Core.SystemApplications.Test.NHibernate" Expanded="true" />
+    <Node UniqueName="[0-1000]WuDada.Core.SystemApplications.Test.NHibernate.TestSchema" Expanded="true" />
+    <Node UniqueName="[0-1031]WuDada.Core.SystemApplications.Test.Persistence" Expanded="true" />
+    <Node UniqueName="[0-1020]WuDada.Core.SystemApplications.Test.Persistence.TestAdoDao" Expanded="true" />
+    <Node UniqueName="[0-1013]WuDada.Core.SystemApplications.Test.Persistence.TestNHibernateDao" Expanded="true" />
+    <Node UniqueName="[0-1030]WuDada.Core.SystemApplications.Test.Service" Expanded="true" />
+    <Node UniqueName="[0-1003]WuDada.Core.SystemApplications.Test.Service.TestCommonService" Expanded="true" />
+    <Node UniqueName="[0-1010]WuDada.Core.SystemApplications.Test.Service.TestLogService" Expanded="true" />
+    <Node UniqueName="[0-1005]WuDada.Core.SystemApplications.Test.Service.TestNHibernateService" Expanded="true" />
+    <Node UniqueName="[0-1017]WuDada.Core.SystemApplications.Test.Service.TestSystemService" Expanded="true" />
+  </Nodes>
+</VisualState>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="E:\我的case\小布\產基會\SVN上傳\trunk\code\FOTIS.Test\bin\Release\FOTIS.Test.dll" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2012-11-29" time="22:28:52">
+  <environment nunit-version="2.6.0.12035" clr-version="2.0.50727.5466" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="E:\我的case\小布\產基會\SVN上傳\trunk\code\FOTIS.Test\bin\Release" machine-name="SONY-VAIO" user="sony" user-domain="sony-VAIO" />
+  <culture-info current-culture="zh-TW" current-uiculture="zh-TW" />
+  <test-suite type="Assembly" name="E:\我的case\小布\產基會\SVN上傳\trunk\code\FOTIS.Test\bin\Release\FOTIS.Test.dll" executed="True" result="Success" success="True" time="14.755" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="FOTIS" executed="True" result="Success" success="True" time="14.745" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Test" executed="True" result="Success" success="True" time="14.745" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Service" executed="True" result="Success" success="True" time="14.745" asserts="0">
+                <results>
+                  <test-suite type="TestFixture" name="InitWebDataService" executed="True" result="Success" success="True" time="14.745" asserts="0">
+                    <results>
+                      <test-case name="FOTIS.Test.Service.InitWebDataService.TestCurrentTemplate" executed="True" result="Success" success="True" time="4.590" asserts="0" />
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

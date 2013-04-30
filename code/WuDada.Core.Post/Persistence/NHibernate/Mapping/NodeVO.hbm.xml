@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="WuDada.Core.Post.Domain" assembly="WuDada.Core.Post">
+
+  <class name="NodeVO" table="POST_NODE" lazy="true" dynamic-update="true" dynamic-insert="true">
+
+    <id name="NodeId" column="NodeId" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    
+    <property column="Name" type="String" name="Name" />
+    <many-to-one name="ParentNode" class="NodeVO" column="ParentId" unique="false" />
+    <property column="SortNo" type="Int32" name="SortNo" />
+    <property column="Flag" type="Int32" name="Flag" />
+    <property name="UType" column="UType" type="Int32"/>
+    <property column="PicFileName" type="String" name="PicFileName" />
+    <property column="CreatedBy" type="String" name="CreatedBy"  />
+    <property column="UpdatedBy" type="String" name="UpdatedBy"  />
+    <property column="UpdatedDate" type="DateTime" name="UpdatedDate"  />
+    <property column="CreatedDate" type="DateTime" name="CreatedDate"  />
+
+  </class>
+
+</hibernate-mapping>

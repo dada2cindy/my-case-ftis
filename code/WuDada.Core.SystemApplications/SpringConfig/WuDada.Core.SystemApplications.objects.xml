@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <!-- Index:
+        * DAO objects 設定
+        * Service objects 設定
+    -->
+  <!-- DAO objects 設定 -->
+  <object id="SystemDao" type="WuDada.Core.SystemApplications.Persistence.SystemDao, WuDada.Core.SystemApplications">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
+
+  <object id="LogDao" type="WuDada.Core.SystemApplications.Persistence.LogDao, WuDada.Core.SystemApplications">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
+
+  <object id="TemplateDao" type="WuDada.Core.SystemApplications.Persistence.TemplateDao, WuDada.Core.SystemApplications">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
+  
+  <!-- Service objects 設定 --> 
+
+  <object id="SystemServiceProxy" parent="TxProxyConfigurationTemplate">
+    <property name="Target" ref="SystemService"/>
+  </object>
+  <object id="SystemService" type="WuDada.Core.SystemApplications.Service.Impl.SystemService, WuDada.Core.SystemApplications">
+    <property name="SystemDao" ref="SystemDao"/>
+    <property name="RootSystemParamId" value="1"/>
+  </object>
+
+  <object id="LogServiceProxy" parent="TxProxyConfigurationTemplate">
+    <property name="Target" ref="LogService"/>
+  </object>
+  <object id="LogService" type="WuDada.Core.SystemApplications.Service.Impl.LogService, WuDada.Core.SystemApplications">
+    <property name="LogDao" ref="LogDao"/>
+  </object>
+
+  <object id="TemplateServiceProxy" parent="TxProxyConfigurationTemplate">
+    <property name="Target" ref="TemplateService"/>
+  </object>
+  <object id="TemplateService" type="WuDada.Core.SystemApplications.Service.Impl.TemplateService, WuDada.Core.SystemApplications">
+    <property name="TemplateDao" ref="TemplateDao"/>
+  </object>
+
+</objects>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain" assembly="FTIS">
+
+  <class name="AdminRole" lazy="true" table="tblAdminRole" dynamic-update="true" dynamic-insert="true">
+
+    <id name="AdminRoleId" column="AdminRoleID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="MasterMember" cascade="save-update" class="MasterMember" column="AdminID" unique="false"  />
+    <many-to-one name="AdminBar" cascade="save-update" class="AdminBar" column="AdminBarID" unique="false"  />
+    <property name="AdminValue" column="AdminValue" type="Int32"/>
+
+  </class>
+
+</hibernate-mapping>

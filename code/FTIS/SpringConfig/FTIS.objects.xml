@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  <!-- Index:
+        * DAO objects 設定
+        * Service objects 設定
+    -->
+  <!-- DAO objects 設定 -->
+  <object id="FTISDao" type="FTIS.Persistence.FTISDao, FTIS">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
+
+  <!-- Service objects 設定 -->
+
+  <object id="FTISServiceProxy" parent="TxProxyConfigurationTemplate">
+    <property name="Target" ref="FTISService"/>
+  </object>
+  <object id="FTISService" type="FTIS.Service.Impl.FTISService, FTIS">
+    <property name="FTISDao" ref="FTISDao"/>
+  </object>
+
+</objects>

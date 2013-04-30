@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="WuDada.Core.SystemApplications.Domain" assembly="WuDada.Core.SystemApplications">
+
+  <class name="LogSystemVO" lazy="true" table="SYSTEM_LOG_SYSTEM" dynamic-update="true" dynamic-insert="true">
+
+    <id name="LogSystemId" column="LogSystemId" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="UpdateDate" column="UpdateDate" type="DateTime" />
+    <property name="Fucntion" column="Fucntion" type="String" length="50" />
+    <property name="SubFucntion" column="SubFucntion" type="String" length="50" />
+    <property name="Action" column="Action" type="String" length="15" />
+    <property name="UpdateId" column="UpdateId" type="String" length="20" />
+    <property name="Note" column="Note" type="String" length="500" />
+    <property name="UpdateClassName" column="UpdateClassName" type="String" length="150" />
+    <property name="IpAddress" column="IpAddress" type="String" length="150" />
+
+  </class>
+
+</hibernate-mapping>

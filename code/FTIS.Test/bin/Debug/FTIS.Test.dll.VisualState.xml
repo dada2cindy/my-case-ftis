@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1017]D:\我的case\小布\永續網站\SVN上傳\trunk\code\FTIS.Test\bin\Debug\FTIS.Test.dll</TopNode>
+  <SelectedNode>[0-1004]FOTIS.Test.Service.FTISService.Test_MasterMember</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1017]D:\我的case\小布\永續網站\SVN上傳\trunk\code\FTIS.Test\bin\Debug\FTIS.Test.dll" Expanded="true" />
+    <Node UniqueName="[0-1018]FOTIS" Expanded="true" />
+    <Node UniqueName="[0-1019]FOTIS.Test" Expanded="true" />
+    <Node UniqueName="[0-1021]FOTIS.Test.NHibernate" Expanded="true" />
+    <Node UniqueName="[0-1014]FOTIS.Test.NHibernate.TestSchema" Expanded="true" />
+    <Node UniqueName="[0-1020]FOTIS.Test.Service" Expanded="true" />
+    <Node UniqueName="[0-1000]FOTIS.Test.Service.FTISService" Expanded="true" />
+    <Node UniqueName="[0-1005]FOTIS.Test.Service.InitWebDataService" Expanded="true" />
+  </Nodes>
+</VisualState>
