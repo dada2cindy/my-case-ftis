@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain" assembly="FTIS">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
 
   <class name="AdminRole" lazy="true" table="tblAdminRole" dynamic-update="true" dynamic-insert="true">
 
@@ -7,7 +7,7 @@
       <generator class="native"/>
     </id>
 
-    <many-to-one name="MasterMember" cascade="save-update" class="MasterMember" column="AdminID" unique="false"  />
+    <many-to-one name="MasterMember" cascade="all-delete-orphan" class="MasterMember" column="AdminID" unique="false"  />
     <many-to-one name="AdminBar" cascade="save-update" class="AdminBar" column="AdminBarID" unique="false"  />
     <property name="AdminValue" column="AdminValue" type="Int32"/>
 

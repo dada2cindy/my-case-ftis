@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="Publication" lazy="true" table="tblPublication" dynamic-update="true" dynamic-insert="true">
+
+    <id name="PublicationId" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="PublicationClass" class="PublicationClass" column="ClassID" unique="false"  />
+    <property name="Name" column="Name" type="String" length="200"/>
+    <property name="PubNo" column="PubNo" type="String" length="200"/>
+    <property name="Content" type="StringClob">
+      <column name="Content" sql-type="NTEXT"/>
+    </property>
+    <property name="Pic1" column="Pic1" type="String" length="50"/>    
+    <property name="SortId" column="SortID" type="Int32"/>
+    <property name="Status" column="Status" type="String" length="1"/>
+    <property name="MainCode" column="Main_Code" type="String" length="200"/>
+    <property name="MainName" column="Main_Name" type="String" length="200"/>
+    <property name="AdminCode" column="Admin_Code" type="String" length="200"/>
+    <property name="AdminName" column="Admin_Name" type="String" length="200"/>
+    <property name="ServiceCode" column="Service_Code" type="String" length="200"/>
+    <property name="ServiceName" column="Service_Name" type="String" length="200"/>
+    <property name="Spec1" column="Spec1" type="String" length="200"/>
+    <property name="Spec2" column="Spec2" type="String" length="200"/>
+    <property name="Spec3" column="Spec3" type="String" length="200"/>
+    <property name="Spec4" column="Spec4" type="String" length="200"/>
+    <property name="Spec5" column="Spec5" type="String" length="200"/>
+    <property name="Spec6" column="Spec6" type="String" length="200"/>
+    <property name="AFile1" column="AFile1" type="String" length="50"/>
+    <property name="LinkFile" column="LinkFile" type="String" length="200"/>
+
+  </class>
+
+</hibernate-mapping>

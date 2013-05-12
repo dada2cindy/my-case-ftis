@@ -1,17 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
 
-  <class name="News" lazy="true" table="tblNews" dynamic-update="true" dynamic-insert="true">
+  <class name="Activity" lazy="true" table="tblActivity" dynamic-update="true" dynamic-insert="true">
 
-    <id name="NewsId" column="ID" type="Int32" unsaved-value="0">
+    <id name="ActivityId" column="ID" type="Int32" unsaved-value="0">
       <generator class="native"/>
     </id>
-
-    <many-to-one name="NewsClass" class="NewsClass" column="ClassID" unique="false"  />
-    <many-to-one name="NewsType" class="NewsType" column="TypeID" unique="false"  />
-    <property name="LangId" column="LangID" type="String" length="1"/>
+    
     <property name="Name" column="Name" type="String" length="200"/>
     <property name="PostDate" column="PostDate" type="DateTime"/>
+    <property name="MCompany" column="MCompany" type="String" length="200"/>
+    <property name="Contact" column="Contact" type="String" length="200"/>
+    <property name="ActDate" column="ActDate" type="String" length="50"/>
+    <property name="Tel" column="Tel" type="String" length="30"/>
+    <property name="Address" column="Address" type="String" length="200"/>
+    <property name="Fax" column="Fax" type="String" length="30"/>
+    <property name="ActFee" column="ActFee" type="String" length="200"/>
+    <property name="ActType" column="ActType" type="String" length="200"/>
+    <property name="JoinStatus" column="JoinStatus" type="String" length="200"/>
+    <property name="ActStatus" column="ActStatus" type="String" length="200"/>    
     <property name="Content" type="StringClob">
       <column name="Content" sql-type="NTEXT"/>
     </property>
@@ -27,14 +34,12 @@
     <property name="AFile1Name" column="AFile1_Name" type="String" length="200"/>
     <property name="AFile2Name" column="AFile2_Name" type="String" length="200"/>
     <property name="AFile3Name" column="AFile3_Name" type="String" length="200"/>
+    <property name="AUrl" column="AURL" type="String" length="200"/>
     <property name="AUrl1" column="AURL1" type="String" length="200"/>
     <property name="AUrl2" column="AURL2" type="String" length="200"/>
     <property name="AUrl3" column="AURL3" type="String" length="200"/>
-    <property name="AUrl1Link" column="AURL1_Link" type="String" length="600"/>
-    <property name="AUrl2Link" column="AURL2_Link" type="String" length="600"/>
-    <property name="AUrl3Link" column="AURL3_Link" type="String" length="600"/>
-    <property name="IsHome" column="IsHome" type="String" length="1"/>
     <property name="IsNew" column="IsNew" type="String" length="1"/>
+    <property name="IsHome" column="IsHome" type="String" length="1"/>    
     <property name="Vister" column="Vister" type="Int32"/>
     <property name="Emailer" column="Emailer" type="Int32"/>
     <property name="Printer" column="Printer" type="Int32"/>
@@ -45,10 +50,7 @@
     <property name="AdminCode" column="Admin_Code" type="String" length="50"/>
     <property name="AdminName" column="Admin_Name" type="String" length="200"/>
     <property name="ServiceCode" column="Service_Code" type="String" length="50"/>
-    <property name="ServiceName" column="Service_Name" type="String" length="200"/>
-    <property name="Tag" column="Tagn" type="String" length="50"/>
-    <property name="IsOut" column="IsOut" type="String" length="1"/>
-    <property name="AUrl" column="AUrl" type="String" length="200"/>
+    <property name="ServiceName" column="Service_Name" type="String" length="200"/>        
 
   </class>
 

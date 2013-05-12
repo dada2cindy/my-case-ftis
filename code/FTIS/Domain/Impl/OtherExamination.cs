@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace FTIS.Domain
+namespace FTIS.Domain.Impl
 {
     /// <summary>
-    /// 新聞動態分類
+    /// 問卷調查
     /// </summary>
     [Serializable]
     [DataContract]
-    public class NewsClass
+    public class OtherExamination
     {
         #region Constructor
 
@@ -23,19 +23,25 @@ namespace FTIS.Domain
         /// PK
         /// </summary>
         [DataMember]
-        public virtual int NewsClassId { get; set; }
+        public virtual int OtherExaminationId { get; set; }
 
         /// <summary>
-        /// 分類名稱
+        /// 標題
         /// </summary>
         [DataMember]
         public virtual string Name { get; set; }
 
         /// <summary>
-        /// 語言. 1.英文 2.中文
+        /// 內容
         /// </summary>
         [DataMember]
-        public virtual string LangId { get; set; }
+        public virtual string Content { get; set; }
+
+        /// <summary>
+        /// 連接地址
+        /// </summary>
+        [DataMember]
+        public virtual string AUrl { get; set; }
 
         /// <summary>
         /// 排序

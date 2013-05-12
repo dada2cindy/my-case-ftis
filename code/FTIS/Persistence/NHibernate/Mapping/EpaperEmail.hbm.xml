@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="EpaperEmail" lazy="true" table="tblEpaper_Email" dynamic-update="true" dynamic-insert="true">
+
+    <id name="EpaperEmailId" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+ 
+    <property name="Name" column="Name" type="String" length="100"/>
+    <property name="RegDate" column="RegDate" type="DateTime"/>
+    <property name="InType" column="InType" type="String" length="200"/>
+    <property name="Tel" column="Tel" type="String" length="30"/>
+    <property name="Company" column="Company" type="String" length="200"/>
+    <property name="Dept" column="Dept" type="String" length="100"/>    
+    <property name="Email" column="Email" type="String" length="200"/>
+    <property name="Address" column="JobTitle" type="String" length="200"/>
+    <property name="Status" column="Status" type="String" length="1"/>
+
+  </class>
+
+</hibernate-mapping>

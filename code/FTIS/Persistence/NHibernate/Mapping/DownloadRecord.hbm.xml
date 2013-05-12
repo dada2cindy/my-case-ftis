@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="DownloadRecord" lazy="true" table="tblDownloadRecord" dynamic-update="true" dynamic-insert="true">
+
+    <id name="DownloadRecordId" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="Member" class="Member" column="MemID" unique="false"  />    
+    <property name="Name" column="Name" type="String" length="200"/>
+    <property name="ClassId" column="ClassID" type="String" length="1"/>
+    <property name="PostDate" column="PostDate" type="String" length="50"/>
+
+  </class>
+
+</hibernate-mapping>

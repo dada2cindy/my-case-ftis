@@ -4,16 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace FTIS.Domain
+namespace FTIS.Domain.Impl
 {
     /// <summary>
-    /// 後台帳號
+    /// 後台帳號登入紀錄
     /// </summary>
     [Serializable]
     [DataContract]
-    public class MasterMember
+    public class MasterLog
     {
         #region Constructor
+
+        public MasterLog()
+        {
+        }
+
+        public MasterLog(string account, string ip)
+        {
+            this.Account = account;
+            this.IP = ip;
+            EnterTime = DateTime.Now;
+            LeaveTime = DateTime.Now.AddMinutes(14);
+            Status = "1";
+        }
 
         #endregion
 
@@ -23,7 +36,7 @@ namespace FTIS.Domain
         /// PK
         /// </summary>
         [DataMember]
-        public virtual int MasterMemberId { get; set; }
+        public virtual int MasterLogId { get; set; }
 
         /// <summary>
         /// 帳號
@@ -32,52 +45,34 @@ namespace FTIS.Domain
         public virtual string Account { get; set; }
 
         /// <summary>
-        /// 密碼
+        /// 登入日期
         /// </summary>
         [DataMember]
-        public virtual string Password { get; set; }
+        public virtual DateTime? EnterTime { get; set; }
 
         /// <summary>
-        /// 姓名
+        /// IP
         /// </summary>
         [DataMember]
-        public virtual string Name { get; set; }
+        public virtual string IP { get; set; }
 
         /// <summary>
-        /// 電話
+        /// 登出日期(預設都加14-15分鐘)
         /// </summary>
         [DataMember]
-        public virtual string Tel { get; set; }
+        public virtual DateTime? LeaveTime { get; set; }
 
         /// <summary>
-        /// 備註
-        /// </summary>
-        [DataMember]
-        public virtual string Memo { get; set; }
-
-        /// <summary>
-        /// Email
-        /// </summary>
-        [DataMember]
-        public virtual string Email { get; set; }
-
-        /// <summary>
-        /// 註冊日期
-        /// </summary>
-        [DataMember]
-        public virtual DateTime? RegDate { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
+        /// 狀態.(數字意思不詳)
         /// </summary>
         [DataMember]
         public virtual string Status { get; set; }
 
         /// <summary>
-        /// 功能權限
+        /// 密碼
         /// </summary>
         [DataMember]
-        public virtual IList<AdminRole> AdminRoles { get; set; }
+        public virtual string Password { get; set; }
 
         #endregion
     }

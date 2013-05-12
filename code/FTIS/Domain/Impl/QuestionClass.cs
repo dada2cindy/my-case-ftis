@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace FTIS.Domain
+namespace FTIS.Domain.Impl
 {
+    /// <summary>
+    /// Q&A分類
+    /// </summary>
     [Serializable]
     [DataContract]
-    public class AdminRole
+    public class QuestionClass
     {
         #region Constructor
 
@@ -20,25 +23,31 @@ namespace FTIS.Domain
         /// PK
         /// </summary>
         [DataMember]
-        public virtual int AdminRoleId { get; set; }
+        public virtual int QuestionClassId { get; set; }
 
         /// <summary>
-        /// 帳號
+        /// 分類名稱
         /// </summary>
         [DataMember]
-        public virtual MasterMember MasterMember { get; set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
-        /// 功能
+        /// 語言. 1.英文 2.中文
         /// </summary>
         [DataMember]
-        public virtual AdminBar AdminBar { get; set; }
+        public virtual string LangId { get; set; }
 
         /// <summary>
-        /// 權限總合 1,2,4,8 (查看,新增,修改,刪除)... 總合&權限 為true表示有這功能權限 
+        /// 排序
         /// </summary>
         [DataMember]
-        public virtual int AdminValue { get; set; }
+        public virtual int SortId { get; set; }
+
+        /// <summary>
+        /// 狀態. 0.關閉 1.開啟
+        /// </summary>
+        [DataMember]
+        public virtual string Status { get; set; }
 
         #endregion
     }

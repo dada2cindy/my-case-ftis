@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace FTIS.Domain
+namespace FTIS.Domain.Impl
 {
     /// <summary>
-    /// 新聞動態
+    /// 課程講義
     /// </summary>
     [Serializable]
     [DataContract]
-    public class News
+    public class Curriculum
     {
         #region Constructor
 
@@ -23,19 +23,7 @@ namespace FTIS.Domain
         /// PK
         /// </summary>
         [DataMember]
-        public virtual int NewsId { get; set; }
-
-        /// <summary>
-        /// 新聞分類
-        /// </summary>
-        [DataMember]
-        public virtual NewsClass NewsClass { get; set; }
-
-        /// <summary>
-        /// 語言. 1.英文 2.中文
-        /// </summary>
-        [DataMember]
-        public virtual string LangId { get; set; }
+        public virtual int CurriculumId { get; set; }
 
         /// <summary>
         /// 標題
@@ -128,46 +116,22 @@ namespace FTIS.Domain
         public virtual string AFile3Name { get; set; }
 
         /// <summary>
-        /// 資料來源連結1
-        /// </summary>
-        [DataMember]
-        public virtual string AUrl1Link { get; set; }
-
-        /// <summary>
-        /// 資料來源連結2
-        /// </summary>
-        [DataMember]
-        public virtual string AUrl2Link { get; set; }
-
-        /// <summary>
-        /// 資料來源連結3
-        /// </summary>
-        [DataMember]
-        public virtual string AUrl3Link { get; set; }
-
-        /// <summary>
-        /// 資料來源1名稱
+        /// 資料來源1
         /// </summary>
         [DataMember]
         public virtual string AUrl1 { get; set; }
 
         /// <summary>
-        /// 資料來源2名稱
+        /// 資料來源2
         /// </summary>
         [DataMember]
         public virtual string AUrl2 { get; set; }
 
         /// <summary>
-        /// 資料來源3名稱
+        /// 資料來源3
         /// </summary>
         [DataMember]
         public virtual string AUrl3 { get; set; }
-
-        /// <summary>
-        /// 首頁顯示. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string IsHome { get; set; }
 
         /// <summary>
         /// 顯示New. 0.關閉 1.開啟
@@ -180,18 +144,6 @@ namespace FTIS.Domain
         /// </summary>
         [DataMember]
         public virtual int Vister { get; set; }
-
-        /// <summary>
-        /// 轉寄數
-        /// </summary>
-        [DataMember]
-        public virtual int Emailer { get; set; }
-
-        /// <summary>
-        /// 列印數
-        /// </summary>
-        [DataMember]
-        public virtual int Printer { get; set; }
 
         /// <summary>
         /// 排序
@@ -240,24 +192,6 @@ namespace FTIS.Domain
         /// </summary>
         [DataMember]
         public virtual string ServiceName { get; set; }
-
-        /// <summary>
-        /// Tag
-        /// </summary>
-        [DataMember]
-        public virtual string Tag { get; set; }
-
-        /// <summary>
-        /// 是否站外
-        /// </summary>
-        [DataMember]
-        public virtual string IsOut { get; set; }
-
-        /// <summary>
-        /// 站外連結
-        /// </summary>
-        [DataMember]
-        public virtual string AUrl { get; set; }
 
         #endregion
     }

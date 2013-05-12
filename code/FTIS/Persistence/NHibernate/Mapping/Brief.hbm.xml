@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="Brief" lazy="true" table="tblBrief" dynamic-update="true" dynamic-insert="true">
+
+    <id name="BriefId" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="Name" column="Name" type="String" length="250"/>
+    <property name="AYear" column="AYear" type="String" length="50"/>
+    <property name="PostDate" column="PostDate" type="DateTime"/>
+    <property name="AFile1" column="AFile1" type="String" length="250"/>
+    <property name="AFile1Name" column="AFile1_Name" type="String" length="200"/>
+    <property name="AUrl" column="AUrl" type="String" length="250"/>
+    <property name="IsUrl" column="IsUrl" type="String" length="1"/>
+    <property name="Content" type="StringClob">
+      <column name="Content" sql-type="NTEXT"/>
+    </property>
+    <property name="SortId" column="SortID" type="Int32"/>
+    <property name="Status" column="Status" type="String" length="1"/>
+    <property name="MainCode" column="Main_Code" type="String" length="250"/>
+    <property name="MainName" column="Main_Name" type="String" length="250"/>
+    <property name="AdminCode" column="Admin_Code" type="String" length="250"/>
+    <property name="AdminName" column="Admin_Name" type="String" length="250"/>
+    <property name="ServiceCode" column="Service_Code" type="String" length="250"/>
+    <property name="ServiceName" column="Service_Name" type="String" length="250"/>    
+
+  </class>
+
+</hibernate-mapping>

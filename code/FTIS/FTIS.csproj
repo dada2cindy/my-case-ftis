@@ -84,11 +84,40 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\NewsClass.cs" />
-    <Compile Include="Domain\News.cs" />
-    <Compile Include="Domain\MasterMember.cs" />
-    <Compile Include="Domain\AdminBar.cs" />
-    <Compile Include="Domain\AdminRole.cs" />
+    <Compile Include="Domain\Impl\NewsClass.cs" />
+    <Compile Include="Domain\Impl\News.cs" />
+    <Compile Include="Domain\Impl\MasterMember.cs" />
+    <Compile Include="Domain\Impl\AdminBar.cs" />
+    <Compile Include="Domain\Impl\AdminRole.cs" />
+    <Compile Include="Domain\Impl\NewsType.cs" />
+    <Compile Include="Domain\Impl\MasterLog.cs" />
+    <Compile Include="Domain\Impl\Node.cs" />
+    <Compile Include="Domain\Impl\Activity.cs" />
+    <Compile Include="Domain\Impl\HomeNews.cs" />
+    <Compile Include="Domain\Impl\LinksClass.cs" />
+    <Compile Include="Domain\Impl\Links.cs" />
+    <Compile Include="Domain\Impl\GreenFactoryClass.cs" />
+    <Compile Include="Domain\Impl\GreenFactory.cs" />
+    <Compile Include="Domain\Impl\ApplicationClass.cs" />
+    <Compile Include="Domain\Impl\Application.cs" />
+    <Compile Include="Domain\Impl\PublicationClass.cs" />
+    <Compile Include="Domain\Impl\Publication.cs" />
+    <Compile Include="Domain\Impl\QuestionClass.cs" />
+    <Compile Include="Domain\Impl\Question.cs" />
+    <Compile Include="Domain\Impl\Brief.cs" />
+    <Compile Include="Domain\Impl\Curriculum.cs" />
+    <Compile Include="Domain\Impl\Download.cs" />
+    <Compile Include="Domain\Impl\Industry.cs" />
+    <Compile Include="Domain\Impl\Member.cs" />
+    <Compile Include="Domain\Impl\DownloadRecord.cs" />
+    <Compile Include="Domain\Impl\Epaper.cs" />
+    <Compile Include="Domain\Impl\EpaperEmail.cs" />
+    <Compile Include="Domain\Impl\OtherExamination.cs" />
+    <Compile Include="Domain\Impl\MNorm.cs" />
+    <Compile Include="Domain\Impl\NormClass.cs" />
+    <Compile Include="Domain\Impl\Norm.cs" />
+    <Compile Include="Domain\Impl\Examination.cs" />
+    <Compile Include="Domain\Impl\EpaperExamination.cs" />
     <Compile Include="FTISFactory.cs" />
     <Compile Include="Persistence\FTISDao.cs" />
     <Compile Include="Persistence\IFTISDao.cs" />
@@ -123,6 +152,151 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Persistence\NHibernate\Mapping\AdminRole.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\NewsType.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\MasterLog.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Node.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Activity.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\HomeNews.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\LinksClass.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Links.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\GreenFactoryClass.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\GreenFactory.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\ApplicationClass.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Application.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\PublicationClass.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Publication.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\OtherExamination.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Question.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Brief.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Curriculum.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Download.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Industry.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Member.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\DownloadRecord.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Epaper.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\EpaperEmail.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\QuestionClass.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\MNorm.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\NormClass.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Norm.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Examination.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\EpaperExamination.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

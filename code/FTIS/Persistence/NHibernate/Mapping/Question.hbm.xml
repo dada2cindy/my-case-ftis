@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="Question" lazy="true" table="tblQuestion" dynamic-update="true" dynamic-insert="true">
+
+    <id name="QuestionId" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="QuestionClass" class="QuestionClass" column="ClassID" unique="false"  />    
+    <property name="LangId" column="LangID" type="String" length="1"/>
+    <property name="Name" column="Name" type="String" length="200"/>
+    <property name="PostDate" column="PostDate" type="DateTime"/>
+    <property name="Content" type="StringClob">
+      <column name="Content" sql-type="NTEXT"/>
+    </property>    
+    <property name="SortId" column="SortID" type="Int32"/>
+    <property name="Status" column="Status" type="String" length="1"/>
+    <property name="MainCode" column="Main_Code" type="String" length="50"/>
+    <property name="MainName" column="Main_Name" type="String" length="200"/>
+    <property name="AdminCode" column="Admin_Code" type="String" length="50"/>
+    <property name="AdminName" column="Admin_Name" type="String" length="200"/>
+    <property name="ServiceCode" column="Service_Code" type="String" length="50"/>
+    <property name="ServiceName" column="Service_Name" type="String" length="200"/>
+
+  </class>
+
+</hibernate-mapping>

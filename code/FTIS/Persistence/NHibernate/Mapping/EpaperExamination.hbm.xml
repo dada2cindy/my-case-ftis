@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="EpaperExamination" lazy="true" table="tblEpaperExamination" dynamic-update="true" dynamic-insert="true">
+
+    <id name="EpaperExaminationId" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="Industry" class="Industry" column="IndustryID" unique="false"  />    
+    <property name="Name" column="Name" type="String" length="200"/>
+    <property name="Gender" column="Gender" type="String" length="1"/>
+    <property name="Email" column="Email" type="String" length="200"/>    
+    <property name="PostDate" column="RegDate" type="DateTime"/>
+    <property name="Question1" column="Question1" type="String" length="50"/>
+    <property name="Question2" column="Question2" type="String" length="50"/>
+    <property name="Question3" column="Question3" type="String" length="50"/>
+    <property name="Question4" column="Question4" type="String" length="50"/>
+    <property name="Question5" column="Question5" type="String" length="50"/>
+    <property name="Question6" column="Question6" type="String" length="50"/>
+    <property name="Question7" column="Question7" type="String" length="50"/>
+    <property name="Question8" column="Question8" type="String" length="50"/>
+    <property name="Question9" column="Question9" type="String" length="50"/>
+
+  </class>
+
+</hibernate-mapping>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="Member" lazy="true" table="tblGeneral_Member" dynamic-update="true" dynamic-insert="true">
+
+    <id name="MemberId" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="Industry" class="Industry" column="IndustryID" unique="false"  />    
+    <property name="LoginId" column="LoginID" type="String" length="50"/>
+    <property name="Password" column="Password" type="String" length="50"/>
+    <property name="Name" column="Name" type="String" length="200"/>
+    <property name="Company" column="Company" type="String" length="200"/>
+    <property name="CompanyNo" column="CompanyNo" type="String" length="200"/>
+    <property name="CompanyNum" column="CompanyNum" type="String" length="200"/>
+    <property name="CompanyType" column="CompanyType" type="String" length="200"/>
+    <property name="CompanyTypeOther" column="CompanyTypeOther" type="String" length="200"/>
+    <property name="Contact" column="Contact" type="String" length="200"/>
+    <property name="Dept" column="Dept" type="String" length="200"/>
+    <property name="JobTitle" column="JobTitle" type="String" length="200"/>
+    <property name="Tel" column="Tel" type="String" length="30"/>
+    <property name="Tel2" column="Tel2" type="String" length="30"/>
+    <property name="Fax" column="Fax" type="String" length="30"/>
+    <property name="Email" column="Email" type="String" length="200"/>    
+    <property name="RegDate" column="RegDate" type="DateTime"/>
+    <property name="Content" type="StringClob">
+      <column name="Content" sql-type="NTEXT"/>
+    </property>
+    <property name="Status" column="Status" type="String" length="1"/>
+
+  </class>
+
+</hibernate-mapping>

@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
 
-  <class name="NewsClass" lazy="true" table="tblNews_Class" dynamic-update="true" dynamic-insert="true">
+  <class name="NormClass" lazy="true" table="tblNorm_Class" dynamic-update="true" dynamic-insert="true">
 
-    <id name="NewsClassId" column="ID" type="Int32" unsaved-value="0">
+    <id name="NormClassId" column="ID" type="Int32" unsaved-value="0">
       <generator class="native"/>
     </id>
 
+    <many-to-one name="ParentNormClass" class="NormClass" column="ParentID" unique="false"  />
     <property name="Name" column="Name" type="String" length="200"/>
-    <property name="NameENG" column="Name_ENG" type="String" length="200"/>
-    <property name="LangId" column="LangID" type="String" length="1"/>
+    <property name="NameENG" column="EName" type="String" length="200"/>    
     <property name="SortId" column="SortID" type="Int32"/>
     <property name="Status" column="Status" type="String" length="1"/>
-
+    <property name="Pic1" column="Pic1" type="String" length="50"/>
 
   </class>
 
