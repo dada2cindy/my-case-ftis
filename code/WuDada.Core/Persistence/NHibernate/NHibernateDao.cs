@@ -266,6 +266,29 @@ namespace WuDada.Core.Persistence.NHibernate
             return query.List();
         }
 
+        public IList<T> Query<T>(string hql, ArrayList param, IDictionary<string, string> conditions)
+        {
+            ISession session = HibernateTemplate.SessionFactory.GetCurrentSession();
+            log.Debug("hql:" + hql);
+            IQuery query = session.CreateQuery(hql);
+            for (int i = 0; i < param.Count; i++)
+            {
+                query.SetParameter(i, param[i]);
+            }
+
+            //// 處理paging
+            if (conditions.IsContainsValue("PageSize") && conditions.IsContainsValue("PageIndex"))
+            {
+                int pageIndex = Convert.ToInt32(conditions["PageIndex"]);
+                int pageSize = Convert.ToInt32(conditions["PageSize"]);
+                int startIndex = ConvertUtil.GetStartIndex(pageIndex, pageSize);
+                query.SetFirstResult(startIndex);
+                query.SetMaxResults(pageSize);
+            }
+
+            return query.List<T>();
+        }
+
         /// <summary>
         /// 動態查詢
         /// </summary>

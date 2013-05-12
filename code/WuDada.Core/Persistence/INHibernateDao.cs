@@ -118,6 +118,8 @@ namespace WuDada.Core.Persistence
 
         IList Query(string hql, ArrayList param, IDictionary<string, string> conditions);
 
+        IList<T> Query<T>(string hql, ArrayList param, IDictionary<string, string> conditions);
+
         /// <summary>
         /// 動態查詢
         /// </summary>
