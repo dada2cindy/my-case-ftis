@@ -8,7 +8,7 @@ using WuDada.Core.Generic.Mail;
 using WuDada.Core.Generic.Util;
 using FTIS;
 using FTIS.Service;
-using FTIS.Domain;
+using FTIS.Domain.Impl;
 
 namespace FOTIS.Test.Service
 {
@@ -29,11 +29,11 @@ namespace FOTIS.Test.Service
         public void Test_NewsClass()
         {
             //新增
-            string name = "新增NewsClass測試";
+            string name = "新增NewsClass測試aaaaaaaaaa";
             NewsClass newsClass = CreateNewsClass(name);
 
             //更新
-            string updateName = "更新NewsClass測試";
+            string updateName = "更新NewsClass測試bbbbbbbbb";
             NewsClass updateNewsClass = m_FTISService.GetNewsClassById(newsClass.NewsClassId);
             Assert.AreEqual(name, updateNewsClass.Name);
             updateNewsClass.Name = updateName;
@@ -84,10 +84,10 @@ namespace FOTIS.Test.Service
         public void Test_News()
         {
             //新增
-            string newsClassName = "新增NewsClass測試";
+            string newsClassName = "新增NewsClass測試234reeewwwww";
             NewsClass newsClass = CreateNewsClass(newsClassName);
 
-            string name = "新增News測試";
+            string name = "新增News測試adfsfdfeee3vvvv";
             News news = new News()
             {
                 NewsClass = newsClass,
@@ -134,15 +134,16 @@ namespace FOTIS.Test.Service
             Assert.AreNotEqual(0, news.NewsId);
 
             //更新
-            string updateName = "更新News測試";
-            News updateNews = m_FTISService.GetNewsById(news.NewsId);
+            string updateName = "更新News測試535353533ddee";
+            News updateNews = m_FTISService.GetNewsByIdNoLazy(news.NewsId);
             Assert.AreEqual(name, updateNews.Name);
+            Assert.AreEqual(newsClassName, updateNews.NewsClass.Name);
             updateNews.Name = updateName;
             m_FTISService.UpdateNews(updateNews);
 
             //查詢
             IDictionary<string, string> conditions = new Dictionary<string, string>();
-            conditions.Add("Name", updateName);
+            conditions.Add("KeyWord", updateName);
             conditions.Add("Status", "1");
             conditions.Add("IsHome", "1");
             IList<News> newsList = m_FTISService.GetNewsList(conditions);
@@ -151,7 +152,7 @@ namespace FOTIS.Test.Service
             Assert.AreEqual(updateName, newsList[0].Name);
 
             conditions = new Dictionary<string, string>();
-            conditions.Add("Name", name);
+            conditions.Add("KeyWord", name);
             conditions.Add("Status", "1");
             conditions.Add("IsHome", "1");
             newsList = m_FTISService.GetNewsList(conditions);
@@ -159,7 +160,7 @@ namespace FOTIS.Test.Service
             Assert.AreEqual(0, m_FTISService.GetNewsCount(conditions));
 
             conditions = new Dictionary<string, string>();
-            conditions.Add("Name", updateName);
+            conditions.Add("KeyWord", updateName);
             conditions.Add("Status", "0");
             conditions.Add("IsHome", "1");
             newsList = m_FTISService.GetNewsList(conditions);
@@ -170,12 +171,25 @@ namespace FOTIS.Test.Service
             m_FTISService.DeleteNews(updateNews);
             m_FTISService.DeleteNewsClass(newsClass);
             conditions = new Dictionary<string, string>();
-            conditions.Add("Name", updateName);
+            conditions.Add("KeyWord", updateName);
             conditions.Add("Status", "1");
             conditions.Add("IsHome", "1");
             newsList = m_FTISService.GetNewsList(conditions);
             Assert.AreEqual(0, newsList.Count);
             Assert.AreEqual(0, m_FTISService.GetNewsCount(conditions));
+
+            ////查詢Tags
+            string searchTags = "歐盟EuP,歐盟CLP";
+            conditions.Clear();
+            conditions.Add("Tags", searchTags);
+            newsList = m_FTISService.GetNewsList(conditions);
+            if (newsList != null && newsList.Count > 0)
+            {
+                foreach (News n in newsList)
+                {
+                    string tags = n.Tag;
+                }
+            }
         }
 
         [Test]
@@ -207,17 +221,53 @@ namespace FOTIS.Test.Service
             //查詢
             IDictionary<string, string> conditions = new Dictionary<string, string>();
             IList<MasterMember> adminList = m_FTISService.GetMasterMemberListNoLazy(conditions);
-            Assert.AreEqual(10, adminList.Count);
+            Assert.AreEqual(9, adminList.Count);
             foreach (MasterMember admin in adminList)
             {
                 foreach (AdminRole role in admin.AdminRoles)
                 {
                     int value = role.AdminValue;
                 }
-            }
+            }            
 
             //刪除
-            m_FTISService.DeleteMasterMember(masterMember);
+            m_FTISService.DeleteMasterMember(masterMember);            
+        }
+
+        [Test]
+        public void Test_MasterLog()
+        {
+            //登入紀錄
+            MasterLog masterLog = new MasterLog("test1234", "127.0.0.1");
+            m_FTISService.CreateMasterLog(masterLog);
+
+            //查詢登入紀錄
+            IDictionary<string, string> conditionsLog = new Dictionary<string, string>();
+            conditionsLog.Add("EnterTimeFrom", DateTime.Today.ToShortDateString());
+            conditionsLog.Add("EnterTimeTo", DateTime.Today.ToShortDateString());
+            IList<MasterLog> logList = m_FTISService.GetMasterLogList(conditionsLog);
+            Assert.AreEqual(1, logList.Count);
+
+            conditionsLog.Clear();
+            conditionsLog.Add("EnterTimeFrom", DateTime.Today.AddDays(-1).ToShortDateString());
+            conditionsLog.Add("EnterTimeTo", DateTime.Today.AddDays(-1).ToShortDateString());
+            logList = m_FTISService.GetMasterLogList(conditionsLog);
+            Assert.AreEqual(0, logList.Count);
+
+            m_FTISService.DeleteMasterLog(masterLog);
+        }
+
+        [Test]
+        public void Test_DownloadRecord()
+        {
+            IDictionary<string, string> conditionsLog = new Dictionary<string, string>();
+            IList<DownloadRecord> recordList = m_FTISService.GetDownloadRecordStatistics(conditionsLog);
+            foreach(DownloadRecord record in recordList)
+            {
+                string name = record.Name;
+                string classId = record.ClassId;
+                int downer = record.Downer;
+            }
         }
     }
 }
