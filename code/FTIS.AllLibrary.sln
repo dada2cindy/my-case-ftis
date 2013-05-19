@@ -1,15 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WuDada.Core", "WuDada.Core\WuDada.Core.csproj", "{82FA4F65-92DF-40B8-AF7F-1E7E33640B0B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WuDada.Core.SystemApplications", "WuDada.Core.SystemApplications\WuDada.Core.SystemApplications.csproj", "{C9CCE516-1092-44F1-984A-FDA93DFB5BB4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WuDada.Core.SystemApplications.Test", "WuDada.Core.SystemApplications.Test\WuDada.Core.SystemApplications.Test.csproj", "{56C46B80-FE2A-428E-B74B-B1E405BE56D6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WuDada.Core.Auth", "WuDada.Core.Auth\WuDada.Core.Auth.csproj", "{CCFD9830-20D6-4B51-8B95-3F64D71A6BFD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WuDada.Core.Common", "WuDada.Core.Common\WuDada.Core.Common.csproj", "{6F1BF203-5488-46C7-A64C-CDCA7ED318A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTIS.Test", "FTIS.Test\FTIS.Test.csproj", "{7B7ADD3C-9025-4E75-8A42-3E8079D32603}"
 EndProject
@@ -25,22 +17,6 @@ Global
 		{82FA4F65-92DF-40B8-AF7F-1E7E33640B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82FA4F65-92DF-40B8-AF7F-1E7E33640B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82FA4F65-92DF-40B8-AF7F-1E7E33640B0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9CCE516-1092-44F1-984A-FDA93DFB5BB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9CCE516-1092-44F1-984A-FDA93DFB5BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9CCE516-1092-44F1-984A-FDA93DFB5BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9CCE516-1092-44F1-984A-FDA93DFB5BB4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56C46B80-FE2A-428E-B74B-B1E405BE56D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56C46B80-FE2A-428E-B74B-B1E405BE56D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56C46B80-FE2A-428E-B74B-B1E405BE56D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56C46B80-FE2A-428E-B74B-B1E405BE56D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CCFD9830-20D6-4B51-8B95-3F64D71A6BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCFD9830-20D6-4B51-8B95-3F64D71A6BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCFD9830-20D6-4B51-8B95-3F64D71A6BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCFD9830-20D6-4B51-8B95-3F64D71A6BFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F1BF203-5488-46C7-A64C-CDCA7ED318A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F1BF203-5488-46C7-A64C-CDCA7ED318A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F1BF203-5488-46C7-A64C-CDCA7ED318A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F1BF203-5488-46C7-A64C-CDCA7ED318A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B7ADD3C-9025-4E75-8A42-3E8079D32603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B7ADD3C-9025-4E75-8A42-3E8079D32603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B7ADD3C-9025-4E75-8A42-3E8079D32603}.Release|Any CPU.ActiveCfg = Release|Any CPU
