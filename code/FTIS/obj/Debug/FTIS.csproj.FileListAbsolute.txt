@@ -1,5 +1,0 @@
-D:\我的case\小布\永續網站\SVN上傳\trunk\code\lib\FTIS.dll
-D:\我的case\小布\永續網站\SVN上傳\trunk\code\lib\FTIS.pdb
-D:\我的case\小布\永續網站\SVN上傳\trunk\code\FTIS\obj\Debug\FTIS.csprojResolveAssemblyReference.cache
-D:\我的case\小布\永續網站\SVN上傳\trunk\code\FTIS\obj\Debug\FTIS.dll
-D:\我的case\小布\永續網站\SVN上傳\trunk\code\FTIS\obj\Debug\FTIS.pdb
