@@ -10,6 +10,8 @@
     <many-to-one name="NewsClass" class="NewsClass" column="ClassID" unique="false"  />
     <many-to-one name="NewsType" class="NewsType" column="TypeID" unique="false"  />
     <property name="LangId" column="LangID" type="String" length="1"/>
+    
+    <!--中文欄位-->
     <property name="Name" column="Name" type="String" length="200"/>
     <property name="PostDate" column="PostDate" type="DateTime"/>
     <property name="Content" type="StringClob">
@@ -49,6 +51,44 @@
     <property name="Tag" column="Tagn" type="String" length="50"/>
     <property name="IsOut" column="IsOut" type="String" length="1"/>
     <property name="AUrl" column="AUrl" type="String" length="200"/>
+
+    <!--英文欄位-->
+    <property name="NameENG" column="NameENG" type="String" length="200"/>
+    <property name="ContentENG" type="StringClob">
+      <column name="ContentENG" sql-type="NTEXT"/>
+    </property>
+    <property name="Pic1ENG" column="Pic1ENG" type="String" length="50"/>
+    <property name="Pic2ENG" column="Pic2ENG" type="String" length="50"/>
+    <property name="Pic3ENG" column="Pic3ENG" type="String" length="50"/>
+    <property name="Pic1NameENG" column="Pic1_NameENG" type="String" length="200"/>
+    <property name="Pic2NameENG" column="Pic2_NameENG" type="String" length="200"/>
+    <property name="Pic3NameENG" column="Pic3_NameENG" type="String" length="200"/>
+    <property name="AFile1ENG" column="AFile1ENG" type="String" length="50"/>
+    <property name="AFile2ENG" column="AFile2ENG" type="String" length="50"/>
+    <property name="AFile3ENG" column="AFile3ENG" type="String" length="50"/>
+    <property name="AFile1NameENG" column="AFile1_NameENG" type="String" length="200"/>
+    <property name="AFile2NameENG" column="AFile2_NameENG" type="String" length="200"/>
+    <property name="AFile3NameENG" column="AFile3_NameENG" type="String" length="200"/>
+    <property name="AUrl1ENG" column="AURL1ENG" type="String" length="200"/>
+    <property name="AUrl2ENG" column="AURL2ENG" type="String" length="200"/>
+    <property name="AUrl3ENG" column="AURL3ENG" type="String" length="200"/>
+    <property name="AUrl1LinkENG" column="AURL1_LinkENG" type="String" length="600"/>
+    <property name="AUrl2LinkENG" column="AURL2_LinkENG" type="String" length="600"/>
+    <property name="AUrl3LinkENG" column="AURL3_LinkENG" type="String" length="600"/>
+    <property name="IsHomeENG" column="IsHomeENG" type="String" length="1"/>
+    <property name="IsNewENG" column="IsNewENG" type="String" length="1"/>
+    <property name="VisterENG" column="VisterENG" type="Int32"/>
+    <property name="EmailerENG" column="EmailerENG" type="Int32"/>
+    <property name="PrinterENG" column="PrinterENG" type="Int32"/>
+    <property name="MainCodeENG" column="Main_CodeENG" type="String" length="50"/>
+    <property name="MainNameENG" column="Main_NameENG" type="String" length="200"/>
+    <property name="AdminCodeENG" column="Admin_CodeENG" type="String" length="50"/>
+    <property name="AdminNameENG" column="Admin_NameENG" type="String" length="200"/>
+    <property name="ServiceCodeENG" column="Service_CodeENG" type="String" length="50"/>
+    <property name="ServiceNameENG" column="Service_NameENG" type="String" length="200"/>
+    <property name="TagENG" column="TagnENG" type="String" length="50"/>
+    <property name="IsOutENG" column="IsOutENG" type="String" length="1"/>
+    <property name="AUrlENG" column="AUrlENG" type="String" length="200"/>
 
   </class>
 

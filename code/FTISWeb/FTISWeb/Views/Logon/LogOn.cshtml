@@ -1,0 +1,125 @@
+﻿@model FTISWeb.Models.Account.LogOnModel
+@{
+    Layout = null;
+}
+@using System
+@using System.Web.Optimization
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>永續發展整合資訊網 整合平台</title>
+    @Styles.Render("~/Content/Admin/LogOnCSS")
+    @Scripts.Render("~/bundles/JQuery")
+    <script type="text/javascript">
+        $(function () {
+            $("#changeSafeCode").click(function () {
+                $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
+            });
+
+            $("#btnClear").click(function () {
+                $("#Account").val("");
+                $("#Password").val("");
+                $("#ConfirmationCode").val("");                
+            });
+
+            //$("#Confirm").click(function () { $("#submit").click(); return false; });
+            $("#Account").focus();
+        });
+    </script>
+</head>
+<body>
+    @using (Html.BeginForm("Logon", "LogOn", FormMethod.Post, new { id = "frmLogon" }))
+    {
+    <table width="100" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td height="34" background='@Url.Content("~/Content/Admin/images/white.gif")' class="text01-12-black">
+                        <font size="3">永續發展整合資訊網 整合平台</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="100" border="0" cellpadding="0" cellspacing="0" class="table01">
+                            <tr>
+                                <td width="467" height="388" align="center">
+                                    <img src='@Url.Content("~/Content/Admin/images/logo.gif")'/>
+                                </td>
+                                <td width="511">
+                                    <table width="393" border="0" align="center" cellpadding="9" cellspacing="0" class="logintable">
+                                        <tr>
+                                            <td colspan="2" valign="top">
+                                                <img src='@Url.Content("~/Content/Admin/images/login.gif")' width="181" height="21" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="187" colspan="2" bgcolor="#E3EAED">
+                                                <table width="374" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td width="84" height="25" class="text02-black-b-12">
+                                                            帳號：
+                                                        </td>
+                                                        <td colspan="3">
+                                                            @Html.TextBoxFor(m => m.Account, new { @class = "order01" })
+                                                            @*@Html.ValidationMessageFor(m => m.Account)*@
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="25" class="text02-black-b-12">
+                                                            密碼：
+                                                        </td>
+                                                        <td colspan="3">
+                                                            <input type="password" name="Password" id="Password" value='' class="order01" maxlength="50" autocomplete="off" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="25" class="text02-black-b-12">
+                                                            驗證碼：
+                                                        </td>
+                                                        <td width="56">
+                                                            @Html.TextBoxFor(m => m.ConfirmationCode, new { @class = "order01" })
+                                                            @*@Html.ValidationMessageFor(m => m.ConfirmationCode)*@
+                                                        </td>
+                                                        <td width="67" align="center">
+                                                            @*<input type="image" name="safecode" id="safecode" src="@Url.Action("CaptchaImg")" width="70" height="30" />*@
+                                                            <img id="safecode" src="@Url.Action("CaptchaImg")" width="70" height="30" />
+                                                        </td>
+                                                        <td width="167">
+                                                            <a id="changeSafeCode" href="#" class="btn2">更換驗證碼</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="35" colspan="4" align="center" class="text02-black-b-12">
+                                                            <table width="200" border="0" align="left" cellpadding="0" cellspacing="0">
+                                                                <tr>
+                                                                    <td>                
+                                                                        @Html.ActionLink("快速登入", "TestLogOn", "LogOn")                                            
+                                                                        <input id="btnSend" class="btn" type="submit" value="送出" />
+                                                                        <input id="btnClear" class="btn" type="button" value="重填" />                                                                        
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            <br />
+                                                            @Html.ValidationSummary()
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            @Html.Hidden("RtnUrl", HttpContext.Current.Request["RtnUrl"])
+    }        
+</body>
+</html>

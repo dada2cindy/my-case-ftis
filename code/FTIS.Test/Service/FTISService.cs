@@ -9,6 +9,8 @@ using WuDada.Core.Generic.Util;
 using FTIS;
 using FTIS.Service;
 using FTIS.Domain.Impl;
+using FTIS.Domain;
+using FTIS.ACUtility;
 
 namespace FOTIS.Test.Service
 {
@@ -190,6 +192,10 @@ namespace FOTIS.Test.Service
                     string tags = n.Tag;
                 }
             }
+
+            //測試舊資料英文內容
+            News newsENG = m_FTISService.GetNewsById(7);
+            Assert.IsNull(newsENG.NameENG);
         }
 
         [Test]
@@ -214,7 +220,27 @@ namespace FOTIS.Test.Service
             masterMember.Name = "dada12345";
             foreach (AdminRole role in masterMember.AdminRoles)
             {
-                role.AdminValue = 1;
+                int adminValue = 15; ////預設全部權限
+
+                ////特別幾個功能給不一樣的權限
+                if (role.AdminBar.AdminBarId.Equals((int)SiteEntities.AboutUs))
+                {
+                    adminValue = (int)SiteOperations.Read;
+                }
+                if (role.AdminBar.AdminBarId.Equals((int)SiteEntities.Activity))
+                {
+                    adminValue = (int)SiteOperations.Create;
+                }
+                if (role.AdminBar.AdminBarId.Equals((int)SiteEntities.Application))
+                {
+                    adminValue = (int)SiteOperations.Edit;
+                }
+                if (role.AdminBar.AdminBarId.Equals((int)SiteEntities.Download))
+                {
+                    adminValue = (int)SiteOperations.Delete;
+                }
+
+                role.AdminValue = adminValue;
             }
             m_FTISService.CreateMasterMember(masterMember);
 
@@ -229,6 +255,39 @@ namespace FOTIS.Test.Service
                     int value = role.AdminValue;
                 }
             }            
+
+            //檢查權限
+            try
+            {
+                Assert.IsTrue(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.AboutUs, (int)SiteOperations.Read));
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.AboutUs, (int)SiteOperations.Create));
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.AboutUs, (int)SiteOperations.Edit));
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.AboutUs, (int)SiteOperations.Delete));
+
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Activity, (int)SiteOperations.Read));
+                Assert.IsTrue(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Activity, (int)SiteOperations.Create));
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Activity, (int)SiteOperations.Edit));
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Activity, (int)SiteOperations.Delete));
+
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Application, (int)SiteOperations.Read));
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Application, (int)SiteOperations.Create));
+                Assert.IsTrue(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Application, (int)SiteOperations.Edit));
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Application, (int)SiteOperations.Delete));
+
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Download, (int)SiteOperations.Read));
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Download, (int)SiteOperations.Create));
+                Assert.IsFalse(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Download, (int)SiteOperations.Edit));
+                Assert.IsTrue(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Download, (int)SiteOperations.Delete));
+
+                Assert.IsTrue(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Grade, (int)SiteOperations.Read));
+                Assert.IsTrue(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.News, (int)SiteOperations.Create));
+                Assert.IsTrue(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Question, (int)SiteOperations.Edit));
+                Assert.IsTrue(ACUtility.CheckAuthorization(masterMember, (int)SiteEntities.Season, (int)SiteOperations.Delete));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
             //刪除
             m_FTISService.DeleteMasterMember(masterMember);            
@@ -268,6 +327,19 @@ namespace FOTIS.Test.Service
                 string classId = record.ClassId;
                 int downer = record.Downer;
             }
+        }
+
+        [Test]
+        public void Test_MasterMemberPassword()
+        {
+            //查詢
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("Account", "admin");
+            IList<MasterMember> adminList = m_FTISService.GetMasterMemberListNoLazy(conditions);
+            MasterMember admin = adminList[0];
+            string password = admin.Password;
+            string md5 = EncryptUtil.GetMD5("01801726");
+            Assert.IsTrue(password.Equals(md5,StringComparison.OrdinalIgnoreCase));
         }
     }
 }

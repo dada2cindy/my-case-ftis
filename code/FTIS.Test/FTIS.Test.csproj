@@ -92,7 +92,7 @@
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SpringConfig\FOTIS.SQLServer.xml">
+    <Content Include="SpringConfig\FTIS.SQLServer.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

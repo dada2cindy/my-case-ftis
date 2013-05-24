@@ -84,6 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ACUtility\ACUtility.cs" />
+    <Compile Include="Domain\Container\LoginUserContainer.cs" />
+    <Compile Include="Domain\EnumType.cs" />
     <Compile Include="Domain\Impl\NewsClass.cs" />
     <Compile Include="Domain\Impl\News.cs" />
     <Compile Include="Domain\Impl\MasterMember.cs" />

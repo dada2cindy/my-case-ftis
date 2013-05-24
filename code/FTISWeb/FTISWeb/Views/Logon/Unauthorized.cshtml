@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+@model FTISWeb.Models.UnauthorizedModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@Model.Title</title>
+    <script>
+        //設定倒數秒數
+        var t = Number('@Model.Timeout');
+
+        window.onload = function () {
+            DoRederict();
+        }        
+        
+        //顯示倒數秒收
+        function DoRederict() {
+            t -= 1;
+
+            if (t <= 0) {
+                top.document.location.href = '@Model.ReturnUrl';
+            }
+
+            //每秒執行一次
+            setTimeout("DoRederict()", 1000);
+        }        
+    </script>
+</head>
+<body>
+    <div>
+        <p class="logintips" style="font-size:medium;margin-bottom:20px;">@Model.Msg</p>
+    </div>
+</body>
+</html>

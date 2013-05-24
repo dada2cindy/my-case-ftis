@@ -266,7 +266,6 @@ namespace FTIS.Service.Impl
                     foreach (AdminRole role in admin.AdminRoles)
                     {
                         NHibernateUtil.Initialize(role.AdminBar);
-                        NHibernateUtil.Initialize(role.AdminValue);
                     }
                 }
             }

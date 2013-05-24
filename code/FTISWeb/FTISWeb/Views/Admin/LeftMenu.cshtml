@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+
+@{
+    SessionHelper m_SessionHelper = new SessionHelper();
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Menu List</title>
+    @Styles.Render("~/Content/Admin/LeftMenuCSS")
+    @Scripts.Render("~/bundles/TreeView")
+    <style type="text/css">
+        html, body
+        {
+            width: 100%;
+            height: 100%;
+        }
+        .style1
+        {
+            height: 12px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#browser").treeview({
+                toggle: function () {
+                    console.log("%s was toggled.", $(this).find(">span").text());
+                }
+            });
+        });
+	</script>
+</head>
+<body onkeydown="return (event.keyCode!=8)">
+    <form id="formLeftMenu" runat="server">
+    <table border="0" cellpadding="0" cellspacing="0" class="tablenoleftmargin">
+                <tr>
+                    <td>
+                        <img src="@Url.Content("~/Content/Admin/images/left_1.gif")" width="228" border="0" height="53">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-family: 微軟正黑體" valign="top" class="menuTd">
+                        <ul id="browser" class="filetree treeview-famfamfam">
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.AboutUs))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">關於我們管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "AboutUs")" target="mainfrm">服務窗口管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.News))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">新聞動態管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "NewsClass")" target="mainfrm">新聞動態分類管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "News")" target="mainfrm">新聞動態管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.HomeNews))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">即時訊息管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "HomeNews")" target="mainfrm">即時訊息管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Activity))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">活動訊息管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Activity")" target="mainfrm">活動訊息管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="@Url.Content("~/Content/Admin/images/left_3.gif")" width="228" border="0" height="15" />
+                    </td>
+                </tr>
+            </table>
+    </form>
+</body>
+</html>

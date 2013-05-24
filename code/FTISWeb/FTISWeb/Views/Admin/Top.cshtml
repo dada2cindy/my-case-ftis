@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Optimization
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>永續發展整合資訊網 整合平台</title>
+    @Styles.Render("~/Content/Admin/LogOnCSS")
+</head>
+<body>
+    <form id="formTop" runat="server">
+    <div>
+        <table border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td height="34" class="text01-12-black" colspan="2">
+                    <font size="3">永續發展整合資訊網 整合平台</font>
+                </td>
+            </tr>
+            <tr>
+                <td height="20" bgcolor="#ffffff" class="text01-12-black">
+                    @ViewBag.LoginUserMsg
+                </td>
+                <td align="right" bgcolor="#ffffff" class="text01-12-black">
+                    <a href="@Url.Action("LogOff", "LogOn")" class="text01-12-black" >登出</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>
