@@ -1,0 +1,42 @@
+/****** 種類 ******/
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[Name_ENG])
+     VALUES
+           ('關於我們'
+           ,1
+           ,'1'
+           ,'About')
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status])
+     VALUES
+           ('產品環境資訊揭露'
+           ,7
+           ,'1')
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status])
+     VALUES
+           ('企業永續發展應用'
+           ,8
+           ,'1')
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status])
+     VALUES
+           ('技術服務能量登錄'
+           ,9
+           ,'1')
+GO

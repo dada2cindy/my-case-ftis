@@ -1,0 +1,183 @@
+/****** 種類 ******/
+
+/****** 關於我們 ******/
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[Name_ENG]
+           ,[ParentID])
+     VALUES
+           ('計畫介紹'
+           ,1
+           ,'1'
+           ,'Introduction'
+           ,1)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[Name_ENG]
+           ,[Content]
+           ,[Content_ENG]
+           ,[ParentID])
+     VALUES
+           ('服務窗口'
+           ,2
+           ,'1'
+           ,'Service'
+           ,(SELECT top 1 [Content] FROM [tblContact])
+           ,''
+           ,1)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[Name_ENG]
+           ,[ParentID])
+     VALUES
+           ('經驗分享'
+           ,3
+           ,'1'
+           ,'Experience'
+           ,1)
+GO
+
+/****** 產品環境資訊揭露 ******/
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('產品環境宣告'
+           ,1
+           ,'1'
+           ,2)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('碳足跡'
+           ,2
+           ,'1'
+           ,2)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('水足跡'
+           ,3
+           ,'1'
+           ,2)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('歐盟環境足跡'
+           ,4
+           ,'1'
+           ,2)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('生態效益'
+           ,5
+           ,'1'
+           ,2)
+GO
+
+/****** 企業永續發展應用 ******/
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('綠色供應鏈'
+           ,1
+           ,'1'
+           ,3)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('環境成本會計'
+           ,2
+           ,'1'
+           ,3)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('生態化設計'
+           ,3
+           ,'1'
+           ,3)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('物質流'
+           ,4
+           ,'1'
+           ,3)
+GO
+
+/****** 技術服務能量登錄 ******/
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('制度介紹'
+           ,1
+           ,'1'
+           ,4)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('永續發展服務機構名單'
+           ,2
+           ,'1'
+           ,4)
+GO

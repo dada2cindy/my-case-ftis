@@ -1,0 +1,111 @@
+/****** 種類 ******/
+
+/****** 生態化設計 ******/
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('C2C設計'
+           ,1
+           ,'1'
+           ,15)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('回收再利用設計'
+           ,2
+           ,'1'
+           ,15)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('易拆解設計'
+           ,3
+           ,'1'
+           ,15)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('廢棄物減量設計'
+           ,4
+           ,'1'
+           ,15)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('節能設計'
+           ,5
+           ,'1'
+           ,15)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('省資源設計'
+           ,6
+           ,'1'
+           ,15)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('去毒化設計'
+           ,7
+           ,'1'
+           ,15)
+GO
+
+/****** 永續發展服務機構名單 ******/
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('環保服務'
+           ,1
+           ,'1'
+           ,18)
+GO
+
+INSERT INTO [tblNode]
+           ([Name]
+           ,[SortID]
+           ,[Status]
+           ,[ParentID])
+     VALUES
+           ('安全服務'
+           ,2
+           ,'1'
+           ,18)
+GO
