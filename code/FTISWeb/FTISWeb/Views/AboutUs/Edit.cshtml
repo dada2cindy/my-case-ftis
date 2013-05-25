@@ -1,17 +1,57 @@
-﻿@{
+﻿@model FTISWeb.Models.NodeModel
+@{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
+@using System.Web.Optimization
 
-<!DOCTYPE html>
+@section TitleContent{}
+@section HeadContent{
+    @Scripts.Render("~/bundles/CKEditor")
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                CKEDITOR.instances.Content.setData('');
+                CKEDITOR.instances.ContentENG.setData('');
+            });
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        服務窗口管理
-    </div>
-</body>
-</html>
+            $('#Content').CKEditorInit();
+            $('#ContentENG').CKEditorInit();
+        });
+    </script>
+}
+
+@using (Html.BeginForm("Edit", "AboutUs", FormMethod.Post, new { id = "frmEdit" }))
+{
+    @Html.HiddenFor(m => m.NodeId) 
+    @Html.HiddenFor(m => m.ParentNodeId)
+    @Html.HiddenFor(m => m.Name)  
+    @Html.HiddenFor(m => m.NameENG) 
+    @Html.HiddenFor(m => m.SortId)  
+    @Html.HiddenFor(m => m.Status)        
+    <fieldset class="fieldset">
+        <h1>服務窗口管理</h1>
+        <table style="width: 100%" class="FormTable">
+            <tr>
+                <td valign="top">窗口內容：
+                </td>
+                <td>
+                    @Html.TextArea("Content", Model.Content, new { id = "Content" })
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">窗口內容(英)：
+                </td>
+                <td>
+                    @Html.TextArea("ContentENG", Model.ContentENG, new { id = "ContentENG" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" height="30px" align="center">
+                    <input id="btnSend" class="btn" type="submit" value="送出" />
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}
+<br />

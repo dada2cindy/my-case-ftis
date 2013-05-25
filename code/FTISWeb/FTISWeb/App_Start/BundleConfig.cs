@@ -11,6 +11,16 @@ namespace FTISWeb
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/TreeView").Include(
+                "~/Scripts/jquery-1.9.1.js",
+                "~/Scripts/jquery.treeview.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/CKEditor").Include(
+                "~/Scripts/ckeditor/ckeditor.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/SiteCommon").Include(
+                "~/Scripts/site.common.js"));
+
             bundles.Add(new StyleBundle("~/Content/Admin/LogOnCSS").Include(
                 "~/Content/Admin/css.css",
                 "~/Content/Validation.css"));
@@ -18,11 +28,7 @@ namespace FTISWeb
             bundles.Add(new StyleBundle("~/Content/Admin/AdminCSS").Include(
                 "~/Content/Admin/admin.css",
                 "~/Content/Admin/css.css",
-                "~/Content/Validation.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/TreeView").Include(
-                "~/Scripts/jquery-1.9.1.js",
-                "~/Scripts/jquery.treeview.js"));
+                "~/Content/Validation.css"));            
 
             bundles.Add(new StyleBundle("~/Content/Admin/LeftMenuCSS").Include(
                 "~/Content/Admin/admin.css",

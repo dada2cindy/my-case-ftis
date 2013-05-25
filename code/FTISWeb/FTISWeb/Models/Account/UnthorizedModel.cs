@@ -24,7 +24,7 @@ namespace FTISWeb.Models
         public UnauthorizedModel(bool isAuthenticated)
         {
             SessionHelper sessionHelper = new SessionHelper();
-            this.Timeout = 5;
+            this.Timeout = 3;
             this.Title = "未獲授權";
             if (isAuthenticated && sessionHelper.LoginUser != null)
             {

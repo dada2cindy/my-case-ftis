@@ -12,7 +12,7 @@ using FTISWeb.Helper;
 using WuDada.Core.Generic.Util;
 using System.ComponentModel;
 
-namespace FTISWeb.Models.Account
+namespace FTISWeb.Models
 {
     public class LogOnModel 
     {
@@ -26,7 +26,7 @@ namespace FTISWeb.Models.Account
             m_FTISService = m_FTISFactory.GetFTISService();
         }
 
-        protected MasterMember modelUser = null;
+        //protected MasterMember modelUser = null;
 
         /// <summary>
         /// 登入帳號
@@ -70,7 +70,7 @@ namespace FTISWeb.Models.Account
                 string passwordDecrypt = EncryptUtil.GetMD5(Password);
                 if (passwordDecrypt.Equals(admin.Password, StringComparison.OrdinalIgnoreCase))
                 {
-                    modelUser = admin;
+                    //modelUser = admin;
                     FormsAuthentication.SetAuthCookie(this.Account, this.RememberMe);
                     Ticket.SignIn(this.Account, this.RememberMe, 1);
                     m_SessionHelper.LoginUser = admin;

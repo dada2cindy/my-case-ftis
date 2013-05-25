@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using FTISWeb.Models;
-using FTISWeb.Models.Account;
+using FTISWeb.Models;
 using FTISWeb.Security;
 using FTISWeb.Helper;
 using FTISWeb.Utility;

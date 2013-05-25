@@ -80,6 +80,144 @@
                                     </ul>
                                 </li>
                             }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Member))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">會員專區設置</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Industry")" target="mainfrm">行業別管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Member")" target="mainfrm">會員管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "DownloadRecord")" target="mainfrm">下載記錄管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Download))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">下載專區管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Download")" target="mainfrm">技術工具/文件管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Curriculum")" target="mainfrm">課程講義管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "PublicationClass")" target="mainfrm">刊物年度管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Publication")" target="mainfrm">永續產業發展雙月刊管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Brief")" target="mainfrm">永續產業發展簡訊管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Norm))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">標準/規範管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "NormClass")" target="mainfrm">標準/規範分類管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Norm")" target="mainfrm">標準/規範資訊管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "GreenBuyClass")" target="mainfrm">企業規範分類管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "GreenBuy")" target="mainfrm">企業規範資訊管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "MNorm")" target="mainfrm">國際組織標準/系統動態管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Carbon))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">環境宣告/碳足跡設置</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Carbon", new { classId = 1 })" target="mainfrm">背景說明管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "GreenBuy", new { classId = 2 })" target="mainfrm">國際趨勢管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "MNorm", new { classId = 3 })" target="mainfrm">國內發展管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Application))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">企業社會責任管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "ApplicationClass")" target="mainfrm">社會責任分類管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Application")" target="mainfrm">社會責任資訊管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "LSearch")" target="mainfrm">責任報告書查詢管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "CSRReport")" target="mainfrm">國內外報告書現況管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Report")" target="mainfrm">報告書管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Grade))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">評比介紹管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Grade")" target="mainfrm">評比介紹管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Question))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">產業服務專區設置</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "LOnline")" target="mainfrm">線上諮詢管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "LNotice")" target="mainfrm">產品召回因應服務管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "QuestionClass")" target="mainfrm">Q&A分類管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Question")" target="mainfrm">Q&A管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Links))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">網路資源管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "LinksClass")" target="mainfrm">網路資源分類管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Links")" target="mainfrm">網路資源管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Epaper))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">電子報管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Epaper")" target="mainfrm">電子報管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "EpaperEmail")" target="mainfrm">電子報訂閱管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Examination))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">滿意度問卷管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Examination")" target="mainfrm">滿意度問卷管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "EpaperExamination")" target="mainfrm">電子報滿意度問卷管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "OtherExamination")" target="mainfrm">其他滿意度問卷管理</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.GreenFactory))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">綠色工廠設置</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "GreenFactoryClass")" target="mainfrm">綠色工廠分類管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "GreenFactory")" target="mainfrm">綠色工廠管理</a></span></li>                                        
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Season))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">首頁四季設置</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "Season")" target="mainfrm">四季設置</a></span></li>                                      
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Master))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">網站管理員</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "Master")" target="mainfrm">管理員設定</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Index", "MasterLog")" target="mainfrm">登入日誌</a></span></li>                                        
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Master))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">網站輔助設定</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Parameter", "System")" target="mainfrm">上傳檔案設定</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Loginsetup", "System")" target="mainfrm">資訊安全登入設定</a></span></li>                                        
+                                    </ul>
+                                </li>
+                            }
                         </ul>
                     </td>
                 </tr>
