@@ -1,35 +1,81 @@
+/****** 新聞動態種類 ******/
+CREATE TABLE [tblNews_Type](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](200) NULL,
+	[SortID] [int] NULL,
+	[Status] [char](1) NULL,
+	[Name_ENG] [nvarchar](200) NULL,
+	[Content] [ntext] NULL,
+	[Content_ENG] [ntext] NULL,
+ CONSTRAINT [PK_tblNews_Type] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
 /****** 新聞動態 ******/
-ALTER TABLE tblNews ADD NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD ContentENG ntext null
-ALTER TABLE tblNews ADD Pic1ENG nvarchar(50) null
-ALTER TABLE tblNews ADD Pic2ENG nvarchar(50) null
-ALTER TABLE tblNews ADD Pic3ENG nvarchar(50) null
-ALTER TABLE tblNews ADD Pic1_NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD Pic2_NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD Pic3_NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD AFile1ENG nvarchar(50) null
-ALTER TABLE tblNews ADD AFile2ENG nvarchar(50) null
-ALTER TABLE tblNews ADD AFile3ENG nvarchar(50) null
-ALTER TABLE tblNews ADD AFile1_NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD AFile2_NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD AFile3_NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD AURL1ENG nvarchar(200) null
-ALTER TABLE tblNews ADD AURL2ENG nvarchar(200) null
-ALTER TABLE tblNews ADD AURL3ENG nvarchar(200) null
-ALTER TABLE tblNews ADD AUrl1_LinkENG nvarchar(600) null
-ALTER TABLE tblNews ADD AUrl2_LinkENG nvarchar(600) null
-ALTER TABLE tblNews ADD AUrl3_LinkENG nvarchar(600) null
-ALTER TABLE tblNews ADD IsHomeENG nvarchar(1) null
-ALTER TABLE tblNews ADD IsNewENG nvarchar(1) null
-ALTER TABLE tblNews ADD VisterENG int null
-ALTER TABLE tblNews ADD EmailerENG int null
-ALTER TABLE tblNews ADD PrinterENG int null
-ALTER TABLE tblNews ADD Main_CodeENG nvarchar(50) null
-ALTER TABLE tblNews ADD Main_NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD Admin_CodeENG nvarchar(50) null
-ALTER TABLE tblNews ADD Admin_NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD Service_CodeENG nvarchar(50) null
-ALTER TABLE tblNews ADD Service_NameENG nvarchar(200) null
-ALTER TABLE tblNews ADD TagnENG nvarchar(50) null
-ALTER TABLE tblNews ADD IsOutENG nvarchar(1) null
-ALTER TABLE tblNews ADD AUrlENG nvarchar(200) null
+ALTER TABLE tblNews ADD Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD Content_ENG ntext null
+ALTER TABLE tblNews ADD Pic1_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD Pic2_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD Pic3_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD Pic1_Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD Pic2_Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD Pic3_Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD AFile1_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD AFile2_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD AFile3_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD AFile1_Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD AFile2_Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD AFile3_Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD AURL1_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD AURL2_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD AURL3_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD AUrl1_Link_ENG nvarchar(600) null
+ALTER TABLE tblNews ADD AUrl2_Link_ENG nvarchar(600) null
+ALTER TABLE tblNews ADD AUrl3_Link_ENG nvarchar(600) null
+ALTER TABLE tblNews ADD IsHome_ENG nvarchar(1) null
+ALTER TABLE tblNews ADD IsNew_ENG nvarchar(1) null
+ALTER TABLE tblNews ADD Vister_ENG int null
+ALTER TABLE tblNews ADD Emailer_ENG int null
+ALTER TABLE tblNews ADD Printer_ENG int null
+ALTER TABLE tblNews ADD Main_Code_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD Main_Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD Admin_Code_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD Admin_Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD Service_Code_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD Service_Name_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD Tagn_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD IsOut_ENG nvarchar(1) null
+ALTER TABLE tblNews ADD AUrl_ENG nvarchar(200) null
+ALTER TABLE tblNews ADD TypeID int null
+GO
+
+/****** 新聞動態分類 ******/
+ALTER TABLE tblNews_Class ADD Name_ENG nvarchar(200) null
+GO
+
+/****** tblNode ******/
+CREATE TABLE [tblNode](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](200) NULL,
+	[SortID] [int] NULL,
+	[Status] [char](1) NULL,
+	[Name_ENG] [nvarchar](200) NULL,
+	[Content] [ntext] NULL,
+	[Content_ENG] [ntext] NULL,
+	[ParentID] [int] NULL,
+ CONSTRAINT [PK_tblNode] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+/****** Download ******/
+ALTER TABLE tblDownload ALTER COLUMN Vister int NULL
+ALTER TABLE tblDownload ALTER COLUMN Downer int NULL
+GO
