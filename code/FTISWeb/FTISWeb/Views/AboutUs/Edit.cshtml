@@ -1,9 +1,13 @@
 ﻿@model FTISWeb.Models.NodeModel
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
+    SessionHelper m_SessionHelper = new SessionHelper();
 }
+@using FTISWeb.Helper;
 @using System.Web.Optimization
 @using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
 
 @section TitleContent{}
 @section HeadContent{
@@ -48,8 +52,11 @@
             </tr>
             <tr>
                 <td colspan="2" height="30px" align="center">
-                    <input id="btnSend" class="btn" type="submit" value="送出" />
-                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.AboutUs, SiteOperations.Edit))
+                    {
+                        <input id="btnSend" class="btn" type="submit" value="送出" />
+                        <input id="btnClear" class="btn" type="button" value="重填" />
+                    }
                 </td>
             </tr>
         </table>

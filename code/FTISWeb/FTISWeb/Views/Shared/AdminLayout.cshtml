@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width" />
     <title>@RenderSection("TitleContent", false)</title>
     @Styles.Render("~/Content/Admin/AdminCSS")
+    @Styles.Render("~/Content/Admin/KendoCSS")
     @Scripts.Render("~/bundles/JQuery")
-    @Scripts.Render("~/bundles/SiteCommon")    
+    @Scripts.Render("~/bundles/SiteCommon") 
+    @Scripts.Render("~/bundles/kendoUI")    
     @RenderSection("HeadContent", false)
 </head>
 <body>
