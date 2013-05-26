@@ -341,5 +341,11 @@ namespace FOTIS.Test.Service
             string md5 = EncryptUtil.GetMD5("01801726");
             Assert.IsTrue(password.Equals(md5,StringComparison.OrdinalIgnoreCase));
         }
+
+        [Test]
+        public void Test_FreeGo()
+        {
+
+        }
     }
 }

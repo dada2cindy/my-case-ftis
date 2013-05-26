@@ -68,6 +68,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WuDada.Accessibility">
+      <HintPath>..\lib\WuDada.Accessibility.dll</HintPath>
+    </Reference>
     <Reference Include="WuDada.Core">
       <HintPath>..\lib\WuDada.Core.dll</HintPath>
     </Reference>
