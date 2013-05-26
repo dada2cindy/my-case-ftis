@@ -11,7 +11,7 @@ using WuDada.Accessibility.FreeGO;
 
 namespace FTISWeb.Controllers
 {
-    public class AboutUsController : Controller
+    public partial class AboutUsController : Controller
     {
         private readonly int m_NodeId = 6;
 

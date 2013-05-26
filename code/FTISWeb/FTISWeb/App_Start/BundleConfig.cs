@@ -19,6 +19,13 @@ namespace FTISWeb
                 "~/Scripts/ckeditor/ckeditor.js",
                 "~/Scripts/ckfinder/ckfinder.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/kendoUI").Include(
+                "~/Scripts/kendo/kendo.web.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/TreeView").Include(
+                "~/Scripts/jquery-1.9.1.js",
+                "~/Scripts/jquery.treeview.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/SiteCommon").Include(
                 "~/Scripts/site.common.js"));
 
@@ -34,7 +41,12 @@ namespace FTISWeb
             bundles.Add(new StyleBundle("~/Content/Admin/LeftMenuCSS").Include(
                 "~/Content/Admin/admin.css",
                 "~/Content/Admin/css.css",
-                "~/Content/Admin/jquery.treeview.css")); 
+                "~/Content/Admin/jquery.treeview.css"));
+
+            bundles.Add(new StyleBundle("~/Content/KendoCSS").Include(
+                "~/Content/kendo/kendo.common.min.css",
+                "~/Content/kendo/kendo.blueopal.min.css"
+                ));
         }
     }
 }
