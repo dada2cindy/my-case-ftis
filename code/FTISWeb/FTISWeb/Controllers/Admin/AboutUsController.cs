@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using FTIS.Domain;
 using FTISWeb.Models;
 using FTISWeb.Security;
+using FTISWeb.Utility;
+using WuDada.Accessibility.FreeGO;
 
 namespace FTISWeb.Controllers
 {
@@ -29,6 +31,20 @@ namespace FTISWeb.Controllers
         [HttpPost]
         public ActionResult Edit(NodeModel model)
         {
+            ////檢查內容無障礙是否通過
+            if (!AccessibilityUtil.CheckFreeGO(model.Content))
+            {
+                model.ShowFreeGOMsg = true;
+                model.FreeGOColumnName = "Content";
+                //View(model);
+            }
+            else if (!AccessibilityUtil.CheckFreeGO(model.ContentENG))
+            {
+                model.ShowFreeGOMsg = true;
+                model.FreeGOColumnName = "ContentENG";
+                //View(model);
+            }
+
             model.Update();
             return View(model);
         }

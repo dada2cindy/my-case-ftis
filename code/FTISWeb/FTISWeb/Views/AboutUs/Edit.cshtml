@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 @using System.Web.Optimization
+@using FTISWeb.Models;
 
 @section TitleContent{}
 @section HeadContent{
@@ -32,14 +33,14 @@
         <h1>服務窗口管理</h1>
         <table style="width: 100%" class="FormTable">
             <tr>
-                <td valign="top">窗口內容：
+                <td valign="top">內容：
                 </td>
                 <td>
                     @Html.TextArea("Content", Model.Content, new { id = "Content" })
                 </td>
             </tr>
             <tr>
-                <td valign="top">窗口內容(英)：
+                <td valign="top">內容(英)：
                 </td>
                 <td>
                     @Html.TextArea("ContentENG", Model.ContentENG, new { id = "ContentENG" })
@@ -55,3 +56,16 @@
     </fieldset>
 }
 <br />
+
+@if (Model.ShowFreeGOMsg)
+{
+    switch (Model.FreeGOColumnName)
+    {
+        case "Content":
+            Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel() { Title = "內容", HtmlValue = Model.Content });
+            break;
+        case "ContentENG":
+            Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel() { Title = "內容(英)", HtmlValue = Model.ContentENG });
+            break;
+    }
+}

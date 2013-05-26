@@ -14,7 +14,7 @@ using System.ComponentModel;
 
 namespace FTISWeb.Models
 {
-    public class NodeModel :AbstractNodeModel 
+    public class NodeModel : AbstractNodeModel, ICheckFreeGO
     {
         public NodeModel()
         {
@@ -24,5 +24,13 @@ namespace FTISWeb.Models
         {
             LoadNode(id, noLazy);
         }
+
+        #region ICheckFreeGO 成員
+
+        public bool ShowFreeGOMsg { get; set; }
+
+        public string FreeGOColumnName { get; set; }
+
+        #endregion
     }
 }
