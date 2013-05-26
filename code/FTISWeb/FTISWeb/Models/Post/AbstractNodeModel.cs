@@ -127,6 +127,7 @@ namespace FTISWeb.Models
             }
             node.Name = Name;
             node.NameENG = NameENG;
+            ////使用AntiXSS的 Sanitizer.GetSageHtmlFragement() 方法，取得安全的HTML區段內容。
             //node.Content = Sanitizer.GetSafeHtmlFragment(Content);
             //node.ContentENG = Sanitizer.GetSafeHtmlFragment(ContentENG);
             node.Content = Content;

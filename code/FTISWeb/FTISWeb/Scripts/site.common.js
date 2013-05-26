@@ -8,7 +8,7 @@ function SetCKEditorLanguage(lang) {
 }
 
 (function ($) {
-    $.fn.CKEditorInit = function () {
+    $.fn.CKEditorInit = function (ckfinderPath) {
         ////判斷是否要使用置換標籤
         var targetId = $(this).attr('id');
         var editor = CKEDITOR.replace(targetId, {
@@ -27,57 +27,19 @@ function SetCKEditorLanguage(lang) {
             //],
             resize_enabled: true,
             height: "400",
-            width: "80%",
+            width: "85%",
             fullPage: true
             //filebrowserUploadUrl: null
         });
 
         // 把CKFinder綁進CKEditor
-        ////var setting = {};
-        ////setting.basePath = ckfinderPath;
-        ////setting.id = apiUrl + "&" + storeFolderPath + "/CkFiles/&" + enable + "&" + CKEDITOR.config.language;
-        ////CKFinder.setupCKEditor(editor, setting, "Images", "Flash");
+        CKFinder.setupCKEditor(editor, ckfinderPath);
 
         // 修正 Chrome 無法讓ckeditor圖片拖拉大小，引用Plugin jquery.webkitresize.min.js 後，加入此段Code，即可拖拉圖片大小
         //editor = CKEDITOR.on('instanceReady', function () {
         //    $(".cke_editor iframe").webkitimageresize().webkittableresize().webkittdresize();
         //});
-    };
-
-    //$.fn.CKEditorMailDispatchInit = function (ckfinderPath, apiUrl, storeFolderPath, enable, useTags) {
-    //    ////判斷是否要使用置換標籤
-    //    var targetId = $(this).attr('id');
-    //    var editor = CKEDITOR.replace(targetId, {
-    //        toolbar: [
-    //                                                  ['Preview'], ['BGColor', 'TextColor'], ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
-    //                                                  ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
-    //                                                  ['Image', 'Table', 'HorizontalRule', 'Smiley', 'PageBreak'],
-    //                                                  ['Maximize', 'ShowBlocks'],
-    //                                                  '/',
-    //                                                  ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
-    //                                                  ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
-    //                                                  ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-    //                                                  ['Link', 'Unlink', 'Anchor'],
-    //                                                  '/',
-    //                                                  ['Styles', 'Format', 'Font', 'FontSize', 'Source']
-    //        ],
-    //        resize_enabled: true,
-    //        height: "500",
-    //        fullPage: true
-    //        //filebrowserUploadUrl: null
-    //    });
-
-    //    // 把CKFinder綁進CKEditor
-    //    var setting = {};
-    //    setting.basePath = ckfinderPath;
-    //    setting.id = apiUrl + "&" + storeFolderPath + "/CkFiles/&" + enable + "&" + CKEDITOR.config.language;
-    //    CKFinder.setupCKEditor(editor, setting, "Images", "Flash");
-
-    //    // 修正 Chrome 無法讓ckeditor圖片拖拉大小，引用Plugin jquery.webkitresize.min.js 後，加入此段Code，即可拖拉圖片大小
-    //    editor = CKEDITOR.on('instanceReady', function () {
-    //        $(".cke_editor iframe").webkitimageresize().webkittableresize().webkittdresize();
-    //    });
-    //};
+    };    
 
 })(jQuery);
 /* CKEditor - End */

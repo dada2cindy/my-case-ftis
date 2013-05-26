@@ -14,8 +14,8 @@
                 CKEDITOR.instances.ContentENG.setData('');
             });
 
-            $('#Content').CKEditorInit();
-            $('#ContentENG').CKEditorInit();
+            $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+            $('#ContentENG').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
         });
     </script>
 }
