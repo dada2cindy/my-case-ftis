@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H206005 使用頁框時要指定不支援頁框時的辦法</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H206005 使用頁框時要指定不支援頁框時的辦法</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+ 		  <p>以下不良設計為當瀏覽器不支援頁框時，沒有提供替代方案顯示頁框內的資訊。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;FRAMESET rows=&quot;*&quot; cols=&quot;*,50%&quot; framespacing=&quot;0&quot; frameborder=&quot;1&quot; border=&quot;1&quot;&gt;
+  &lt;FRAME src=&quot;a.jsp&quot; title=&quot;台灣天氣預測&quot;&gt;
+  &lt;FRAME src=&quot;b.jsp&quot; title=&quot;今日股市成交量&quot;&gt;
+  &lt;/FRAMESET&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>當瀏覽器不支援頁框時，使用 NOFRAMES標籤可以顯示NOFRAMES標籤中的內容。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;FRAMESET rows=&quot;*&quot; cols=&quot;*,50%&quot; framespacing=&quot;0&quot; frameborder=&quot;1&quot; border=&quot;1&quot;&gt;
+  &lt;FRAME src=&quot;a.jsp&quot; title=&quot;台灣天氣預測&quot;&gt;
+  &lt;FRAME src=&quot;b.jsp&quot; title=&quot;今日股市成交量&quot;&gt;
+  &lt;/FRAMESET&gt;
+  &lt;NOFRAMES&gt;
+  &lt;P&gt;台灣天氣預測...(a.jsp內容)&lt;/P&gt;
+  &lt;P&gt;台灣股市成交量...(b.jsp內容)&lt;/P&gt;
+  &lt;/NOFRAMES&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+                                       </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

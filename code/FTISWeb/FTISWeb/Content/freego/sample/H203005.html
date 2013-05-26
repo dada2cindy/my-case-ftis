@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H203005 適當使用巢狀標題呈現文件結構</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H203005 適當使用巢狀標題呈現文件結構</span><br /><br />
+<fieldset>
+
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>此例子中文章的三的層次未按照正確H1~H6標題標籤使用。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;H1&gt;第一層標題&lt;/H1&gt;
+  &lt;H3&gt;第三層標題&lt;/H3&gt;
+  &lt;H2&gt;第二層標題&lt;/H2&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>此範例中正確的使用&lt;H1&gt;&lt;H2&gt;&lt;H3&gt;標題標籤的巢狀用法，譬如H1標籤之後的下一層應是使用H2標籤，而H2標籤的下一層應是使用H3標籤。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;H1&gt;第一層標題&lt;/H1&gt;
+  &lt;H2&gt;第二層標題&lt;/H2&gt;
+  &lt;H3&gt;第三層標題&lt;/H3&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+                </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

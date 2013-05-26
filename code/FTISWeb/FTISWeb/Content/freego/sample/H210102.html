@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H210102 確保表單的控制項與控制項說明之間的配合很適當</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H210102 確保表單的控制項與控制項說明之間的配合很適當</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>未提供表單控制項說明，使用者將不能肯定填入的資料是否切合需求。以下的不良設計只是單純插入文字作為表單的控制項說明。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;FORM action=&quot;customer&quot; method=&quot;post&quot;&gt;
+   生日:
+    &lt;INPUT  type=&quot;text&quot; id=&quot;birth&quot; value=&quot;請填您的國曆生日年月日&quot;&gt;
+  &lt;/FORM&gt;</pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		 
+		  <h2>正確範例：</h2>
+		  <p>表單控制項統指所有FORM的物件，為了要讓使用者清楚知道這該欄位或選單要怎麼填資料或選擇，必須在表單控制項說明文字，說明文字等於是給使用者下一個動作的提示。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+&lt;FORM action=&quot;customer&quot; method=&quot;post&quot;&gt;
+ &lt;LABEL for=&quot;birth&quot;&gt;生日: &lt;/LABEL&gt;
+  &lt;INPUT type=&quot;text&quot; id=&quot;birth&quot; value=&quot;請填您的國曆生日年月日&quot;&gt;
+&lt;/FORM&gt;
+          </pre>
+            <p class="invisible">範例結束</p>                                    </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

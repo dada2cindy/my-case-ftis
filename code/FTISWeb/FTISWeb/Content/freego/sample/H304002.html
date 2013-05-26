@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H304002 明確指出網頁文字所使用的自然語言</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H304002 明確指出網頁文字所使用的自然語言</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>在HTML標籤，未設定lang屬性，將無法得知該網頁的自然語言。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+  &lt;TITLE&gt;中華民國總統府網站&lt;/TITLE&gt;
+  &lt;/HEAD&gt;
+  &lt;BODY&gt;網頁內容&lt;/BODY&gt;
+  &lt;/HTML&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  <h2>正確示範</h2>
+		  <p>在HTML標籤，設定lang屬性為”zh-TW”，瀏覽器將得知該網頁所使用的的自然語言是繁體中文。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;HTML lang=&quot;zh-TW&quot;&gt;
+  &lt;HEAD&gt;
+  &lt;TITLE&gt;中華民國總統府網站&lt;/TITLE&gt;
+  &lt;/HEAD&gt;
+  &lt;BODY&gt;網頁內容&lt;/BODY&gt;
+  &lt;/HTML&gt;
+          </pre>
+            <p class="invisible">範例結束</p>            
+                                              </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

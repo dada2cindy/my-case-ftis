@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H104200 明確地指出網頁內容中語言的轉換</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H104200 明確地指出網頁內容中語言的轉換</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+                           <p>
+                        <strong>不良設計：</strong></p>
+ 		  <p>在法語<SPAN lang="fr">C'est la Vie前並未</SPAN>要求自然語言的轉換，因此當視障者藉由點字機或語音合成器來閱讀網頁內容，閱讀到<SPAN lang="fr">C'est
+		      la Vie</SPAN> 的時候就不會以法文輸出。 </p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+&lt;P&gt;「法國人樂觀知命，常掛在嘴上的一句話是C'est la Vie」&lt;/P&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>同樣一句話，若在<SPAN lang="fr">C'est la Vie前</SPAN>要求自然語言的轉換，程式碼改為&lt;SPAN lang=&quot;fr&quot;&gt;<SPAN lang="fr">C'est
+		      la Vie</SPAN> &lt;/SPAN&gt; 此時用點字機或語音合成器來閱讀網頁內容，閱讀到C'est la Vie的時候就會以法文輸出。 </p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;P&gt;「法國人樂觀知命，常掛在嘴上的一句話是&lt;SPAN lang=&quot;fr&quot;&gt;C'est la Vie&lt;/SPAN&gt;」&lt;/P&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+                    </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

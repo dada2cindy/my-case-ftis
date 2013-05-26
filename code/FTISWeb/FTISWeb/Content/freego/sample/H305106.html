@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H305106 表格行列過長的標題，須提供縮寫或簡稱</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H305106 表格行列過長的標題，須提供縮寫或簡稱</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>沒有使用abbr屬性為過長的表格標題提供簡稱。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;TABLE border=&quot;1&quot; summary=&quot;台灣各主要城市降雨機率偏高，所以紫外線照射的強度皆為良好。&quot;&gt;
+  &lt;CAPTION&gt;
+  台灣各主要城市天氣概況與紫外線強度
+  &lt;/CAPTION&gt;
+  &lt;TR&gt;
+  &lt;TH&gt;主要城市地區&lt;/TH&gt;
+  &lt;TH&gt;降雨機率百分比&lt;/TH&gt;
+  &lt;TH&gt;陽光紫外線強度&lt;/TH&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台北&lt;/TD&gt;
+  &lt;TD&gt;100%&lt;/TD&gt;
+  &lt;TD&gt;良好&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台中&lt;/TD&gt;
+  &lt;TD&gt;60%&lt;/TD&gt;
+  &lt;TD&gt;良好&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;高雄&lt;/TD&gt;
+  &lt;TD&gt;50%&lt;/TD&gt;
+  &lt;TD&gt;良好&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>使用abbr屬性為過長的表格標題提供簡稱。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;TABLE border=&quot;1&quot; summary=&quot;台灣各主要城市降雨機率偏高，所以紫外線照射的強度皆為良好。&quot;&gt;
+  &lt;CAPTION&gt;
+  台灣主要城市天氣概況與紫外線強度
+  &lt;/CAPTION&gt;
+  &lt;TR&gt;
+  &lt;TH abbr=&quot;城市&quot;&gt;主要城市地區&lt;/TH&gt;
+  &lt;TH abbr=&quot;降雨&quot;&gt;降雨機率百分比&lt;/TH&gt;
+  &lt;TH abbr=&quot;紫外線&quot;&gt;陽光紫外線強度&lt;/TH&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台北&lt;/TD&gt;
+  &lt;TD&gt;100%&lt;/TD&gt;
+  &lt;TD&gt;良好&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台中&lt;/TD&gt;
+  &lt;TD&gt;60%&lt;/TD&gt;
+  &lt;TD&gt;良好&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;高雄&lt;/TD&gt;
+  &lt;TD&gt;50%&lt;/TD&gt;
+  &lt;TD&gt;良好&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>            
+                                              </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>
