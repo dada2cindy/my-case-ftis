@@ -33,5 +33,13 @@ namespace FTISWeb.Utility
                 return ConfigurationManager.AppSettings["CKFinderBaseUrl"];
             }
         }
+
+        public static int AdminPageSize
+        {
+            get
+            {
+                return 20;
+            }
+        }
     }
 }

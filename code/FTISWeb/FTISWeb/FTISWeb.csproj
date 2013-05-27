@@ -54,6 +54,9 @@
     <Reference Include="Common.Logging.Log4Net">
       <HintPath>..\..\lib\Common.Logging.Log4Net.dll</HintPath>
     </Reference>
+    <Reference Include="Dynamic">
+      <HintPath>..\..\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="FTIS">
       <HintPath>..\..\lib\FTIS.dll</HintPath>
     </Reference>
@@ -62,6 +65,9 @@
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\lib\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="KendoGridBinder">
+      <HintPath>..\..\packages\KendoGridBinder.1.6\lib\net40\KendoGridBinder.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\lib\log4net.dll</HintPath>
@@ -92,6 +98,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -183,6 +190,8 @@
     <Compile Include="Models\Account\LogOnModel.cs" />
     <Compile Include="Models\Account\UnthorizedModel.cs" />
     <Compile Include="Models\FreeGO\FreeGOModel.cs" />
+    <Compile Include="Models\FTIS\AbstractClassModel.cs" />
+    <Compile Include="Models\FTIS\NewsClassModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
     <Compile Include="Models\Post\NodeModel.cs" />
@@ -197,6 +206,8 @@
     <Compile Include="Utility\CookieUtil.cs" />
     <Compile Include="Utility\IpBlockUtil.cs" />
     <Compile Include="Helper\SessionHelper.cs" />
+    <Compile Include="Utility\ScriptSerializationUtility.cs" />
+    <Compile Include="ViewData\AuthorizationData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -357,7 +368,10 @@
     <Content Include="Content\kendo\Uniform\slider-v.gif" />
     <Content Include="Content\kendo\Uniform\sprite%402x.png" />
     <Content Include="Content\kendo\Uniform\sprite.png" />
+    <Content Include="Content\kendo\kendo.blueopal.css" />
+    <Content Include="Content\kendo\kendo.common.css" />
     <Content Include="Content\Validation.css" />
+    <Content Include="Dynamic Expressions.html" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
@@ -1682,6 +1696,7 @@
     <Content Include="Scripts\kendo\kendo.view.min.js" />
     <Content Include="Scripts\kendo\kendo.web.min.js" />
     <Content Include="Scripts\kendo\kendo.window.min.js" />
+    <Content Include="Scripts\kendo\kendo.web.js" />
     <Content Include="Scripts\site.common.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
