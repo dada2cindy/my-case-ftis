@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H101112 伺服器端影像地圖中的超連結必須在網頁中有額外對應的文字超連結</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H101112 伺服器端影像地圖中的超連結必須在網頁中有額外對應的文字超連結</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+                <div>
+                    <p>
+                        <strong>不良設計：</strong></p>
+            <pre>
+  &lt;A href=&quot;cgi-bin/serverside.map&quot;&gt;
+  &lt;IMG src=&quot;map1.gif&quot; alt=&quot;中華民國中央政府五院網站&quot; ismap=&quot;#Map1&quot;&gt;
+  &lt;/A&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  <h2>正確示範</h2>
+		  <p>正確的設計是針對伺服器端影像地圖中的各個超連結，在網頁上提供額外對應的文字連結。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;A href=&quot;cgi-bin/serverside.map&quot;&gt;
+  &lt;IMG src=&quot;map1.gif&quot; alt=&quot;中華民國中央政府五院網站&quot; ismap=&quot;#Map1&quot;&gt;
+  &lt;/A&gt;
+  |&lt;A href=&quot;http://www.ly.gov.tw/&quot; target=&quot;_blank&quot;&gt;立法院&lt;/A&gt;
+  |&lt;A href=&quot;http://www.exam.gov.tw/&quot; target=&quot;_blank&quot;&gt;考試院&lt;/A&gt;
+  |&lt;A href=&quot;http://www.cy.gov.tw/&quot; target=&quot;_blank&quot;&gt;監察院&lt;/A&gt;
+  |&lt;A href=&quot;http://www.exam.gov.tw/&quot; target=&quot;_blank&quot;&gt;司法院&lt;/A&gt;
+  |&lt;A href=&quot;http://www.ey.gov.tw/&quot; target=&quot;_blank&quot;&gt;行政院 &lt;/A&gt;|
+          </pre>
+            <p class="invisible">範例結束</p>
+                    </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H313211 在網頁標題、段落、及列表之前，提供辨別訊息以利識別</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H313211 在網頁標題、段落、及列表之前，提供辨別訊息以利識別</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+			  <p>下面例子並未提供資訊的辨別訊息，因此在未讀取資訊內容前，使用者無法知道下面的四條訊息是天才書局的最新消息。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;UL&gt;
+  &lt;LI&gt;最新消息一&lt;/LI&gt;
+  &lt;LI&gt;最新消息二&lt;/LI&gt;
+  &lt;LI&gt;最新消息三&lt;/LI&gt;
+  &lt;LI&gt;最新消息四&lt;/LI&gt;
+  &lt;/UL&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		
+		  <h2>正確示範</h2>
+		  <p>使用標題標籤在最新消息之前提供可辨別的資訊，使用者可以知道標題下面的四條訊息是天才書局的最新消息。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;H1&gt;天才書局最新消息&lt;/H1&gt;
+  &lt;UL&gt;
+  &lt;LI&gt;最新消息一&lt;/LI&gt;
+  &lt;LI&gt;最新消息二&lt;/LI&gt;
+  &lt;LI&gt;最新消息三&lt;/LI&gt;
+  &lt;LI&gt;最新消息四&lt;/LI&gt;
+  &lt;/UL&gt;
+          </pre>
+            <p class="invisible">範例結束</p>                                              </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

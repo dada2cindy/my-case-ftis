@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H207103 避免使用動態gif圖片</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H207103 避免使用動態gif圖片</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>徵求標章的動畫logo.gif圖片沒有使用alt標籤提供替代的文字說明。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;IMG src=&quot;logo.gif&quot;&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>避免使用gif動畫，如果無法避免使用則需使用alt屬性提供替代文字說明。下列例子是文字閃動的gif動畫，第一面文字是&quot;徵求無障礙網站標章&quot;，第二面是&quot;獎品豐富詳情請見無障礙網路空間服務網&quot;。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>&lt;IMG src=&quot;logo.gif&quot; 
+ alt=&quot;無障礙標章設計徵求活動，萬元獎品等你來拿！活動日期8/26~9/15，行政院研考會主辦&quot;&gt;</pre>
+            <p class="invisible">範例結束</p>
+                                       </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

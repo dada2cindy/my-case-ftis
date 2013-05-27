@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H101106 當alt屬性的文字陳述大於150個英文字元時，考慮另外提供文字敘述</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H101106 當alt屬性的文字陳述大於150個英文字元時，考慮另外提供文字敘述</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+                <div>
+                    <p>
+                        <strong>不良設計：</strong></p>
+                    <pre>
+&lt;IMG src=&quot;goal_post.gif&quot; alt=&quot;足球守門員：無論你看不看足球，在歷史上，我們都可以輕易說出比利、
+馬勒當拿、告魯夫、雲巴士頓、古烈治等名字，但只限說出守門員的名字，若非球迷，幾乎教人啞口無言。
+這也難怪，世界足球先生，從來不見守門員的份兒。 守門員在足球場上，確實是一個令人痛苦的崗位。
+他不如前鋒、中場般，可以賣弄腳腳法，又或取得精彩的入球。你會馬上反駁，足球場上，也只有守門員才... &quot;&gt;</pre>
+                    <p class="invisible">
+                        範例結束</p>
+                </div>
+                <h2>
+                    正確示範</h2>
+                <p>
+                    當alt屬性的文字陳述大於150個英文字元時，應使用londesc另外提供文字敘述。</p>
+                <div class="example">
+                    <p>
+                        <strong>正確範例：</strong></p>
+                    <pre>
+&lt;IMG src=&quot;goal_post.gif&quot; alt=&quot;足球守門員&quot;&gt;
+  &lt;A href=&quot;football.jsp&quot;&gt;足球賽事說明&lt;/A&gt;</pre>
+                    <p class="invisible">
+                        範例結束</p>
+                </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

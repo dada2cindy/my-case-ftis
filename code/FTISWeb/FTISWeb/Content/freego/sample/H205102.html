@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H205102 在網頁內容呈現設計時，避免以表格做多欄文字的設計</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H205102 在網頁內容呈現設計時，避免以表格做多欄文字的設計</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>網頁中簡短的引用語未以Q標籤來標記，也未以BLOCKQUOTE標籤來標記整段的引用文。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+           <pre>
+&lt;TABLE width=&quot;800&quot; height=&quot;75&quot; border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;
+&lt;TR&gt;
+&lt;TD width=&quot;200&quot; bgcolor=&quot;#eeeeee&quot;&gt;資料一&lt;/TD&gt;
+&lt;TD width=&quot;400&quot; bgcolor=&quot;#9999FF&quot;&gt;主要網頁內容資料二&lt;/TD&gt;
+&lt;TD width=&quot;200&quot; bgcolor=&quot;#999999&quot;&gt;資料三&lt;/TD&gt;
+&lt;/TR&gt;
+&lt;TR&gt;
+&lt;TD bgcolor=&quot;#eeeeee&quot;&gt;【內容】&lt;/TD&gt;
+&lt;TD bgcolor=&quot;#9999FF&quot;&gt;【內容】&lt;/TD&gt;
+&lt;TD bgcolor=&quot;#999999&quot;&gt;【內容】&lt;/TD&gt;
+&lt;/TR&gt;
+&lt;TR&gt;
+&lt;TD bgcolor=&quot;#eeeeee&quot;&gt;&lt;/TD&gt;
+&lt;TD bgcolor=&quot;#9999FF&quot;&gt;&lt;/TD&gt;
+&lt;TD bgcolor=&quot;#999999&quot;&gt;&lt;/TD&gt;
+&lt;/TR&gt;
+&lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>網頁設中應要盡量避免使用表格來作為網頁版面的編排，下面的正確例子是使用style sheets的方式來進行網頁中文件的編排。 </p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+&lt;HEAD&gt;
+&lt;STYLE type=&quot;text/css&quot;&gt;
+&lt;!--
+#col1{
+    top:10%;
+    left:0%;
+    width:20%;
+    background:#eeeeee;
+    position:absolute;
+    overflow: hidden;
+    height: 90%;
+    background-color: #eeeeee;
+    }
+#col2{
+    top:10%;
+    left:20%;
+    width:40%;
+    background:#eeeeee;
+    position:absolute;
+    overflow: hidden;
+    height: 90%;
+    background-color: #9999FF;
+    }
+#col3{
+    top:10%;
+    left:60%;
+    width:20%;
+    background:#D5CFB0;
+    position:absolute;
+    overflow: hidden;
+    height: 90%;
+    background-color: #999999;
+    }
+--&gt;
+&lt;/STYLE&gt;
+&lt;/HEAD&gt;
+
+  &lt;DIV id=&quot;col1&quot;&gt;
+  &lt;P align=&quot;center&quot;&gt;資料一 &lt;/P&gt;
+  &lt;P align=&quot;center&quot;&gt;【內容】&lt;/P&gt;
+  &lt;/DIV&gt;
+  &lt;DIV id=&quot;col2&quot;&gt;
+  &lt;P align=&quot;center&quot;&gt;主要網頁內容資料二 &lt;/P&gt;
+  &lt;P align=&quot;center&quot;&gt;【內容】&lt;/P&gt;
+  &lt;/DIV&gt;
+  &lt;DIV id=&quot;col3&quot;&gt;
+  &lt;P align=&quot;center&quot;&gt;資料三&lt;/P&gt;
+  &lt;P align=&quot;center&quot;&gt;【內容】&lt;/P&gt;
+  &lt;/DIV&gt;
+          </pre>
+            <p class="invisible">範例結束</p>                           </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

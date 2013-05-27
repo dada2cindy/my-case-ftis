@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H101002 對於object提供替代文字說明</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H101002 對於object提供替代文字說明</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+		  <div >
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;OBJECT&gt;
+   &lt;PARAM name=&quot;AnimationatStart&quot; value=&quot;true&quot;&gt;
+   &lt;PARAM name=&quot;AutoStart&quot; value=&quot;true&quot;&gt;
+   &lt;PARAM name=&quot;ShowControls&quot; value=&quot;true&quot;&gt;
+   &lt;PARAM name=&quot;ShowStatusBar&quot; value=&quot;false&quot;&gt;
+   &lt;PARAM name=&quot;FileName&quot; value=&quot;bubu01.asf&quot;&gt;
+   &lt;PARAM name=&quot;ClickToPlay&quot; value=&quot;false&quot;&gt;
+   &lt;EMBED src=&quot;bubu01.asf&quot;&gt;&lt;/EMBED&gt;
+  &lt;/OBJECT&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		 
+		  <h2>正確示範</h2>
+		  <p>在&lt;OBJECT&gt;&lt;/OBJECT&gt;標籤之間加入替代文字說明。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre> &lt;OBJECT&gt;
+  &lt;PARAM name=&quot;AnimationatStart&quot; value=&quot;true&quot;&gt;
+  &lt;PARAM name=&quot;AutoStart&quot; value=&quot;true&quot;&gt;
+  &lt;PARAM name=&quot;ShowControls&quot; value=&quot;true&quot;&gt;
+  &lt;PARAM name=&quot;ShowStatusBar&quot; value=&quot;false&quot;&gt;
+  &lt;PARAM name=&quot;FileName&quot; value=&quot;bubu01.asf&quot;&gt;
+  &lt;PARAM name=&quot;ClickToPlay&quot; value=&quot;false&quot;&gt;
+  &lt;EMBED src=&quot;bubu01.asf&quot;&gt;&lt;/EMBED&gt;
+   植物馬鞍藤的介紹影片：馬鞍藤是屬於旋花科，和牽牛花是親戚，為多年生的……
+ &lt;/OBJECT&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+                </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

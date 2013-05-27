@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H112000 需要定義每個頁框的名稱</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H112000 需要定義每個頁框的名稱</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+			  <p>下列是一個不良的設計，沒有為頁框設定名稱。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;FRAMESET cols=&quot;150,*&quot; frameborder=&quot;yes&quot; border=&quot;2&quot; framespacing=&quot;0&quot;&gt;
+  &lt;FRAME src=&quot;navigate.jsp&quot;&gt;
+  &lt;FRAME src=&quot;content.jsp&quot;&gt;
+  &lt;/FRAMESET&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>下列是正確範例，在FRAME的標籤中使用title屬性替頁框設定名稱。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;FRAMESET cols=&quot;150,*&quot; frameborder=&quot;yes&quot; border=&quot;2&quot; framespacing=&quot;0&quot;&gt;
+  &lt;FRAME src=&quot;navigate.jsp&quot; TITLE=&quot;網站功能導覽列&quot; LONGDESC=&quot;linkto/navigatepurpose.txt&quot;&gt;
+  &lt;FRAME src=&quot;content.jsp&quot; TITLE=&quot;主要內容頁框&quot; LONGDESC=&quot;linkto/contentpurpose.txt&quot;&gt;
+  &lt;/FRAMESET&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+                </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

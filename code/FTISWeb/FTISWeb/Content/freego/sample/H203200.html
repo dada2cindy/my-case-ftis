@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H203200 以實際存在的標記語言(如MathML)呈現網頁內容(如數學方程式)，避免使用圖形影像呈現</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H203200 以實際存在的標記語言(如MathML)呈現網頁內容(如數學方程式)，避免使用圖形影像呈現</span><br /><br />
+<fieldset>
+
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>下面設計是在網頁上使用圖形影像呈現數學方程式，然而這樣的設計對於使用非圖像式的瀏覽器而言，仍無法辯讀圖形影像所傳達的訊息。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;IMG src=&quot;math.gif&quot; alt=&quot;數學方程式&quot;&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>以MathML的標記語言呈現數學方程式。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre> 
+  &lt;P&gt;y=2x&lt;SUP&gt;2&lt;/SUP&gt;-3x+7&lt;/P&gt;
+          </pre>
+            <p class="invisible">範例結束</p>                </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

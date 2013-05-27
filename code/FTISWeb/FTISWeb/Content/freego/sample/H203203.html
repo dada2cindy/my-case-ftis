@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H203203 盡可能使用樣式表單控制網頁排版與內容的呈現</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H203203 盡可能使用樣式表單控制網頁排版與內容的呈現</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+			  <p>下面舉例用B標籤來呈現網頁中重要資訊的設計，這樣的做法只是視覺上會呈現粗體字，而並非解讀為重要的資訊。B標籤在HTML4.01 中被明確定義為&quot;粗體字&quot;標籤，而STRONG與EM才是強調標籤。</p>
+		  <div class="deprecated-example">
+          <p><strong>不良設計：</strong></p>
+          <pre>
+		  網頁文字段落中&lt;B&gt;重要訊息&lt;/B&gt;的呈現</pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  
+		  
+		  <h2>正確示範</h2>
+		  <p>使用STRONG標籤的正確示範，除了能顯現粗體的效果也能明確標示出資料的重要性。</p>
+		  <div class="example">
+          <p><strong>正確範例：</strong></p>
+          <pre>
+		  網頁文字段落中&lt;STRONG&gt;重要訊息&lt;/STRONG&gt;的呈現</pre>
+		   <p class="invisible">範例結束</p>            
+                           </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H211202 避免使用過時的HTML語法</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H211202 避免使用過時的HTML語法</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>使用過時的DIR標籤，來達到目錄清單的效果，HTML4.0已將此標籤自標準規範中移除 ，若要了解有哪些標籤語言已被移除，可至<a href="http://www.w3c.org">W3C網站</a>查詢。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;P&gt;手機品牌銷售排行榜&lt;/P&gt;
+  &lt;DIR&gt;
+  &lt;LI&gt;三星&lt;/LI&gt;
+  &lt;LI&gt;夏普&lt;/LI&gt;
+  &lt;LI&gt;諾基亞&lt;/LI&gt;
+  &lt;LI&gt;明碁&lt;/LI&gt;
+  &lt;/DIR&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		 
+		  <h2>正確示範</h2>
+		  <p>使用HTML4.0中仍提供的UL標籤來達到相同目錄清單的效果。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;P&gt;手機品牌銷售排行榜&lt;/P&gt;
+  &lt;UL&gt;
+  &lt;LI&gt;三星&lt;/LI&gt;
+  &lt;LI&gt;夏普&lt;/LI&gt;
+  &lt;LI&gt;諾基亞&lt;/LI&gt;
+  &lt;LI&gt;明碁&lt;/LI&gt;
+  &lt;/UL&gt;
+          </pre>
+            <p class="invisible">範例結束</p>                                   </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

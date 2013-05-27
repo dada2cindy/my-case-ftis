@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H101001 對於applet提供替代文字說明</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H101001 對於applet提供替代文字說明</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>         
+                  <p><strong>不良設計：</strong></p>
+                <p>
+                    對於附屬應用程式Applet沒有提供替代文字說明。</p>
+                <div class="deprecated-example">
+                    <p>
+                        <strong>不良設計：</strong></p>
+                    <pre>
+  &lt;APPLET code=&quot;RainbowText.class&quot; codebase=&quot;script/&quot; 
+  align=&quot;baseline&quot; width=&quot;440&quot; height=&quot;40&quot;&gt;
+    &lt;PARAM name=&quot;text&quot; value=&quot;無障礙網路空間服務網！&quot;&gt;
+  &lt;/APPLET&gt;
+  </pre>
+                    <p class="invisible">
+                        範例結束</p>
+                </div>
+                <h2>
+                    正確示範</h2>
+                <p>
+                    APPLET標籤中設定alt屬性提供替代文字說明。</p>
+                <div class="example">
+                    <p>
+                        <strong>正確範例：</strong></p>
+                    <pre>  &lt;APPLET code=&quot;RainbowText.class&quot; codebase=&quot;script/&quot;   
+  width=&quot;440&quot; height=&quot;40&quot; align=&quot;baseline&quot; alt=&quot;無障礙網路空間服務網！&quot;&gt;
+    &lt;PARAM name=&quot;text&quot; value=&quot;無障礙網路空間服務網！&quot;&gt;
+  &lt;/APPLET&gt;
+  </pre>
+                    <p class="invisible">
+                        範例結束</p>
+                </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>
