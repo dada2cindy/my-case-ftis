@@ -1710,8 +1710,8 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\NewsClass\AdminIndex.cshtml" />
-    <Content Include="Views\Shared\AdminLayoutKendoUI.cshtml" />
     <Content Include="Views\NewsClass\Save.cshtml" />
+    <Content Include="Views\NewsClass\AdminGridList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

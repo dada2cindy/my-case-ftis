@@ -108,11 +108,11 @@ namespace FTISWeb.Controllers.Admin
         /// </summary>
         [AuthorizationData(AppFunction = SiteEntities.News)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
-        public ActionResult RefreshGrid(string keyWord)
+        public ActionResult RefreshAdminGrid(string keyWord)
         {
             SetConditions(keyWord);
-            return View("AdminIndex");
-            //return View("AccountGridList");
+            //return View("AdminIndex");
+            return View("AdminGridList");
         }
 
         private void AppendSortingCondition(KendoGridRequest request)
