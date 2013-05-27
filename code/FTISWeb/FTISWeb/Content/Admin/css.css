@@ -140,6 +140,7 @@ a.btn2:active
 	padding-bottom: 3px;
 	height: 22px;
 	border: 1px solid #000000;
+	cursor: pointer;
 }
 .icon2
 {
