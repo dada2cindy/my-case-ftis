@@ -9,6 +9,9 @@
 @using FTIS.ACUtility;
 @using FTIS.Domain;
 
+@{
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+}
 @section TitleContent{}
 @section HeadContent{
     @Scripts.Render("~/bundles/CKEditor")
@@ -52,7 +55,7 @@
             </tr>
             <tr>
                 <td colspan="2" height="30px" align="center">
-                    @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.AboutUs, SiteOperations.Edit))
+                    @if (AllowEdit)
                     {
                         <input id="btnSend" class="btn" type="submit" value="送出" />
                         <input id="btnClear" class="btn" type="button" value="重填" />

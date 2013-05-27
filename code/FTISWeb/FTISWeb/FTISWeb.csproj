@@ -187,6 +187,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\UrlButtonHelper.cs" />
     <Compile Include="Models\Account\LogOnModel.cs" />
     <Compile Include="Models\Account\UnthorizedModel.cs" />
     <Compile Include="Models\FreeGO\FreeGOModel.cs" />
@@ -1648,6 +1649,7 @@
     <Content Include="Scripts\kendo\cultures\kendo.culture.zh.min.js" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.zu-ZA.min.js" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.zu.min.js" />
+    <Content Include="Scripts\kendo\cultures\kendo.culture.zh-TW.js" />
     <Content Include="Scripts\kendo\jquery.min.js" />
     <Content Include="Scripts\kendo\kendo.autocomplete.min.js" />
     <Content Include="Scripts\kendo\kendo.binder.min.js" />
@@ -1708,6 +1710,8 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\NewsClass\AdminIndex.cshtml" />
+    <Content Include="Views\Shared\AdminLayoutKendoUI.cshtml" />
+    <Content Include="Views\NewsClass\Save.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

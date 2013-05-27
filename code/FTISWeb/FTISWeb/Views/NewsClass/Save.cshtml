@@ -1,0 +1,85 @@
+﻿@model FTISWeb.Models.NewsClassModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    SessionHelper m_SessionHelper = new SessionHelper();
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+
+@{
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if(Model.ClassId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+}
+@section TitleContent{}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+            });
+        });
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "NewsClass", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    @Html.HiddenFor(m => m.ClassId)         
+    <fieldset class="fieldset">
+        <h1>新聞動態分類管理</h1>
+        <table style="width: 100%" class="FormTable">
+            <tr>
+                <td valign="top">名稱：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name" })
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">名稱(英)：
+                </td>
+                <td>
+                    @Html.TextBox("NameENG", Model.NameENG, new { id = "NameENG" })
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">排序：
+                </td>
+                <td>
+                    @Html.TextBox("SortId", Model.SortId, new { id = "SortId" })
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" height="30px" align="center">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input id="btnCreate" class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input id="btnEdit" class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}
+<br />

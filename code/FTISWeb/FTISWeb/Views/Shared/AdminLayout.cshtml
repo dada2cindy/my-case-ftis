@@ -3,13 +3,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
     <title>@RenderSection("TitleContent", false)</title>
     @Styles.Render("~/Content/Admin/AdminCSS")
-    @Styles.Render("~/Content/Admin/KendoCSS")
-    @Scripts.Render("~/bundles/JQuery")
-    @Scripts.Render("~/bundles/SiteCommon") 
-    @Scripts.Render("~/bundles/kendoUI")    
+    @Scripts.Render("~/bundles/JQuery", "~/bundles/SiteCommon")
+    @Styles.Render("~/Content/kendo/KendoCSS")
+    @Scripts.Render("~/bundles/KendoUI")
+    <style>
+        body { font-size: 8pt; }
+        #dvGrid { width: 100%; }
+        span.hi-lite { color: red; }
+        #dvGrid th.k-header { text-align: center; }
+    </style>
+    <script>
+        kendo.culture("zh-TW");
+    </script>
     @RenderSection("HeadContent", false)
 </head>
 <body>

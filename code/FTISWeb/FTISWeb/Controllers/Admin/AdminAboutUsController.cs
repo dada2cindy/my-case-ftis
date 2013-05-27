@@ -21,6 +21,7 @@ namespace FTISWeb.Controllers
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.AboutUs, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.AboutUs)]
         public ActionResult Edit()
         {
             return View(new NodeModel(m_NodeId, false));

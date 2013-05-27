@@ -54,7 +54,8 @@ namespace FTISWeb
                 "~/Content/Admin/jquery.treeview.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/KendoUI").Include(
-                "~/Scripts/kendo/kendo.web.js"));
+                "~/Scripts/kendo/kendo.web.js",
+                "~/Scripts/kendo/cultures/kendo.culture.zh-TW.js"));
 
             bundles.Add(new StyleBundle("~/Content/kendo/KendoCSS").Include(
                 "~/Content/kendo/kendo.common.css",

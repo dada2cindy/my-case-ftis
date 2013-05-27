@@ -64,6 +64,7 @@ namespace FTISWeb.Models
         /// </summary>
         [DisplayName("排序")]
         [Required]
+        [Range(int.MinValue, int.MinValue, ErrorMessage = "必須為數字")]
         public int SortId { get; set; }
 
         /// <summary>

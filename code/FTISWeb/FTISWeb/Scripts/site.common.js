@@ -43,3 +43,24 @@ function SetCKEditorLanguage(lang) {
 
 })(jQuery);
 /* CKEditor - End */
+
+/***************************************************************************
+For Checkbox
+***************************************************************************/
+function SelectAll(tag) {
+    $(tag + " input:checkbox").each(function () {
+        $(this).prop("checked", true);
+    });
+}
+
+function ClearSelect(tag) {
+    $(tag + " input:checkbox").each(function () {
+        $(this).prop("checked", false);
+    });
+}
+
+function ClearUI(tag) {
+    $(tag + " input:text").each(function () {
+        $(this).val('');
+    });
+}

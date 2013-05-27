@@ -3,6 +3,162 @@
     SessionHelper m_SessionHelper = new SessionHelper();
 }
 @using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@using System.Web.Optimization
+
+@{
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    string m_Cdts = (string)ViewData["Conditions"];
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+
+    @*權限*@
+    bool AllowRead = (bool)ViewData["AllowRead"];
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];
+ }
 
 @section TitleContent{}
-@section HeadContent{}
+@section HeadContent{        
+    <script>
+        $(function () {
+            //建立資料來源物件
+            var dataSrc = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        //以下其實就是$.ajax的參數
+                        type: "POST",
+                        url: "/Admin/NewsClass/AjaxBinding",
+                        dataType: "json",
+                        data: {
+                            //額外傳至後方的參數
+                            keyWord: function () {
+                                return $("#KeyWord").val();
+                            }
+                        }
+                    }
+                },
+                schema: {
+                    //取出資料陣列
+                    data: function (d) { return d.data; },
+                    //取出資料總筆數(計算頁數用)
+                    total: function (d) { return d.total; }
+                },
+                pageSize: Number('@AppSettings.AdminPageSize'),
+                serverPaging: true,
+                serverSorting: true
+            });
+            //JSON日期轉換
+            //var dateRegExp = /^\/Date\((.*?)\)\/$/;
+            //window.toDate = function (value) {
+            //    var date = dateRegExp.exec(value);
+            //    return new Date(parseInt(date[1]));
+            //}
+            $("#dvGrid").kendoGrid({
+                dataSource: dataSrc,
+                columns: [
+                    {
+                        fiels: "NewsClassId",
+                        headerTemplate: "<input type='checkbox' onchange='ToggleAll(this);' id='ToggleCheckbox'/>",
+                        template: "<input type='checkbox' value='#= NewsClassId#' name='IsDelete' id='IsDelete' class='IsDelete' classId='#= NewsClassId#' />",
+                        sortable: false,
+                        attributes: { "style": "text-align: center;" },
+                        width: 50
+                    },
+                    {
+                        field: "Name",
+                        title: "分類名稱",
+                        template: '#= "<span class=\\"u-name\\">" + Name + "</span>" #',
+                        sortable: true
+                    },
+                    {
+                        field: "NameENG",
+                        title: "分類名稱(英)",
+                        template: '#= "<span class=\\"u-name\\">" + NameENG + "</span>" #',
+                        sortable: true
+                    },
+                    {
+                        field: "SortId",
+                        title: "排序",
+                        sortable: true,
+                        attributes: { "style": "text-align: center;" }
+                    },
+                    {
+                        field: "GetStr_Status",
+                        title: "狀態",
+                        sortable: true,
+                        attributes: { "style": "text-align: center;" }
+                    },
+                    {
+                        title: "操作",
+                        template: "<a href='@Url.Action("Edit", "NewsClass")?id=#= NewsClassId #&cdts=@((string)ViewData["Conditions"])'>修改</a>",
+                        attributes: { "style": "text-align: center;" }
+                    }
+                ],
+                editable: "popup",
+                sortable: true,
+                pageable: {
+                    refresh: true,
+                    pageSizes: true
+                },
+                scrollable: false,
+                dataBound: function () {
+                    //AJAX資料Bind完成後觸發
+                    var kw = $("#KeyWord").val();
+                    //若有設關鍵字，做Highlight處理
+                    if (kw.length > 0) {
+                        var re = new RegExp(kw, "g");
+                        $(".u-name").each(function () {
+                            var $td = $(this);
+                            $td.html($td.text()
+                           .replace(re, "<span class='hi-lite'>$&</span>"));
+                        });
+                    }
+                }
+            });
+            //按下查詢鈕
+            $("#btnQuery").click(function () {
+                //要求資料來源重新讀取(並指定切至第一頁)
+                dataSrc.read({ page: 1, skip: 0 });
+                //Grid重新顯示資料
+                $("#dvGrid").data("kendoGrid").refresh();
+            });
+        });
+
+        //全選，全不選
+        function ToggleAll(sender) {
+            if ($(sender).prop('checked')) {
+                SelectAll('#dvGrid');
+                return;
+            } else {
+                ClearSelect('#dvGrid');
+            }
+        }
+    </script>
+}
+
+<fieldset class="fieldset">
+    <h1>新聞動態分類管理</h1>
+    <table style="width: 100%" class="FormTable">
+        <tr>
+            <td style="width:100px; text-align:right;">關鍵字：
+            </td>
+            <td >
+                @Html.TextBox("KeyWord", m_Conditions["KeyWord"])
+                <input type="button" class="btn" value="查詢" id="btnQuery" />
+            </td>
+        </tr>        
+    </table>
+    <br />
+    <table>
+        <tr>            
+            <td style="text-align:left;">
+                @Html.Raw(Url.ButtonLink("新增", "Create", "NewsClass", AllowCreate, new { cdts = (string)ViewData["Conditions"] }, new { @class = "btn" }))
+
+                <input type="button" class="btn" value="刪除" id="btnDeleteAll" />
+            </td>
+        </tr>  
+    </table>
+    <div id="dvGrid"></div>
+</fieldset>
