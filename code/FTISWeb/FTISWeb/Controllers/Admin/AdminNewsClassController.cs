@@ -112,7 +112,7 @@ namespace FTISWeb.Controllers.Admin
                     IDictionary<string, string> conditions = new Dictionary<string, string>();
                     conditions.Add("NewsClassId", id.ToString());
                     int subsCount = m_FTISService.GetNewsCount(conditions);
-                    if (subsCount != 0)
+                    if (subsCount == 0)
                     {
                         m_FTISService.DeleteNewsClass(entity);
                     }

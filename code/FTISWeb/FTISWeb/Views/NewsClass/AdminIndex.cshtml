@@ -43,49 +43,7 @@
             $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "NewsClass")', {
                 keyWord: $("#KeyWord").val()
             });
-        }              
-
-        //刪除多筆
-        function DeleteItems(content) {
-            var checkboxChecked = $("#dvGrid input[name='IsDelete']:checked");
-            var inputCheckboxLength = checkboxChecked.length;
-            if (inputCheckboxLength == 0) {
-                alert('請選擇要刪除的項目');
-                return false;
-            }
-
-            if (OnDelete_Before(content)) {                
-                var allId = '';
-                for (var i = 0; i < inputCheckboxLength; i++) {
-                    allId += checkboxChecked[i].value + ',';
-                }
-                OnDeleteItems(allId);
-            }
-        }
-
-        //刪除一筆
-        function DeleteItem(id, content) {
-            if (OnDelete_Before(content)) {
-                OnDeleteItem(id);
-            }
-        }        
-
-        //刪除前的動作
-        function OnDelete_Before(content) {            
-            $('.deleteMsgFail').html('');
-            return (confirm('確定刪除?' + content))
-        }
-
-        //刪除完成的動作
-        function OnDelete_Complete() {                        
-            if ($('.deleteMsgFail').html().length > 0) {
-                alert('刪除完成，尚有失敗項目，請查看下方訊息。');                                
-            }
-            else {
-                alert('刪除完成');
-                Query();
-            }
-        }
+        }                      
 
         //刪除1筆動作(留在頁面寫)
         function OnDeleteItem(id) {            
