@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using FTIS;
 using FTIS.Domain;
+using FTIS.Domain.Dto;
 using FTIS.Domain.Impl;
 using FTIS.Service;
 using FTISWeb.Models;
@@ -45,7 +47,7 @@ namespace FTISWeb.Controllers.Admin
         [HttpPost]
         public ActionResult Edit(NewsClassModel model, string cdts)
         {
-            GetConditions(cdts);            
+            GetConditions(cdts);
             model.Update();
             return View("AdminIndex");
         }
@@ -56,6 +58,79 @@ namespace FTISWeb.Controllers.Admin
         {
             GetConditions(cdts);
             return View("Save", new NewsClassModel());
+        }
+
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Delete)]
+        [AuthorizationData(AppFunction = SiteEntities.News)]
+        public ActionResult Delete(int id)
+        {
+            AjaxResult result = new AjaxResult();
+
+            try
+            {
+                NewsClass entity = m_FTISService.GetNewsClassById(id);
+
+                //檢查底下的News數量
+                IDictionary<string, string> conditions = new Dictionary<string, string>();
+                conditions.Add("NewsClassId", id.ToString());
+                int subsCount = m_FTISService.GetNewsCount(conditions);
+                if (subsCount > 0)
+                {
+                    return this.Json(new AjaxResult(AjaxResultStatus.Fail, string.Format("{0}底下尚有新聞，不可刪除。", entity.Name)));
+                }
+
+                m_FTISService.DeleteNewsClass(entity);
+
+                result.ErrorCode = AjaxResultStatus.Success;
+                result.Message = string.Format("{0}刪除成功", entity.Name);
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = AjaxResultStatus.Exception;
+                result.Message = ex.Message;
+            }
+
+            return this.Json(result);
+        }
+
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Delete)]
+        [AuthorizationData(AppFunction = SiteEntities.News)]
+        public ActionResult MultiDelete(string allId)
+        {
+            AjaxResult result = new AjaxResult(AjaxResultStatus.Success, string.Empty);
+            StringBuilder sbMsg = new StringBuilder();
+
+            string[] ids = allId.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string id in ids)
+            {
+                try
+                {
+                    NewsClass entity = m_FTISService.GetNewsClassById(Convert.ToInt32(id));
+
+                    //檢查底下的News數量
+                    IDictionary<string, string> conditions = new Dictionary<string, string>();
+                    conditions.Add("NewsClassId", id.ToString());
+                    int subsCount = m_FTISService.GetNewsCount(conditions);
+                    if (subsCount != 0)
+                    {
+                        m_FTISService.DeleteNewsClass(entity);
+                    }
+                    else
+                    {
+                        result.ErrorCode = AjaxResultStatus.Fail;
+                        sbMsg.AppendFormat("{0}，底下尚有新聞，不可刪除。<br/>", entity.Name);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    result.ErrorCode = AjaxResultStatus.Fail;
+                    sbMsg.AppendFormat(ex.Message + "<br/>");
+                }
+            }
+
+            result.Message = sbMsg.ToString();
+            return this.Json(result);
         }
 
         [AuthorizationData(AppFunction = SiteEntities.News)]
@@ -82,10 +157,10 @@ namespace FTISWeb.Controllers.Admin
 
         private void SetConditions(string keyWord)
         {
-            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord });            
+            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord });
             m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>(cdts);
 
-            ViewData["Conditions"] = cdts;            
+            ViewData["Conditions"] = cdts;
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]

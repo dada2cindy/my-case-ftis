@@ -10,6 +10,8 @@
 @using FTIS.Domain;
 
 @{
+    string m_Cdts = (string)ViewData["Conditions"];
+    
     @*權限*@
     bool AllowCreate = (bool)ViewData["AllowCreate"];
     bool AllowEdit = (bool)ViewData["AllowEdit"];
@@ -77,6 +79,7 @@
                         <input id="btnEdit" class="btn" type="submit" value="修改" />                        
                     }
                     <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "NewsClass", new { cdts = m_Cdts }, new { @class = "btn" }))
                 </td>
             </tr>
         </table>

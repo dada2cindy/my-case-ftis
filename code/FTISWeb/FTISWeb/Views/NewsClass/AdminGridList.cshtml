@@ -13,7 +13,7 @@
     bool AllowRead = (bool)ViewData["AllowRead"];
     bool AllowCreate = (bool)ViewData["AllowCreate"];
     bool AllowEdit = (bool)ViewData["AllowEdit"];
-    bool AllowDelete = (bool)ViewData["AllowDelete"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];    
  }
 <script>
         $(function () {
@@ -23,7 +23,7 @@
                     read: {
                         //以下其實就是$.ajax的參數
                         type: "POST",
-                        url: "/Admin/NewsClass/AjaxBinding",
+                        url: "/NewsClass/AjaxBinding",
                         dataType: "json",
                         data: {
                             //額外傳至後方的參數
@@ -55,7 +55,7 @@
                     {
                         fiels: "NewsClassId",
                         headerTemplate: "<input type='checkbox' onchange='ToggleAll(this);' id='ToggleCheckbox'/>",
-                        template: "<input type='checkbox' value='#= NewsClassId#' name='IsDelete' id='IsDelete' class='IsDelete' classId='#= NewsClassId#' />",
+                        template: "<input type='checkbox' value='#= NewsClassId#' name='IsDelete' class='IsDelete' classId='#= NewsClassId#' />",
                         sortable: false,
                         attributes: { "style": "text-align: center;" },
                         width: 50
@@ -85,16 +85,30 @@
                         attributes: { "style": "text-align: center;" }
                     },
                     {
-                        title: "操作",
-                        template: "<a href='@Url.Action("Edit", "NewsClass")?id=#= NewsClassId #&cdts=@m_Cdts'>修改</a>",
-                        attributes: { "style": "text-align: center;" }
+                        command: [
+                            {
+                                text: "編輯",
+                                click: EditGridItem
+                            },
+                            {
+                                text: "刪除",
+                                click: DeleteGridItem
+                            }                            
+                        ],
+                        width: 160,
+                        title: "操作"
                     }
+                    @*{
+                        title: "操作",
+                        template: "<a href='@Url.Action("Edit", "NewsClass")?id=#= NewsClassId #&cdts=@m_Cdts'>修改</a> ",
+                        attributes: { "style": "text-align: center;" }
+                    }*@
                 ],
                 editable: "popup",
                 sortable: true,
                 pageable: {
-                    refresh: true,
-                    pageSizes: true
+                    refresh: true
+                    //, pageSizes: true
                 },
                 scrollable: false,
                 dataBound: function () {
@@ -122,4 +136,17 @@
                 ClearSelect('#dvGrid');
             }
         }
+
+        function DeleteGridItem(e) {
+            e.preventDefault();
+            var dataItem = $('#dvGrid').data().kendoGrid.dataItem($(e.currentTarget).closest("tr"));            
+            DeleteItem(dataItem.NewsClassId, dataItem.Name);
+        }
+
+        function EditGridItem(e) {
+            e.preventDefault();
+            var dataItem = $('#dvGrid').data().kendoGrid.dataItem($(e.currentTarget).closest("tr"));
+            location.href = '@Url.Action("Edit", "NewsClass", new { cdts = m_Cdts })&id=' + dataItem.NewsClassId;
+        }
+
     </script>

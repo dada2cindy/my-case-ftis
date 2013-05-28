@@ -190,6 +190,7 @@
     <Compile Include="Helper\UrlButtonHelper.cs" />
     <Compile Include="Models\Account\LogOnModel.cs" />
     <Compile Include="Models\Account\UnthorizedModel.cs" />
+    <Compile Include="Models\Dto\AjaxResult.cs" />
     <Compile Include="Models\FreeGO\FreeGOModel.cs" />
     <Compile Include="Models\FTIS\AbstractClassModel.cs" />
     <Compile Include="Models\FTIS\NewsClassModel.cs" />
