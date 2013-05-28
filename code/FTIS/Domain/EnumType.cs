@@ -106,4 +106,12 @@ namespace FTIS.Domain
         Edit = 4,
         Delete = 8
     }
+
+    public enum AjaxResultStatus
+    {
+        Success = 0,
+        Exception = 1,
+        Fail = 2,
+        NotFound = 4        
+    }
 }

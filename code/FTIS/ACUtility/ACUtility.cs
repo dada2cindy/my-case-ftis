@@ -50,6 +50,16 @@ namespace FTIS.ACUtility
         /// </summary>
         /// <param name="appFunctionId"></param>
         /// <returns></returns>
+        public static bool CheckAuthorization(MasterMember loginUser, SiteEntities appFunction, SiteOperations operation)
+        {
+            return CheckAuthorization(loginUser, (int)appFunction, (int)operation);
+        }
+
+        /// <summary>
+        /// 根據目前登入者檢查是否有權限存取功能
+        /// </summary>
+        /// <param name="appFunctionId"></param>
+        /// <returns></returns>
         public static bool CheckAuthorization(MasterMember loginUser, SiteEntities appFunction)
         {
             int appFunctionId = (int)appFunction;

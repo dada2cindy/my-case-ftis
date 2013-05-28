@@ -93,10 +93,11 @@ namespace FTIS.Persistence
 
         private void AppendNewsClassName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
-                whereScript.Append(" and n.Name like ? ");
-                param.Add("%" + conditions["Name"] + "%");
+                whereScript.Append(" and (n.Name like ? or n.NameENG like ? ) ");
+                param.Add("%" + conditions["KeyWord"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 
