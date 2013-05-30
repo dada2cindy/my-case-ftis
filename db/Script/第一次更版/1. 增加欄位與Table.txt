@@ -1,17 +1,17 @@
-/****** 新聞動態議題 ******/
+/****** 新聞動態種類 ******/
 CREATE TABLE [tblNews_Type](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](200) NULL,
 	[SortID] [int] NULL,
 	[Status] [char](1) NULL,
 	[Name_ENG] [nvarchar](200) NULL,
-	[Content] [ntext] NULL,
-	[Content_ENG] [ntext] NULL,
+	[Content] [nvarchar](200) NULL,
+	[Content_ENG] [nvarchar](200) NULL
  CONSTRAINT [PK_tblNews_Type] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 
@@ -53,7 +53,7 @@ ALTER TABLE tblNews ADD AUrl_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD TypeID int null
 GO
 
-/****** 新聞動態種類 ******/
+/****** 新聞動態議題 ******/
 ALTER TABLE tblNews_Class ADD Name_ENG nvarchar(200) null
 GO
 
