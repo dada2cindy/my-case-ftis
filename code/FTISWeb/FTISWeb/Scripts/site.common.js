@@ -109,7 +109,7 @@ function DeleteItem(id, content) {
 //刪除前的動作
 function OnDelete_Before(content) {
     $('.deleteMsgFail').html('');
-    return (confirm('確定刪除?' + content))
+    return (confirm('確定刪除? ' + content))
 }
 
 //刪除完成的動作

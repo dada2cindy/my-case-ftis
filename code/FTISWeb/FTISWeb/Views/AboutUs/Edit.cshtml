@@ -21,14 +21,16 @@
                 CKEDITOR.instances.Content.setData('');
                 CKEDITOR.instances.ContentENG.setData('');
             });
-
+            
             $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
-            $('#ContentENG').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+            if ('@Model.NodeId' == '5') {
+                $('#ContentENG').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+            }
         });
     </script>
 }
 
-@using (Html.BeginForm("Edit", "AboutUs", FormMethod.Post, new { id = "frmEdit" }))
+@using (Html.BeginForm("Edit", "AboutUs", new { id = Model.NodeId }, FormMethod.Post, new { id = "frmEdit" }))
 {
     @Html.HiddenFor(m => m.NodeId) 
     @Html.HiddenFor(m => m.ParentNodeId)
@@ -46,6 +48,8 @@
                     @Html.TextArea("Content", Model.Content, new { id = "Content" })
                 </td>
             </tr>
+            @if (Model.NodeId == 5)
+            {
             <tr>
                 <td valign="top">內容(英)：
                 </td>
@@ -53,6 +57,7 @@
                     @Html.TextArea("ContentENG", Model.ContentENG, new { id = "ContentENG" })
                 </td>
             </tr>
+            }
             <tr>
                 <td colspan="2" height="30px" align="center">
                     @if (AllowEdit)
@@ -75,7 +80,11 @@
             Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel() { Title = "內容", HtmlValue = Model.Content });
             break;
         case "ContentENG":
-            Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel() { Title = "內容(英)", HtmlValue = Model.ContentENG });
+            ////Introduction 才有英文
+            if (Model.NodeId == 5)
+            {
+                Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel() { Title = "內容(英)", HtmlValue = Model.ContentENG });
+            }
             break;
     }
 }

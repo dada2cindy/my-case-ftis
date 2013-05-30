@@ -51,16 +51,18 @@
                             {
                                 <li class="closed nodeIcon"><span class="menuParent">關於我們管理</span>
                                     <ul>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "AboutUs")" target="mainfrm">服務窗口管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "AboutUs", new { id = 5 })" target="mainfrm">計畫介紹Introduction</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "AboutUs", new { id = 6 })" target="mainfrm">服務窗口</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "AboutUs", new { id = 7 })" target="mainfrm">經驗分享</a></span></li>
                                     </ul>
                                 </li>
                             }
                             @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.News))
                             {
                                 <li class="closed nodeIcon"><span class="menuParent">新聞動態管理</span>
-                                    <ul>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "NewsClass")" target="mainfrm">新聞動態種類管理</a></span></li>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "NewsType")" target="mainfrm">新聞動態議題管理</a></span></li>
+                                    <ul>                                        
+                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "NewsType")" target="mainfrm">新聞動態種類管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "NewsClass")" target="mainfrm">新聞動態議題管理</a></span></li>
                                         <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "News")" target="mainfrm">新聞動態管理</a></span></li>
                                     </ul>
                                 </li>

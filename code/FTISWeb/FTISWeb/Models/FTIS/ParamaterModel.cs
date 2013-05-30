@@ -19,10 +19,10 @@ namespace FTISWeb.Models
         public ParamaterModel(string actionName, string controllerName, string conditions)
             : this(actionName, controllerName)
         {
-            this.Conditions=conditions;
+            this.Conditions = conditions;
 
             SetColumnsParamater();
-        }        
+        }
         #endregion
 
         #region Property
@@ -37,6 +37,7 @@ namespace FTISWeb.Models
         public string EntityName { get; set; }
 
         private string[] m_VisibleColumns = new string[] { };
+
         #endregion
 
         private void SetColumnsParamater()
@@ -47,7 +48,10 @@ namespace FTISWeb.Models
                     m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "NameENG" };
                     break;
                 case "NewsType":
-                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "NameENG" };
+                    m_VisibleColumns = new string[] { "Name", "Content", "SortId", "GetStr_Status" };
+                    break;
+                case "HomeNews":
+                    m_VisibleColumns = new string[] { "Name", "AUrl", "SortId", "GetStr_Status" };
                     break;
             }
         }
@@ -61,6 +65,18 @@ namespace FTISWeb.Models
             else
             {
                 return "false";
+            }
+        }
+
+        public string GetColumnName(string columnName)
+        {
+            if (!m_VisibleColumns.Contains(columnName))
+            {
+                return m_VisibleColumns.ElementAtOrDefault(0);
+            }
+            else
+            {
+                return columnName;
             }
         }
     }

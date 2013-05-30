@@ -16,7 +16,7 @@
                     read: {
                         //以下其實就是$.ajax的參數
                         type: "POST",
-                        url: "/NewsType/AjaxBinding",
+                        url: "/@Model.ControllerName/AjaxBinding",
                         dataType: "json",
                         data: {
                             //額外傳至後方的參數
@@ -54,32 +54,48 @@
                         width: 50
                     },
                     {
-                        field: "Name",
-                        title: "分類名稱",
-                        template: '#= "<span class=\\"u-name\\">" + Name + "</span>" #',
+                        field: "@Model.GetColumnName("Name")",
+                        title: "名稱",
+                        template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("Name") + "</span>" #',
                         hidden: $.parseJSON("@(Model.Hidden("Name"))"),
                         sortable: true
-                    },
+                    },                    
                     {
-                        field: "NameENG",
-                        title: "分類名稱(英)",
-                        template: '#= "<span class=\\"u-name\\">" + NameENG + "</span>" #',
+                        field: "@Model.GetColumnName("NameENG")",
+                        title: "名稱(英)",
+                        template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("NameENG") + "</span>" #',
                         hidden: $.parseJSON("@(Model.Hidden("NameENG"))"),
                         sortable: true
                     },
                     {
-                        field: "SortId",
+                        field: "@Model.GetColumnName("Content")",
+                        title: "內容",
+                        template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("Content") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("Content"))"),
+                        sortable: true
+                    },
+                    {
+                        field: "@Model.GetColumnName("AUrl")",
+                        title: "連結網址",
+                        template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("AUrl") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("AUrl"))"),
+                        sortable: false
+                    },
+                    {
+                        field: "@Model.GetColumnName("SortId")",
                         title: "排序",
                         sortable: true,
                         hidden: $.parseJSON("@(Model.Hidden("SortId"))"),
-                        attributes: { "style": "text-align: center;" }
+                        attributes: { "style": "text-align: center;" },
+                        width: 60
                     },
                     {
-                        field: "GetStr_Status",
+                        field: "@Model.GetColumnName("GetStr_Status")",
                         title: "狀態",
                         sortable: true,
                         hidden: $.parseJSON("@(Model.Hidden("GetStr_Status"))"),
-                        attributes: { "style": "text-align: center;" }                        
+                        attributes: { "style": "text-align: center;" },
+                        width: 60
                     },
                     {
                         title: "操作",

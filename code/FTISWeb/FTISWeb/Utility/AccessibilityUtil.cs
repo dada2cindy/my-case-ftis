@@ -21,6 +21,11 @@ namespace FTISWeb.Utility
         /// <returns></returns>
         public static bool CheckFreeGO(string htmlValue)
         {
+            if (string.IsNullOrEmpty(htmlValue))
+            {
+                return true;
+            }
+
             Accessibility accessibility = new Accessibility(htmlValue, Accessibility.ContnetTypeEnum.cont, Accessibility.ContentEncodingEnum.UTF8, m_Type);
             return accessibility.isPass;
         }
@@ -31,7 +36,7 @@ namespace FTISWeb.Utility
 
             Accessibility accessibility = new Accessibility(htmlValue, Accessibility.ContnetTypeEnum.cont, Accessibility.ContentEncodingEnum.UTF8, m_Type);
 
-            if (accessibility.isPass)
+            if (string.IsNullOrEmpty(htmlValue) || accessibility.isPass)
             {
                 sbMsg.Append("您已通過{自動}檢測的等級 : " + accessibility.CheckDegree + "<br />");
                 return sbMsg.ToString();

@@ -17,7 +17,7 @@
     bool AllowEdit = (bool)ViewData["AllowEdit"];
 
     SiteOperations Action = SiteOperations.Create;
-    if(Model.ClassId != 0)
+    if(Model.EntityId != 0)
     {
         Action = SiteOperations.Edit;
     }
@@ -35,12 +35,12 @@
 
 @using (Html.BeginForm(Action.ToString(), "NewsClass", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
 {
-    @Html.HiddenFor(m => m.ClassId)         
+    @Html.HiddenFor(m => m.EntityId)         
     <fieldset class="fieldset">
-        <h1>新聞動態種類管理</h1>
+        <h1>新聞動態議題管理</h1>
         <table style="width: 100%" class="FormTable">
             <tr>
-                <td style="text-align:right; width:45%;">名稱：
+                <td style="text-align:right; width:45%;">*名稱：
                 </td>
                 <td>
                     @Html.TextBox("Name", Model.Name, new { id = "Name" })
@@ -54,14 +54,14 @@
                 </td>
             </tr>
             <tr>
-                <td style="text-align:right;">排序：
+                <td style="text-align:right;">*排序：
                 </td>
                 <td>
-                    @Html.TextBox("SortId", Model.SortId, new { id = "SortId" })
+                    @Html.TextBox("SortId", Model.SortId, new { id = "SortId", @style = "width: 50px;" })排列順序︰越小越前面。
                 </td>
             </tr>
             <tr>
-                <td style="text-align:right;">狀態：
+                <td style="text-align:right;">*狀態：
                 </td>
                 <td>
                     <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
@@ -86,5 +86,6 @@
             </tr>
         </table>
     </fieldset>
+@Html.ValidationSummary()
 }
 <br />

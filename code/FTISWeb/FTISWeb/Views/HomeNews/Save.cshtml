@@ -1,4 +1,4 @@
-﻿@model FTISWeb.Models.NewsTypeModel
+﻿@model FTISWeb.Models.HomeNewsModel
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
     SessionHelper m_SessionHelper = new SessionHelper();
@@ -33,11 +33,11 @@
     </script>
 }
 
-@using (Html.BeginForm(Action.ToString(), "NewsType", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+@using (Html.BeginForm(Action.ToString(), "HomeNews", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
 {
     @Html.HiddenFor(m => m.EntityId)         
     <fieldset class="fieldset">
-        <h1>新聞動態種類管理</h1>
+        <h1>活動訊息管理</h1>
         <table style="width: 100%" class="FormTable">
             <tr>
                 <td style="text-align:right; width:40%;">*名稱：
@@ -47,24 +47,10 @@
                 </td>
             </tr>
             <tr>
-                <td style="text-align:right;">名稱(英)：
+                <td style="text-align:right;">*連結網址(英)：
                 </td>
                 <td>
-                    @Html.TextBox("NameENG", Model.NameENG, new { id = "NameENG" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">*內容：
-                </td>
-                <td>
-                    @Html.TextBox("Content", Model.Content, new { id = "Content", @style = "width: 300px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">內容(英)：
-                </td>
-                <td>
-                    @Html.TextBox("ContentENG", Model.ContentENG, new { id = "ContentENG", @style = "width: 300px;" })
+                    @Html.TextBox("AUrl", Model.AUrl, new { id = "AUrl", @style = "width: 400px;" })
                 </td>
             </tr>
             <tr>
@@ -95,7 +81,7 @@
                         <input id="btnEdit" class="btn" type="submit" value="修改" />                        
                     }
                     <input id="btnClear" class="btn" type="button" value="重填" />
-                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "NewsType", new { cdts = m_Cdts }, new { @class = "btn" }))
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "HomeNews", new { cdts = m_Cdts }, new { @class = "btn" }))
                 </td>
             </tr>
         </table>

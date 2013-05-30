@@ -182,6 +182,7 @@
     <Compile Include="Controllers\Admin\AdminLayoutController.cs" />
     <Compile Include="Controllers\Admin\AdminNewsClassController.cs" />
     <Compile Include="Controllers\Admin\AdminNewsTypeController.cs" />
+    <Compile Include="Controllers\Admin\AdminHomeNewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
     <Compile Include="Controllers\FreeGOController.cs" />
@@ -197,6 +198,8 @@
     <Compile Include="Models\FTIS\NewsClassModel.cs" />
     <Compile Include="Models\FTIS\NewsTypeModel.cs" />
     <Compile Include="Models\FTIS\ParamaterModel.cs" />
+    <Compile Include="Models\AbstractEntityModel.cs" />
+    <Compile Include="Models\FTIS\HomeNewsModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
     <Compile Include="Models\Post\NodeModel.cs" />
@@ -1808,6 +1811,8 @@
     <Content Include="Views\Shared\AdminGridList.cshtml" />
     <Content Include="Views\NewsType\AdminIndex.cshtml" />
     <Content Include="Views\NewsType\Save.cshtml" />
+    <Content Include="Views\HomeNews\AdminIndex.cshtml" />
+    <Content Include="Views\HomeNews\Save.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

@@ -14,6 +14,9 @@ using System.ComponentModel;
 
 namespace FTISWeb.Models
 {
+    /// <summary>
+    /// 新聞動態議題
+    /// </summary>
     public class NewsClassModel : AbstractClassModel
     {
         public NewsClassModel()
@@ -24,13 +27,6 @@ namespace FTISWeb.Models
         {
             LoadEntity(id);
         }
-
-        /// <summary>
-        /// 英文名稱
-        /// </summary>
-        //[DisplayName("名稱(英)")]
-        [Required]
-        public string NameENG { get; set; }
 
         protected void LoadEntity(int id)
         {
@@ -43,7 +39,7 @@ namespace FTISWeb.Models
         {
             if (entity != null)
             {
-                ClassId = entity.NewsClassId;
+                EntityId = entity.NewsClassId;
                 Name = entity.Name;
                 NameENG = entity.NameENG;
                 SortId = entity.SortId;
@@ -59,7 +55,7 @@ namespace FTISWeb.Models
 
         public void Update()
         {
-            NewsClass entity = m_FTISService.GetNewsClassById(ClassId);
+            NewsClass entity = m_FTISService.GetNewsClassById(EntityId);
             Save(entity);
         }
 

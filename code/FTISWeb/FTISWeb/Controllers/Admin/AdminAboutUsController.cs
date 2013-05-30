@@ -13,18 +13,11 @@ namespace FTISWeb.Controllers
 {
     public partial class AboutUsController : Controller
     {
-        private readonly int m_NodeId = 6;
-
-        public ActionResult Index()
-        {
-            return Edit();
-        }
-
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.AboutUs, Operation = SiteOperations.Edit)]
         [AuthorizationData(AppFunction = SiteEntities.AboutUs)]
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
-            return View(new NodeModel(m_NodeId, false));
+            return View(new NodeModel(id, false));
         }
 
         [ValidateInput(false)]
