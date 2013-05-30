@@ -1,17 +1,10 @@
-﻿@{
-    SessionHelper m_SessionHelper = new SessionHelper();
-}
+﻿@model FTISWeb.Models.ParamaterModel
+
 @using FTISWeb.Helper;
 @using System.Web.Script.Serialization
 @using FTISWeb.Utility;
 @{
-    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
-    string m_Cdts = (string)ViewData["Conditions"];
-    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
-
     @*權限*@
-    bool AllowRead = (bool)ViewData["AllowRead"];
-    bool AllowCreate = (bool)ViewData["AllowCreate"];
     bool AllowEdit = (bool)ViewData["AllowEdit"];
     bool AllowDelete = (bool)ViewData["AllowDelete"];    
  }
@@ -23,7 +16,7 @@
                     read: {
                         //以下其實就是$.ajax的參數
                         type: "POST",
-                        url: "/NewsClass/AjaxBinding",
+                        url: "/NewsType/AjaxBinding",
                         dataType: "json",
                         data: {
                             //額外傳至後方的參數
@@ -53,9 +46,9 @@
                 dataSource: dataSrc,
                 columns: [
                     {
-                        fiels: "NewsClassId",
+                        fiels: "@Model.EntityId",
                         headerTemplate: "<input type='checkbox' onchange='ToggleAll(this);' id='ToggleCheckbox'/>",
-                        template: "<input type='checkbox' value='#= NewsClassId#' name='IsDelete' class='IsDelete' classId='#= NewsClassId#' />",
+                        template: "<input type='checkbox' value='#= @Model.EntityId#' name='IsDelete' class='IsDelete' />",
                         sortable: false,
                         attributes: { "style": "text-align: center;" },
                         width: 50
@@ -64,45 +57,36 @@
                         field: "Name",
                         title: "分類名稱",
                         template: '#= "<span class=\\"u-name\\">" + Name + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("Name"))"),
                         sortable: true
                     },
                     {
                         field: "NameENG",
                         title: "分類名稱(英)",
                         template: '#= "<span class=\\"u-name\\">" + NameENG + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("NameENG"))"),
                         sortable: true
                     },
                     {
                         field: "SortId",
                         title: "排序",
                         sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("SortId"))"),
                         attributes: { "style": "text-align: center;" }
                     },
                     {
                         field: "GetStr_Status",
                         title: "狀態",
                         sortable: true,
-                        attributes: { "style": "text-align: center;" }
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_Status"))"),
+                        attributes: { "style": "text-align: center;" }                        
                     },
                     {
-                        command: [
-                            {
-                                text: "編輯",
-                                click: EditGridItem
-                            },
-                            {
-                                text: "刪除",
-                                click: DeleteGridItem
-                            }                            
-                        ],
-                        width: 160,
-                        title: "操作"
-                    }
-                    @*{
                         title: "操作",
-                        template: "<a href='@Url.Action("Edit", "NewsClass")?id=#= NewsClassId #&cdts=@m_Cdts'>修改</a> ",
-                        attributes: { "style": "text-align: center;" }
-                    }*@
+                        template: kendo.template($("#command-template").html()),
+                        sortable: false,
+                        width: 160
+                    }
                 ],
                 editable: "popup",
                 sortable: true,
@@ -137,16 +121,15 @@
             }
         }
 
-        function DeleteGridItem(e) {
-            e.preventDefault();
-            var dataItem = $('#dvGrid').data().kendoGrid.dataItem($(e.currentTarget).closest("tr"));            
-            DeleteItem(dataItem.NewsClassId, dataItem.Name);
-        }
-
-        function EditGridItem(e) {
-            e.preventDefault();
-            var dataItem = $('#dvGrid').data().kendoGrid.dataItem($(e.currentTarget).closest("tr"));
-            location.href = '@Url.Action("Edit", "NewsClass", new { cdts = m_Cdts })&id=' + dataItem.NewsClassId;
-        }
-
     </script>
+
+<script id="command-template" type="text/x-kendo-template">
+    @if(AllowEdit)
+    {
+        <a class="k-button k-grid-Edit" href="@Url.Action(Model.ActionName, Model.ControllerName, new { cdts = Model.Conditions })&id=#: @Model.EntityId #"><span>編輯</span></a>
+    }
+    @if(AllowDelete)
+    {
+        <div class="k-button k-grid-Delete" entityId="#: @Model.EntityId #" entityName="#: @Model.EntityName #"><span>刪除</span> </div>
+    }   
+</script>

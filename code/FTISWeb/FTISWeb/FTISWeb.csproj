@@ -181,6 +181,7 @@
     <Compile Include="Controllers\Admin\LogOnController.cs" />
     <Compile Include="Controllers\Admin\AdminLayoutController.cs" />
     <Compile Include="Controllers\Admin\AdminNewsClassController.cs" />
+    <Compile Include="Controllers\Admin\AdminNewsTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
     <Compile Include="Controllers\FreeGOController.cs" />
@@ -194,6 +195,8 @@
     <Compile Include="Models\FreeGO\FreeGOModel.cs" />
     <Compile Include="Models\FTIS\AbstractClassModel.cs" />
     <Compile Include="Models\FTIS\NewsClassModel.cs" />
+    <Compile Include="Models\FTIS\NewsTypeModel.cs" />
+    <Compile Include="Models\FTIS\ParamaterModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
     <Compile Include="Models\Post\NodeModel.cs" />
@@ -1802,7 +1805,9 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\NewsClass\AdminIndex.cshtml" />
     <Content Include="Views\NewsClass\Save.cshtml" />
-    <Content Include="Views\NewsClass\AdminGridList.cshtml" />
+    <Content Include="Views\Shared\AdminGridList.cshtml" />
+    <Content Include="Views\NewsType\AdminIndex.cshtml" />
+    <Content Include="Views\NewsType\Save.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

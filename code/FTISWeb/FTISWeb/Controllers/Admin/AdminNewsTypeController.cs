@@ -18,7 +18,7 @@ using KendoGridBinder.Containers;
 
 namespace FTISWeb.Controllers.Admin
 {
-    public partial class NewsClassController : Controller
+    public partial class NewsTypeController : Controller
     {
         protected static FTISFactory m_FTISFactory = new FTISFactory();
         protected static IFTISService m_FTISService = m_FTISFactory.GetFTISService();
@@ -39,13 +39,13 @@ namespace FTISWeb.Controllers.Admin
         public ActionResult Edit(int id, string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NewsClassModel(id));
+            return View("Save", new NewsTypeModel(id));
         }
 
         [AuthorizationData(AppFunction = SiteEntities.News)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
         [HttpPost]
-        public ActionResult Edit(NewsClassModel model, string cdts)
+        public ActionResult Edit(NewsTypeModel model, string cdts)
         {
             GetConditions(cdts);
             model.Update();
@@ -57,7 +57,7 @@ namespace FTISWeb.Controllers.Admin
         public ActionResult Create(string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NewsClassModel());
+            return View("Save", new NewsTypeModel());
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Delete)]
@@ -68,18 +68,18 @@ namespace FTISWeb.Controllers.Admin
 
             try
             {
-                NewsClass entity = m_FTISService.GetNewsClassById(id);
+                NewsType entity = m_FTISService.GetNewsTypeById(id);
 
                 //檢查底下的News數量
                 IDictionary<string, string> conditions = new Dictionary<string, string>();
-                conditions.Add("NewsClassId", id.ToString());
+                conditions.Add("NewsTypeId", id.ToString());
                 int subsCount = m_FTISService.GetNewsCount(conditions);
                 if (subsCount > 0)
                 {
                     return this.Json(new AjaxResult(AjaxResultStatus.Fail, string.Format("{0}底下尚有新聞，不可刪除。", entity.Name)));
                 }
 
-                m_FTISService.DeleteNewsClass(entity);
+                m_FTISService.DeleteNewsType(entity);
 
                 result.ErrorCode = AjaxResultStatus.Success;
                 result.Message = string.Format("{0}刪除成功", entity.Name);
@@ -106,15 +106,15 @@ namespace FTISWeb.Controllers.Admin
             {
                 try
                 {
-                    NewsClass entity = m_FTISService.GetNewsClassById(Convert.ToInt32(id));
+                    NewsType entity = m_FTISService.GetNewsTypeById(Convert.ToInt32(id));
 
                     //檢查底下的News數量
                     IDictionary<string, string> conditions = new Dictionary<string, string>();
-                    conditions.Add("NewsClassId", id.ToString());
+                    conditions.Add("NewsTypeId", id.ToString());
                     int subsCount = m_FTISService.GetNewsCount(conditions);
                     if (subsCount == 0)
                     {
-                        m_FTISService.DeleteNewsClass(entity);
+                        m_FTISService.DeleteNewsType(entity);
                     }
                     else
                     {
@@ -136,7 +136,7 @@ namespace FTISWeb.Controllers.Admin
         [AuthorizationData(AppFunction = SiteEntities.News)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Create)]
         [HttpPost]
-        public ActionResult Create(NewsClassModel model, string cdts)
+        public ActionResult Create(NewsTypeModel model, string cdts)
         {
             GetConditions(cdts);
             model.Insert();
@@ -174,7 +174,7 @@ namespace FTISWeb.Controllers.Admin
             AppendSortingCondition(request);
 
             var data = GetGridData();
-            var result = new KendoGrid<NewsClass>(request, data, total);
+            var result = new KendoGrid<NewsType>(request, data, total);
             return Json(result);
         }
 
@@ -186,7 +186,7 @@ namespace FTISWeb.Controllers.Admin
         public ActionResult RefreshAdminGrid(string keyWord)
         {
             SetConditions(keyWord);
-            return View("AdminGridList", new ParamaterModel("Edit", "NewsClass", (string)ViewData["Conditions"]));
+            return View("AdminGridList", new ParamaterModel("Edit", "NewsType", (string)ViewData["Conditions"]));
         }
 
         private void AppendSortingCondition(KendoGridRequest request)
@@ -203,13 +203,13 @@ namespace FTISWeb.Controllers.Admin
 
         private int GetGridTotal()
         {
-            int total = m_FTISService.GetNewsClassCount(m_Conditions);
+            int total = m_FTISService.GetNewsTypeCount(m_Conditions);
             return total;
         }
 
-        private IEnumerable<NewsClass> GetGridData()
+        private IEnumerable<NewsType> GetGridData()
         {
-            IList<NewsClass> datasource = m_FTISService.GetNewsClassList(m_Conditions);
+            IList<NewsType> datasource = m_FTISService.GetNewsTypeList(m_Conditions);
             return datasource;
         }
     }

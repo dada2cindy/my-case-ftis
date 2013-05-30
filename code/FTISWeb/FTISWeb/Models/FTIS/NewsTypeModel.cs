@@ -14,13 +14,13 @@ using System.ComponentModel;
 
 namespace FTISWeb.Models
 {
-    public class NewsClassModel : AbstractClassModel
+    public class NewsTypeModel : AbstractClassModel
     {
-        public NewsClassModel()
+        public NewsTypeModel()
         {
         }
 
-        public NewsClassModel(int id)
+        public NewsTypeModel(int id)
         {
             LoadEntity(id);
         }
@@ -32,20 +32,36 @@ namespace FTISWeb.Models
         [Required]
         public string NameENG { get; set; }
 
+        /// <summary>
+        /// 內容
+        /// </summary>
+        [DisplayName("內容")]
+        [Required]
+        public string Content { get; set; }
+
+        /// <summary>
+        /// 英文內容
+        /// </summary>
+        [DisplayName("內容(英)")]
+        [Required]
+        public string ContentENG { get; set; }
+
         protected void LoadEntity(int id)
         {
-            NewsClass entity = m_FTISService.GetNewsClassById(id);
+            NewsType entity = m_FTISService.GetNewsTypeById(id);
 
             LoadEntity(entity);
         }
 
-        protected void LoadEntity(NewsClass entity)
+        protected void LoadEntity(NewsType entity)
         {
             if (entity != null)
             {
-                ClassId = entity.NewsClassId;
+                ClassId = entity.NewsTypeId;
                 Name = entity.Name;
                 NameENG = entity.NameENG;
+                Content = entity.Content;
+                ContentENG = entity.ContentENG;
                 SortId = entity.SortId;
                 Status = entity.Status;
             }
@@ -53,33 +69,35 @@ namespace FTISWeb.Models
 
         public void Insert()
         {
-            NewsClass entity = new NewsClass();
+            NewsType entity = new NewsType();
             Save(entity);
         }
 
         public void Update()
         {
-            NewsClass entity = m_FTISService.GetNewsClassById(ClassId);
+            NewsType entity = m_FTISService.GetNewsTypeById(ClassId);
             Save(entity);
         }
 
-        private void Save(NewsClass entity)
+        private void Save(NewsType entity)
         {
             entity.Name = Name;
             entity.NameENG = NameENG;
+            entity.Content = Content;
+            entity.ContentENG = ContentENG;
             entity.SortId = SortId;
             entity.Status = Status;
 
-            if (entity.NewsClassId == 0)
+            if (entity.NewsTypeId == 0)
             {
-                m_FTISService.CreateNewsClass(entity);
+                m_FTISService.CreateNewsType(entity);
             }
             else
             {
-                m_FTISService.UpdateNewsClass(entity);
+                m_FTISService.UpdateNewsType(entity);
             }
 
-            LoadEntity(entity.NewsClassId);
+            LoadEntity(entity.NewsTypeId);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace FTISWeb.Controllers
 
         [ValidateInput(false)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.AboutUs, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.AboutUs)]
         [HttpPost]
         public ActionResult Edit(NodeModel model)
         {

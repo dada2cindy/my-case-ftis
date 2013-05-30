@@ -47,14 +47,14 @@
         });
 
         function Query() {
-            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "NewsClass")', {
+            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "NewsType")', {
                 keyWord: $("#KeyWord").val()
             });
         }                      
 
         //刪除1筆動作(留在頁面寫)
         function OnDeleteItem(id) {            
-            $.post('@Url.Action("Delete", "NewsClass")', { id: id }, function (data) {                
+            $.post('@Url.Action("Delete", "NewsType")', { id: id }, function (data) {                
                 if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
                     $(".deleteMsgFail").append(data.Message + '<br/>')
                 }                
@@ -64,7 +64,7 @@
 
         //刪除多筆動作(留在頁面寫)
         function OnDeleteItems(allId) {
-            $.post('@Url.Action("MultiDelete", "NewsClass")', { allId: allId }, function (data) {
+            $.post('@Url.Action("MultiDelete", "NewsType")', { allId: allId }, function (data) {
                 if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
                     $(".deleteMsgFail").append(data.Message + '<br/>')
                 }                
@@ -75,7 +75,7 @@
 }
 
 <fieldset class="fieldset">
-    <h1>新聞動態分類管理</h1>
+    <h1>新聞動態種類管理</h1>
     <table style="width: 100%" class="FormTable">
         <tr>
             <td style="width:100px; text-align:right;">關鍵字：
@@ -90,7 +90,7 @@
     <table>
         <tr>            
             <td style="text-align:left;">
-                @Html.Raw(Url.ButtonLink("新增", "Create", "NewsClass", AllowCreate, new { cdts = m_Cdts }, new { @class = "btn" }))
+                @Html.Raw(Url.ButtonLink("新增", "Create", "NewsType", AllowCreate, new { cdts = m_Cdts }, new { @class = "btn" }))
                 @if(AllowDelete)
                 {
                     <input type="button" class="btn" value="刪除" id="btnDeleteAll" />                
@@ -99,7 +99,7 @@
         </tr>  
     </table>
     <div id="dvGrid">
-        @Html.Partial("AdminGridList", new ParamaterModel("Edit", "NewsClass", m_Cdts))
+        @Html.Partial("AdminGridList", new ParamaterModel("Edit", "NewsType", m_Cdts))
     </div>    
     <div class="deleteMsgFail"></div>
 </fieldset>
