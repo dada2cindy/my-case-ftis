@@ -28,7 +28,7 @@ namespace FTISWeb.Models
         /// <summary>
         /// 英文名稱
         /// </summary>
-        [DisplayName("名稱(英)")]
+        //[DisplayName("名稱(英)")]
         [Required]
         public string NameENG { get; set; }
 

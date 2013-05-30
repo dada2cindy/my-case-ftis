@@ -29,7 +29,7 @@ namespace FTISWeb.Models
         /// 英文名稱
         /// </summary>
         [DisplayName("名稱(英)")]
-        [Required]
+        //[Required]
         public string NameENG { get; set; }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace FTISWeb.Models
         /// 英文內容
         /// </summary>
         [DisplayName("內容(英)")]
-        [Required]
+        //[Required]
         public string ContentENG { get; set; }
 
         protected void LoadEntity(int id)
