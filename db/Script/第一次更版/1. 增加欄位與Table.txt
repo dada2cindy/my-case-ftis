@@ -1,4 +1,4 @@
-/****** 新聞動態種類 ******/
+/****** 新聞動態議題 ******/
 CREATE TABLE [tblNews_Type](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](200) NULL,
@@ -53,7 +53,7 @@ ALTER TABLE tblNews ADD AUrl_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD TypeID int null
 GO
 
-/****** 新聞動態分類 ******/
+/****** 新聞動態種類 ******/
 ALTER TABLE tblNews_Class ADD Name_ENG nvarchar(200) null
 GO
 
