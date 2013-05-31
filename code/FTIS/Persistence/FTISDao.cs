@@ -67,7 +67,7 @@ namespace FTIS.Persistence
 
         private IList QueryNewsClass(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendNewsClassName(conditions, whereScript, param);
+            AppendNewsClassKeyWord(conditions, whereScript, param);
             AppendNewsClassStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
@@ -91,8 +91,15 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendNewsClassName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendNewsClassKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
+            if (conditions.IsContainsValue("Name"))
+            {
+                whereScript.Append(" and n.Name like ? or n.NameENG like ? ");
+                param.Add("%" + conditions["Name"] + "%");
+                param.Add("%" + conditions["Name"] + "%");
+            }
+
             if (conditions.IsContainsValue("KeyWord"))
             {
                 whereScript.Append(" and (n.Name like ? or n.NameENG like ? ) ");
@@ -462,7 +469,7 @@ namespace FTIS.Persistence
 
         private IList QueryNewsType(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendNewsTypeName(conditions, whereScript, param);
+            AppendNewsTypeKeyWord(conditions, whereScript, param);
             AppendNewsTypeStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
@@ -486,8 +493,15 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendNewsTypeName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendNewsTypeKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
+            if (conditions.IsContainsValue("Name"))
+            {
+                whereScript.Append(" and n.Name like ? or n.NameENG like ? ");
+                param.Add("%" + conditions["Name"] + "%");
+                param.Add("%" + conditions["Name"] + "%");
+            }
+
             if (conditions.IsContainsValue("KeyWord"))
             {
                 whereScript.Append(" and (n.Name like ? or n.NameENG like ? or n.Content like ? or n.ContentENG like ? ) ");
@@ -946,7 +960,7 @@ namespace FTIS.Persistence
 
         private IList QueryHomeNews(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendHomeNewsName(conditions, whereScript, param);
+            AppendHomeNewsKeyWord(conditions, whereScript, param);
             AppendHomeNewsStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
@@ -970,12 +984,19 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendHomeNewsName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendHomeNewsKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
             if (conditions.IsContainsValue("Name"))
             {
                 whereScript.Append(" and h.Name like ? ");
                 param.Add("%" + conditions["Name"] + "%");
+            }
+
+            if (conditions.IsContainsValue("KeyWord"))
+            {
+                whereScript.Append(" and (h.Name like ? or h.AUrl like ? ) ");
+                param.Add("%" + conditions["KeyWord"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 

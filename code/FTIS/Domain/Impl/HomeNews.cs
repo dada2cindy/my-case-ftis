@@ -26,7 +26,7 @@ namespace FTIS.Domain.Impl
         public virtual int HomeNewsId { get; set; }
 
         /// <summary>
-        /// 分類名稱
+        /// 名稱
         /// </summary>
         [DataMember]
         public virtual string Name { get; set; }
@@ -48,6 +48,26 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual string Status { get; set; }
+
+        public virtual string GetStr_Status
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.Status)
+                {
+                    case "0":
+                        result = "關閉";
+                        break;
+                    case "1":
+                        result = "開啟";
+                        break;
+                }
+
+                return result;
+            }
+
+        }
 
         #endregion
     }

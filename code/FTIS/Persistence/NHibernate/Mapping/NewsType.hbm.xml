@@ -9,12 +9,8 @@
 
     <property name="Name" column="Name" type="String" length="200"/>
     <property name="NameENG" column="Name_ENG" type="String" length="200"/>
-    <property name="Content" type="StringClob">
-      <column name="Content" sql-type="NTEXT"/>
-    </property>
-    <property name="ContentENG" type="StringClob">
-      <column name="Content_ENG" sql-type="NTEXT"/>
-    </property>
+    <property name="Content" column="Content" type="String" length="200"/>
+    <property name="ContentENG" column="Content_ENG" type="String" length="200"/>
     <property name="SortId" column="SortID" type="Int32"/>
     <property name="Status" column="Status" type="String" length="1"/>
 

@@ -275,8 +275,28 @@ namespace FTIS.Domain.Impl
         /// 服務分類名稱
         /// </summary>
         [DataMember]
-        public virtual string ServiceName { get; set; }     
+        public virtual string ServiceName { get; set; }
 
-        #endregion
+        public virtual string GetStr_Status
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.Status)
+                {
+                    case "0":
+                        result = "關閉";
+                        break;
+                    case "1":
+                        result = "開啟";
+                        break;
+                }
+
+                return result;
+            }
+
+        }
+
+        #endregion        
     }
 }

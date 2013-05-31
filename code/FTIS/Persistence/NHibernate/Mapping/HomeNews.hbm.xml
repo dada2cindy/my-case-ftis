@@ -8,7 +8,7 @@
     </id>
 
     <property name="Name" column="Name" type="String" length="200"/>
-    <property name="AUrl" column="ARUL" type="String" length="200"/>
+    <property name="AUrl" column="AURL" type="String" length="200"/>
     <property name="SortId" column="SortID" type="Int32"/>
     <property name="Status" column="Status" type="String" length="1"/>
 

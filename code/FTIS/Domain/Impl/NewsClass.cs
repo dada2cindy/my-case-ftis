@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace FTIS.Domain.Impl
 {
     /// <summary>
-    /// 新聞動態分類(議題)
+    /// 新聞動態議題
     /// </summary>
     [Serializable]
     [DataContract]
