@@ -61,8 +61,8 @@ namespace FOTIS.Test.Service
             conditions.Add("Name", updateName);
             conditions.Add("Status", "0");
             newsClassList = m_FTISService.GetNewsClassList(conditions);
-            Assert.AreEqual(0, newsClassList.Count);
-            Assert.AreEqual(0, m_FTISService.GetNewsClassCount(conditions));
+            Assert.AreEqual(1, newsClassList.Count);
+            Assert.AreEqual(1, m_FTISService.GetNewsClassCount(conditions));
 
             //刪除
             m_FTISService.DeleteNewsClass(updateNewsClass);
