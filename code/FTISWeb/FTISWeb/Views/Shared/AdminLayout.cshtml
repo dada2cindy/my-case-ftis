@@ -16,6 +16,8 @@
     </style>
     <script>
         kendo.culture("zh-TW");
+        @*這裡要設定，因為預設應該是/ckeditor/，再發佈到iis後會抓錯路徑*@
+        var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
     </script>
     @RenderSection("HeadContent", false)
 </head>
