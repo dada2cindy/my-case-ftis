@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class Activity
+    public class Activity : Entity
     {
         #region Constructor
 
@@ -24,12 +24,6 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual int ActivityId { get; set; }
-
-        /// <summary>
-        /// 標題
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
 
         /// <summary>
         /// 刊登日期
@@ -71,7 +65,7 @@ namespace FTIS.Domain.Impl
         /// 連絡人傳真
         /// </summary>
         [DataMember]
-        public virtual string Fax { get; set; }        
+        public virtual string Fax { get; set; }
 
         /// <summary>
         /// 費用
@@ -176,7 +170,7 @@ namespace FTIS.Domain.Impl
         public virtual string AFile3Name { get; set; }
 
         /// <summary>
-        /// 相關連接
+        /// 相關連結
         /// </summary>
         [DataMember]
         public virtual string AUrl { get; set; }
@@ -209,7 +203,7 @@ namespace FTIS.Domain.Impl
         /// 首頁顯示. 0.關閉 1.開啟
         /// </summary>
         [DataMember]
-        public virtual string IsHome { get; set; }        
+        public virtual string IsHome { get; set; }
 
         /// <summary>
         /// 瀏覽人數
@@ -228,18 +222,6 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual int Printer { get; set; }
-
-        /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public virtual int SortId { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }
 
         /// <summary>
         /// 主題分類編號
@@ -277,26 +259,6 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string ServiceName { get; set; }
 
-        public virtual string GetStr_Status
-        {
-            get
-            {
-                string result = string.Empty;
-                switch (this.Status)
-                {
-                    case "0":
-                        result = "關閉";
-                        break;
-                    case "1":
-                        result = "開啟";
-                        break;
-                }
-
-                return result;
-            }
-
-        }
-
-        #endregion        
+        #endregion
     }
 }

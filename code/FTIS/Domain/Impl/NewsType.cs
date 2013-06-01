@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class NewsType
+    public class NewsType : Entity
     {
         #region Constructor
 
@@ -24,12 +24,6 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual int NewsTypeId { get; set; }
-
-        /// <summary>
-        /// 分類名稱
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
 
         /// <summary>
         /// 分類名稱_英文
@@ -49,37 +43,6 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string ContentENG { get; set; }
 
-        /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public virtual int SortId { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }
-
-        public virtual string GetStr_Status
-        {
-            get
-            {
-                string result = string.Empty;
-                switch (this.Status)
-                {
-                    case "0":
-                        result = "關閉";
-                        break;
-                    case "1":
-                        result = "開啟";
-                        break;
-                }
-
-                return result;
-            }
-
-        }
         #endregion
     }
 }

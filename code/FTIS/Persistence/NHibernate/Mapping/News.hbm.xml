@@ -80,13 +80,13 @@
     <property name="VisterENG" column="Vister_ENG" type="Int32"/>
     <property name="EmailerENG" column="Emailer_ENG" type="Int32"/>
     <property name="PrinterENG" column="Printer_ENG" type="Int32"/>
-    <property name="MainCodeENG" column="Main_Code_ENG" type="String" length="50"/>
+    <!--<property name="MainCodeENG" column="Main_Code_ENG" type="String" length="50"/>
     <property name="MainNameENG" column="Main_Name_ENG" type="String" length="200"/>
     <property name="AdminCodeENG" column="Admin_Code_ENG" type="String" length="50"/>
     <property name="AdminNameENG" column="Admin_Name_ENG" type="String" length="200"/>
     <property name="ServiceCodeENG" column="Service_Code_ENG" type="String" length="50"/>
     <property name="ServiceNameENG" column="Service_Name_ENG" type="String" length="200"/>
-    <property name="TagENG" column="Tagn_ENG" type="String" length="50"/>
+    <property name="TagENG" column="Tagn_ENG" type="String" length="50"/>-->
     <property name="IsOutENG" column="IsOut_ENG" type="String" length="1"/>
     <property name="AUrlENG" column="AUrl_ENG" type="String" length="200"/>
 

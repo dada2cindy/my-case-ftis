@@ -1881,10 +1881,10 @@ namespace FTIS.Persistence
 
         private void AppendPublicationClassName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
                 whereScript.Append(" and p.Name like ? ");
-                param.Add("%" + conditions["Name"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 
@@ -2773,10 +2773,10 @@ namespace FTIS.Persistence
 
         private void AppendIndustryName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
                 whereScript.Append(" and i.Name like ? ");
-                param.Add("%" + conditions["Name"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 
@@ -3689,7 +3689,8 @@ namespace FTIS.Persistence
 
         private IList QueryNormClass(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendNodeParentNormClass(conditions, whereScript, param);
+            AppendNormParentNormClass(conditions, whereScript, param);
+            AppendNormClassKeyWord(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
             if (useOrder)
@@ -3712,12 +3713,26 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendNodeParentNormClass(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendNormClassKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("KeyWord"))
+            {
+                whereScript.Append(" and (n.Name like ? or n.NameENG like ? ) ");
+                param.Add("%" + conditions["KeyWord"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
+            }
+        }
+
+        private void AppendNormParentNormClass(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
             if (conditions.IsContainsValue("ParentNormClassId"))
             {
                 whereScript.Append(" and n.ParentNormClass.NormClassId = ? ");
                 param.Add(conditions["ParentNormClassId"]);
+            }
+            else
+            {
+                whereScript.Append(" and n.ParentNormClass is null ");
             }
         }
         #endregion

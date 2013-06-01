@@ -121,6 +121,7 @@
     <Compile Include="Domain\Impl\Norm.cs" />
     <Compile Include="Domain\Impl\Examination.cs" />
     <Compile Include="Domain\Impl\EpaperExamination.cs" />
+    <Compile Include="Domain\Impl\Entity.cs" />
     <Compile Include="FTISFactory.cs" />
     <Compile Include="Persistence\FTISDao.cs" />
     <Compile Include="Persistence\IFTISDao.cs" />

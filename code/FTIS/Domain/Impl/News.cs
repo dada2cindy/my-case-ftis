@@ -421,47 +421,47 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual int PrinterENG { get; set; }
 
-        /// <summary>
-        /// 主題分類編號
-        /// </summary>
-        [DataMember]
-        public virtual string MainCodeENG { get; set; }
+        ///// <summary>
+        ///// 主題分類編號
+        ///// </summary>
+        //[DataMember]
+        //public virtual string MainCodeENG { get; set; }
 
-        /// <summary>
-        /// 主題分類名稱
-        /// </summary>
-        [DataMember]
-        public virtual string MainNameENG { get; set; }
+        ///// <summary>
+        ///// 主題分類名稱
+        ///// </summary>
+        //[DataMember]
+        //public virtual string MainNameENG { get; set; }
 
-        /// <summary>
-        /// 施政分類編號
-        /// </summary>
-        [DataMember]
-        public virtual string AdminCodeENG { get; set; }
+        ///// <summary>
+        ///// 施政分類編號
+        ///// </summary>
+        //[DataMember]
+        //public virtual string AdminCodeENG { get; set; }
 
-        /// <summary>
-        /// 施政分類名稱
-        /// </summary>
-        [DataMember]
-        public virtual string AdminNameENG { get; set; }
+        ///// <summary>
+        ///// 施政分類名稱
+        ///// </summary>
+        //[DataMember]
+        //public virtual string AdminNameENG { get; set; }
 
-        /// <summary>
-        /// 服務分類編號
-        /// </summary>
-        [DataMember]
-        public virtual string ServiceCodeENG { get; set; }
+        ///// <summary>
+        ///// 服務分類編號
+        ///// </summary>
+        //[DataMember]
+        //public virtual string ServiceCodeENG { get; set; }
 
-        /// <summary>
-        /// 服務分類名稱
-        /// </summary>
-        [DataMember]
-        public virtual string ServiceNameENG { get; set; }
+        ///// <summary>
+        ///// 服務分類名稱
+        ///// </summary>
+        //[DataMember]
+        //public virtual string ServiceNameENG { get; set; }
 
-        /// <summary>
-        /// Tag 注：和國際環保標準 / 規範介紹相關聯 用,區隔
-        /// </summary>
-        [DataMember]
-        public virtual string TagENG { get; set; }
+        ///// <summary>
+        ///// Tag 注：和國際環保標準 / 規範介紹相關聯 用,區隔
+        ///// </summary>
+        //[DataMember]
+        //public virtual string TagENG { get; set; }
 
         /// <summary>
         /// 是否站外

@@ -1531,7 +1531,7 @@ namespace FTIS.Service.Impl
         /// <returns></returns>
         public int GetIndustryCount(IDictionary<string, string> conditions)
         {
-            return FTISDao.GetQuestionClassCount(conditions);
+            return FTISDao.GetIndustryCount(conditions);
         }
         #endregion
 
