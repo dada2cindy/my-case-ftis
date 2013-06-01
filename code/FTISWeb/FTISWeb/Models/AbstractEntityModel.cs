@@ -33,7 +33,7 @@ namespace FTISWeb.Models
         /// </summary>
         [DisplayName("名稱")]
         [Required]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// 排序

@@ -8,11 +8,19 @@ namespace FTISWeb.Utility
 {
     public static class AppSettings
     {
-        public static string UploadPath
+        //public static string UploadPath
+        //{
+        //    get
+        //    {
+        //        return ConfigurationManager.AppSettings["UploadPath"];
+        //    }
+        //}
+
+        public static string CKFinderFileHandler
         {
             get
             {
-                return ConfigurationManager.AppSettings["UploadPath"];
+                return ConfigurationManager.AppSettings["CKFinderFileHandler"];
             }
         }
 

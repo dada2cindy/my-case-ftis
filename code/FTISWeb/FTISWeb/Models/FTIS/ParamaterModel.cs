@@ -53,6 +53,18 @@ namespace FTISWeb.Models
                 case "HomeNews":
                     m_VisibleColumns = new string[] { "Name", "AUrl", "SortId", "GetStr_Status" };
                     break;
+                case "Industry":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status" };
+                    break;
+                case "PublicationClass":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status" };
+                    break;
+                case "NormClass":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "ParentEntity" };
+                    break;
+                case "Activity":
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "GetStr_Status", "ActDate" };                    
+                    break;
             }
         }
 
@@ -78,6 +90,37 @@ namespace FTISWeb.Models
             {
                 return columnName;
             }
+        }
+
+        public string GetDisplayName(string columnName)
+        {
+            string displayName = string.Empty;
+            
+            switch (columnName)
+            {
+                case "Name":
+                    if (m_VisibleColumns.Contains("ArticleName"))
+                    {
+                        displayName = "標題";
+                    }
+                    else
+                    {
+                        displayName = "名稱";
+                    }
+                    break;
+                case "NameENG":
+                    if (m_VisibleColumns.Contains("ArticleName"))
+                    {
+                        displayName = "標題(英)";
+                    }
+                    else
+                    {
+                        displayName = "名稱(英)";
+                    }
+                    break;
+            }
+
+            return displayName;
         }
     }
 }

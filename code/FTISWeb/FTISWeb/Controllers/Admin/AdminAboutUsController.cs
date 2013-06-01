@@ -30,14 +30,12 @@ namespace FTISWeb.Controllers
             if (!AccessibilityUtil.CheckFreeGO(model.Content))
             {
                 model.ShowFreeGOMsg = true;
-                model.FreeGOColumnName = "Content";
-                //View(model);
+                model.FreeGOColumnName = "Content";                
             }
             else if (!AccessibilityUtil.CheckFreeGO(model.ContentENG))
             {
                 model.ShowFreeGOMsg = true;
-                model.FreeGOColumnName = "ContentENG";
-                //View(model);
+                model.FreeGOColumnName = "ContentENG";                
             }
 
             model.Update();

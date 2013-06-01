@@ -183,6 +183,10 @@
     <Compile Include="Controllers\Admin\AdminNewsClassController.cs" />
     <Compile Include="Controllers\Admin\AdminNewsTypeController.cs" />
     <Compile Include="Controllers\Admin\AdminHomeNewsController.cs" />
+    <Compile Include="Controllers\Admin\AdminIndustryController.cs" />
+    <Compile Include="Controllers\Admin\AdminPublicationClassController.cs" />
+    <Compile Include="Controllers\Admin\AdminNormClassController.cs" />
+    <Compile Include="Controllers\Admin\AdminActivityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
     <Compile Include="Controllers\FreeGOController.cs" />
@@ -200,6 +204,12 @@
     <Compile Include="Models\FTIS\ParamaterModel.cs" />
     <Compile Include="Models\AbstractEntityModel.cs" />
     <Compile Include="Models\FTIS\HomeNewsModel.cs" />
+    <Compile Include="Models\FTIS\IndustryModel.cs" />
+    <Compile Include="Models\FTIS\PublicationClassModel.cs" />
+    <Compile Include="Models\FTIS\NormClassModel.cs" />
+    <Compile Include="Models\FTIS\AbstractArticleModel.cs" />
+    <Compile Include="Models\FTIS\AbstractArticleENGModel.cs" />
+    <Compile Include="Models\FTIS\ActivityModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
     <Compile Include="Models\Post\NodeModel.cs" />
@@ -210,6 +220,7 @@
     <Compile Include="Utility\AccessibilityUtil.cs" />
     <Compile Include="Utility\AccountUtil.cs" />
     <Compile Include="Utility\AppSettings.cs" />
+    <Compile Include="Utility\FileUtil.cs" />
     <Compile Include="Utility\CommonUtil.cs" />
     <Compile Include="Utility\CookieUtil.cs" />
     <Compile Include="Utility\IpBlockUtil.cs" />
@@ -811,7 +822,6 @@
     <Content Include="Scripts\ckeditor\skins\v2\skin.js" />
     <Content Include="Scripts\ckeditor\skins\v2\templates.css" />
     <Content Include="Scripts\ckeditor\themes\default\theme.js" />
-    <Content Include="Scripts\ckfinder\changelog.txt" />
     <Content Include="Scripts\ckfinder\ckfinder.html" />
     <Content Include="Scripts\ckfinder\ckfinder.js" />
     <Content Include="Scripts\ckfinder\ckfinder_v1.js" />
@@ -1132,7 +1142,6 @@
     <Content Include="Scripts\ckfinder\help\pl\files\suggestions.html" />
     <Content Include="Scripts\ckfinder\help\pl\files\toc.html" />
     <Content Include="Scripts\ckfinder\help\pl\index.html" />
-    <Content Include="Scripts\ckfinder\install.txt" />
     <Content Include="Scripts\ckfinder\lang\bg.js" />
     <Content Include="Scripts\ckfinder\lang\ca.js" />
     <Content Include="Scripts\ckfinder\lang\cs.js" />
@@ -1174,7 +1183,6 @@
     <Content Include="Scripts\ckfinder\lang\zh-cn.js" />
     <Content Include="Scripts\ckfinder\lang\zh-tw.js" />
     <Content Include="Scripts\ckfinder\lang\_translationstatus.txt" />
-    <Content Include="Scripts\ckfinder\license.txt" />
     <Content Include="Scripts\ckfinder\plugins\dummy\lang\en.js" />
     <Content Include="Scripts\ckfinder\plugins\dummy\lang\pl.js" />
     <Content Include="Scripts\ckfinder\plugins\dummy\plugin.js" />
@@ -1385,7 +1393,6 @@
     <Content Include="Scripts\ckfinder\skins\v1\richcombo.css" />
     <Content Include="Scripts\ckfinder\skins\v1\skin.js" />
     <Content Include="Scripts\ckfinder\skins\v1\uipanel.css" />
-    <Content Include="Scripts\ckfinder\translations.txt" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -1813,6 +1820,14 @@
     <Content Include="Views\NewsType\Save.cshtml" />
     <Content Include="Views\HomeNews\AdminIndex.cshtml" />
     <Content Include="Views\HomeNews\Save.cshtml" />
+    <Content Include="Views\Industry\AdminIndex.cshtml" />
+    <Content Include="Views\Industry\Save.cshtml" />
+    <Content Include="Views\PublicationClass\AdminIndex.cshtml" />
+    <Content Include="Views\PublicationClass\Save.cshtml" />
+    <Content Include="Views\NormClass\AdminIndex.cshtml" />
+    <Content Include="Views\NormClass\Save.cshtml" />
+    <Content Include="Views\Activity\AdminIndex.cshtml" />
+    <Content Include="Views\Activity\Save.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

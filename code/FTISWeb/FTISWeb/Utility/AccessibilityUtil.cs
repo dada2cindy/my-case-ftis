@@ -38,12 +38,12 @@ namespace FTISWeb.Utility
 
             if (string.IsNullOrEmpty(htmlValue) || accessibility.isPass)
             {
-                sbMsg.Append("您已通過{自動}檢測的等級 : " + accessibility.CheckDegree + "<br />");
+                sbMsg.Append("<b>您已通過{自動}檢測的等級 : <span style='color:#0000ff;'>" + accessibility.CheckDegree + "</span><b/><br />");
                 return sbMsg.ToString();
             }
             else
             {
-                sbMsg.Append("您未通過{自動}檢測的等級 : " + accessibility.CheckDegree + "<br />");
+                sbMsg.Append("<b>您未通過{自動}檢測的等級 : <span style='color:#0000ff;'>" + accessibility.CheckDegree + "</span><b/><br />");
             }
 
             //建立XmlDocument物件

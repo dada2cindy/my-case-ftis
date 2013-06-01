@@ -39,7 +39,8 @@
         if (!string.IsNullOrWhiteSpace(BaseDir))
         {
             // 如果用BaseDir後，圖片顯示會不正確，這裡可以接個取圖的程式
-            BaseUrl = "/FileHandle/GetFromCKFinder/?path=";
+            //BaseUrl = "/FileHandle/GetFromCKFinder/?path=";
+            BaseUrl = FTISWeb.Utility.AppSettings.CKFinderFileHandler;
         }		
 
 		// Optional: enable extra plugins (remember to copy .dll files first).

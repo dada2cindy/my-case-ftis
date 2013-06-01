@@ -1,6 +1,6 @@
-﻿@model FTISWeb.Models.HomeNewsModel
+﻿@model FTISWeb.Models.PublicationClassModel
 @{
-    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";    
 }
 @using FTISWeb.Helper;
 @using System.Web.Optimization
@@ -32,24 +32,17 @@
     </script>
 }
 
-@using (Html.BeginForm(Action.ToString(), "HomeNews", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+@using (Html.BeginForm(Action.ToString(), "PublicationClass", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
 {
     @Html.HiddenFor(m => m.EntityId)         
     <fieldset class="fieldset">
-        <h1>活動訊息管理</h1>
+        <h1>刊物年度管理</h1>
         <table style="width: 100%" class="FormTable">
             <tr>
                 <td style="text-align:right; width:40%;">*名稱：
                 </td>
                 <td>
                     @Html.TextBox("Name", Model.Name, new { id = "Name" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">*連結網址：
-                </td>
-                <td>
-                    @Html.TextBox("AUrl", Model.AUrl, new { id = "AUrl", @style = "width: 400px;" })
                 </td>
             </tr>
             <tr>
@@ -80,7 +73,7 @@
                         <input id="btnEdit" class="btn" type="submit" value="修改" />                        
                     }
                     <input id="btnClear" class="btn" type="button" value="重填" />
-                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "HomeNews", new { cdts = m_Cdts }, new { @class = "btn" }))
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "PublicationClass", new { cdts = m_Cdts }, new { @class = "btn" }))
                 </td>
             </tr>
         </table>
