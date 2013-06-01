@@ -61,6 +61,22 @@
                         sortable: false
                     },
                     {
+                        field: "@Model.GetColumnName("AYear")",
+                        title: "年份",
+                        template: '#= "<span>" + @Model.GetColumnName("AYear") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("AYear"))"),
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_PostDate")",
+                        title: "刊登日期",
+                        template: '#= "<span>" + @Model.GetColumnName("GetStr_PostDate") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_PostDate"))"),
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true
+                    },
+                    {
                         field: "@Model.GetColumnName("Name")",
                         title: "@Model.GetDisplayName("Name")",
                         template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("Name") + "</span>" #',
@@ -73,6 +89,30 @@
                         template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("NameENG") + "</span>" #',
                         hidden: $.parseJSON("@(Model.Hidden("NameENG"))"),
                         sortable: true
+                    },
+                    {
+                        field: "@Model.GetColumnName("Vister")",
+                        title: "瀏覽人數",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Vister"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("Downer")",
+                        title: "下載人數",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Downer"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_IsOut")",
+                        title: "是否站外",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_IsOut"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 60
                     },
                     {
                         field: "@Model.GetColumnName("Content")",

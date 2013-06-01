@@ -63,7 +63,16 @@ namespace FTISWeb.Models
                     m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "ParentEntity" };
                     break;
                 case "Activity":
-                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "GetStr_Status", "ActDate" };                    
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "GetStr_Status", "ActDate" };
+                    break;
+                case "Download":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "Vister", "Downer", "GetStr_IsOut" };  
+                    break;
+                case "Curriculum":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "Vister" };
+                    break;
+                case "Brief":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "AYear", "GetStr_PostDate" };
                     break;
             }
         }

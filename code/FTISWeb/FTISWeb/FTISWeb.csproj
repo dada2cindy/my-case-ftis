@@ -187,6 +187,9 @@
     <Compile Include="Controllers\Admin\AdminPublicationClassController.cs" />
     <Compile Include="Controllers\Admin\AdminNormClassController.cs" />
     <Compile Include="Controllers\Admin\AdminActivityController.cs" />
+    <Compile Include="Controllers\Admin\AdminDownloadController.cs" />
+    <Compile Include="Controllers\Admin\AdminCurriculumController.cs" />
+    <Compile Include="Controllers\Admin\AdminBriefController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
     <Compile Include="Controllers\FreeGOController.cs" />
@@ -210,6 +213,9 @@
     <Compile Include="Models\FTIS\AbstractArticleModel.cs" />
     <Compile Include="Models\FTIS\AbstractArticleENGModel.cs" />
     <Compile Include="Models\FTIS\ActivityModel.cs" />
+    <Compile Include="Models\FTIS\DownloadModel.cs" />
+    <Compile Include="Models\FTIS\CurriculumModel.cs" />
+    <Compile Include="Models\FTIS\BriefModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
     <Compile Include="Models\Post\NodeModel.cs" />
@@ -1828,6 +1834,12 @@
     <Content Include="Views\NormClass\Save.cshtml" />
     <Content Include="Views\Activity\AdminIndex.cshtml" />
     <Content Include="Views\Activity\Save.cshtml" />
+    <Content Include="Views\Download\Save.cshtml" />
+    <Content Include="Views\Download\AdminIndex.cshtml" />
+    <Content Include="Views\Curriculum\AdminIndex.cshtml" />
+    <Content Include="Views\Curriculum\Save.cshtml" />
+    <Content Include="Views\Brief\AdminIndex.cshtml" />
+    <Content Include="Views\Brief\Save.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

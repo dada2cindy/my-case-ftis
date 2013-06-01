@@ -1,4 +1,4 @@
-﻿@model FTISWeb.Models.ActivityModel
+﻿@model FTISWeb.Models.CurriculumModel
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
@@ -31,8 +31,6 @@
                 ClearUI('#frmSave');
                 CKEDITOR.instances.Content.setData('');
                 $("#Vister").val('0');
-                $("#Emailer").val('0');
-                $("#Printer").val('0');
                 $("#SortId").val('0');
             });                        
 
@@ -51,11 +49,11 @@
     </script>
 }
 
-@using (Html.BeginForm(Action.ToString(), "Activity", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+@using (Html.BeginForm(Action.ToString(), "Curriculum", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
 {
-    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />         
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
     <fieldset class="fieldset">
-        <h1>活動訊息管理</h1>
+        <h1>課程講義管理</h1>
         <table style="width: 100%" class="FormTable">
             <tr>
                 <td style="text-align:right;">主題分類：
@@ -103,105 +101,7 @@
                 <td>
                     @Html.TextBox("PostDate", Model.PostDate, new { id = "PostDate" })
                 </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">主辦單位：
-                </td>
-                <td>
-                    @Html.TextBox("MCompany", Model.MCompany, new { id = "MCompany", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">連絡人姓名：
-                </td>
-                <td>
-                    @Html.TextBox("Contact", Model.Contact, new { id = "Contact", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">舉辦日期：
-                </td>
-                <td>
-                    @Html.TextBox("ActDate", Model.ActDate, new { id = "ActDate", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">連絡人電話：
-                </td>
-                <td>
-                    @Html.TextBox("Tel", Model.Tel, new { id = "Tel", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">活動地點：
-                </td>
-                <td>
-                    @Html.TextBox("Address", Model.Address, new { id = "Address", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">連絡人傳真：
-                </td>
-                <td>
-                    @Html.TextBox("Fax", Model.Fax, new { id = "Fax", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">報名費用：
-                </td>
-                <td>
-                    @Html.TextBox("ActFee", Model.ActFee, new { id = "ActFee", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">報名方式：
-                </td>
-                <td>
-                    @Html.TextBox("ActType", Model.ActType, new { id = "ActType", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">相關連結：
-                </td>
-                <td>
-                    @Html.TextBox("AUrl", Model.AUrl, new { id = "AUrl", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">報名狀態：
-                </td>
-                <td>
-                    @Html.TextBox("JoinStatus", Model.JoinStatus, new { id = "JoinStatus", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">活動狀態：
-                </td>
-                <td>
-                    @Html.TextBox("ActStatus", Model.ActStatus, new { id = "ActStatus", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">資料來源1：
-                </td>
-                <td>
-                    @Html.TextBox("AUrl1", Model.AUrl1, new { id = "AUrl1", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">資料來源2：
-                </td>
-                <td>
-                    @Html.TextBox("AUrl2", Model.AUrl2, new { id = "AUrl2", @style = "width: 600px;" })
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">資料來源3：
-                </td>
-                <td>
-                    @Html.TextBox("AUrl3", Model.AUrl3, new { id = "AUrl3", @style = "width: 600px;" })
-                </td>
-            </tr>
+            </tr>            
             <tr>
                 <td style="text-align:right; vertical-align:top;">內容：
                 </td>
@@ -300,14 +200,6 @@
                 </td>
             </tr>
             <tr>
-                <td style="text-align:right;">*是否首頁顯示：
-                </td>
-                <td>
-                    <label>@Html.RadioButtonFor(m => m.IsHome, "1")是</label>
-                    <label>@Html.RadioButtonFor(m => m.IsHome, "0")否</label>
-                </td>
-            </tr>
-            <tr>
                 <td style="text-align:right;">*是否顯示new：
                 </td>
                 <td>
@@ -322,20 +214,6 @@
                     @Html.TextBox("Vister", Model.Vister, new { id = "Vister", @style = "width: 600px;" })
                 </td>
             </tr>
-            <tr>
-                <td style="text-align:right;">轉寄：
-                </td>
-                <td>
-                    @Html.TextBox("Emailer", Model.Emailer, new { id = "Emailer", @style = "width: 600px;" })
-                </td>
-            </tr>
-             <tr>
-                <td style="text-align:right;">列印：
-                </td>
-                <td>
-                    @Html.TextBox("Printer", Model.Printer, new { id = "Printer", @style = "width: 600px;" })
-                </td>
-            </tr>            
             <tr>
                 <td style="text-align:right;">*排序：
                 </td>
@@ -364,7 +242,7 @@
                         <input id="btnEdit" class="btn" type="submit" value="修改" />                        
                     }
                     <input id="btnClear" class="btn" type="button" value="重填" />
-                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "Activity", new { cdts = m_Cdts }, new { @class = "btn" }))
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "Curriculum", new { cdts = m_Cdts }, new { @class = "btn" }))
                 </td>
             </tr>
         </table>

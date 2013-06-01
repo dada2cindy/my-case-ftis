@@ -1,0 +1,201 @@
+﻿@model FTISWeb.Models.DownloadModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if(Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+}
+@section TitleContent{}
+@section HeadContent{
+    @Scripts.Render("~/bundles/CKEditor")
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+                CKEDITOR.instances.Content.setData('');
+                $("#Vister").val('0');
+                $("#Downer").val('0');
+                $("#SortId").val('0');
+            });                        
+
+            $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+
+            $("#PostDate").kendoDatePicker({
+                change: OnPostDateChange,
+                format: "yyyy/MM/dd"
+            });            
+        });        
+
+        function SetFileField(fileUrl, data) {
+            var filepath = fileUrl.replace("@AppSettings.CKFinderFileHandler", "");
+            document.getElementById(data["selectActionData"]).value = filepath;
+        }
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "Download", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />         
+    <fieldset class="fieldset">
+        <h1>技術工具/文件管理</h1>
+        <table style="width: 100%" class="FormTable">
+            <tr>
+                <td style="text-align:right;">主題分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("MainCode", Model.MainCode, new { id = "MainCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("MainName", Model.MainName, new { id = "MainName" })
+                    <select id="ddlMainCode" onchange="GetSelInfo('ddlMainCode','MainCode','MainName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">農業環保</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">施政分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("AdminCode", Model.AdminCode, new { id = "AdminCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("AdminName", Model.AdminName, new { id = "AdminName" })
+                    <select id="ddlAdminCode" onchange="GetSelInfo('ddlAdminCode','AdminCode','AdminName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">經濟貿易</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">服務分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("ServiceCode", Model.ServiceCode, new { id = "ServiceCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("ServiceName", Model.ServiceName, new { id = "ServiceName" })
+                    <select id="ddlServiceCode" onchange="GetSelInfo('ddlServiceCode','ServiceCode','ServiceName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">生活安全及品質</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*標題：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+             <tr>
+                <td style="text-align:right;">*刊登日期：
+                </td>
+                <td>
+                    @Html.TextBox("PostDate", Model.PostDate, new { id = "PostDate" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">內容：
+                </td>
+                <td>
+                    @Html.TextArea("Content", Model.Content, new { id = "Content" })
+                </td>
+            </tr>            
+            <tr>
+                <td style="text-align:right;">附件1：
+                </td>
+                <td>
+                    @Html.TextBox("AFile1", Model.AFile1, new { id = "AFile1", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile1');" })
+                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile1');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件1名稱：
+                </td>
+                <td>
+                    @Html.TextBox("AFile1Name", Model.AFile1Name, new { id = "AFile1Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">瀏覽人數：
+                </td>
+                <td>
+                    @Html.TextBox("Vister", Model.Vister, new { id = "Vister", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">下載次數：
+                </td>
+                <td>
+                    @Html.TextBox("Emailer", Model.Downer, new { id = "Downer", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*是否站外：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.IsOut, "1")是</label>
+                    <label>@Html.RadioButtonFor(m => m.IsOut, "0")否</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">站外連結網址：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl", Model.AUrl, new { id = "AUrl", @style = "width: 600px;" })
+                </td>
+            </tr>           
+            <tr>
+                <td style="text-align:right;">*排序：
+                </td>
+                <td>
+                    @Html.TextBox("SortId", Model.SortId, new { id = "SortId", @style = "width: 50px;" })排列順序︰越小越前面。
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input id="btnCreate" class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input id="btnEdit" class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "Download", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />
+@if (Model.ShowFreeGOMsg)
+{
+    switch (Model.FreeGOColumnName)
+    {
+        case "Content":
+            Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel("內容", Model.Content));
+            break;            
+    }
+}
