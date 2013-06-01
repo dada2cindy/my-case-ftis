@@ -41,13 +41,6 @@ ALTER TABLE tblNews ADD IsNew_ENG nvarchar(1) null
 ALTER TABLE tblNews ADD Vister_ENG int null
 ALTER TABLE tblNews ADD Emailer_ENG int null
 ALTER TABLE tblNews ADD Printer_ENG int null
-ALTER TABLE tblNews ADD Main_Code_ENG nvarchar(50) null
-ALTER TABLE tblNews ADD Main_Name_ENG nvarchar(200) null
-ALTER TABLE tblNews ADD Admin_Code_ENG nvarchar(50) null
-ALTER TABLE tblNews ADD Admin_Name_ENG nvarchar(200) null
-ALTER TABLE tblNews ADD Service_Code_ENG nvarchar(50) null
-ALTER TABLE tblNews ADD Service_Name_ENG nvarchar(200) null
-ALTER TABLE tblNews ADD Tagn_ENG nvarchar(50) null
 ALTER TABLE tblNews ADD IsOut_ENG nvarchar(1) null
 ALTER TABLE tblNews ADD AUrl_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD TypeID int null
