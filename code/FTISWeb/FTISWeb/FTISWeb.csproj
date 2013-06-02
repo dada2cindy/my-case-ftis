@@ -194,6 +194,15 @@
     <Compile Include="Controllers\Admin\AdminDownloadController.cs" />
     <Compile Include="Controllers\Admin\AdminCurriculumController.cs" />
     <Compile Include="Controllers\Admin\AdminBriefController.cs" />
+    <Compile Include="Controllers\Admin\AdminPublicationController.cs" />
+    <Compile Include="Controllers\Admin\AdminNewsController.cs" />
+    <Compile Include="Controllers\Admin\AdminMNormController.cs" />
+    <Compile Include="Controllers\Admin\AdminApplicationClassController.cs" />
+    <Compile Include="Controllers\Admin\AdminApplicationController.cs" />
+    <Compile Include="Controllers\Admin\AdminLinksClassController.cs" />
+    <Compile Include="Controllers\Admin\AdminLinksController.cs" />
+    <Compile Include="Controllers\Admin\AdminEpaperController.cs" />
+    <Compile Include="Controllers\Admin\AdminEpaperEmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
     <Compile Include="Controllers\FreeGOController.cs" />
@@ -220,6 +229,15 @@
     <Compile Include="Models\FTIS\DownloadModel.cs" />
     <Compile Include="Models\FTIS\CurriculumModel.cs" />
     <Compile Include="Models\FTIS\BriefModel.cs" />
+    <Compile Include="Models\FTIS\PublicationModel.cs" />
+    <Compile Include="Models\FTIS\NewsModel.cs" />
+    <Compile Include="Models\FTIS\MNormModel.cs" />
+    <Compile Include="Models\FTIS\ApplicationClassModel.cs" />
+    <Compile Include="Models\FTIS\ApplicationModel.cs" />
+    <Compile Include="Models\FTIS\LinksClassModel.cs" />
+    <Compile Include="Models\FTIS\LinksModel.cs" />
+    <Compile Include="Models\FTIS\EpaperModel.cs" />
+    <Compile Include="Models\FTIS\EpaperEmailModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
     <Compile Include="Models\Post\NodeModel.cs" />
@@ -237,6 +255,10 @@
     <Compile Include="Helper\SessionHelper.cs" />
     <Compile Include="Utility\ScriptSerializationUtility.cs" />
     <Compile Include="ViewData\AuthorizationData.cs" />
+    <Compile Include="ViewData\PublicationClassData.cs" />
+    <Compile Include="ViewData\NewsClassData.cs" />
+    <Compile Include="ViewData\ApplicationClassData.cs" />
+    <Compile Include="ViewData\LinksClassData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -1814,7 +1836,9 @@
     <Content Include="Scripts\kendo\kendo.window.min.js" />
     <Content Include="Scripts\kendo\kendo.web.js" />
     <Content Include="Scripts\site.common.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1844,6 +1868,24 @@
     <Content Include="Views\Curriculum\Save.cshtml" />
     <Content Include="Views\Brief\AdminIndex.cshtml" />
     <Content Include="Views\Brief\Save.cshtml" />
+    <Content Include="Views\Publication\Save.cshtml" />
+    <Content Include="Views\Publication\AdminIndex.cshtml" />
+    <Content Include="Views\News\AdminIndex.cshtml" />
+    <Content Include="Views\News\Save.cshtml" />
+    <Content Include="Views\MNorm\AdminIndex.cshtml" />
+    <Content Include="Views\MNorm\Save.cshtml" />
+    <Content Include="Views\ApplicationClass\AdminIndex.cshtml" />
+    <Content Include="Views\ApplicationClass\Save.cshtml" />
+    <Content Include="Views\Application\AdminIndex.cshtml" />
+    <Content Include="Views\Application\Save.cshtml" />
+    <Content Include="Views\LinksClass\AdminIndex.cshtml" />
+    <Content Include="Views\LinksClass\Save.cshtml" />
+    <Content Include="Views\Links\AdminIndex.cshtml" />
+    <Content Include="Views\Links\Save.cshtml" />
+    <Content Include="Views\Epaper\AdminIndex.cshtml" />
+    <Content Include="Views\Epaper\Save.cshtml" />
+    <Content Include="Views\EpaperEmail\AdminIndex.cshtml" />
+    <Content Include="Views\EpaperEmail\Save.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

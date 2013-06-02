@@ -66,13 +66,40 @@ namespace FTISWeb.Models
                     m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "GetStr_Status", "ActDate" };
                     break;
                 case "Download":
-                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "Vister", "Downer", "GetStr_IsOut" };  
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "Vister", "Downer", "GetStr_IsOut" };
                     break;
                 case "Curriculum":
-                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "Vister" };
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "GetStr_Status", "Vister" };
                     break;
                 case "Brief":
-                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status", "AYear", "GetStr_PostDate" };
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "GetStr_Status", "AYear", "GetStr_PostDate" };
+                    break;
+                case "Publication":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "PublicationClass.Name", "PubNo" };
+                    break;
+                case "News":
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "NewsType.Name", "NewsClass.Name", "SortId", "GetStr_Status", "Vister", "Printer", "Emailer", "GetStr_IsHome", "GetStr_IsNew", "GetStr_IsOut", "GetStr_PostDate" };
+                    break;
+                case "MNorm":
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "GetStr_Status", "GetStr_PostDate" };
+                    break;
+                case "ApplicationClass":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status" };
+                    break;
+                case "Application":
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "ApplicationClass.Name", "GetStr_PostDate" };
+                    break;
+                case "LinksClass":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status" };
+                    break;
+                case "Links":
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "LinksClass.Name", "GetStr_Status", "GetStr_LangId" };
+                    break;
+                case "Epaper":
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "ENo", "SortId", "GetStr_Status", "Vister", "GetStr_PostDate" };
+                    break;
+                case "EpaperEmail":
+                    m_VisibleColumns = new string[] { "Company", "Email", "GetStr_Status", "GetStr_RegDate" };
                     break;
             }
         }
@@ -104,7 +131,7 @@ namespace FTISWeb.Models
         public string GetDisplayName(string columnName)
         {
             string displayName = string.Empty;
-            
+
             switch (columnName)
             {
                 case "Name":

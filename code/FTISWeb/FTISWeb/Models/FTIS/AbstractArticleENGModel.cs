@@ -121,15 +121,15 @@ namespace FTISWeb.Models
         /// </summary>
         public string AUrl3ENG { get; set; }
 
-        /// <summary>
-        /// 首頁顯示. 0.關閉 1.開啟
-        /// </summary>
-        public string IsHomeENG { get; set; }
+        ///// <summary>
+        ///// 首頁顯示. 0.關閉 1.開啟
+        ///// </summary>
+        //public string IsHomeENG { get; set; }
 
-        /// <summary>
-        /// 顯示New. 0.關閉 1.開啟
-        /// </summary>
-        public string IsNewENG { get; set; }
+        ///// <summary>
+        ///// 顯示New. 0.關閉 1.開啟
+        ///// </summary>
+        //public string IsNewENG { get; set; }
 
         /// <summary>
         /// 瀏覽人數
@@ -181,10 +181,10 @@ namespace FTISWeb.Models
         ///// </summary>
         //public string TagENG { get; set; }
 
-        /// <summary>
-        /// 是否站外
-        /// </summary>
-        public string IsOutENG { get; set; }
+        ///// <summary>
+        ///// 是否站外
+        ///// </summary>
+        //public string IsOutENG { get; set; }
 
         /// <summary>
         /// 站外連結

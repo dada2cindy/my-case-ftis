@@ -1,4 +1,4 @@
-﻿@model FTISWeb.Models.BriefModel
+﻿@model FTISWeb.Models.LinksModel
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
@@ -8,7 +8,7 @@
 @using FTIS.ACUtility;
 @using FTIS.Domain;
 @using FTISWeb.Utility;
-
+@using FTIS.Domain.Impl;
 @{
     string m_Cdts = (string)ViewData["Conditions"];
     
@@ -17,39 +17,47 @@
     bool AllowEdit = (bool)ViewData["AllowEdit"];
 
     SiteOperations Action = SiteOperations.Create;
-    if(Model.EntityId != 0)
+    if (Model.EntityId != 0)
     {
         Action = SiteOperations.Edit;
+    }
+    
+    @*分類*@    
+    IList<SelectListItem> m_LinksClassSelectListItem =new List<SelectListItem>();
+    if (ViewData["LinksClassList"] != null)
+    {
+        IList<LinksClass> m_LinksClassList = (List<LinksClass>)ViewData["LinksClassList"];
+
+        foreach (LinksClass LinksClass in m_LinksClassList)
+        {
+            SelectListItem selectListItem = new SelectListItem();
+            selectListItem.Text = LinksClass.Name;
+            selectListItem.Value = LinksClass.LinksClassId.ToString();
+            if (Model.LinksClassId == LinksClass.LinksClassId)
+            {
+                selectListItem.Selected = true;
+            }
+            m_LinksClassSelectListItem.Add(selectListItem);
+        }
     }
 }
 @section TitleContent{}
 @section HeadContent{
-    @Scripts.Render("~/bundles/CKEditor")
     <script type="text/javascript">
         $(function () {
             $("#btnClear").click(function () {
                 ClearUI('#frmSave');
                 $("#SortId").val('0');
-            });                        
-
-            $("#PostDate").kendoDatePicker({
-                change: OnPostDateChange,
-                format: "yyyy/MM/dd"
-            });            
+            });
         });        
-
-        function SetFileField(fileUrl, data) {
-            var filepath = fileUrl.replace("@AppSettings.CKFinderFileHandler", "");
-            document.getElementById(data["selectActionData"]).value = filepath;
-        }
     </script>
 }
 
-@using (Html.BeginForm(Action.ToString(), "Brief", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+@using (Html.BeginForm(Action.ToString(), "Links", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
 {
-    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />         
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
     <fieldset class="fieldset">
-        <h1>永續產業發展簡訊管理</h1>
+        <h1>網路資源管理</h1>
         <table style="width: 100%" class="FormTable">
             <tr>
                 <td style="text-align:right;">主題分類：
@@ -85,12 +93,20 @@
                 </td>
             </tr>
             <tr>
-                <td style="text-align:right;">*年份：
+                <td style="text-align:right;">*版本：
                 </td>
                 <td>
-                    @Html.TextBox("AYear", Model.AYear, new { id = "AYear" })
+                    <label>@Html.RadioButtonFor(m => m.LangId, "2")中文</label>
+                    <label>@Html.RadioButtonFor(m => m.LangId, "1")英文</label>
                 </td>
             </tr>
+             <tr>
+                <td style="text-align:right;">*選擇分類：
+                </td>
+                <td>
+                    @Html.DropDownList("LinksClassId", m_LinksClassSelectListItem, "請選擇")
+                </td>
+            </tr>           
             <tr>
                 <td style="text-align:right;">*標題：
                 </td>
@@ -99,42 +115,12 @@
                 </td>
             </tr>
              <tr>
-                <td style="text-align:right;">*刊登日期：
-                </td>
-                <td>
-                    @Html.TextBox("PostDate", Model.PostDate, new { id = "PostDate" })
-                </td>
-            </tr>                                               
-            <tr>
-                <td style="text-align:right;">*下載格式：
-                </td>
-                <td>
-                    <label>@Html.RadioButtonFor(m => m.IsUrl, "1")網址鏈接</label>
-                    <label>@Html.RadioButtonFor(m => m.IsUrl, "0")文檔</label>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">網址：
+                <td style="text-align:right;">連結網址：
                 </td>
                 <td>
                     @Html.TextBox("AUrl", Model.AUrl, new { id = "AUrl", @style = "width: 600px;" })
                 </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">上傳文檔：
-                </td>
-                <td>
-                    @Html.TextBox("AFile1", Model.AFile1, new { id = "AFile1", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile1');" })
-                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile1');" />
-                </td>
-            </tr>
-            @*<tr>
-                <td style="text-align:right;">上傳文檔名稱：
-                </td>
-                <td>
-                    @Html.TextBox("AFile1Name", Model.AFile1Name, new { id = "AFile1Name", @style = "width: 600px;" })
-                </td>
-            </tr>*@           
+            </tr>                                                          
             <tr>
                 <td style="text-align:right;">*排序：
                 </td>
@@ -163,7 +149,7 @@
                         <input id="btnEdit" class="btn" type="submit" value="修改" />                        
                     }
                     <input id="btnClear" class="btn" type="button" value="重填" />
-                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "Brief", new { cdts = m_Cdts }, new { @class = "btn" }))
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "Links", new { cdts = m_Cdts }, new { @class = "btn" }))
                 </td>
             </tr>
         </table>

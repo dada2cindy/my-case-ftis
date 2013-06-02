@@ -22,6 +22,27 @@
                             //額外傳至後方的參數
                             keyWord: function () {
                                 return $("#KeyWord").val();
+                            },
+                            publicationClassId: function () {
+                                return $("#PublicationClassId").val();
+                            },
+                            newsClassId: function () {
+                                return $("#NewsClassId").val();
+                            },
+                            newsTypeId: function () {
+                                return $("#NewsTypeId").val();
+                            },
+                            applicationClassId: function () {
+                                return $("#ApplicationClassId").val();
+                            },
+                            linksClassId: function () {
+                                return $("#LinksClassId").val();
+                            },
+                            langId: function () {
+                                return $("#LangId").val();
+                            },
+                            status: function () {
+                                return $("#EStatus").val();
                             }
                         }
                     }
@@ -69,12 +90,77 @@
                         sortable: true
                     },
                     {
+                        field: "@Model.GetColumnName("ENo")",
+                        title: "期數",
+                        hidden: $.parseJSON("@(Model.Hidden("ENo"))"),
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true,
+                        width: 50
+                    },
+                    {
                         field: "@Model.GetColumnName("GetStr_PostDate")",
                         title: "刊登日期",
                         template: '#= "<span>" + @Model.GetColumnName("GetStr_PostDate") + "</span>" #',
                         hidden: $.parseJSON("@(Model.Hidden("GetStr_PostDate"))"),
                         attributes: { "style": "text-align: center;" },
-                        sortable: true
+                        sortable: true,
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("PubNo")",
+                        title: "期別",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("PubNo"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 50
+                    },
+                    {
+                        field: "@Model.GetColumnName("PublicationClass.Name")",
+                        title: "年度",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("PublicationClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("NewsType.Name")",
+                        title: "種類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("NewsType.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("NewsClass.Name")",
+                        title: "議題",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("NewsClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("ApplicationClass.Name")",
+                        title: "分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("ApplicationClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 200
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_LangId")",
+                        title: "版本",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_LangId"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 50
+                    },
+                    {
+                        field: "@Model.GetColumnName("LinksClass.Name")",
+                        title: "分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("LinksClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
                     },
                     {
                         field: "@Model.GetColumnName("Name")",
@@ -91,10 +177,38 @@
                         sortable: true
                     },
                     {
+                        field: "@Model.GetColumnName("Company")",
+                        title: "公司",
+                        hidden: $.parseJSON("@(Model.Hidden("Company"))"),
+                        sortable: true,
+                    },
+                    {
+                        field: "@Model.GetColumnName("Email")",
+                        title: "電子郵件",
+                        hidden: $.parseJSON("@(Model.Hidden("Email"))"),
+                        sortable: true,
+                    },
+                    {
                         field: "@Model.GetColumnName("Vister")",
                         title: "瀏覽人數",
                         sortable: true,
                         hidden: $.parseJSON("@(Model.Hidden("Vister"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("Emailer")",
+                        title: "轉寄",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Emailer"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("Printer")",
+                        title: "列印",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Printer"))"),
                         attributes: { "style": "text-align: center;" },
                         width: 80
                     },
@@ -129,12 +243,36 @@
                         sortable: false
                     },
                     {
+                        field: "@Model.GetColumnName("GetStr_IsHome")",
+                        title: "首頁顯示",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_IsHome"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 60
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_IsNew")",
+                        title: "New顯示",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_IsNew"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 60
+                    },
+                    {
                         field: "@Model.GetColumnName("SortId")",
                         title: "排序",
                         sortable: true,
                         hidden: $.parseJSON("@(Model.Hidden("SortId"))"),
                         attributes: { "style": "text-align: center;" },
                         width: 60
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_RegDate")",
+                        title: "訂/退閱時間",
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_RegDate"))"),
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true,
+                        width: 80
                     },
                     {
                         field: "@Model.GetColumnName("GetStr_Status")",

@@ -224,6 +224,6 @@ namespace FTISWeb.Models
         /// <summary>
         /// 站外連結
         /// </summary>
-        public string AUrl { get; set; }
+        public virtual string AUrl { get; set; }
     }
 }

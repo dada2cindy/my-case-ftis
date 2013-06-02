@@ -119,11 +119,9 @@
                             }
                             @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Carbon))
                             {
-                                <li class="closed nodeIcon"><span class="menuParent">環境宣告/碳足跡設置</span>
+                                <li class="closed nodeIcon"><span class="menuParent">產品環境資訊揭露管理</span>
                                     <ul>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Carbon", new { classId = 1 })" target="mainfrm">背景說明管理</a></span></li>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "GreenBuy", new { classId = 2 })" target="mainfrm">國際趨勢管理</a></span></li>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "MNorm", new { classId = 3 })" target="mainfrm">國內發展管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Carbon")" target="mainfrm">產品環境資訊揭露管理</a></span></li>
                                     </ul>
                                 </li>
                             }
