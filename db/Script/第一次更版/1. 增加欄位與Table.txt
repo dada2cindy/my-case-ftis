@@ -36,12 +36,9 @@ ALTER TABLE tblNews ADD AURL3_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD AUrl1_Link_ENG nvarchar(600) null
 ALTER TABLE tblNews ADD AUrl2_Link_ENG nvarchar(600) null
 ALTER TABLE tblNews ADD AUrl3_Link_ENG nvarchar(600) null
-ALTER TABLE tblNews ADD IsHome_ENG nvarchar(1) null
-ALTER TABLE tblNews ADD IsNew_ENG nvarchar(1) null
 ALTER TABLE tblNews ADD Vister_ENG int null
 ALTER TABLE tblNews ADD Emailer_ENG int null
 ALTER TABLE tblNews ADD Printer_ENG int null
-ALTER TABLE tblNews ADD IsOut_ENG nvarchar(1) null
 ALTER TABLE tblNews ADD AUrl_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD TypeID int null
 GO
