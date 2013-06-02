@@ -69,3 +69,29 @@ GO
 ALTER TABLE tblDownload ALTER COLUMN Vister int NULL
 ALTER TABLE tblDownload ALTER COLUMN Downer int NULL
 GO
+
+/****** Report ******/
+ALTER TABLE tblReport ALTER COLUMN ReportYear int NULL
+ALTER TABLE tblReport ALTER COLUMN PostYear int NULL
+GO
+
+/****** 產品環境資訊揭露 ******/
+DELETE FROM [tblCarbon]
+      WHERE ClassID = '2'
+GO
+
+UPDATE [tblCarbon]
+   SET [Name] = '產品環境宣告'
+ WHERE ID = 1
+GO
+
+UPDATE [tblCarbon]
+   SET [Name] = '碳足跡'
+ WHERE ID = 2
+GO
+
+/****** 網路資源 ******/
+UPDATE [tblLinks]
+   SET [ClassID] = null
+where [ClassID] = '3' or [ClassID] = '4'
+GO
