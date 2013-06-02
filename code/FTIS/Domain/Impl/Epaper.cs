@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class Epaper
+    public class Epaper : Entity
     {
         #region Constructor
 
@@ -32,12 +32,6 @@ namespace FTIS.Domain.Impl
         public virtual string ENo { get; set; }
 
         /// <summary>
-        /// 標題
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
-
-        /// <summary>
         /// 刊登日期
         /// </summary>
         [DataMember]
@@ -47,25 +41,28 @@ namespace FTIS.Domain.Impl
         /// 瀏覽人數
         /// </summary>
         [DataMember]
-        public virtual int Vister { get; set; }
-        
-        /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public virtual int SortId { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }        
+        public virtual int Vister { get; set; }      
 
         /// <summary>
         /// 連接網址
         /// </summary>
         [DataMember]
         public virtual string AUrl { get; set; }
+
+        public virtual string GetStr_PostDate
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (PostDate != null)
+                {
+                    result = PostDate.Value.ToString("yyyy/MM/dd");
+                }
+
+                return result;
+            }
+        }
 
         #endregion
     }

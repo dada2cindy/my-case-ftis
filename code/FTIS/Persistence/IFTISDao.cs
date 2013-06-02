@@ -761,7 +761,7 @@ namespace FTIS.Persistence
         /// 刪除Q&A
         /// </summary>
         /// <param name="question">被刪除的Q&A</param>
-        void DeleteQuestion(Publication question);
+        void DeleteQuestion(Question question);
 
         /// <summary>
         /// 取得Q&A By 識別碼

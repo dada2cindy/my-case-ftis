@@ -32,7 +32,7 @@ namespace FTIS.Domain.Impl
         public virtual string Name { get; set; }
 
         /// <summary>
-        /// 申請日期
+        /// 申請/退定日期
         /// </summary>
         [DataMember]
         public virtual DateTime? RegDate { get; set; }
@@ -77,7 +77,41 @@ namespace FTIS.Domain.Impl
         /// 狀態. 0.退定 1.訂閱
         /// </summary>
         [DataMember]
-        public virtual string Status { get; set; }              
+        public virtual string Status { get; set; }
+
+        public virtual string GetStr_Status
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.Status)
+                {
+                    case "0":
+                        result = "退閱";
+                        break;
+                    case "1":
+                        result = "訂閱";
+                        break;
+                }
+
+                return result;
+            }
+        }
+
+        public virtual string GetStr_RegDate
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (RegDate != null)
+                {
+                    result = RegDate.Value.ToString("yyyy/MM/dd");
+                }
+
+                return result;
+            }
+        }
 
         #endregion
     }

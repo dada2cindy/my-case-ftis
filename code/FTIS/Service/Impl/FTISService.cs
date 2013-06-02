@@ -127,6 +127,42 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
+        /// 取得新聞清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>新聞清單</returns>
+        public IList<News> GetNewsListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<News> list = FTISDao.GetNewsList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (News news in list)
+                {
+                    if (news != null && news.NewsClass != null)
+                    {
+                        NHibernateUtil.Initialize(news.NewsClass);
+                    }
+                    else
+                    {
+                        news.NewsClass = new NewsClass();
+                    }
+
+                    if (news != null && news.NewsType != null)
+                    {
+                        NHibernateUtil.Initialize(news.NewsType);
+                    }
+                    else
+                    {
+                        news.NewsType = new NewsType();
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// 取得新聞分類數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -708,6 +744,33 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
+        /// 取得網路資源清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>網路資源清單</returns>
+        public IList<Links> GetLinksListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<Links> list = FTISDao.GetLinksList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Links links in list)
+                {
+                    if (links != null && links.LinksClass != null)
+                    {
+                        NHibernateUtil.Initialize(links.LinksClass);
+                    }
+                    else
+                    {
+                        links.LinksClass = new LinksClass();
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// 取得網路資源數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -986,6 +1049,33 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
+        /// 取得企業社會責任清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>企業社會責任清單</returns>
+        public IList<Application> GetApplicationListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<Application> list = FTISDao.GetApplicationList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Application application in list)
+                {
+                    if (application != null && application.ApplicationClass != null)
+                    {
+                        NHibernateUtil.Initialize(application.ApplicationClass);
+                    }
+                    else
+                    {
+                        application.ApplicationClass = new ApplicationClass();
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// 取得企業社會責任數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -1125,6 +1215,29 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
+        /// 取得期刊清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>期刊清單</returns>
+        public IList<Publication> GetPublicationListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<Publication> list = FTISDao.GetPublicationList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Publication publication in list)
+                {
+                    if (publication != null && publication.PublicationClass != null)
+                    {
+                        NHibernateUtil.Initialize(publication.PublicationClass);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// 取得期刊數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -1213,7 +1326,7 @@ namespace FTIS.Service.Impl
         }
         #endregion
 
-        #region Publication
+        #region Question
         /// <summary>
         /// Q&A
         /// </summary>
@@ -1238,7 +1351,7 @@ namespace FTIS.Service.Impl
         /// 刪除Q&A
         /// </summary>
         /// <param name="question">被刪除的Q&A</param>
-        public void DeleteQuestion(Publication question)
+        public void DeleteQuestion(Question question)
         {
             FTISDao.DeleteQuestion(question);
         }
@@ -1270,7 +1383,7 @@ namespace FTIS.Service.Impl
         /// <returns></returns>
         public int GetQuestionCount(IDictionary<string, string> conditions)
         {
-            return FTISDao.GetPublicationCount(conditions);
+            return FTISDao.GetQuestionCount(conditions);
         }
 
         /// <summary>

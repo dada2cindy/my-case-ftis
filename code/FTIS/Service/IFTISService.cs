@@ -87,6 +87,13 @@ namespace FTIS.Service
         IList<News> GetNewsList(IDictionary<string, string> conditions);
 
         /// <summary>
+        /// 取得新聞清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>新聞清單</returns>
+        IList<News> GetNewsListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
         /// 取得新聞數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -466,6 +473,13 @@ namespace FTIS.Service
         IList<Links> GetLinksList(IDictionary<string, string> conditions);
 
         /// <summary>
+        /// 取得網路資源清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>網路資源清單</returns>
+        IList<Links> GetLinksListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
         /// 取得網路資源數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -652,6 +666,13 @@ namespace FTIS.Service
         IList<Application> GetApplicationList(IDictionary<string, string> conditions);
 
         /// <summary>
+        /// 取得企業社會責任清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>企業社會責任清單</returns>
+        IList<Application> GetApplicationListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
         /// 取得企業社會責任數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -745,6 +766,13 @@ namespace FTIS.Service
         IList<Publication> GetPublicationList(IDictionary<string, string> conditions);
 
         /// <summary>
+        /// 取得期刊清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>期刊清單</returns>
+        IList<Publication> GetPublicationListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
         /// 取得期刊數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -821,7 +849,7 @@ namespace FTIS.Service
         /// 刪除Q&A
         /// </summary>
         /// <param name="question">被刪除的Q&A</param>
-        void DeleteQuestion(Publication question);
+        void DeleteQuestion(Question question);
 
         /// <summary>
         /// 取得Q&A By 識別碼

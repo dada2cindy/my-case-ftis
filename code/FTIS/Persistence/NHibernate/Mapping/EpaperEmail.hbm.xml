@@ -14,7 +14,7 @@
     <property name="Company" column="Company" type="String" length="200"/>
     <property name="Dept" column="Dept" type="String" length="100"/>    
     <property name="Email" column="Email" type="String" length="200"/>
-    <property name="Address" column="JobTitle" type="String" length="200"/>
+    <property name="Address" column="Address" type="String" length="200"/>
     <property name="Status" column="Status" type="String" length="1"/>
 
   </class>

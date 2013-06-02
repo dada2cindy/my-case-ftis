@@ -75,8 +75,8 @@
     <property name="AUrl1LinkENG" column="AURL1_Link_ENG" type="String" length="600"/>
     <property name="AUrl2LinkENG" column="AURL2_Link_ENG" type="String" length="600"/>
     <property name="AUrl3LinkENG" column="AURL3_Link_ENG" type="String" length="600"/>
-    <property name="IsHomeENG" column="IsHome_ENG" type="String" length="1"/>
-    <property name="IsNewENG" column="IsNew_ENG" type="String" length="1"/>
+    <!--<property name="IsHomeENG" column="IsHome_ENG" type="String" length="1"/>
+    <property name="IsNewENG" column="IsNew_ENG" type="String" length="1"/>-->
     <property name="VisterENG" column="Vister_ENG" type="Int32"/>
     <property name="EmailerENG" column="Emailer_ENG" type="Int32"/>
     <property name="PrinterENG" column="Printer_ENG" type="Int32"/>
@@ -86,8 +86,8 @@
     <property name="AdminNameENG" column="Admin_Name_ENG" type="String" length="200"/>
     <property name="ServiceCodeENG" column="Service_Code_ENG" type="String" length="50"/>
     <property name="ServiceNameENG" column="Service_Name_ENG" type="String" length="200"/>
-    <property name="TagENG" column="Tagn_ENG" type="String" length="50"/>-->
-    <property name="IsOutENG" column="IsOut_ENG" type="String" length="1"/>
+    <property name="TagENG" column="Tagn_ENG" type="String" length="50"/>
+    <property name="IsOutENG" column="IsOut_ENG" type="String" length="1"/>-->
     <property name="AUrlENG" column="AUrl_ENG" type="String" length="200"/>
 
   </class>

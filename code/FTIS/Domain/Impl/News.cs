@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class News
+    public class News :Entity
     {
         #region Constructor
 
@@ -44,12 +44,6 @@ namespace FTIS.Domain.Impl
         public virtual string LangId { get; set; }
 
         #region 中文欄位
-
-        /// <summary>
-        /// 標題
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
 
         /// <summary>
         /// 刊登日期
@@ -202,18 +196,6 @@ namespace FTIS.Domain.Impl
         public virtual int Printer { get; set; }
 
         /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public virtual int SortId { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }
-
-        /// <summary>
         /// 主題分類編號
         /// </summary>
         [DataMember]
@@ -266,6 +248,78 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual string AUrl { get; set; }
+
+        public virtual string GetStr_IsOut
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.IsOut)
+                {
+                    case "0":
+                        result = "否";
+                        break;
+                    case "1":
+                        result = "是";
+                        break;
+                }
+
+                return result;
+            }
+        }
+
+        public virtual string GetStr_IsHome
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.IsHome)
+                {
+                    case "0":
+                        result = "否";
+                        break;
+                    case "1":
+                        result = "是";
+                        break;
+                }
+
+                return result;
+            }
+        }
+
+        public virtual string GetStr_IsNew
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.IsNew)
+                {
+                    case "0":
+                        result = "否";
+                        break;
+                    case "1":
+                        result = "是";
+                        break;
+                }
+
+                return result;
+            }
+        }
+
+        public virtual string GetStr_PostDate
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (PostDate != null)
+                {
+                    result = PostDate.Value.ToString("yyyy/MM/dd");
+                }
+
+                return result;
+            }
+        }
 
         #endregion
 
@@ -391,17 +445,17 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string AUrl3ENG { get; set; }
 
-        /// <summary>
-        /// 首頁顯示. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string IsHomeENG { get; set; }
+        ///// <summary>
+        ///// 首頁顯示. 0.關閉 1.開啟
+        ///// </summary>
+        //[DataMember]
+        //public virtual string IsHomeENG { get; set; }
 
-        /// <summary>
-        /// 顯示New. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string IsNewENG { get; set; }
+        ///// <summary>
+        ///// 顯示New. 0.關閉 1.開啟
+        ///// </summary>
+        //[DataMember]
+        //public virtual string IsNewENG { get; set; }
 
         /// <summary>
         /// 瀏覽人數
@@ -463,11 +517,11 @@ namespace FTIS.Domain.Impl
         //[DataMember]
         //public virtual string TagENG { get; set; }
 
-        /// <summary>
-        /// 是否站外
-        /// </summary>
-        [DataMember]
-        public virtual string IsOutENG { get; set; }
+        ///// <summary>
+        ///// 是否站外
+        ///// </summary>
+        //[DataMember]
+        //public virtual string IsOutENG { get; set; }
 
         /// <summary>
         /// 站外連結

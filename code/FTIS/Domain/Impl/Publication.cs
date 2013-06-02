@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class Publication
+    public class Publication : Entity
     {
         #region Constructor
 
@@ -32,12 +32,6 @@ namespace FTIS.Domain.Impl
         public virtual PublicationClass PublicationClass { get; set; }
 
         /// <summary>
-        /// 標題
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
-
-        /// <summary>
         /// 期別
         /// </summary>
         [DataMember]
@@ -47,25 +41,13 @@ namespace FTIS.Domain.Impl
         /// 內容
         /// </summary>
         [DataMember]
-        public virtual string Content { get; set; }            
+        public virtual string Content { get; set; }
 
         /// <summary>
         /// 本期封面圖片
         /// </summary>
         [DataMember]
-        public virtual string Pic1 { get; set; }             
-
-        /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public virtual int SortId { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }
+        public virtual string Pic1 { get; set; }
 
         /// <summary>
         /// 主題分類編號
@@ -143,13 +125,28 @@ namespace FTIS.Domain.Impl
         /// A.本期刊物電子檔案上傳
         /// </summary>
         [DataMember]
-        public virtual string AFile1 { get; set; }   
+        public virtual string AFile1 { get; set; }
 
         /// <summary>
         /// B.本期刊物電子檔案遠端連結網址
         /// </summary>
         [DataMember]
         public virtual string LinkFile { get; set; }
+
+        //public virtual string GetStr_PublicationClassName
+        //{
+        //    get
+        //    {
+        //        string result = string.Empty;
+
+        //        if (PublicationClass != null)
+        //        {
+        //            result = PublicationClass.Name;
+        //        }
+
+        //        return result;
+        //    }
+        //}
 
         #endregion
     }

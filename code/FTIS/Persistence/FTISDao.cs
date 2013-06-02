@@ -1220,7 +1220,7 @@ namespace FTIS.Persistence
         private IList QueryLinks(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
             AppendLinksClass(conditions, whereScript, param);
-            AppendLinksName(conditions, whereScript, param);
+            AppendLinksKeyWord(conditions, whereScript, param);
             AppendLinksStatus(conditions, whereScript, param);
             AppendLinksLangId(conditions, whereScript, param);
 
@@ -1245,12 +1245,12 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendLinksName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendLinksKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
                 whereScript.Append(" and l.Name like ? ");
-                param.Add("%" + conditions["Name"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 
@@ -1602,7 +1602,7 @@ namespace FTIS.Persistence
 
         private IList QueryApplicationClass(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendApplicationClassName(conditions, whereScript, param);
+            AppendApplicationClassKeyWord(conditions, whereScript, param);
             AppendApplicationClassStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
@@ -1626,12 +1626,12 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendApplicationClassName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendApplicationClassKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
                 whereScript.Append(" and a.Name like ? ");
-                param.Add("%" + conditions["Name"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 
@@ -1855,7 +1855,7 @@ namespace FTIS.Persistence
 
         private IList QueryPublicationClass(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendPublicationClassName(conditions, whereScript, param);
+            AppendPublicationClassKeyWord(conditions, whereScript, param);
             AppendPublicationClassStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
@@ -1879,7 +1879,7 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendPublicationClassName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendPublicationClassKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
             if (conditions.IsContainsValue("KeyWord"))
             {
@@ -2108,7 +2108,7 @@ namespace FTIS.Persistence
 
         private IList QueryQuestionClass(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendQuestionClassName(conditions, whereScript, param);
+            AppendQuestionClassKeyWord(conditions, whereScript, param);
             AppendQuestionClassStatus(conditions, whereScript, param);
             AppendQuestionClassLangId(conditions, whereScript, param);
 
@@ -2133,9 +2133,9 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendQuestionClassName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendQuestionClassKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
                 whereScript.Append(" and 1.Name like ? ");
                 param.Add("%" + conditions["Name"] + "%");
@@ -2190,7 +2190,7 @@ namespace FTIS.Persistence
         /// 刪除Q&A
         /// </summary>
         /// <param name="question">被刪除的Q&A</param>
-        public void DeleteQuestion(Publication question)
+        public void DeleteQuestion(Question question)
         {
             NHibernateDao.Delete(question);
         }
@@ -2747,7 +2747,7 @@ namespace FTIS.Persistence
 
         private IList QueryIndustry(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendIndustryName(conditions, whereScript, param);
+            AppendIndustryKeyWord(conditions, whereScript, param);
             AppendIndustryStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
@@ -2771,7 +2771,7 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendIndustryName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendIndustryKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
             if (conditions.IsContainsValue("KeyWord"))
             {
@@ -3180,7 +3180,7 @@ namespace FTIS.Persistence
 
         private IList QueryEpaper(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendEpaperName(conditions, whereScript, param);
+            AppendEpaperKeyWord(conditions, whereScript, param);
             AppendEpaperStatus(conditions, whereScript, param);
             AppendEpaperPostDate(conditions, whereScript, param);
 
@@ -3205,12 +3205,12 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendEpaperName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendEpaperKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
                 whereScript.Append(" and e.Name like ? ");
-                param.Add("%" + conditions["Name"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 
@@ -3314,7 +3314,7 @@ namespace FTIS.Persistence
 
         private IList QueryEpaperEmail(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendEpaperKeyWord(conditions, whereScript, param);
+            AppendEpaperEMailKeyWord(conditions, whereScript, param);
             AppendEpaperEmailStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
@@ -3338,7 +3338,7 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendEpaperKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendEpaperEMailKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
             if (conditions.IsContainsValue("ByEmail"))
             {
@@ -3555,7 +3555,7 @@ namespace FTIS.Persistence
         {
             int count = 0;
             ArrayList param = new ArrayList();
-            string fromScript = "select count(m.MNormId) from Brief m ";
+            string fromScript = "select count(m.MNormId) from MNorm m ";
             StringBuilder whereScript = new StringBuilder();
             IList result = this.QueryMNorm(param, fromScript, whereScript, conditions, false);
             if (result.Count > 0)
@@ -3605,7 +3605,7 @@ namespace FTIS.Persistence
         {
             if (conditions.IsContainsValue("Status"))
             {
-                whereScript.Append(" and b.Status = ? ");
+                whereScript.Append(" and m.Status = ? ");
                 param.Add(conditions["Status"]);
             }
         }

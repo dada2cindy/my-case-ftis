@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class Links
+    public class Links : Entity
     {
         #region Constructor
 
@@ -36,24 +36,6 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual string LangId { get; set; }
-
-        /// <summary>
-        /// 標題
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }        
-
-        /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public virtual int SortId { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }
 
         /// <summary>
         /// 主題分類編號
@@ -96,6 +78,25 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual string AUrl { get; set; }
+
+        public virtual string GetStr_LangId
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.LangId)
+                {
+                    case "1":
+                        result = "英文";
+                        break;
+                    case "2":
+                        result = "中文";
+                        break;
+                }
+
+                return result;
+            }
+        }
 
         #endregion
     }
