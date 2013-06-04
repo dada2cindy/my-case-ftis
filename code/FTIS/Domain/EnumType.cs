@@ -114,4 +114,10 @@ namespace FTIS.Domain
         Fail = 2,
         NotFound = 4        
     }
+
+    public enum SiteParentNode
+    {
+        None = 0,
+        Technology = 18
+    }
 }

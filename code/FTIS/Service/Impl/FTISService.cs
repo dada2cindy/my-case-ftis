@@ -482,7 +482,31 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
-        /// 取得新聞種類數量
+        /// 取得種類清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>種類清單</returns>
+        public IList<Node> GetNodeListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<Node> list = FTISDao.GetNodeList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Node node in list)
+                {
+                    if (node != null && node.ParentNode != null)
+                    {
+                        NHibernateUtil.Initialize(node.ParentNode);
+                        node.ParentNode.ParentNode = null;
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 取得種類數量
         /// </summary>
         /// <param name="conditions"></param>
         /// <returns></returns>
@@ -492,10 +516,10 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
-        /// 取得新聞種類 By 識別碼
+        /// 取得種類 By 識別碼
         /// </summary>
         /// <param name="nodeId">識別碼</param>
-        /// <returns>新聞種類</returns>
+        /// <returns>種類</returns>
         public Node GetNodeByIdNoLazy(int nodeId)
         {
             Node node = FTISDao.GetNodeById(nodeId);
@@ -2436,6 +2460,116 @@ namespace FTIS.Service.Impl
             }
 
             return epaperExamination;
+        }
+        #endregion
+
+        #region Post
+        /// <summary>
+        /// 新增Post
+        /// </summary>
+        /// <param name="post">被新增的Post</param>
+        /// <returns>新增後的Post</returns>
+        public Post CreatePost(Post post)
+        {
+            return FTISDao.CreatePost(post);
+        }
+
+        /// <summary>
+        /// 更新Post
+        /// </summary>
+        /// <param name="post">被更新的Post</param>
+        /// <returns>更新後的Post</returns>
+        public Post UpdatePost(Post post)
+        {
+            return FTISDao.UpdatePost(post);
+        }
+
+        /// <summary>
+        /// 刪除Post
+        /// </summary>
+        /// <param name="post">被刪除的Post</param>
+        public void DeletePost(Post post)
+        {
+            FTISDao.DeletePost(post);
+        }
+
+        /// <summary>
+        /// 取得Post By 識別碼
+        /// </summary>
+        /// <param name="postId">識別碼</param>
+        /// <returns>Post</returns>
+        public Post GetPostById(int postId)
+        {
+            return FTISDao.GetPostById(postId);
+        }
+
+        /// <summary>
+        /// 取得Post清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>Post清單</returns>
+        public IList<Post> GetPostList(IDictionary<string, string> conditions)
+        {
+            return FTISDao.GetPostList(conditions);
+        }
+
+        /// <summary>
+        /// 取得Post清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>Post清單</returns>
+        public IList<Post> GetPostListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<Post> list = FTISDao.GetPostList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Post post in list)
+                {
+                    if (post != null && post.Node != null)
+                    {
+                        NHibernateUtil.Initialize(post.Node);
+                        post.Node.ParentNode = null;
+                        //if (post.Node.ParentNode != null)
+                        //{
+                        //    NHibernateUtil.Initialize(post.Node.ParentNode);
+                        //}
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 取得Post種類數量
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        public int GetPostCount(IDictionary<string, string> conditions)
+        {
+            return FTISDao.GetPostCount(conditions);
+        }
+
+        /// <summary>
+        /// 取得Post By 識別碼
+        /// </summary>
+        /// <param name="postId">識別碼</param>
+        /// <returns>Post</returns>
+        public Post GetPostByIdNoLazy(int postId)
+        {
+            Post post = FTISDao.GetPostById(postId);
+
+            if (post != null && post.Node != null)
+            {
+                NHibernateUtil.Initialize(post.Node);                
+            }
+            else
+            {
+                post.Node = new Node();
+            }
+
+            return post;
         }
         #endregion
 

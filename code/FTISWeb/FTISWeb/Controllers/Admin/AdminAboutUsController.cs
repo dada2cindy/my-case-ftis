@@ -14,28 +14,28 @@ namespace FTISWeb.Controllers
     public partial class AboutUsController : Controller
     {
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.AboutUs, Operation = SiteOperations.Edit)]
-        [AuthorizationData(AppFunction = SiteEntities.AboutUs)]
-        public ActionResult Edit(int id)
+        [AuthorizationData(AppFunction = SiteEntities.AboutUs, ControllerName = "AboutUs")]
+        public ActionResult NodeSingleEdit(int id)
         {
-            return View(new NodeModel(id, false));
+            return View("NodeSingleEdit", new NodeModel(id));
         }
 
         [ValidateInput(false)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.AboutUs, Operation = SiteOperations.Edit)]
-        [AuthorizationData(AppFunction = SiteEntities.AboutUs)]
+        [AuthorizationData(AppFunction = SiteEntities.AboutUs, ControllerName = "AboutUs")]
         [HttpPost]
-        public ActionResult Edit(NodeModel model)
+        public ActionResult NodeSingleEdit(NodeModel model)
         {
             ////檢查內容無障礙是否通過
             if (!AccessibilityUtil.CheckFreeGO(model.Content))
             {
                 model.ShowFreeGOMsg = true;
-                model.FreeGOColumnName = "Content";                
+                model.FreeGOColumnName = "Content";
             }
             else if (!AccessibilityUtil.CheckFreeGO(model.ContentENG))
             {
                 model.ShowFreeGOMsg = true;
-                model.FreeGOColumnName = "ContentENG";                
+                model.FreeGOColumnName = "ContentENG";
             }
 
             model.Update();

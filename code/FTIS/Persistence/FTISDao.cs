@@ -719,6 +719,8 @@ namespace FTIS.Persistence
         private IList QueryNode(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
             AppendNodeParentNode(conditions, whereScript, param);
+            AppendNodeKeyWord(conditions, whereScript, param);
+            AppendNodeStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
             if (useOrder)
@@ -741,12 +743,31 @@ namespace FTIS.Persistence
             return order;
         }
 
+        private void AppendNodeKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("KeyWord"))
+            {
+                whereScript.Append(" and (n.Name like ? or n.NameENG like ? ) ");
+                param.Add("%" + conditions["KeyWord"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
+            }
+        }
+
         private void AppendNodeParentNode(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
             if (conditions.IsContainsValue("ParentNodeId"))
             {
                 whereScript.Append(" and n.ParentNode.NodeId = ? ");
                 param.Add(conditions["ParentNodeId"]);
+            }
+        }
+
+        private void AppendNodeStatus(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("Status"))
+            {
+                whereScript.Append(" and n.Status = ? ");
+                param.Add(conditions["Status"]);
             }
         }
         #endregion
@@ -4086,6 +4107,149 @@ namespace FTIS.Persistence
                 whereScript.Append(" and (e.Name like ? or e.Email like ? ) ");
                 param.Add("%" + conditions["KeyWord"] + "%");
                 param.Add("%" + conditions["KeyWord"] + "%");
+            }
+        }
+        #endregion
+
+        #region Post
+        /// <summary>
+        /// 新增Post
+        /// </summary>
+        /// <param name="post">被新增的Post</param>
+        /// <returns>新增後的Post</returns>
+        public Post CreatePost(Post post)
+        {
+            NHibernateDao.Insert(post);
+
+            return post;
+        }
+
+        /// <summary>
+        /// 更新Post
+        /// </summary>
+        /// <param name="post">被更新的Post</param>
+        /// <returns>更新後的Post</returns>
+        public Post UpdatePost(Post post)
+        {
+            NHibernateDao.Update(post);
+
+            return post;
+        }
+
+        /// <summary>
+        /// 刪除Post
+        /// </summary>
+        /// <param name="post">被刪除的Post</param>
+        public void DeletePost(Post post)
+        {
+            NHibernateDao.Delete(post);
+        }
+
+        /// <summary>
+        /// 取得Post By 識別碼
+        /// </summary>
+        /// <param name="postId">識別碼</param>
+        /// <returns>Post</returns>
+        public Post GetPostById(int postId)
+        {
+            return NHibernateDao.GetVOById<Post>(postId);
+        }
+
+        /// <summary>
+        /// 取得Post清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>Post清單</returns>
+        public IList<Post> GetPostList(IDictionary<string, string> conditions)
+        {
+            ArrayList param = new ArrayList();
+            string fromScript = "select p from Post p ";
+            StringBuilder whereScript = new StringBuilder();
+            return this.QueryPost(param, fromScript, whereScript, conditions, true).OfType<Post>().ToList();
+        }
+
+        /// <summary>
+        /// 取得Post種類數量
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        public int GetPostCount(IDictionary<string, string> conditions)
+        {
+            int count = 0;
+            ArrayList param = new ArrayList();
+            string fromScript = "select count(p.PostId) from Post p ";
+            StringBuilder whereScript = new StringBuilder();
+            IList result = this.QueryPost(param, fromScript, whereScript, conditions, false);
+            if (result.Count > 0)
+            {
+                count = Convert.ToInt32(result[0]);
+            }
+            return count;
+        }
+
+        private IList QueryPost(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
+        {
+            AppendPostNode(conditions, whereScript, param);
+            AppendPostParentNode(conditions, whereScript, param);
+            AppendPostKeyWord(conditions, whereScript, param);
+            AppendPostStatus(conditions, whereScript, param);
+
+            string hql = fromScript + "where 1=1 " + whereScript;
+            if (useOrder)
+            {
+                hql += AppendPostOrder(conditions);
+            }
+
+            return NHibernateDao.Query(hql, param, conditions);
+        }
+
+        private string AppendPostOrder(IDictionary<string, string> conditions)
+        {
+            //// 排序條件
+            string order = "order by p.SortId ";
+            if (conditions.IsContainsValue("Order"))
+            {
+                order = conditions["Order"];
+            }
+
+            return order;
+        }
+
+        private void AppendPostKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("KeyWord"))
+            {
+                whereScript.Append(" and (p.Company like ? or p.CompanyENG like ? or p.Email like ? ) ");
+                param.Add("%" + conditions["KeyWord"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
+            }
+        }
+
+        private void AppendPostNode(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("NodeId"))
+            {
+                whereScript.Append(" and p.Node.NodeId = ? ");
+                param.Add(conditions["NodeId"]);
+            }
+        }
+
+        private void AppendPostParentNode(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("ParentNodeId"))
+            {
+                whereScript.Append(" and p.Node.ParentNode.NodeId = ? ");
+                param.Add(conditions["ParentNodeId"]);
+            }
+        }
+
+        private void AppendPostStatus(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("Status"))
+            {
+                whereScript.Append(" and p.Status = ? ");
+                param.Add(conditions["Status"]);
             }
         }
         #endregion

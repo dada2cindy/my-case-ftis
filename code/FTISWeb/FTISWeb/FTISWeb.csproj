@@ -203,6 +203,9 @@
     <Compile Include="Controllers\Admin\AdminLinksController.cs" />
     <Compile Include="Controllers\Admin\AdminEpaperController.cs" />
     <Compile Include="Controllers\Admin\AdminEpaperEmailController.cs" />
+    <Compile Include="Controllers\Admin\AdminGreenController.cs" />
+    <Compile Include="Controllers\Admin\AdminCarbonController.cs" />
+    <Compile Include="Controllers\Admin\AdminTechnologyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
     <Compile Include="Controllers\FreeGOController.cs" />
@@ -241,6 +244,8 @@
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
     <Compile Include="Models\Post\NodeModel.cs" />
+    <Compile Include="Models\Post\AbstractPostModel.cs" />
+    <Compile Include="Models\Post\PostModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AdminAuthorizeAttribute.cs" />
     <Compile Include="Security\Ticket.cs" />
@@ -259,6 +264,7 @@
     <Compile Include="ViewData\NewsClassData.cs" />
     <Compile Include="ViewData\ApplicationClassData.cs" />
     <Compile Include="ViewData\LinksClassData.cs" />
+    <Compile Include="ViewData\PostParentNodeData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -1886,6 +1892,14 @@
     <Content Include="Views\Epaper\Save.cshtml" />
     <Content Include="Views\EpaperEmail\AdminIndex.cshtml" />
     <Content Include="Views\EpaperEmail\Save.cshtml" />
+    <Content Include="Views\Green\SingleEdit.cshtml" />
+    <Content Include="Views\Shared\NodeSingleEdit.cshtml" />
+    <Content Include="Views\AboutUs\NodeSingleEdit.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\PostAdminIndex.cshtml" />
+    <Content Include="Views\Shared\PostAdminGridList.cshtml" />
+    <Content Include="Views\Technology\PostSave.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />
@@ -1915,10 +1929,8 @@
     <Content Include="Views\Admin\LeftMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Carbon\" />
     <Folder Include="Views\Home\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AboutUs\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\AdminLayout.cshtml" />

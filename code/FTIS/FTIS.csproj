@@ -122,6 +122,7 @@
     <Compile Include="Domain\Impl\Examination.cs" />
     <Compile Include="Domain\Impl\EpaperExamination.cs" />
     <Compile Include="Domain\Impl\Entity.cs" />
+    <Compile Include="Domain\Impl\Post.cs" />
     <Compile Include="FTISFactory.cs" />
     <Compile Include="Persistence\FTISDao.cs" />
     <Compile Include="Persistence\IFTISDao.cs" />
@@ -306,6 +307,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\Dto\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Post.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

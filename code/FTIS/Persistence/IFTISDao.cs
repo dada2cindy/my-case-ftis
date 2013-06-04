@@ -1394,5 +1394,50 @@ namespace FTIS.Persistence
         /// <returns></returns>
         int GetEpaperExaminationCount(IDictionary<string, string> conditions);
         #endregion
+
+        #region Post
+
+        /// <summary>
+        /// 新增Post
+        /// </summary>
+        /// <param name="post">被新增的Post</param>
+        /// <returns>新增後的Post</returns>
+        Post CreatePost(Post post);
+
+        /// <summary>
+        /// 更新Post
+        /// </summary>
+        /// <param name="post">被更新的Post</param>
+        /// <returns>更新後的Post</returns>
+        Post UpdatePost(Post post);
+
+        /// <summary>
+        /// 刪除Post
+        /// </summary>
+        /// <param name="post">被刪除的Post</param>
+        void DeletePost(Post post);
+
+        /// <summary>
+        /// 取得Post By 識別碼
+        /// </summary>
+        /// <param name="postId">識別碼</param>
+        /// <returns>Post</returns>
+        Post GetPostById(int postId);
+
+        /// <summary>
+        /// 取得Post清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>Post清單</returns>
+        IList<Post> GetPostList(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得Post種類數量
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        int GetPostCount(IDictionary<string, string> conditions);
+
+        #endregion
     }
 }

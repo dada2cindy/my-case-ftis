@@ -203,3 +203,10 @@ function OnPostDateChange() {
         $("#PostDate").val('');
     }
 }
+
+function OnExpiredDateChange() {
+    var date = this.value();
+    if (date == null || !DateValidationCheck($("#ExpiredDate").val())) {
+        $("#ExpiredDate").val('');
+    }
+}

@@ -28,12 +28,12 @@
     {
         IList<NewsClass> m_NewsClassList = (List<NewsClass>)ViewData["NewsClassList"];
 
-        foreach (NewsClass NewsClass in m_NewsClassList)
+        foreach (NewsClass newsClass in m_NewsClassList)
         {
             SelectListItem selectListItem = new SelectListItem();
-            selectListItem.Text = NewsClass.Name;
-            selectListItem.Value = NewsClass.NewsClassId.ToString();
-            if (Model.NewsClassId == NewsClass.NewsClassId)
+            selectListItem.Text = newsClass.Name;
+            selectListItem.Value = newsClass.NewsClassId.ToString();
+            if (Model.NewsClassId == newsClass.NewsClassId)
             {
                 selectListItem.Selected = true;
             }

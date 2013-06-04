@@ -51,9 +51,9 @@
                             {
                                 <li class="closed nodeIcon"><span class="menuParent">關於我們管理</span>
                                     <ul>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "AboutUs", new { id = 5 })" target="mainfrm">計畫介紹Introduction</a></span></li>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "AboutUs", new { id = 6 })" target="mainfrm">服務窗口</a></span></li>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "AboutUs", new { id = 7 })" target="mainfrm">經驗分享</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "AboutUs", new { id = 5 })" target="mainfrm">計畫介紹Introduction</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "AboutUs", new { id = 6 })" target="mainfrm">服務窗口</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "AboutUs", new { id = 7 })" target="mainfrm">經驗分享</a></span></li>
                                     </ul>
                                 </li>
                             }
@@ -121,7 +121,32 @@
                             {
                                 <li class="closed nodeIcon"><span class="menuParent">產品環境資訊揭露管理</span>
                                     <ul>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Carbon")" target="mainfrm">產品環境資訊揭露管理</a></span></li>
+                                        @*<li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Carbon")" target="mainfrm">產品環境資訊揭露管理</a></span></li>*@
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Carbon", new { id = 8 })" target="mainfrm">產品環境宣告</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Carbon", new { id = 9 })" target="mainfrm">碳足跡</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Carbon", new { id = 10 })" target="mainfrm">水足跡</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Carbon", new { id = 11 })" target="mainfrm">歐盟環境足跡</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Carbon", new { id = 12 })" target="mainfrm">生態效益</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Application))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">企業永續發展應用</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Green", new { id = 13 })" target="mainfrm">綠色供應鏈</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Green", new { id = 14 })" target="mainfrm">環境成本會計</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Green", new { parent = 15 })" target="mainfrm">生態化設計</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Green", new { id = 16 })" target="mainfrm">物質流</a></span></li>
+                                    </ul>
+                                </li>
+                            }
+                            @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Application))
+                            {
+                                <li class="closed nodeIcon"><span class="menuParent">技術服務能量登陸管理</span>
+                                    <ul>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Technology", new { id = 17 })" target="mainfrm">制度介紹</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("PostAdminIndex", "Technology")" target="mainfrm">永續發展服務機構名單</a></span></li>                                        
                                     </ul>
                                 </li>
                             }
@@ -131,8 +156,8 @@
                                     <ul>
                                         <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "ApplicationClass")" target="mainfrm">社會責任分類管理</a></span></li>
                                         <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Application")" target="mainfrm">社會責任資訊管理</a></span></li>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "LSearch")" target="mainfrm">責任報告書查詢管理</a></span></li>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "CSRReport")" target="mainfrm">國內外報告書現況管理</a></span></li>
+                                        @*<li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "LSearch")" target="mainfrm">責任報告書查詢管理</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "CSRReport")" target="mainfrm">國內外報告書現況管理</a></span></li>*@
                                         <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Report")" target="mainfrm">報告書管理</a></span></li>
                                     </ul>
                                 </li>

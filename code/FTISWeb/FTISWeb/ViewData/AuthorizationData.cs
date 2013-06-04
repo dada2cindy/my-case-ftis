@@ -12,6 +12,8 @@ namespace FTISWeb.Controllers
         /// </summary>
         public SiteEntities AppFunction { get; set; }
 
+        public string ControllerName { get; set; }
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             SessionHelper sessionHelper = new SessionHelper();
@@ -22,6 +24,8 @@ namespace FTISWeb.Controllers
                 context.Controller.ViewData["AllowEdit"] = ACUtility.CheckAuthorization(sessionHelper.LoginUser, AppFunction, SiteOperations.Edit);
                 context.Controller.ViewData["AllowDelete"] = ACUtility.CheckAuthorization(sessionHelper.LoginUser, AppFunction, SiteOperations.Delete);
             }
+
+            context.Controller.ViewData["ControllerName"] = ControllerName;
         }
     }
 }

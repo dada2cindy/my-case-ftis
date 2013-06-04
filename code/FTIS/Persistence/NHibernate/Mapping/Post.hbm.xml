@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="Post" lazy="true" table="tblPost" dynamic-update="true" dynamic-insert="true">
+
+    <id name="PostId" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="Node" class="Node" column="NodeID" unique="false"  />
+    <property name="Name" column="Name" type="String" length="200"/>
+    <property name="Company" column="Company" type="String" length="200"/>
+    <property name="CompanyENG" column="Company_ENG" type="String" length="200"/>
+    <property name="ExpiredDate" column="ExpiredDate" type="DateTime"/>
+    <property name="Charge" column="Charge" type="String" length="200"/>
+    <property name="Contact" column="Contact" type="String" length="200"/>
+    <property name="Tel" column="Tel" type="String" length="200"/>
+    <property name="Fax" column="Fax" type="String" length="200"/>
+    <property name="Address" column="Address" type="String" length="200"/>
+    <property name="Email" column="Email" type="String" length="200"/>    
+    <property name="Content" type="StringClob" >
+      <column name="Content" sql-type="nvarchar(max)"/>
+    </property>
+    <property name="SortId" column="SortID" type="Int32"/>
+    <property name="Status" column="Status" type="String" length="1"/>       
+
+  </class>
+
+</hibernate-mapping>

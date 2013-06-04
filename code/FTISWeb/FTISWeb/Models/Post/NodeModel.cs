@@ -20,6 +20,11 @@ namespace FTISWeb.Models
         {
         }
 
+        public NodeModel(int id)
+        {
+            LoadNode(id, false);
+        }
+
         public NodeModel(int id, bool noLazy)
         {
             LoadNode(id, noLazy);

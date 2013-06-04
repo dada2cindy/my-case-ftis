@@ -294,17 +294,24 @@ namespace FTIS.Service
         IList<Node> GetNodeList(IDictionary<string, string> conditions);
 
         /// <summary>
-        /// 取得新聞種類數量
+        /// 取得種類清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>種類清單</returns>
+        IList<Node> GetNodeListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得種類數量
         /// </summary>
         /// <param name="conditions"></param>
         /// <returns></returns>
         int GetNodeCount(IDictionary<string, string> conditions);
 
         /// <summary>
-        /// 取得新聞種類 By 識別碼
+        /// 取得種類 By 識別碼
         /// </summary>
         /// <param name="nodeId">識別碼</param>
-        /// <returns>新聞種類</returns>
+        /// <returns>種類</returns>
         Node GetNodeByIdNoLazy(int nodeId);
         #endregion
 
@@ -1551,6 +1558,65 @@ namespace FTIS.Service
         /// <param name="epaperExaminationId">識別碼</param>
         /// <returns>電子報滿意度問卷</returns>
         EpaperExamination GetEpaperExaminationByIdNoLazy(int epaperExaminationId);
+        #endregion
+
+        #region Post
+
+        /// <summary>
+        /// 新增Post
+        /// </summary>
+        /// <param name="post">被新增的Post</param>
+        /// <returns>新增後的Post</returns>
+        Post CreatePost(Post post);
+
+        /// <summary>
+        /// 更新Post
+        /// </summary>
+        /// <param name="post">被更新的Post</param>
+        /// <returns>更新後的Post</returns>
+        Post UpdatePost(Post post);
+
+        /// <summary>
+        /// 刪除Post
+        /// </summary>
+        /// <param name="post">被刪除的Post</param>
+        void DeletePost(Post post);
+
+        /// <summary>
+        /// 取得Post By 識別碼
+        /// </summary>
+        /// <param name="postId">識別碼</param>
+        /// <returns>Post</returns>
+        Post GetPostById(int postId);
+
+        /// <summary>
+        /// 取得Post清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>Post清單</returns>
+        IList<Post> GetPostList(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得Post清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>Post清單</returns>
+        IList<Post> GetPostListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得Post種類數量
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        int GetPostCount(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得Post By 識別碼
+        /// </summary>
+        /// <param name="postId">識別碼</param>
+        /// <returns>Post</returns>
+        Post GetPostByIdNoLazy(int postId);
+
         #endregion
     }
 }

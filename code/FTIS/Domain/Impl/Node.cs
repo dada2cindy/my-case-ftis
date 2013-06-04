@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class Node
+    public class Node : Entity
     {
         #region Constructor
 
@@ -32,12 +32,6 @@ namespace FTIS.Domain.Impl
         public virtual Node ParentNode { get; set; }
 
         /// <summary>
-        /// 名稱
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
-
-        /// <summary>
         /// 名稱_英文
         /// </summary>
         [DataMember]
@@ -54,18 +48,6 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual string ContentENG { get; set; }
-
-        /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public virtual int SortId { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }
 
         #endregion
     }
