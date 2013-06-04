@@ -54,8 +54,8 @@ CREATE TABLE [tblNode](
 	[SortID] [int] NULL,
 	[Status] [char](1) NULL,
 	[Name_ENG] [nvarchar](200) NULL,
-	[Content] [ntext] NULL,
-	[Content_ENG] [ntext] NULL,
+	[Content] [nvarchar](max) NULL,
+	[Content_ENG] [nvarchar](max) NULL,
 	[ParentID] [int] NULL,
  CONSTRAINT [PK_tblNode] PRIMARY KEY CLUSTERED 
 (
@@ -94,4 +94,30 @@ GO
 UPDATE [tblLinks]
    SET [ClassID] = null
 where [ClassID] = '3' or [ClassID] = '4'
+GO
+
+/****** tblPost ******/
+CREATE TABLE [tblPost](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](200) NULL,
+	[Company] [nvarchar](200) NULL,	
+	[Company_ENG] [nvarchar](200) NULL,
+	[ExpiredDate] [datetime] NULL,
+	[Charge] [nvarchar](200) NULL,
+	[Contact] [nvarchar](200) NULL,
+	[Tel] [nvarchar](200) NULL,
+	[Fax] [nvarchar](200) NULL,
+	[Address] [nvarchar](200) NULL,
+	[Email] [nvarchar](200) NULL,	
+
+	[SortID] [int] NULL,
+	[Status] [char](1) NULL,
+	[Content] [nvarchar](max) NULL,
+	[NodeID] [int] NULL,
+ CONSTRAINT [PK_tblPost] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
 GO
