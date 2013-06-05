@@ -120,4 +120,10 @@ namespace FTIS.Domain
         None = 0,
         Technology = 18
     }
+
+    public enum SiteNode
+    {
+        None = 0,
+        Green = 15
+    }
 }

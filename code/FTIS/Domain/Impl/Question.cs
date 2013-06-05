@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class Question
+    public class Question : Entity
     {
         #region Constructor
 
@@ -38,12 +38,6 @@ namespace FTIS.Domain.Impl
         public virtual string LangId { get; set; }
 
         /// <summary>
-        /// 標題
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
-
-        /// <summary>
         /// 上線日期
         /// </summary>
         [DataMember]
@@ -53,19 +47,7 @@ namespace FTIS.Domain.Impl
         /// 內容
         /// </summary>
         [DataMember]
-        public virtual string Content { get; set; }        
-
-        /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public virtual int SortId { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }
+        public virtual string Content { get; set; }
 
         /// <summary>
         /// 主題分類編號
@@ -101,7 +83,22 @@ namespace FTIS.Domain.Impl
         /// 服務分類名稱
         /// </summary>
         [DataMember]
-        public virtual string ServiceName { get; set; }        
+        public virtual string ServiceName { get; set; }
+
+        public virtual string GetStr_PostDate
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (PostDate != null)
+                {
+                    result = PostDate.Value.ToString("yyyy/MM/dd");
+                }
+
+                return result;
+            }
+        }
 
         #endregion
     }

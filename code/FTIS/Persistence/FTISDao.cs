@@ -1376,7 +1376,7 @@ namespace FTIS.Persistence
 
         private IList QueryGreenFactoryClass(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
-            AppendGreenFactoryClassName(conditions, whereScript, param);
+            AppendGreenFactoryClassKeyWord(conditions, whereScript, param);
             AppendGreenFactoryClassStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
@@ -1400,12 +1400,12 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendGreenFactoryClassName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendGreenFactoryClassKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
                 whereScript.Append(" and n.Name like ? ");
-                param.Add("%" + conditions["Name"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 
@@ -1498,7 +1498,7 @@ namespace FTIS.Persistence
         private IList QueryGreenFactory(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
             AppendGreenFactoryClass(conditions, whereScript, param);
-            AppendGreenFactoryName(conditions, whereScript, param);
+            AppendGreenFactoryKeyWord(conditions, whereScript, param);
             AppendGreenFactoryStatus(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
@@ -1522,12 +1522,13 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendGreenFactoryName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendGreenFactoryKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
-                whereScript.Append(" and g.Name like ? ");
-                param.Add("%" + conditions["Name"] + "%");
+                whereScript.Append(" and (g.Name like ? or g.Content like ? ) ");
+                param.Add("%" + conditions["KeyWord"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 
@@ -2158,7 +2159,7 @@ namespace FTIS.Persistence
         {
             if (conditions.IsContainsValue("KeyWord"))
             {
-                whereScript.Append(" and 1.Name like ? ");
+                whereScript.Append(" and q.Name like ? ");
                 param.Add("%" + conditions["Name"] + "%");
             }
         }
@@ -2277,7 +2278,7 @@ namespace FTIS.Persistence
         private string AppendQuestionOrder(IDictionary<string, string> conditions)
         {
             //// 排序條件
-            string order = "order by q.SortId ";
+            string order = "order by q.SortId, q.PostDate desc ";
             if (conditions.IsContainsValue("Order"))
             {
                 order = conditions["Order"];
@@ -4219,7 +4220,8 @@ namespace FTIS.Persistence
         {
             if (conditions.IsContainsValue("KeyWord"))
             {
-                whereScript.Append(" and (p.Company like ? or p.CompanyENG like ? or p.Email like ? ) ");
+                whereScript.Append(" and (p.Company like ? or p.CompanyENG like ? or p.Email like ? or p.Name like ? ) ");
+                param.Add("%" + conditions["KeyWord"] + "%");
                 param.Add("%" + conditions["KeyWord"] + "%");
                 param.Add("%" + conditions["KeyWord"] + "%");
                 param.Add("%" + conditions["KeyWord"] + "%");

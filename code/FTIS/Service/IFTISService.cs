@@ -580,6 +580,13 @@ namespace FTIS.Service
         IList<GreenFactory> GetGreenFactoryList(IDictionary<string, string> conditions);
 
         /// <summary>
+        /// 取得綠色工廠清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>綠色工廠清單</returns>
+        IList<GreenFactory> GetGreenFactoryListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
         /// 取得綠色工廠數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -871,6 +878,13 @@ namespace FTIS.Service
         /// <param name="conditions">搜尋條件</param>
         /// <returns>Q&A清單</returns>
         IList<Question> GetQuestionList(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得Q&A清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>Q&A清單</returns>
+        IList<Question> GetQuestionListNoLazy(IDictionary<string, string> conditions);
 
         /// <summary>
         /// 取得Q&A數量

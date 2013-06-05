@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class GreenFactory
+    public class GreenFactory : Entity
     {
         #region Constructor
 
@@ -32,12 +32,6 @@ namespace FTIS.Domain.Impl
         public virtual GreenFactoryClass GreenFactoryClass { get; set; }
 
         /// <summary>
-        /// 標題
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
-
-        /// <summary>
         /// 刊登日期
         /// </summary>
         [DataMember]
@@ -48,18 +42,6 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual string Content { get; set; }
-
-        /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public virtual int SortId { get; set; }
-
-        /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }
 
         /// <summary>
         /// 主題分類編號
@@ -96,6 +78,21 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual string ServiceName { get; set; }
+
+        public virtual string GetStr_PostDate
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (PostDate != null)
+                {
+                    result = PostDate.Value.ToString("yyyy/MM/dd");
+                }
+
+                return result;
+            }
+        }
 
         #endregion
     }

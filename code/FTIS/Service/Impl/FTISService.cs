@@ -934,6 +934,29 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
+        /// 取得綠色工廠清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>綠色工廠清單</returns>
+        public IList<GreenFactory> GetGreenFactoryListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<GreenFactory> list = FTISDao.GetGreenFactoryList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (GreenFactory greenFactory in list)
+                {
+                    if (greenFactory != null && greenFactory.GreenFactoryClass != null)
+                    {
+                        NHibernateUtil.Initialize(greenFactory.GreenFactoryClass);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// 取得綠色工廠數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -1398,6 +1421,29 @@ namespace FTIS.Service.Impl
         public IList<Question> GetQuestionList(IDictionary<string, string> conditions)
         {
             return FTISDao.GetQuestionList(conditions);
+        }
+
+        /// <summary>
+        /// 取得Q&A清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>Q&A清單</returns>
+        public IList<Question> GetQuestionListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<Question> list = FTISDao.GetQuestionList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Question question in list)
+                {
+                    if (question != null && question.QuestionClass != null)
+                    {
+                        NHibernateUtil.Initialize(question.QuestionClass);
+                    }
+                }
+            }
+
+            return list;
         }
 
         /// <summary>
