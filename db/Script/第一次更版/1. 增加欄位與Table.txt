@@ -121,3 +121,10 @@ CREATE TABLE [tblPost](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
+
+/****** Q&A ******/
+DELETE FROM [tblQuestion]
+      WHERE ClassID='5'
+
+GO
+

@@ -1,9 +1,9 @@
 /****** 生態化設計 ******/
-INSERT INTO [tblNode]
+INSERT INTO [tblPost]
            ([Name]
            ,[SortID]
            ,[Status]
-           ,[ParentID])
+           ,[NodeID])
      VALUES
            ('C2C設計'
            ,1
@@ -11,11 +11,11 @@ INSERT INTO [tblNode]
            ,15)
 GO
 
-INSERT INTO [tblNode]
+INSERT INTO [tblPost]
            ([Name]
            ,[SortID]
            ,[Status]
-           ,[ParentID])
+           ,[NodeID])
      VALUES
            ('回收再利用設計'
            ,2
@@ -23,11 +23,11 @@ INSERT INTO [tblNode]
            ,15)
 GO
 
-INSERT INTO [tblNode]
+INSERT INTO [tblPost]
            ([Name]
            ,[SortID]
            ,[Status]
-           ,[ParentID])
+           ,[NodeID])
      VALUES
            ('易拆解設計'
            ,3
@@ -35,11 +35,11 @@ INSERT INTO [tblNode]
            ,15)
 GO
 
-INSERT INTO [tblNode]
+INSERT INTO [tblPost]
            ([Name]
            ,[SortID]
            ,[Status]
-           ,[ParentID])
+           ,[NodeID])
      VALUES
            ('廢棄物減量設計'
            ,4
@@ -47,11 +47,11 @@ INSERT INTO [tblNode]
            ,15)
 GO
 
-INSERT INTO [tblNode]
+INSERT INTO [tblPost]
            ([Name]
            ,[SortID]
            ,[Status]
-           ,[ParentID])
+           ,[NodeID])
      VALUES
            ('節能設計'
            ,5
@@ -59,11 +59,11 @@ INSERT INTO [tblNode]
            ,15)
 GO
 
-INSERT INTO [tblNode]
+INSERT INTO [tblPost]
            ([Name]
            ,[SortID]
            ,[Status]
-           ,[ParentID])
+           ,[NodeID])
      VALUES
            ('省資源設計'
            ,6
@@ -71,11 +71,11 @@ INSERT INTO [tblNode]
            ,15)
 GO
 
-INSERT INTO [tblNode]
+INSERT INTO [tblPost]
            ([Name]
            ,[SortID]
            ,[Status]
-           ,[ParentID])
+           ,[NodeID])
      VALUES
            ('去毒化設計'
            ,7
