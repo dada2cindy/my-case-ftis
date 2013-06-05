@@ -1,0 +1,84 @@
+﻿@model FTISWeb.Models.GreenFactoryClassModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";    
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if(Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+}
+@section TitleContent{}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+                $("#SortId").val('0');
+            });
+        });
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "GreenFactoryClass", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    @Html.HiddenFor(m => m.EntityId)         
+    <fieldset class="fieldset">
+        <h1>綠色工廠分類管理</h1>
+        <table style="width: 100%" class="FormTable">
+            <tr>
+                <td style="text-align:right; width:40%;">*名稱：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*排序：
+                </td>
+                <td>
+                    @Html.TextBox("SortId", Model.SortId, new { id = "SortId", @style = "width: 50px;" })排列順序︰越小越前面。
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input id="btnCreate" class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input id="btnEdit" class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "GreenFactoryClass", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />

@@ -17,7 +17,7 @@ namespace FTISWeb.Models
     /// <summary>
     /// 刊物年度
     /// </summary>
-    public class PublicationClassModel : AbstractEntityModel
+    public class PublicationClassModel : AbstractClassModel
     {
         public PublicationClassModel()
         {

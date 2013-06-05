@@ -206,6 +206,10 @@
     <Compile Include="Controllers\Admin\AdminGreenController.cs" />
     <Compile Include="Controllers\Admin\AdminCarbonController.cs" />
     <Compile Include="Controllers\Admin\AdminTechnologyController.cs" />
+    <Compile Include="Controllers\Admin\AdminQuestionClassController.cs" />
+    <Compile Include="Controllers\Admin\AdminQuestionController.cs" />
+    <Compile Include="Controllers\Admin\AdminGreenFactoryClassController.cs" />
+    <Compile Include="Controllers\Admin\AdminGreenFactoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
     <Compile Include="Controllers\FreeGOController.cs" />
@@ -241,6 +245,10 @@
     <Compile Include="Models\FTIS\LinksModel.cs" />
     <Compile Include="Models\FTIS\EpaperModel.cs" />
     <Compile Include="Models\FTIS\EpaperEmailModel.cs" />
+    <Compile Include="Models\FTIS\QuestionClassModel.cs" />
+    <Compile Include="Models\FTIS\QuestionModel.cs" />
+    <Compile Include="Models\FTIS\GreenFactoryClassModel.cs" />
+    <Compile Include="Models\FTIS\GreenFactoryModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
     <Compile Include="Models\Post\NodeModel.cs" />
@@ -265,6 +273,8 @@
     <Compile Include="ViewData\ApplicationClassData.cs" />
     <Compile Include="ViewData\LinksClassData.cs" />
     <Compile Include="ViewData\PostParentNodeData.cs" />
+    <Compile Include="ViewData\QuestionClassData.cs" />
+    <Compile Include="ViewData\GreenFactoryClassData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -1900,6 +1910,15 @@
     <Content Include="Views\Shared\PostAdminIndex.cshtml" />
     <Content Include="Views\Shared\PostAdminGridList.cshtml" />
     <Content Include="Views\Technology\PostSave.cshtml" />
+    <Content Include="Views\QuestionClass\AdminIndex.cshtml" />
+    <Content Include="Views\QuestionClass\Save.cshtml" />
+    <Content Include="Views\Question\AdminIndex.cshtml" />
+    <Content Include="Views\Question\Save.cshtml" />
+    <Content Include="Views\GreenFactoryClass\AdminIndex.cshtml" />
+    <Content Include="Views\GreenFactoryClass\Save.cshtml" />
+    <Content Include="Views\GreenFactory\AdminIndex.cshtml" />
+    <Content Include="Views\GreenFactory\Save.cshtml" />
+    <Content Include="Views\Green\PostSave.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

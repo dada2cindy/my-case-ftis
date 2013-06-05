@@ -1,0 +1,92 @@
+﻿@model FTISWeb.Models.PostModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+@using FTIS.Domain.Impl;
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    string m_FuncName = ViewData["FuncName"] == null ? "資料管理" : (string)ViewData["FuncName"];
+    string m_ControllerName = (string)ViewData["ControllerName"];
+    int m_NodeId = (int)SiteNode.Green;
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if (Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }    
+}
+@section TitleContent{}
+@section HeadContent{
+    @Scripts.Render("~/bundles/CKEditor")
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+                CKEDITOR.instances.Content.setData('');
+            });
+
+            $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+        });        
+    </script>
+}
+
+@using (Html.BeginForm("Post" + (Action.ToString()), m_ControllerName, new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />     
+    <input id="NodeId" name="NodeId" type="hidden" value="@m_NodeId" />  
+    <fieldset class="fieldset">
+        <h1>@m_FuncName</h1>
+        <table style="width: 100%" class="FormTable">            
+            <tr>
+                <td style="text-align:right;">*名稱：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name", @style = "width: 600px;" })
+                </td>
+            </tr>                        
+            <tr>
+                <td style="text-align:right; vertical-align:top;">內容：
+                </td>
+                <td>
+                    @Html.TextArea("Content", Model.Content, new { id = "Content" })
+                </td>
+            </tr>                                                                             
+            <tr>
+                <td style="text-align:right;">*狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "PostAdminIndex", m_ControllerName, new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>      
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />

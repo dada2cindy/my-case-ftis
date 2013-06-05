@@ -136,7 +136,7 @@
                                     <ul>
                                         <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Green", new { id = 13 })" target="mainfrm">綠色供應鏈</a></span></li>
                                         <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Green", new { id = 14 })" target="mainfrm">環境成本會計</a></span></li>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Green", new { parent = 15 })" target="mainfrm">生態化設計</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("PostAdminIndex", "Green")" target="mainfrm">生態化設計</a></span></li>
                                         <li><span class="folder menuNode"><a href="@Url.Action("NodeSingleEdit", "Green", new { id = 16 })" target="mainfrm">物質流</a></span></li>
                                     </ul>
                                 </li>
@@ -164,18 +164,18 @@
                             }
                             @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Grade))
                             {
-                                <li class="closed nodeIcon"><span class="menuParent">評比介紹管理</span>
+                                @*<li class="closed nodeIcon"><span class="menuParent">評比介紹管理</span>
                                     <ul>
                                         <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Grade")" target="mainfrm">評比介紹管理</a></span></li>
                                     </ul>
-                                </li>
+                                </li>*@
                             }
                             @if (ACUtility.CheckAuthorization(m_SessionHelper.LoginUser, SiteEntities.Question))
                             {
                                 <li class="closed nodeIcon"><span class="menuParent">產業服務專區設置</span>
                                     <ul>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "LOnline")" target="mainfrm">線上諮詢管理</a></span></li>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("Edit", "LNotice")" target="mainfrm">產品召回因應服務管理</a></span></li>
+                                        @*<li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "LOnline")" target="mainfrm">線上諮詢管理</a></span></li>*@
+                                        @*<li><span class="folder menuNode"><a href="@Url.Action("Edit", "LNotice")" target="mainfrm">產品召回因應服務管理</a></span></li>*@
                                         <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "QuestionClass")" target="mainfrm">Q&A分類管理</a></span></li>
                                         <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Question")" target="mainfrm">Q&A管理</a></span></li>
                                     </ul>

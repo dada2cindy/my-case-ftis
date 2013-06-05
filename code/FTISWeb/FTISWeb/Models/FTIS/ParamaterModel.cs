@@ -101,6 +101,24 @@ namespace FTISWeb.Models
                 case "EpaperEmail":
                     m_VisibleColumns = new string[] { "Company", "Email", "GetStr_Status", "GetStr_RegDate" };
                     break;
+                case "Technology":
+                    m_VisibleColumns = new string[] { "Company", "CompanyENG", "Charge", "Contact", "Tel", "Email", "GetStr_Status", "GetStr_ExpiredDate", "Node.Name" };
+                    break;
+                case "QuestionClass":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status" };
+                    break;
+                case "Question":
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "QuestionClass.Name", "GetStr_PostDate", "GetStr_Status" };
+                    break;
+                case "GreenFactoryClass":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status" };
+                    break;
+                case "GreenFactory":
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "SortId", "GreenFactoryClass.Name", "GetStr_PostDate", "GetStr_Status" };
+                    break;
+                case "Green":
+                    m_VisibleColumns = new string[] { "Name", "GetStr_Status" };
+                    break;
             }
         }
 

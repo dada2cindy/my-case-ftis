@@ -43,6 +43,12 @@
                             },
                             status: function () {
                                 return $("#EStatus").val();
+                            },
+                            questionClassId: function () {
+                                return $("#QuestionClassId").val();
+                            },
+                            greenFactoryClassId: function () {
+                                return $("#GreenFactoryClassId").val();
                             }
                         }
                     }
@@ -137,6 +143,22 @@
                         hidden: $.parseJSON("@(Model.Hidden("NewsClass.Name"))"),
                         attributes: { "style": "text-align: center;" },
                         width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("GreenFactoryClass.Name")",
+                        title: "分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("GreenFactoryClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 200
+                    },
+                    {
+                        field: "@Model.GetColumnName("QuestionClass.Name")",
+                        title: "分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("QuestionClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 200
                     },
                     {
                         field: "@Model.GetColumnName("ApplicationClass.Name")",

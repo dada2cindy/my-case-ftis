@@ -1,0 +1,150 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@using System.Web.Optimization
+@using FTIS.Domain;
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using WuDada.Core.Generic.Extension;
+@{
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();    
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    string m_Cdts = (string)ViewData["Conditions"];
+
+    string m_FuncName = ViewData["FuncName"] == null ? "資料管理" : (string)ViewData["FuncName"];
+    string m_ControllerName = (string)ViewData["ControllerName"];
+    
+    @*權限*@
+    bool AllowRead = (bool)ViewData["AllowRead"];
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];
+    
+    @*ParentNode分類, Node分類*@
+    IList<Node> m_NodeList = new List<Node>();
+    Node m_Node = null;
+    if (ViewData["NodeList"] != null)
+    {
+        m_NodeList = (List<Node>)ViewData["NodeList"];
+    }
+    else if( ViewData["Node"] != null)
+    {
+        m_Node = (Node)ViewData["Node"];
+    }
+ }
+
+@section TitleContent{}
+@section HeadContent{        
+    <script>
+        $(function () {
+            //按下查詢鈕
+            $("#btnQuery").click(function () {
+                Query();
+            });
+
+            //按下刪除鈕
+            $("#btnDeleteAll").click(function () {
+                DeleteItems('所選項目');
+            });
+
+            $("#KeyWord").enterPressed(function () {
+                Query();
+            });
+
+            $("#NodeId").enterPressed(function () {
+                Query();
+            });
+
+            //Grid的刪除
+            $("#dvGrid").on("click", ".k-grid-Delete", function () {
+                var entityId = $(this).attr('entityId');
+                var entityName = $(this).attr('entityName');
+                DeleteItem(entityId, entityName);
+            });
+
+            Query();
+        });
+
+        function Query() {
+            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", m_ControllerName)', {
+                keyWord: $("#KeyWord").val(),
+                nodeId: $("#NodeId").val()
+            });
+        }                      
+
+        //刪除1筆動作(留在頁面寫)
+        function OnDeleteItem(id) {            
+            $.post('@Url.Action("PostDelete", m_ControllerName)', { id: id }, function (data) {                
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+
+        //刪除多筆動作(留在頁面寫)
+        function OnDeleteItems(allId) {
+            $.post('@Url.Action("PostMultiDelete", m_ControllerName)', { allId: allId }, function (data) {
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+    </script>
+}
+
+<fieldset class="fieldset">
+    <h1>@m_FuncName</h1>
+    <table style="width: 100%" class="FormTable">
+        <tr>
+            <td style="width:100px; text-align:right;">關鍵字：
+            </td>
+            <td >
+                @Html.TextBox("KeyWord", m_Conditions["KeyWord"])
+                @if (m_Node != null)
+                {
+                    <select id="NodeId" name="NodeId" style="display:none;">
+                        <option selected="selected" value="@m_Node.NodeId">@m_Node.Name</option>
+                    </select>
+                }
+                else
+                {
+                    <select id="NodeId" name="NodeId">
+                        <option selected="selected" value="">分類</option>
+                        @if (m_NodeList != null && m_NodeList.Count > 0)
+                        {
+                            foreach (Node node in m_NodeList)
+                            {
+                                string selected = string.Empty;
+                                if (m_Conditions.IsContainsValue("NodeId") && m_Conditions["NodeId"] == node.NodeId.ToString())
+                                {
+                                    selected = "selected='selected'";
+                                }
+                                <option value="@node.NodeId" @selected>@node.Name</option>                                
+                            }
+                        }
+                    </select>   
+                }            
+                <input type="button" class="btn" value="查詢" id="btnQuery" />
+            </td>
+        </tr>        
+    </table>
+    <br />
+    <table>
+        <tr>            
+            <td style="text-align:left;">
+                @Html.Raw(Url.ButtonLink("新增", "PostCreate", m_ControllerName, AllowCreate, new { cdts = m_Cdts }, new { @class = "btn" }))
+                @if (AllowDelete)
+                {
+                    <input type="button" class="btn" value="刪除" id="btnDeleteAll" />                
+                }
+            </td>
+        </tr>  
+    </table>
+    <div id="dvGrid"></div>    
+    <div class="deleteMsgFail"></div>
+</fieldset>
