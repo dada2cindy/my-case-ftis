@@ -18,7 +18,7 @@ using KendoGridBinder.Containers;
 
 namespace FTISWeb.Controllers
 {
-    public partial class NewsTypeController : Controller
+    public partial class NormClassController : Controller
     {
         protected static FTISFactory m_FTISFactory = new FTISFactory();
         protected static IFTISService m_FTISService = m_FTISFactory.GetFTISService();
@@ -26,60 +26,53 @@ namespace FTISWeb.Controllers
         private readonly JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
         private IDictionary<string, string> m_Conditions = new Dictionary<string, string>();
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Read)]
+        [AuthorizationData(AppFunction = SiteEntities.Norm)]
         public ActionResult AdminIndex(string cdts)
         {
             GetConditions(cdts);
             return View();
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.Norm)]
         public ActionResult Edit(int id, string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NewsTypeModel(id));
+            return View("Save", new NormClassModel(id));
         }
 
-        [AuthorizationData(AppFunction = SiteEntities.News)]
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.Norm)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Edit)]
         [HttpPost]
-        public ActionResult Edit(NewsTypeModel model, string cdts)
+        public ActionResult Edit(NormClassModel model, string cdts)
         {
             GetConditions(cdts);
             model.Update();
             return View("AdminIndex");
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Create)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Create)]
+        [AuthorizationData(AppFunction = SiteEntities.Norm)]
         public ActionResult Create(string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NewsTypeModel());
+            return View("Save", new NormClassModel());
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Delete)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Delete)]
+        [AuthorizationData(AppFunction = SiteEntities.Norm)]
         public ActionResult Delete(int id)
         {
             AjaxResult result = new AjaxResult();
 
             try
             {
-                NewsType entity = m_FTISService.GetNewsTypeById(id);
+                NormClass entity = m_FTISService.GetNormClassById(id);
 
-                //檢查底下的News數量
-                IDictionary<string, string> conditions = new Dictionary<string, string>();
-                conditions.Add("NewsTypeId", id.ToString());
-                int subsCount = m_FTISService.GetNewsCount(conditions);
-                if (subsCount > 0)
-                {
-                    return this.Json(new AjaxResult(AjaxResultStatus.Fail, string.Format("{0}底下尚有新聞，不可刪除。", entity.Name)));
-                }
+                //Todo 檢查底下的Norm數量
 
-                m_FTISService.DeleteNewsType(entity);
+                m_FTISService.DeleteNormClass(entity);
 
                 result.ErrorCode = AjaxResultStatus.Success;
                 result.Message = string.Format("{0}刪除成功", entity.Name);
@@ -93,8 +86,8 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Delete)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Delete)]
+        [AuthorizationData(AppFunction = SiteEntities.Norm)]
         public ActionResult MultiDelete(string allId)
         {
             AjaxResult result = new AjaxResult(AjaxResultStatus.Success, string.Empty);
@@ -106,21 +99,10 @@ namespace FTISWeb.Controllers
             {
                 try
                 {
-                    NewsType entity = m_FTISService.GetNewsTypeById(Convert.ToInt32(id));
+                    NormClass entity = m_FTISService.GetNormClassById(Convert.ToInt32(id));
+                    //Todo檢查底下的Norm數量
 
-                    //檢查底下的News數量
-                    IDictionary<string, string> conditions = new Dictionary<string, string>();
-                    conditions.Add("NewsTypeId", id.ToString());
-                    int subsCount = m_FTISService.GetNewsCount(conditions);
-                    if (subsCount == 0)
-                    {
-                        m_FTISService.DeleteNewsType(entity);
-                    }
-                    else
-                    {
-                        result.ErrorCode = AjaxResultStatus.Fail;
-                        sbMsg.AppendFormat("{0}，底下尚有新聞，不可刪除。<br/>", entity.Name);
-                    }
+                    m_FTISService.DeleteNormClass(entity);
                 }
                 catch (Exception ex)
                 {
@@ -133,10 +115,10 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
-        [AuthorizationData(AppFunction = SiteEntities.News)]
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Create)]
+        [AuthorizationData(AppFunction = SiteEntities.Norm)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Create)]
         [HttpPost]
-        public ActionResult Create(NewsTypeModel model, string cdts)
+        public ActionResult Create(NormClassModel model, string cdts)
         {
             GetConditions(cdts);
             model.Insert();
@@ -155,18 +137,18 @@ namespace FTISWeb.Controllers
             }
         }
 
-        private void SetConditions(string keyWord)
+        private void SetConditions(string keyWord, string parentNormClassId)
         {
-            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord });
+            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord, ParentNormClassId = parentNormClassId });
             m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>(cdts);
 
             ViewData["Conditions"] = cdts;
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
-        public JsonResult AjaxBinding(KendoGridRequest request, string keyWord)
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Read)]
+        public JsonResult AjaxBinding(KendoGridRequest request, string keyWord, string parentNormClassId)
         {
-            SetConditions(keyWord);
+            SetConditions(keyWord, parentNormClassId);
             int total = GetGridTotal();
             int pageIndex = (request.Page - 1);
             m_Conditions.Add("PageIndex", pageIndex.ToString());
@@ -174,19 +156,19 @@ namespace FTISWeb.Controllers
             AppendSortingCondition(request);
 
             var data = GetGridData();
-            var result = new KendoGrid<NewsType>(request, data, total);
+            var result = new KendoGrid<NormClass>(request, data, total);
             return Json(result);
         }
 
         /// <summary>
         /// 重撈Grid 資料
         /// </summary>
-        [AuthorizationData(AppFunction = SiteEntities.News)]
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
-        public ActionResult RefreshAdminGrid(string keyWord)
+        [AuthorizationData(AppFunction = SiteEntities.Norm)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Read)]
+        public ActionResult RefreshAdminGrid(string keyWord, string parentNormClassId)
         {
-            SetConditions(keyWord);
-            return View("AdminGridList", new ParamaterModel("Edit", "NewsType", (string)ViewData["Conditions"]));
+            SetConditions(keyWord, parentNormClassId);
+            return View("AdminGridList", new ParamaterModel("Edit", "NormClass", (string)ViewData["Conditions"]));
         }
 
         private void AppendSortingCondition(KendoGridRequest request)
@@ -203,13 +185,13 @@ namespace FTISWeb.Controllers
 
         private int GetGridTotal()
         {
-            int total = m_FTISService.GetNewsTypeCount(m_Conditions);
+            int total = m_FTISService.GetNormClassCount(m_Conditions);
             return total;
         }
 
-        private IEnumerable<NewsType> GetGridData()
+        private IEnumerable<NormClass> GetGridData()
         {
-            IList<NewsType> datasource = m_FTISService.GetNewsTypeList(m_Conditions);
+            IList<NormClass> datasource = m_FTISService.GetNormClassList(m_Conditions);
             return datasource;
         }
     }

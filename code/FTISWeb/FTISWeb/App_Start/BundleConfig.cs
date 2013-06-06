@@ -30,7 +30,7 @@ namespace FTISWeb
             bundles.Add(new ScriptBundle("~/bundles/CKEditor").Include(
                 "~/Scripts/ckeditor/ckeditor.js",
                 "~/Scripts/ckfinder/ckfinder.js"));
-            
+
 
             bundles.Add(new ScriptBundle("~/bundles/TreeView").Include(
                 "~/Scripts/jquery-1.9.1.js",
@@ -46,7 +46,7 @@ namespace FTISWeb
             bundles.Add(new StyleBundle("~/Content/Admin/AdminCSS").Include(
                 "~/Content/Admin/admin.css",
                 "~/Content/Admin/css.css",
-                "~/Content/Validation.css"));            
+                "~/Content/Validation.css"));
 
             bundles.Add(new StyleBundle("~/Content/Admin/LeftMenuCSS").Include(
                 "~/Content/Admin/admin.css",
@@ -60,6 +60,23 @@ namespace FTISWeb
             bundles.Add(new StyleBundle("~/Content/kendo/KendoCSS").Include(
                 "~/Content/kendo/kendo.common.css",
                 "~/Content/kendo/kendo.blueopal.css"));
+
+            /***************************************************************************
+            前台
+            ***************************************************************************/
+            bundles.Add(new ScriptBundle("~/bundles/SiteHome").Include(
+                "~/Scripts/site.home.js",
+                "~/Scripts/swfobject_modified.js"));
+
+            bundles.Add(new StyleBundle("~/Content/SiteHomeCSS").Include(
+                "~/css/Index-Sdyle.css",
+                "~/css/AllCss.css",
+                "~/css/IndexCss.css"));
+
+            bundles.Add(new StyleBundle("~/Content/SiteInCSS").Include(
+                "~/css/AllCss.css",
+                "~/css/In-Style.css",
+                "~/css/InCss.css"));
         }
     }
 }

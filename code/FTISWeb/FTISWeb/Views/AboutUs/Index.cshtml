@@ -1,0 +1,82 @@
+﻿@model FTISWeb.Models.NodeModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@{
+    
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    <div id="In-flash">
+      <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="253" height="152">
+        <param name="movie" value="/swf/inflash.swf" />
+        <param name="quality" value="high" />
+        <param name="wmode" value="opaque" />
+        <param name="swfversion" value="9.0.45.0" />
+        <!-- 此 param 標籤會提示使用 Flash Player 6.0 r65 和更新版本的使用者下載最新版本的 Flash Player。如果您不想讓使用者看到這項提示，請將其刪除。 -->
+        <param name="expressinstall" value="Scripts/expressInstall.swf" />
+        <!-- 下一個物件標籤僅供非 IE 瀏覽器使用。因此，請使用 IECC 將其自 IE 隱藏。 -->
+        <!--[if !IE]>-->
+        <object type="application/x-shockwave-flash" data="/swf/inflash.swf" width="253" height="152">
+          <!--<![endif]-->
+          <param name="quality" value="high" />
+          <param name="wmode" value="opaque" />
+          <param name="swfversion" value="9.0.45.0" />
+          <param name="expressinstall" value="Scripts/expressInstall.swf" />
+          <!-- 瀏覽器會為使用 Flash Player 6.0 和更早版本的使用者顯示下列替代內容。 -->
+          <div>
+            <h4>這個頁面上的內容需要較新版本的 Adobe Flash Player。</h4>
+            <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="取得 Adobe Flash Player" width="112" height="33" /></a></p>
+          </div>
+          <!--[if !IE]>-->
+        </object>
+        <!--<![endif]-->
+      </object>
+    </div>
+    
+    <div id="In-leftTitle"><img src="/in-image/left-title1.png" alt="關於我們"/></div>
+    <a href="@Url.Action("Index", "AboutUs", new { id = Model.EncryptId(5) })"><div class="Left-sbtn">計畫介紹</div></a>
+    <a href="@Url.Action("Index", "AboutUs", new { id = Model.EncryptId(6) })"><div class="Left-sbtn">服務窗口</div></a>
+    <a href="@Url.Action("Index", "AboutUs", new { id = Model.EncryptId(7) })"><div class="Left-sbtn">經驗分享</div></a>
+    @Html.Partial("InSiteLeftMenu");
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    <div id="InShow-adv"><object id="FlashID2" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="746" height="81">
+        <param name="movie" value="/swf/inTopflash.swf" />
+        <param name="quality" value="high" />
+        <param name="wmode" value="opaque" />
+        <param name="swfversion" value="9.0.45.0" />
+        <!-- 此 param 標籤會提示使用 Flash Player 6.0 r65 和更新版本的使用者下載最新版本的 Flash Player。如果您不想讓使用者看到這項提示，請將其刪除。 -->
+        <param name="expressinstall" value="Scripts/expressInstall.swf" />
+        <!-- 下一個物件標籤僅供非 IE 瀏覽器使用。因此，請使用 IECC 將其自 IE 隱藏。 -->
+        <!--[if !IE]>-->
+        <object type="application/x-shockwave-flash" data="/swf/inTopflash.swf" width="746" height="81">
+          <!--<![endif]-->
+          <param name="quality" value="high" />
+          <param name="wmode" value="opaque" />
+          <param name="swfversion" value="9.0.45.0" />
+          <param name="expressinstall" value="Scripts/expressInstall.swf" />
+          <!-- 瀏覽器會為使用 Flash Player 6.0 和更早版本的使用者顯示下列替代內容。 -->
+          <div>
+            <h4>這個頁面上的內容需要較新版本的 Adobe Flash Player。</h4>
+            <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="取得 Adobe Flash Player" width="112" height="33" /></a></p>
+          </div>
+          <!--[if !IE]>-->
+        </object>
+        <!--<![endif]-->
+      </object></div>
+    <h1>關於我們<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "AboutUs", new { id = Model.EncryptId(5) })">關於我們</a> &gt; @Model.Name</span></h1>
+      <h2>@Model.Name </h2>
+    <div id="InShow-INob">@(new HtmlString(Model.Content))</div>
+    
+    @*<div class="InSearchDown">
+      <img src="image/search.png"/>　關鍵字搜尋
+      <input name="textfield2" type="text" class="InShow-searchOrder" id="textfield2" />
+      <a href="search.html"><div class="InShow-searchBtn"></div></a>
+    </div>*@
+    
+  </div><!--內容結尾-->
+</div>

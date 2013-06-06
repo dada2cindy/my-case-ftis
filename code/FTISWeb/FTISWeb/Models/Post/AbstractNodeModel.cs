@@ -15,14 +15,10 @@ using Microsoft.Security.Application;
 
 namespace FTISWeb.Models
 {
-    public abstract class AbstractNodeModel 
+    public abstract class AbstractNodeModel : AbstractShowModel
     {
-        protected readonly FTISFactory m_FTISFactory = new FTISFactory();
-        protected readonly IFTISService m_FTISService;
-
         public AbstractNodeModel()
-        {
-            m_FTISService = m_FTISFactory.GetFTISService();
+        {     
         }
 
         public int NodeId { get; set; }
@@ -49,7 +45,7 @@ namespace FTISWeb.Models
         /// 內容
         /// </summary>
         [DisplayName("名稱")]
-        [Required]        
+        [Required]
         public string Content { get; set; }
 
         /// <summary>
@@ -73,6 +69,11 @@ namespace FTISWeb.Models
         [DisplayName("狀態")]
         [Required]
         public string Status { get; set; }
+
+        protected void LoadNode(int id)
+        {
+            LoadNode(id, false);
+        }
 
         protected void LoadNode(int id, bool noLazy)
         {

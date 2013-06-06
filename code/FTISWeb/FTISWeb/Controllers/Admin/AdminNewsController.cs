@@ -18,7 +18,7 @@ using KendoGridBinder.Containers;
 
 namespace FTISWeb.Controllers
 {
-    public partial class NewsTypeController : Controller
+    public partial class NewsController : Controller
     {
         protected static FTISFactory m_FTISFactory = new FTISFactory();
         protected static IFTISService m_FTISService = m_FTISFactory.GetFTISService();
@@ -28,6 +28,7 @@ namespace FTISWeb.Controllers
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
         [AuthorizationData(AppFunction = SiteEntities.News)]
+        [NewsClassData]
         public ActionResult AdminIndex(string cdts)
         {
             GetConditions(cdts);
@@ -36,28 +37,51 @@ namespace FTISWeb.Controllers
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
         [AuthorizationData(AppFunction = SiteEntities.News)]
+        [NewsClassData]
         public ActionResult Edit(int id, string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NewsTypeModel(id));
+            return View("Save", new NewsModel(id));
         }
 
+        [ValidateInput(false)]
         [AuthorizationData(AppFunction = SiteEntities.News)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
         [HttpPost]
-        public ActionResult Edit(NewsTypeModel model, string cdts)
+        [NewsClassData]
+        public ActionResult Edit(NewsModel model, string cdts)
         {
             GetConditions(cdts);
+
+            ////檢查內容無障礙是否通過
+            if (!AccessibilityUtil.CheckFreeGO(model.Content))
+            {
+                model.ShowFreeGOMsg = true;
+                model.FreeGOColumnName = "Content";
+            }
+            else if (!AccessibilityUtil.CheckFreeGO(model.ContentENG))
+            {
+                model.ShowFreeGOMsg = true;
+                model.FreeGOColumnName = "ContentENG";
+            }
+
             model.Update();
+
+            if (model.ShowFreeGOMsg)
+            {
+                return View("Save", model);
+            }
+
             return View("AdminIndex");
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Create)]
         [AuthorizationData(AppFunction = SiteEntities.News)]
+        [NewsClassData]
         public ActionResult Create(string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NewsTypeModel());
+            return View("Save", new NewsModel());
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Delete)]
@@ -68,18 +92,9 @@ namespace FTISWeb.Controllers
 
             try
             {
-                NewsType entity = m_FTISService.GetNewsTypeById(id);
+                News entity = m_FTISService.GetNewsById(id);
 
-                //檢查底下的News數量
-                IDictionary<string, string> conditions = new Dictionary<string, string>();
-                conditions.Add("NewsTypeId", id.ToString());
-                int subsCount = m_FTISService.GetNewsCount(conditions);
-                if (subsCount > 0)
-                {
-                    return this.Json(new AjaxResult(AjaxResultStatus.Fail, string.Format("{0}底下尚有新聞，不可刪除。", entity.Name)));
-                }
-
-                m_FTISService.DeleteNewsType(entity);
+                m_FTISService.DeleteNews(entity);
 
                 result.ErrorCode = AjaxResultStatus.Success;
                 result.Message = string.Format("{0}刪除成功", entity.Name);
@@ -106,21 +121,8 @@ namespace FTISWeb.Controllers
             {
                 try
                 {
-                    NewsType entity = m_FTISService.GetNewsTypeById(Convert.ToInt32(id));
-
-                    //檢查底下的News數量
-                    IDictionary<string, string> conditions = new Dictionary<string, string>();
-                    conditions.Add("NewsTypeId", id.ToString());
-                    int subsCount = m_FTISService.GetNewsCount(conditions);
-                    if (subsCount == 0)
-                    {
-                        m_FTISService.DeleteNewsType(entity);
-                    }
-                    else
-                    {
-                        result.ErrorCode = AjaxResultStatus.Fail;
-                        sbMsg.AppendFormat("{0}，底下尚有新聞，不可刪除。<br/>", entity.Name);
-                    }
+                    News entity = m_FTISService.GetNewsById(Convert.ToInt32(id));
+                    m_FTISService.DeleteNews(entity);
                 }
                 catch (Exception ex)
                 {
@@ -133,13 +135,34 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
+        [ValidateInput(false)]
         [AuthorizationData(AppFunction = SiteEntities.News)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Create)]
         [HttpPost]
-        public ActionResult Create(NewsTypeModel model, string cdts)
+        [NewsClassData]
+        public ActionResult Create(NewsModel model, string cdts)
         {
             GetConditions(cdts);
+
+            ////檢查內容無障礙是否通過
+            if (!AccessibilityUtil.CheckFreeGO(model.Content))
+            {
+                model.ShowFreeGOMsg = true;
+                model.FreeGOColumnName = "Content";
+            }
+            else if (!AccessibilityUtil.CheckFreeGO(model.ContentENG))
+            {
+                model.ShowFreeGOMsg = true;
+                model.FreeGOColumnName = "ContentENG";
+            }
+
             model.Insert();
+
+            if (model.ShowFreeGOMsg)
+            {
+                return View("Save", model);
+            }
+
             return View("AdminIndex");
         }
 
@@ -147,7 +170,7 @@ namespace FTISWeb.Controllers
         {
             if (string.IsNullOrWhiteSpace(cdts))
             {
-                ViewData["Conditions"] = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = string.Empty });
+                ViewData["Conditions"] = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = string.Empty, NewsClassId = string.Empty, NewsTypeId = string.Empty });
             }
             else
             {
@@ -155,18 +178,18 @@ namespace FTISWeb.Controllers
             }
         }
 
-        private void SetConditions(string keyWord)
+        private void SetConditions(string keyWord, string newsClassId, string newsTypeId)
         {
-            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord });
+            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord, NewsClassId = newsClassId, NewsTypeId = newsTypeId });
             m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>(cdts);
 
             ViewData["Conditions"] = cdts;
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
-        public JsonResult AjaxBinding(KendoGridRequest request, string keyWord)
+        public JsonResult AjaxBinding(KendoGridRequest request, string keyWord, string newsClassId, string newsTypeId)
         {
-            SetConditions(keyWord);
+            SetConditions(keyWord, newsClassId, newsTypeId);
             int total = GetGridTotal();
             int pageIndex = (request.Page - 1);
             m_Conditions.Add("PageIndex", pageIndex.ToString());
@@ -174,7 +197,7 @@ namespace FTISWeb.Controllers
             AppendSortingCondition(request);
 
             var data = GetGridData();
-            var result = new KendoGrid<NewsType>(request, data, total);
+            var result = new KendoGrid<News>(request, data, total);
             return Json(result);
         }
 
@@ -183,10 +206,10 @@ namespace FTISWeb.Controllers
         /// </summary>
         [AuthorizationData(AppFunction = SiteEntities.News)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
-        public ActionResult RefreshAdminGrid(string keyWord)
+        public ActionResult RefreshAdminGrid(string keyWord, string newsClassId, string newsTypeId)
         {
-            SetConditions(keyWord);
-            return View("AdminGridList", new ParamaterModel("Edit", "NewsType", (string)ViewData["Conditions"]));
+            SetConditions(keyWord, newsClassId, newsTypeId);
+            return View("AdminGridList", new ParamaterModel("Edit", "News", (string)ViewData["Conditions"]));
         }
 
         private void AppendSortingCondition(KendoGridRequest request)
@@ -203,13 +226,13 @@ namespace FTISWeb.Controllers
 
         private int GetGridTotal()
         {
-            int total = m_FTISService.GetNewsTypeCount(m_Conditions);
+            int total = m_FTISService.GetNewsCount(m_Conditions);
             return total;
         }
 
-        private IEnumerable<NewsType> GetGridData()
+        private IEnumerable<News> GetGridData()
         {
-            IList<NewsType> datasource = m_FTISService.GetNewsTypeList(m_Conditions);
+            IList<News> datasource = m_FTISService.GetNewsListNoLazy(m_Conditions);
             return datasource;
         }
     }

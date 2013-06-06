@@ -14,25 +14,20 @@ using System.ComponentModel;
 
 namespace FTISWeb.Models
 {
-    public class NodeModel : AbstractNodeModel, ICheckFreeGO
+    public class PostModel : AbstractPostModel, ICheckFreeGO
     {
-        public NodeModel()
+        public PostModel()
         {
         }
 
-        public NodeModel(string id)
+        public PostModel(int id)
         {
-            LoadNode(int.Parse(DecryptId(id)));
+            LoadPost(id, false);
         }
 
-        public NodeModel(int id)
+        public PostModel(int id, bool noLazy)
         {
-            LoadNode(id, false);
-        }
-
-        public NodeModel(int id, bool noLazy)
-        {
-            LoadNode(id, noLazy);
+            LoadPost(id, noLazy);
         }
 
         #region ICheckFreeGO 成員

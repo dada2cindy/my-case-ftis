@@ -23,6 +23,11 @@ namespace FTISWeb.Models
         {
         }
 
+        public ActivityModel(string id)
+        {            
+            LoadEntity(int.Parse(DecryptId(id)));
+        }
+
         public ActivityModel(int id)
         {
             LoadEntity(id);

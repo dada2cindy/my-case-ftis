@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FTISWeb.Models;
 
 namespace FTISWeb.Controllers
 {
@@ -10,7 +11,7 @@ namespace FTISWeb.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(new HomeShowModel());
         }
 
     }

@@ -15,14 +15,10 @@ using Microsoft.Security.Application;
 
 namespace FTISWeb.Models
 {
-    public abstract class AbstractEntityModel
+    public abstract class AbstractEntityModel : AbstractShowModel
     {
-        protected readonly FTISFactory m_FTISFactory = new FTISFactory();
-        protected readonly IFTISService m_FTISService;
-
         public AbstractEntityModel()
         {
-            m_FTISService = m_FTISFactory.GetFTISService();
             this.Status = "1";
         }
 

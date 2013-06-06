@@ -16,7 +16,7 @@ using FTISWeb.Utility;
 using KendoGridBinder;
 using KendoGridBinder.Containers;
 
-namespace FTISWeb.Controllers.Admin
+namespace FTISWeb.Controllers
 {
     public partial class NewsClassController : Controller
     {

@@ -49,5 +49,21 @@ namespace FTISWeb.Utility
                 return 20;
             }
         }
+
+        public static string EncryptKey
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["EncryptKey"];
+            }
+        }
+
+        public static string EncryptIV
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["EncryptIV"];
+            }
+        }
     }
 }

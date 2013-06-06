@@ -18,7 +18,7 @@ using KendoGridBinder.Containers;
 
 namespace FTISWeb.Controllers
 {
-    public partial class NewsTypeController : Controller
+    public partial class EpaperEmailController : Controller
     {
         protected static FTISFactory m_FTISFactory = new FTISFactory();
         protected static IFTISService m_FTISService = m_FTISFactory.GetFTISService();
@@ -26,60 +26,52 @@ namespace FTISWeb.Controllers
         private readonly JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
         private IDictionary<string, string> m_Conditions = new Dictionary<string, string>();
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Read)]
+        [AuthorizationData(AppFunction = SiteEntities.Epaper)]
         public ActionResult AdminIndex(string cdts)
         {
             GetConditions(cdts);
             return View();
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.Epaper)]
         public ActionResult Edit(int id, string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NewsTypeModel(id));
+            return View("Save", new EpaperEmailModel(id));
         }
 
-        [AuthorizationData(AppFunction = SiteEntities.News)]
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
+        [ValidateInput(false)]
+        [AuthorizationData(AppFunction = SiteEntities.Epaper)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Edit)]
         [HttpPost]
-        public ActionResult Edit(NewsTypeModel model, string cdts)
+        public ActionResult Edit(EpaperEmailModel model, string cdts)
         {
             GetConditions(cdts);
             model.Update();
             return View("AdminIndex");
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Create)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Create)]
+        [AuthorizationData(AppFunction = SiteEntities.Epaper)]
         public ActionResult Create(string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NewsTypeModel());
+            return View("Save", new EpaperEmailModel());
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Delete)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Delete)]
+        [AuthorizationData(AppFunction = SiteEntities.Epaper)]
         public ActionResult Delete(int id)
         {
             AjaxResult result = new AjaxResult();
 
             try
             {
-                NewsType entity = m_FTISService.GetNewsTypeById(id);
+                EpaperEmail entity = m_FTISService.GetEpaperEmailById(id);
 
-                //檢查底下的News數量
-                IDictionary<string, string> conditions = new Dictionary<string, string>();
-                conditions.Add("NewsTypeId", id.ToString());
-                int subsCount = m_FTISService.GetNewsCount(conditions);
-                if (subsCount > 0)
-                {
-                    return this.Json(new AjaxResult(AjaxResultStatus.Fail, string.Format("{0}底下尚有新聞，不可刪除。", entity.Name)));
-                }
-
-                m_FTISService.DeleteNewsType(entity);
+                m_FTISService.DeleteEpaperEmail(entity);
 
                 result.ErrorCode = AjaxResultStatus.Success;
                 result.Message = string.Format("{0}刪除成功", entity.Name);
@@ -93,8 +85,8 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Delete)]
-        [AuthorizationData(AppFunction = SiteEntities.News)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Delete)]
+        [AuthorizationData(AppFunction = SiteEntities.Epaper)]
         public ActionResult MultiDelete(string allId)
         {
             AjaxResult result = new AjaxResult(AjaxResultStatus.Success, string.Empty);
@@ -106,21 +98,8 @@ namespace FTISWeb.Controllers
             {
                 try
                 {
-                    NewsType entity = m_FTISService.GetNewsTypeById(Convert.ToInt32(id));
-
-                    //檢查底下的News數量
-                    IDictionary<string, string> conditions = new Dictionary<string, string>();
-                    conditions.Add("NewsTypeId", id.ToString());
-                    int subsCount = m_FTISService.GetNewsCount(conditions);
-                    if (subsCount == 0)
-                    {
-                        m_FTISService.DeleteNewsType(entity);
-                    }
-                    else
-                    {
-                        result.ErrorCode = AjaxResultStatus.Fail;
-                        sbMsg.AppendFormat("{0}，底下尚有新聞，不可刪除。<br/>", entity.Name);
-                    }
+                    EpaperEmail entity = m_FTISService.GetEpaperEmailById(Convert.ToInt32(id));
+                    m_FTISService.DeleteEpaperEmail(entity);
                 }
                 catch (Exception ex)
                 {
@@ -133,10 +112,11 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
-        [AuthorizationData(AppFunction = SiteEntities.News)]
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Create)]
+        [ValidateInput(false)]
+        [AuthorizationData(AppFunction = SiteEntities.Epaper)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Create)]
         [HttpPost]
-        public ActionResult Create(NewsTypeModel model, string cdts)
+        public ActionResult Create(EpaperEmailModel model, string cdts)
         {
             GetConditions(cdts);
             model.Insert();
@@ -147,7 +127,7 @@ namespace FTISWeb.Controllers
         {
             if (string.IsNullOrWhiteSpace(cdts))
             {
-                ViewData["Conditions"] = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = string.Empty });
+                ViewData["Conditions"] = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = string.Empty, Status = string.Empty });
             }
             else
             {
@@ -155,18 +135,18 @@ namespace FTISWeb.Controllers
             }
         }
 
-        private void SetConditions(string keyWord)
+        private void SetConditions(string keyWord, string status)
         {
-            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord });
+            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord, Status = status });
             m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>(cdts);
 
             ViewData["Conditions"] = cdts;
         }
 
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
-        public JsonResult AjaxBinding(KendoGridRequest request, string keyWord)
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Read)]
+        public JsonResult AjaxBinding(KendoGridRequest request, string keyWord, string status)
         {
-            SetConditions(keyWord);
+            SetConditions(keyWord, status);
             int total = GetGridTotal();
             int pageIndex = (request.Page - 1);
             m_Conditions.Add("PageIndex", pageIndex.ToString());
@@ -174,19 +154,19 @@ namespace FTISWeb.Controllers
             AppendSortingCondition(request);
 
             var data = GetGridData();
-            var result = new KendoGrid<NewsType>(request, data, total);
+            var result = new KendoGrid<EpaperEmail>(request, data, total);
             return Json(result);
         }
 
         /// <summary>
         /// 重撈Grid 資料
         /// </summary>
-        [AuthorizationData(AppFunction = SiteEntities.News)]
-        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Read)]
-        public ActionResult RefreshAdminGrid(string keyWord)
+        [AuthorizationData(AppFunction = SiteEntities.Epaper)]
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Read)]
+        public ActionResult RefreshAdminGrid(string keyWord, string status)
         {
-            SetConditions(keyWord);
-            return View("AdminGridList", new ParamaterModel("Edit", "NewsType", (string)ViewData["Conditions"]));
+            SetConditions(keyWord, status);
+            return View("AdminGridList", new ParamaterModel("Edit", "EpaperEmail", (string)ViewData["Conditions"]));
         }
 
         private void AppendSortingCondition(KendoGridRequest request)
@@ -197,19 +177,19 @@ namespace FTISWeb.Controllers
                 string field = sortObject.Field.Replace("GetStr_", "");
                 string direction = sortObject.Direction;
 
-                m_Conditions.Add("Order", string.Format("order by n.{0} {1}", field, direction));
+                m_Conditions.Add("Order", string.Format("order by e.{0} {1}", field, direction));
             }
         }
 
         private int GetGridTotal()
         {
-            int total = m_FTISService.GetNewsTypeCount(m_Conditions);
+            int total = m_FTISService.GetEpaperEmailCount(m_Conditions);
             return total;
         }
 
-        private IEnumerable<NewsType> GetGridData()
+        private IEnumerable<EpaperEmail> GetGridData()
         {
-            IList<NewsType> datasource = m_FTISService.GetNewsTypeList(m_Conditions);
+            IList<EpaperEmail> datasource = m_FTISService.GetEpaperEmailList(m_Conditions);
             return datasource;
         }
     }
