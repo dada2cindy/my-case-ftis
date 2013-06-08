@@ -40,3 +40,180 @@ INSERT INTO [tblNode]
            ,9
            ,'1')
 GO
+
+/****** 節慶樣版 ******/
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'春'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'0301'
+           ,'0531'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'夏'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'0601'
+           ,'0831'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'秋'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'0901'
+           ,'1130'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'冬'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'1201'
+           ,'0229'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'中秋節'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'0815'
+           ,'0815'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'元宵節'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'0115'
+           ,'0115'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'端午節'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'0505'
+           ,'0505'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'中國情人節'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'0707'
+           ,'0707'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'聖誕節'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'1225'
+           ,'1225'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'春節'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'0101'
+           ,'0101'
+           ,'1')
+GO
+
+INSERT INTO [tblSystemTemplate]
+           ([TemplateType]
+           ,[Name]
+           ,[FileName2]
+           ,[StartDate]
+           ,[EndDate]
+           ,[Flag])
+     VALUES
+           (0
+           ,'西洋情人節'
+           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'0214'
+           ,'0214'
+           ,'1')
+GO
