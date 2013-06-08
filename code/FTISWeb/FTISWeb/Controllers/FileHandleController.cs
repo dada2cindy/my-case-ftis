@@ -20,7 +20,7 @@ namespace FTISWeb.Controllers
 
         public ActionResult GetFromCKFinderByEncrypt(string encryptPath)
         {
-            string path = System.Web.HttpUtility.UrlDecode(EncryptUtil.DecryptDES(encryptPath, AppSettings.EncryptKey, AppSettings.EncryptIV));            
+            string path = System.Web.HttpUtility.UrlDecode(EncryptUtil.DecryptDES(encryptPath, AppSettings.EncryptKey, AppSettings.EncryptIV));
             string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
             string filePath = Path.Combine(ckFinderBaseDir, path);
             return File(GetFile(filePath), FileUtil.GetMIMEfromExtension(System.IO.Path.GetExtension(filePath)), System.IO.Path.GetFileName(filePath));

@@ -23,6 +23,11 @@ namespace FTISWeb.Models
         {            
         }
 
+        public DownloadModel(string id)
+        {            
+            LoadEntity(int.Parse(DecryptId(id)));
+        }
+
         public DownloadModel(int id)
         {
             LoadEntity(id);

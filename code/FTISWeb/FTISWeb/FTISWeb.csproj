@@ -219,6 +219,8 @@
     <Compile Include="Controllers\FreeGOController.cs" />
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
+    <Compile Include="Controllers\CurriculumController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2143,6 +2145,11 @@
     <Content Include="Views\News\Print.cshtml" />
     <Content Include="Views\Shared\InShowAdv.cshtml" />
     <Content Include="Views\Shared\InFlash.cshtml" />
+    <Content Include="Views\Download\Index.cshtml" />
+    <Content Include="Views\Download\Detail.cshtml" />
+    <Content Include="Views\Shared\DownloadLeftMenu.cshtml" />
+    <Content Include="Views\Curriculum\Detail.cshtml" />
+    <Content Include="Views\Curriculum\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

@@ -13,15 +13,15 @@
     <property name="Content" type="StringClob">
       <column name="Content" sql-type="NTEXT"/>
     </property>
-    <property name="Pic1" column="Pic1" type="String" length="50"/>
-    <property name="Pic2" column="Pic2" type="String" length="50"/>
-    <property name="Pic3" column="Pic3" type="String" length="50"/>
+    <property name="Pic1" column="Pic1" type="String" length="250"/>
+    <property name="Pic2" column="Pic2" type="String" length="250"/>
+    <property name="Pic3" column="Pic3" type="String" length="250"/>
     <property name="Pic1Name" column="Pic1_Name" type="String" length="200"/>
     <property name="Pic2Name" column="Pic2_Name" type="String" length="200"/>
     <property name="Pic3Name" column="Pic3_Name" type="String" length="200"/>
-    <property name="AFile1" column="AFile1" type="String" length="50"/>
-    <property name="AFile2" column="AFile2" type="String" length="50"/>
-    <property name="AFile3" column="AFile3" type="String" length="50"/>
+    <property name="AFile1" column="AFile1" type="String" length="250"/>
+    <property name="AFile2" column="AFile2" type="String" length="250"/>
+    <property name="AFile3" column="AFile3" type="String" length="250"/>
     <property name="AFile1Name" column="AFile1_Name" type="String" length="200"/>
     <property name="AFile2Name" column="AFile2_Name" type="String" length="200"/>
     <property name="AFile3Name" column="AFile3_Name" type="String" length="200"/>

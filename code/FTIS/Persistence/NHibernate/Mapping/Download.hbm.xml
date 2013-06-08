@@ -12,7 +12,7 @@
     <property name="Content" type="StringClob">
       <column name="Content" sql-type="NTEXT"/>
     </property>    
-    <property name="AFile1" column="AFile1" type="String" length="50"/>
+    <property name="AFile1" column="AFile1" type="String" length="250"/>
     <property name="AFile1Name" column="AFile1_Name" type="String" length="100"/>
     <property name="Vister" column="Vister" type="Int32"/>
     <property name="Downer" column="Downer" type="Int32"/>

@@ -23,6 +23,11 @@ namespace FTISWeb.Models
         {            
         }
 
+        public CurriculumModel(string id)
+        {            
+            LoadEntity(int.Parse(DecryptId(id)));
+        }
+
         public CurriculumModel(int id)
         {
             LoadEntity(id);

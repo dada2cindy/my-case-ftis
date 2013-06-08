@@ -13,7 +13,7 @@
     <property name="Content" type="StringClob">
       <column name="Content" sql-type="NTEXT"/>
     </property>
-    <property name="Pic1" column="Pic1" type="String" length="50"/>    
+    <property name="Pic1" column="Pic1" type="String" length="250"/>    
     <property name="SortId" column="SortID" type="Int32"/>
     <property name="Status" column="Status" type="String" length="1"/>
     <property name="MainCode" column="Main_Code" type="String" length="200"/>

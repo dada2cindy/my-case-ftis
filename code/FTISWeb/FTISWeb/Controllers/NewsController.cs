@@ -40,7 +40,12 @@ namespace FTISWeb.Controllers
         {
             GetConditions(cdts);
             EntityCounter(id, "Vister");
-            return View(new NewsModel(id));
+            NewsModel entityModel = new NewsModel(id);
+            if ("1".Equals(entityModel.IsOut) && !string.IsNullOrWhiteSpace(entityModel.AUrl))
+            {
+                Response.Redirect(entityModel.AUrl);
+            }
+            return View(entityModel);
         }
 
         public ActionResult Email(string id)

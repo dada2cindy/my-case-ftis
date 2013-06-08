@@ -95,7 +95,7 @@
                   <td class="@rowClass">
                       @if ("1".Equals(entity.IsOut) && !string.IsNullOrWhiteSpace(entity.AUrl))
                       {
-                          <a target="_blank" href="@entity.AUrl">@m_hsModel.SubString(entity.Name, 28, true)</a>
+                          <a target="_blank" href="@Url.Action("Detail", "News", new { id= m_hsModel.EncryptId(entity.NewsId)})">@m_hsModel.SubString(entity.Name, 28, true)</a>
                       }
                       else
                       {

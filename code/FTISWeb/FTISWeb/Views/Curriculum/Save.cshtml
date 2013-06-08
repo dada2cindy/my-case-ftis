@@ -44,7 +44,7 @@
 
         function SetFileField(fileUrl, data) {
             var filepath = fileUrl.replace("@AppSettings.CKFinderFileHandler", "");
-            document.getElementById(data["selectActionData"]).value = filepath;
+            document.getElementById(data["selectActionData"]).value = decodeURIComponent(filepath);
         }
     </script>
 }
