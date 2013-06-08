@@ -92,7 +92,15 @@
                   string rowClass = (i % 2 == 0) ? "News-Sob02" : "News-Sob01";
               <tr>
                   <td class="@rowClass">@entity.GetStr_PostDate</td>
-                  <td class="@rowClass"><a href="@Url.Action("Detail", "News", new { id= m_hsModel.EncryptId(entity.NewsId)})">@m_hsModel.SubString(entity.Name, 28, true)</a>
+                  <td class="@rowClass">
+                      @if ("1".Equals(entity.IsOut) && !string.IsNullOrWhiteSpace(entity.AUrl))
+                      {
+                          <a target="_blank" href="@entity.AUrl">@m_hsModel.SubString(entity.Name, 28, true)</a>
+                      }
+                      else
+                      {
+                        <a href="@Url.Action("Detail", "News", new { id= m_hsModel.EncryptId(entity.NewsId)})">@m_hsModel.SubString(entity.Name, 28, true)</a>
+                      }
                       @if ("1".Equals(entity.IsNew))
                       {
                         <img src="image/newsicon.gif" width="30" height="13" alt="New" />
