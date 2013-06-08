@@ -75,5 +75,28 @@ namespace FTISWeb.Models
         {
             return AppSettings.CKFinderFileHandler + fileName;
         }
+
+        public string GetFileByEncrypt(string fileName)
+        {            
+            string name = EncryptUtil.EncryptDES(fileName, AppSettings.EncryptKey, AppSettings.EncryptIV);
+            return AppSettings.CKFinderFileHandlerByEncrypt + name;
+        }
+
+        public string GetStr_Date(DateTime? date)
+        {
+            string result = string.Empty;
+
+            if (date != null)
+            {
+                result = date.Value.ToString("yyyy/MM/dd");
+            }
+
+            return result;
+        }
+
+        public string GetFileName(string fileName)
+        {
+            return string.IsNullOrWhiteSpace(fileName) ? "附件" : fileName;
+        }
     }
 }

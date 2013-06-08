@@ -3,13 +3,15 @@
 }
 @model FTISWeb.Models.HomeShowModel
 @using FTIS.Domain.Impl
-
+@{
+    TemplateVO templateVO = Model.GetCurrentTemplate();
+}
 @{    
 <div id="Index-table"><!--內容區-->
 
   <div id="Index-Left"><!--左-->
     <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="260" height="384">
-      <param name="movie" value="/Scripts/ckfinder/userfiles/flash/flash.swf" />
+      <param name="movie" value="@templateVO.FileName2" />
       <param name="quality" value="high" />
       <param name="wmode" value="opaque" />
       <param name="swfversion" value="9.0.45.0" />
@@ -17,7 +19,7 @@
       <param name="expressinstall" value="Scripts/expressInstall.swf" />
       <!-- 下一個物件標籤僅供非 IE 瀏覽器使用。因此，請使用 IECC 將其自 IE 隱藏。 -->
       <!--[if !IE]>-->
-      <object type="application/x-shockwave-flash" data="/Scripts/ckfinder/userfiles/flash/flash.swf" width="260" height="384">
+      <object type="application/x-shockwave-flash" data="@templateVO.FileName2" width="260" height="384">
         <!--<![endif]-->
         <param name="quality" value="high" />
         <param name="wmode" value="opaque" />

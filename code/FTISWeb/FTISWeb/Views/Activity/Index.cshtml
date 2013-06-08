@@ -1,10 +1,11 @@
-﻿
+﻿@model IPagedList<FTIS.Domain.Impl.Activity>
 @{
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-
+@using MvcPaging
+@using FTISWeb.Models;
 @{
-    
+    HomeShowModel m_hsModel = new HomeShowModel();
 }
 <div id="In-Table">
   <div id="In-left"><!--左-->
@@ -68,112 +69,38 @@
       <h1>活動訊息<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 活動訊息</span>    </h1>    
       <div id="InShow-INob">
       <table width="650" border="0" cellpadding="0" cellspacing="0">
-      <tr>
+            <tr>
             <td class="News-Stitle">辦理日期</td>
             <td class="News-Stitle">活動名稱</td>
             <td class="News-Stitle">辦理單位</td>
             <td class="News-Stitle">活動狀況</td>
           </tr>
-          <tr>
-            <td class="News-Sob01">2012.03.03</td>
-            <td class="News-Sob01"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a><img src="image/newsicon.gif" width="30" height="13" /></td>
-            <td class="News-Sob01">經濟部工業局</td>
-            <td class="News-Sob01"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob02">2012.03.03</td>
-            <td class="News-Sob02"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob02">經濟部工業局</td>
-            <td class="News-Sob02"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob01">2012.03.03</td>
-            <td class="News-Sob01"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob01">經濟部工業局</td>
-            <td class="News-Sob01"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob02">2012.03.03</td>
-            <td class="News-Sob02"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob02">經濟部工業局</td>
-            <td class="News-Sob02"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob01">2012.03.03</td>
-            <td class="News-Sob01"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob01">經濟部工業局</td>
-            <td class="News-Sob01"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob02">2012.03.03</td>
-            <td class="News-Sob02"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob02">經濟部工業局</td>
-            <td class="News-Sob02"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob01">2012.03.03</td>
-            <td class="News-Sob01"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob01">經濟部工業局</td>
-            <td class="News-Sob01"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob02">2012.03.03</td>
-            <td class="News-Sob02"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob02">經濟部工業局</td>
-            <td class="News-Sob02"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob01">2012.03.03</td>
-            <td class="News-Sob01"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob01">經濟部工業局</td>
-            <td class="News-Sob01"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob02">2012.03.03</td>
-            <td class="News-Sob02"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob02">經濟部工業局</td>
-            <td class="News-Sob02"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob01">2012.03.03</td>
-            <td class="News-Sob01"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob01">經濟部工業局</td>
-            <td class="News-Sob01"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob02">2012.03.03</td>
-            <td class="News-Sob02"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob02">經濟部工業局</td>
-            <td class="News-Sob02"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob01">2012.03.03</td>
-            <td class="News-Sob01"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob01">經濟部工業局</td>
-            <td class="News-Sob01"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob02">2012.03.03</td>
-            <td class="News-Sob02"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob02">經濟部工業局</td>
-            <td class="News-Sob02"><span class="Act-Status">開放</span></td>
-          </tr>
-          <tr>
-            <td class="News-Sob01">2012.03.03</td>
-            <td class="News-Sob01"><a href="act-in.html">加拿大禁止特定有毒物質法規(SOR/2012-285)修訂案生效</a></td>
-            <td class="News-Sob01">經濟部工業局</td>
-            <td class="News-Sob01"><span class="Act-Status">開放</span></td>
-          </tr>
+          @{
+              int i = 1;
+              foreach (var entity in Model)
+              {
+                  string rowClass = (i % 2 == 0) ? "News-Sob02" : "News-Sob01";
+                  <tr>
+                    <td class="@rowClass">@entity.GetStr_PostDate</td>
+                    <td class="@rowClass"><a href="@Url.Action("Detail", "Activity", new { id= m_hsModel.EncryptId(entity.ActivityId)})">@m_hsModel.SubString(entity.Name, 30, true)</a>
+                        @if("1".Equals(entity.IsNew))
+                        {
+                            <img src="image/newsicon.gif" width="30" height="13" alt="New"/>
+                        }
+                    </td>
+                    <td class="@rowClass" style="width:90px;">@entity.MCompany</td>
+                    <td class="@rowClass"><span class="Act-Status">@entity.ActStatus</span></td>
+                 </tr>
+                  i++; 
+              }
+          }                   
       </table>
     </div>
-    <div class="PageNumber">
-      <span class="PageNumber-txt2">第1頁，共238筆</span>
-      <a href="#"><span class="PageNumber-txt">1</span></a>
-      <a href="#"><span class="PageNumber-txt">2</span></a>
-      <a href="#"><span class="PageNumber-txt">3</span></a>
-      <a href="#"><span class="PageNumber-txt">4</span></a>
-      <a href="#"><span class="PageNumber-txt">5</span></a>
-      <span class="PageNumber-txt3">第<input type="text" size="1" />頁 <a href="#">GO</a></span></div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Activity")')">GO</a></span></div>
+      </div>
     
     @*<div class="InSearchDown">
       <img src="image/search.png"/>　關鍵字搜尋

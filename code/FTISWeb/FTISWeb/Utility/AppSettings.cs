@@ -24,6 +24,14 @@ namespace FTISWeb.Utility
             }
         }
 
+        public static string CKFinderFileHandlerByEncrypt
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["CKFinderFileHandlerByEncrypt"];
+            }
+        }
+        
         public static string CKFinderBaseDir
         {
             get
@@ -50,6 +58,14 @@ namespace FTISWeb.Utility
             }
         }
 
+        public static int InSitePageSize
+        {
+            get
+            {
+                return 15;
+            }
+        }
+
         public static string EncryptKey
         {
             get
@@ -63,6 +79,14 @@ namespace FTISWeb.Utility
             get
             {
                 return ConfigurationManager.AppSettings["EncryptIV"];
+            }
+        }
+
+        public static int TemplateBeforeDays
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["TemplateBeforeDays"].ToString());
             }
         }
     }

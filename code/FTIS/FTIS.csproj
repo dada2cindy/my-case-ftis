@@ -123,12 +123,18 @@
     <Compile Include="Domain\Impl\EpaperExamination.cs" />
     <Compile Include="Domain\Impl\Entity.cs" />
     <Compile Include="Domain\Impl\Post.cs" />
+    <Compile Include="Domain\Impl\TemplateVO.cs" />
+    <Compile Include="Domain\Impl\SystemParamVO.cs" />
     <Compile Include="FTISFactory.cs" />
     <Compile Include="Persistence\FTISDao.cs" />
     <Compile Include="Persistence\IFTISDao.cs" />
+    <Compile Include="Persistence\ITemplateDao.cs" />
+    <Compile Include="Persistence\TemplateDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\IFTISService.cs" />
     <Compile Include="Service\Impl\FTISService.cs" />
+    <Compile Include="Service\Impl\TemplateService.cs" />
+    <Compile Include="Service\ITemplateService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Persistence\NHibernate\Mapping\News.hbm.xml">
@@ -310,6 +316,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Persistence\NHibernate\Mapping\Post.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\TemplateVO.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

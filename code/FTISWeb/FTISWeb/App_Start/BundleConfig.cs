@@ -74,6 +74,7 @@ namespace FTISWeb
                 "~/css/IndexCss.css"));
 
             bundles.Add(new StyleBundle("~/Content/SiteInCSS").Include(
+                "~/Content/MvcPaging.css",
                 "~/css/AllCss.css",
                 "~/css/In-Style.css",
                 "~/css/InCss.css"));

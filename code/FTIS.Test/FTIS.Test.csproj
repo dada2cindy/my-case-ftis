@@ -74,18 +74,6 @@
     <Reference Include="WuDada.Core">
       <HintPath>..\lib\WuDada.Core.dll</HintPath>
     </Reference>
-    <Reference Include="WuDada.Core.Auth">
-      <HintPath>..\lib\WuDada.Core.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="WuDada.Core.Common">
-      <HintPath>..\lib\WuDada.Core.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="WuDada.Core.Post">
-      <HintPath>..\lib\WuDada.Core.Post.dll</HintPath>
-    </Reference>
-    <Reference Include="WuDada.Core.SystemApplications">
-      <HintPath>..\lib\WuDada.Core.SystemApplications.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NHibernate\TestSchema.cs" />

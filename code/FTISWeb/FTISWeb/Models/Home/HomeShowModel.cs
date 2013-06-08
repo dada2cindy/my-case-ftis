@@ -11,18 +11,23 @@ using FTISWeb.Security;
 using FTISWeb.Helper;
 using WuDada.Core.Generic.Util;
 using System.ComponentModel;
+using FTISWeb.Utility;
 
 namespace FTISWeb.Models
 {
     public class HomeShowModel : AbstractShowModel
     {
+        protected readonly ITemplateService m_TemplateService;
+
         public HomeShowModel()
         {
+            m_TemplateService = m_FTISFactory.GetTemplateService();
         }
 
         public IList<News> GetNewsList()
         {
             IDictionary<string, string> conditions = GetDefaultConditions();
+            conditions.Add("IsHome", "1");
             IList<News> list = m_FTISService.GetNewsList(conditions);
             if (list == null)
             {
@@ -35,6 +40,7 @@ namespace FTISWeb.Models
         public IList<Activity> GetActivityList()
         {
             IDictionary<string, string> conditions = GetDefaultConditions();
+            conditions.Add("IsHome", "1");
             IList<Activity> list = m_FTISService.GetActivityList(conditions);
             if (list == null)
             {
@@ -66,6 +72,17 @@ namespace FTISWeb.Models
             }
 
             return list;
+        }
+
+        public TemplateVO GetCurrentTemplate()
+        {
+            TemplateVO templateVO = m_TemplateService.GetCurrentTemplate(AppSettings.TemplateBeforeDays);
+            if (templateVO == null)
+            {
+                templateVO = new TemplateVO();
+            }
+
+            return templateVO;
         }
     }
 }

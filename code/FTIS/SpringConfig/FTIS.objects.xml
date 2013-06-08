@@ -10,6 +10,10 @@
     <property name="AdoTemplate" ref="AdoTemplate"/>
     <property name="NHibernateDao" ref="NHibernateDao"/>
   </object>
+  <object id="TemplateDao" type="FTIS.Persistence.TemplateDao, FTIS">
+    <property name="AdoTemplate" ref="AdoTemplate"/>
+    <property name="NHibernateDao" ref="NHibernateDao"/>
+  </object>
 
   <!-- Service objects 設定 -->
 
@@ -18,6 +22,13 @@
   </object>
   <object id="FTISService" type="FTIS.Service.Impl.FTISService, FTIS">
     <property name="FTISDao" ref="FTISDao"/>
+  </object>
+
+  <object id="TemplateServiceProxy" parent="TxProxyConfigurationTemplate">
+    <property name="Target" ref="TemplateService"/>
+  </object>
+  <object id="TemplateService" type="FTIS.Service.Impl.TemplateService, FTIS">
+    <property name="TemplateDao" ref="TemplateDao"/>
   </object>
 
 </objects>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FTISWeb.Utility;
+using WuDada.Core.Generic.Util;
 
 namespace FTISWeb.Controllers
 {
@@ -15,18 +16,14 @@ namespace FTISWeb.Controllers
             string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
             string filePath = Path.Combine(ckFinderBaseDir, path);
             return File(GetFile(filePath), FileUtil.GetMIMEfromExtension(System.IO.Path.GetExtension(filePath)), System.IO.Path.GetFileName(filePath));
-            //if (path.IndexOf("flash/") != -1)
-            //{
-            //    return File(filePath, "application/x-shockwave-flash");
-            //}
-            //else if (path.IndexOf("files/") != -1)
-            //{
-            //    return File(filePath, FileUtil.GetMIMEfromExtension(System.IO.Path.GetExtension(filePath)), System.IO.Path.GetFileName(filePath));
-            //}
-            //else
-            //{
-            //    return File(filePath, "image/png");
-            //}
+        }
+
+        public ActionResult GetFromCKFinderByEncrypt(string encryptPath)
+        {
+            string path = System.Web.HttpUtility.UrlDecode(EncryptUtil.DecryptDES(encryptPath, AppSettings.EncryptKey, AppSettings.EncryptIV));            
+            string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
+            string filePath = Path.Combine(ckFinderBaseDir, path);
+            return File(GetFile(filePath), FileUtil.GetMIMEfromExtension(System.IO.Path.GetExtension(filePath)), System.IO.Path.GetFileName(filePath));
         }
 
         /// <summary>

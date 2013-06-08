@@ -77,6 +77,9 @@
       <HintPath>..\..\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcPaging">
+      <HintPath>..\..\packages\MvcPaging.2.0.4\lib\net40\MvcPaging.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\..\lib\NHibernate.dll</HintPath>
     </Reference>
@@ -259,10 +262,12 @@
     <Compile Include="Models\Post\AbstractPostModel.cs" />
     <Compile Include="Models\Post\PostModel.cs" />
     <Compile Include="Models\AbstractShowModel.cs" />
+    <Compile Include="Models\Home\SendMailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AdminAuthorizeAttribute.cs" />
     <Compile Include="Security\Ticket.cs" />
     <Compile Include="Security\TicketUserData.cs" />
+    <Compile Include="Service\WebMailService.cs" />
     <Compile Include="Utility\AccessibilityUtil.cs" />
     <Compile Include="Utility\AccountUtil.cs" />
     <Compile Include="Utility\AppSettings.cs" />
@@ -286,6 +291,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Data\FTIS.SQLServer.xml" />
+    <Content Include="App_Data\objects.xml" />
     <Content Include="App_Data\WuDada.Core.AdoTemplate.xml" />
     <Content Include="App_Data\WuDada.Core.HibernateTemplate.xml" />
     <Content Include="Content\Admin\admin.css" />
@@ -330,6 +336,7 @@
     <Content Include="btn\b5a.gif" />
     <Content Include="btn\b6.gif" />
     <Content Include="btn\b6a.gif" />
+    <Content Include="Content\MvcPaging.css" />
     <Content Include="css\AllCss.css" />
     <Content Include="css\Ecss.css" />
     <Content Include="css\In-Style.css" />
@@ -711,6 +718,7 @@
     <Content Include="Content\kendo\Uniform\sprite.png" />
     <Content Include="Content\kendo\kendo.blueopal.css" />
     <Content Include="Content\kendo\kendo.common.css" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\flash.swf" />
     <Content Include="swf\inTopflash.swf" />
     <Content Include="pp\adv.jpg" />
     <Content Include="pp\banner-1.gif" />
@@ -2128,6 +2136,9 @@
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Shared\InSiteLeftMenu.cshtml" />
     <Content Include="Views\Activity\Index.cshtml" />
+    <Content Include="Views\Activity\Detail.cshtml" />
+    <Content Include="Views\Activity\Print.cshtml" />
+    <Content Include="Views\Activity\Email.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />
