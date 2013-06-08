@@ -7,7 +7,12 @@ function SiteSearch() {
 }
 
 function GoPage(url) {
-    location.href = (url + "?page=" + $("#txtPage").val());
+    if (url.indexOf('?') > 0) {
+        location.href = (url + "&page=" + $("#txtPage").val());
+    }
+    else {
+        location.href = (url + "?page=" + $("#txtPage").val());
+    }
 }
 
 /***************************************************************************

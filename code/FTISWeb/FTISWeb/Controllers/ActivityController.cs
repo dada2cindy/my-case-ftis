@@ -21,11 +21,11 @@ namespace FTISWeb.Controllers
         public ActionResult Index(string keyWord, int? page)
         {
             SetConditions(keyWord);
+            m_Conditions.Add("Status", "1");
             int total = GetGridTotal();
             int pageIndex = page.HasValue ? page.Value - 1 : 0;
             m_Conditions.Add("PageIndex", pageIndex.ToString());
-            m_Conditions.Add("PageSize", AppSettings.InSitePageSize.ToString());
-            m_Conditions.Add("Status", "1");
+            m_Conditions.Add("PageSize", AppSettings.InSitePageSize.ToString());            
 
             var data = GetGridData();
             return View(data.ToPagedList(pageIndex, AppSettings.InSitePageSize, total));
@@ -45,7 +45,7 @@ namespace FTISWeb.Controllers
 
         public ActionResult SendMail(SendMailModel model, string id)
         {
-            ActivityModel activityModel = new ActivityModel(id);
+            ActivityModel entityModel = new ActivityModel(id);
             string captcha = AccountUtil.GetCaptcha();
             if (!captcha.Equals(model.SendMailConfirmationCode, StringComparison.OrdinalIgnoreCase))
             {                
@@ -54,13 +54,13 @@ namespace FTISWeb.Controllers
             else
             {
                 model.SendMailTitle = string.Format("收到一封由【{0}】從產業永續發展整合資訊網的轉寄信：{1}。"
-                    , model.SendMailName, activityModel.Name);
-                model.SendMailContent += activityModel.Content;
+                    , model.SendMailName, entityModel.Name);
+                model.SendMailContent += entityModel.Content;
                 model.SendMail();
                 EntityCounter(id, "Emailer");
                 ViewData["SendMailOk"] = true;
             }
-            return View("Email", activityModel);
+            return View("Email", entityModel);
         }
 
         public ActionResult Print(string id)
@@ -80,21 +80,21 @@ namespace FTISWeb.Controllers
 
         private void EntityCounter(string id, string type)
         {
-            Activity activity = m_FTISService.GetActivityById(int.Parse(new ActivityModel().DecryptId(id)));
+            Activity entity = m_FTISService.GetActivityById(int.Parse(new ActivityModel().DecryptId(id)));
 
             switch (type)
             {
                 case "Vister":
-                    activity.Vister += 1;
+                    entity.Vister += 1;
                     break;
                 case "Emailer":
-                    activity.Emailer += 1;
+                    entity.Emailer += 1;
                     break;
                 case "Printer":
-                    activity.Printer += 1;
+                    entity.Printer += 1;
                     break;
             }
-            m_FTISService.UpdateActivity(activity);
+            m_FTISService.UpdateActivity(entity);
         }
     }
 }

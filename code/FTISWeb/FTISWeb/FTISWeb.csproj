@@ -2130,8 +2130,6 @@
     <Content Include="Views\Green\PostSave.cshtml" />
     <Content Include="Views\Shared\HomeLayout.cshtml" />
     <Content Include="Views\HomeNews\Index.cshtml" />
-    <Content Include="Views\News\Detail.cshtml" />
-    <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\AboutUs\Index.cshtml" />
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Shared\InSiteLeftMenu.cshtml" />
@@ -2139,6 +2137,12 @@
     <Content Include="Views\Activity\Detail.cshtml" />
     <Content Include="Views\Activity\Print.cshtml" />
     <Content Include="Views\Activity\Email.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\Email.cshtml" />
+    <Content Include="Views\News\Detail.cshtml" />
+    <Content Include="Views\News\Print.cshtml" />
+    <Content Include="Views\Shared\InShowAdv.cshtml" />
+    <Content Include="Views\Shared\InFlash.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

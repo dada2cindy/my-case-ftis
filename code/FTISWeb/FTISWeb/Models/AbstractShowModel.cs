@@ -59,11 +59,19 @@ namespace FTISWeb.Models
             return SubString(result, maxLength, ellipsis);
         }
 
-        //ConvertUtil
+        public string EncryptId(string id)
+        {
+            if(string.IsNullOrWhiteSpace(id))
+            {
+                return string.Empty; 
+            }
+
+            return EncryptUtil.EncryptDES(id, AppSettings.EncryptKey, AppSettings.EncryptIV);
+        }
 
         public string EncryptId(int id)
         {
-            return EncryptUtil.EncryptDES(id.ToString(), AppSettings.EncryptKey, AppSettings.EncryptIV);
+            return EncryptId(id.ToString());
         }
 
         public string DecryptId(string id)

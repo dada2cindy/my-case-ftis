@@ -2,11 +2,44 @@
 @{
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-@using FTISWeb.Helper;
-
+@using FTISWeb.Models;
 @{
-    string m_Cdts = (string)ViewData["Conditions"];
-    
-   
+    HomeShowModel m_hsModel = new HomeShowModel(); 
 }
-動態新聞 @Model.EntityId
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    <div id="In-leftTitle"><img src="/in-image/left-title2.png" alt="新聞動態"/></div>
+    @Html.Partial("InSiteLeftMenu");
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>新聞動態<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 新聞動態</span>    </h1>
+    <div class="News-IN-3Function"><img src="/in-image/com-icon-4.gif" width="14" height="14" alt="瀏覽人數"/>瀏覽人數<span class="News-IN-3Function-txt">(@Model.Vister)</span><img src="/in-image/com-icon-5.gif" width="13" height="12" alt="轉寄"/><a target="_blank" href="@Url.Action("Email", "News", new { id =m_hsModel.EncryptId(Model.EntityId) })">轉寄</a><span class="News-IN-3Function-txt">(@Model.Emailer)</span><img src="/in-image/com-icon-6.gif" width="13" height="12" alt="列印"/><a target="_blank" href="@Url.Action("Print", "News", new { id =m_hsModel.EncryptId(Model.EntityId) })">列印</a><span class="News-IN-3Function-txt">(@Model.Printer)</span></div>
+    <div id="InShow-INob">
+      <p class="News-IN-Title">@Model.Name</p>
+      <p class="News-IN-Day">刊登日期：@m_hsModel.GetStr_Date(Model.PostDate)</p>
+      @(new HtmlString(Model.Content))
+      <br />
+        <table border="0" cellpadding="5" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td style="text-align:left;vertical-align:top;width:80px;">
+                        <span class="News-IN-Source">資料來源：</span>
+                    </td>
+                    <td>
+                        <div class="News-IN-Source2"><a href="@Model.AUrl1Link" target="_blank">@Model.AUrl1</a></div>
+                        <div class="News-IN-Source2"><a href="@Model.AUrl2Link" target="_blank">@Model.AUrl2</a></div>
+                        <div class="News-IN-Source2"><a href="@Model.AUrl3Link" target="_blank">@Model.AUrl3</a></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>      
+      <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
+    </div>
+    
+  </div><!--內容結尾-->
+</div>
