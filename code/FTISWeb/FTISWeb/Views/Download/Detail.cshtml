@@ -1,0 +1,36 @@
+﻿@model FTISWeb.Models.DownloadModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel(); 
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")
+    @Html.Partial("DownloadLeftMenu")
+    @Html.Partial("InSiteLeftMenu");
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>下載專區<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Download")">下載專區</a> &gt; 技術工具／文件</span>    </h1>
+    <h2>技術工具／文件</h2>
+    <div id="InShow-INob">
+      <p class="News-IN-Title">@Model.Name</p>
+      <p class="News-IN-Day">刊登日期：@m_hsModel.GetStr_Date(Model.PostDate)　瀏覽次數：@Model.Vister　下載次數：@Model.Downer</p>      
+      @(new HtmlString(Model.Content))
+        @{
+            if(!string.IsNullOrWhiteSpace(Model.AFile1))
+            {
+                <a target="_blank" href="@Url.Action("DownLoadFile", "Download", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = m_hsModel.GetFileByEncrypt(Model.AFile1)})"><p class="News-IN-Next"><strong>附件檔案</strong>：@m_hsModel.GetFileName(Model.AFile1Name)</p></a>
+            }      
+        }
+      <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
+      </div>
+    
+  </div><!--內容結尾-->
+</div>
