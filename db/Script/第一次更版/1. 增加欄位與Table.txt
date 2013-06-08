@@ -18,15 +18,15 @@ GO
 /****** ·s»D°ÊºA ******/
 ALTER TABLE tblNews ADD Name_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD Content_ENG ntext null
-ALTER TABLE tblNews ADD Pic1_ENG nvarchar(50) null
-ALTER TABLE tblNews ADD Pic2_ENG nvarchar(50) null
-ALTER TABLE tblNews ADD Pic3_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD Pic1_ENG nvarchar(250) null
+ALTER TABLE tblNews ADD Pic2_ENG nvarchar(250) null
+ALTER TABLE tblNews ADD Pic3_ENG nvarchar(250) null
 ALTER TABLE tblNews ADD Pic1_Name_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD Pic2_Name_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD Pic3_Name_ENG nvarchar(200) null
-ALTER TABLE tblNews ADD AFile1_ENG nvarchar(50) null
-ALTER TABLE tblNews ADD AFile2_ENG nvarchar(50) null
-ALTER TABLE tblNews ADD AFile3_ENG nvarchar(50) null
+ALTER TABLE tblNews ADD AFile1_ENG nvarchar(250) null
+ALTER TABLE tblNews ADD AFile2_ENG nvarchar(250) null
+ALTER TABLE tblNews ADD AFile3_ENG nvarchar(250) null
 ALTER TABLE tblNews ADD AFile1_Name_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD AFile2_Name_ENG nvarchar(200) null
 ALTER TABLE tblNews ADD AFile3_Name_ENG nvarchar(200) null
@@ -135,8 +135,8 @@ CREATE TABLE [tblSystemTemplate](
 	[TemplateType] [int] NULL,
 	[Name] [nvarchar](50) NOT NULL,
 	[CSS] [nvarchar](200) NULL,
-	[FileName] [nvarchar](50) NULL,
-	[FileName2] [nvarchar](50) NULL,
+	[FileName] [nvarchar](250) NULL,
+	[FileName2] [nvarchar](250) NULL,
 	[StartDate] [nvarchar](4) NULL,
 	[EndDate] [nvarchar](4) NULL,
 	[Flag] [int] NULL,

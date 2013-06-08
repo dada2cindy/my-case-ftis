@@ -1,0 +1,51 @@
+/****** Curriculum ******/
+ALTER TABLE tblCurriculum ALTER COLUMN AFile1 nvarchar(250)
+ALTER TABLE tblCurriculum ALTER COLUMN AFile2 nvarchar(250)
+ALTER TABLE tblCurriculum ALTER COLUMN AFile3 nvarchar(250)
+ALTER TABLE tblCurriculum ALTER COLUMN Pic1 nvarchar(250)
+ALTER TABLE tblCurriculum ALTER COLUMN Pic2 nvarchar(250)
+ALTER TABLE tblCurriculum ALTER COLUMN Pic3 nvarchar(250)
+GO
+
+/****** Activity ******/
+ALTER TABLE tblActivity ALTER COLUMN AFile1 nvarchar(250)
+ALTER TABLE tblActivity ALTER COLUMN AFile2 nvarchar(250)
+ALTER TABLE tblActivity ALTER COLUMN AFile3 nvarchar(250)
+ALTER TABLE tblActivity ALTER COLUMN Pic1 nvarchar(250)
+ALTER TABLE tblActivity ALTER COLUMN Pic2 nvarchar(250)
+ALTER TABLE tblActivity ALTER COLUMN Pic3 nvarchar(250)
+GO
+
+/****** Application ******/
+ALTER TABLE tblApplication ALTER COLUMN AFile1 nvarchar(250)
+ALTER TABLE tblApplication ALTER COLUMN AFile2 nvarchar(250)
+ALTER TABLE tblApplication ALTER COLUMN AFile3 nvarchar(250)
+ALTER TABLE tblApplication ALTER COLUMN Pic1 nvarchar(250)
+ALTER TABLE tblApplication ALTER COLUMN Pic2 nvarchar(250)
+ALTER TABLE tblApplication ALTER COLUMN Pic3 nvarchar(250)
+GO
+
+/****** Brief ******/
+ALTER TABLE tblBrief ALTER COLUMN AFile1 nvarchar(250)
+GO
+
+/****** Download ******/
+ALTER TABLE tblDownload ALTER COLUMN AFile1 nvarchar(250)
+GO
+
+/****** News ******/
+ALTER TABLE tblNews ALTER COLUMN AFile1 nvarchar(250)
+ALTER TABLE tblNews ALTER COLUMN AFile2 nvarchar(250)
+ALTER TABLE tblNews ALTER COLUMN AFile3 nvarchar(250)
+ALTER TABLE tblNews ALTER COLUMN Pic1 nvarchar(250)
+ALTER TABLE tblNews ALTER COLUMN Pic2 nvarchar(250)
+ALTER TABLE tblNews ALTER COLUMN Pic3 nvarchar(250)
+GO
+
+/****** Norm ******/
+ALTER TABLE tblNorm ALTER COLUMN Pic1 nvarchar(250)
+GO
+
+/****** Publication ******/
+ALTER TABLE tblPublication ALTER COLUMN Pic1 nvarchar(250)
+GO
