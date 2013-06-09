@@ -1413,7 +1413,7 @@ namespace FTIS.Persistence
         {
             if (conditions.IsContainsValue("Status"))
             {
-                whereScript.Append(" and n.Status = ? ");
+                whereScript.Append(" and g.Status = ? ");
                 param.Add(conditions["Status"]);
             }
         }

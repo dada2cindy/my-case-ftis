@@ -120,6 +120,7 @@ namespace FTIS.Domain
         None = 0,
         Carbon = 2,
         Green = 3,
+        TechnologyParent = 4,
         Technology = 18
     }
 

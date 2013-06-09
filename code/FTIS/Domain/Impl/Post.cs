@@ -97,6 +97,12 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string Tag { get; set; }
 
+        /// <summary>
+        /// 編號
+        /// </summary>
+        [DataMember]
+        public virtual string No { get; set; }
+
         public virtual string GetStr_ExpiredDate
         {
             get
