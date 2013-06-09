@@ -49,7 +49,7 @@ namespace FTISWeb.Controllers
         public ActionResult Edit(EpaperModel model, string cdts)
         {
             GetConditions(cdts);
-            model.Update();            
+            model.Update();
             return View("AdminIndex");
         }
 
@@ -119,7 +119,7 @@ namespace FTISWeb.Controllers
         public ActionResult Create(EpaperModel model, string cdts)
         {
             GetConditions(cdts);
-            model.Insert(); 
+            model.Insert();
             return View("AdminIndex");
         }
 
@@ -127,7 +127,7 @@ namespace FTISWeb.Controllers
         {
             if (string.IsNullOrWhiteSpace(cdts))
             {
-                ViewData["Conditions"] = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = string.Empty });
+                ViewData["Conditions"] = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = string.Empty, ByYear = string.Empty });
             }
             else
             {
@@ -135,9 +135,9 @@ namespace FTISWeb.Controllers
             }
         }
 
-        private void SetConditions(string keyWord)
+        private void SetConditions(string keyWord, string year)
         {
-            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord });
+            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord, ByYear = year });
             m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>(cdts);
 
             ViewData["Conditions"] = cdts;
@@ -146,7 +146,7 @@ namespace FTISWeb.Controllers
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Read)]
         public JsonResult AjaxBinding(KendoGridRequest request, string keyWord)
         {
-            SetConditions(keyWord);
+            SetConditions(keyWord, string.Empty);
             int total = GetGridTotal();
             int pageIndex = (request.Page - 1);
             m_Conditions.Add("PageIndex", pageIndex.ToString());
@@ -165,7 +165,7 @@ namespace FTISWeb.Controllers
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Read)]
         public ActionResult RefreshAdminGrid(string keyWord)
         {
-            SetConditions(keyWord);
+            SetConditions(keyWord, string.Empty);
             return View("AdminGridList", new ParamaterModel("Edit", "Epaper", (string)ViewData["Conditions"]));
         }
 

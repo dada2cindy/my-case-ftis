@@ -221,6 +221,11 @@
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\CurriculumController.cs" />
+    <Compile Include="Controllers\PublicationController.cs" />
+    <Compile Include="Controllers\BriefController.cs" />
+    <Compile Include="Controllers\LinksController.cs" />
+    <Compile Include="Controllers\EpaperController.cs" />
+    <Compile Include="Controllers\EpaperEmailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -287,6 +292,7 @@
     <Compile Include="ViewData\PostParentNodeData.cs" />
     <Compile Include="ViewData\QuestionClassData.cs" />
     <Compile Include="ViewData\GreenFactoryClassData.cs" />
+    <Compile Include="ViewData\EpaperYearData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -2150,6 +2156,17 @@
     <Content Include="Views\Shared\DownloadLeftMenu.cshtml" />
     <Content Include="Views\Curriculum\Detail.cshtml" />
     <Content Include="Views\Curriculum\Index.cshtml" />
+    <Content Include="Views\Publication\Index.cshtml" />
+    <Content Include="Views\Publication\Print.cshtml" />
+    <Content Include="Views\Brief\Index.cshtml" />
+    <Content Include="Views\Brief\Print.cshtml" />
+    <Content Include="Views\Shared\LinksLeftMenu.cshtml" />
+    <Content Include="Views\Links\Index.cshtml" />
+    <Content Include="Views\Shared\ActivityLeftMenu.cshtml" />
+    <Content Include="Views\Shared\NewsLeftMenu.cshtml" />
+    <Content Include="Views\Epaper\Index.cshtml" />
+    <Content Include="Views\Shared\EpaperLeftMenu.cshtml" />
+    <Content Include="Views\EpaperEmail\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

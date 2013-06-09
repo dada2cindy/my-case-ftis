@@ -81,11 +81,19 @@ namespace FTISWeb.Models
 
         public string GetFile(string fileName)
         {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                return string.Empty;
+            }
             return AppSettings.CKFinderFileHandler + fileName;
         }
 
         public string GetFileByEncrypt(string fileName)
-        {            
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                return string.Empty;
+            }
             string name = EncryptUtil.EncryptDES(fileName, AppSettings.EncryptKey, AppSettings.EncryptIV);
             return AppSettings.CKFinderFileHandlerByEncrypt + name;
         }

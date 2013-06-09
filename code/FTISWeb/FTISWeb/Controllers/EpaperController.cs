@@ -11,17 +11,26 @@ using FTIS.Domain.Dto;
 using FTIS.Domain.Impl;
 using FTIS.Service;
 using FTISWeb.Models;
+using FTISWeb.Security;
 using FTISWeb.Utility;
-using MvcPaging;
+using KendoGridBinder;
+using KendoGridBinder.Containers;
 using WuDada.Core.Generic.Util;
+using MvcPaging;
 
 namespace FTISWeb.Controllers
 {
-    public partial class DownloadController : Controller
+    public partial class EpaperController : Controller
     {
-        public ActionResult Index(string keyWord, int? page)
+        [EpaperYearData(OnlyOpen = true)]
+        public ActionResult Index(string keyWord, string year, int? page)
         {
-            SetConditions(keyWord);
+            if (string.IsNullOrWhiteSpace(year))
+            {
+                year = ((IList<string>)ViewData["EpaperYearList"])[0];
+            }
+
+            SetConditions(keyWord, year);
             m_Conditions.Add("Status", "1");
             int total = GetGridTotal();
             int pageIndex = page.HasValue ? page.Value - 1 : 0;
@@ -32,39 +41,25 @@ namespace FTISWeb.Controllers
             return View(data.ToPagedList(pageIndex, AppSettings.InSitePageSize, total));
         }
 
-        public ActionResult Detail(string id, string cdts)
+        public ActionResult Detail(string id, string url)
         {
-            GetConditions(cdts);
             EntityCounter(id, "Vister");
-            DownloadModel entityModel = new DownloadModel(id);
-            if ("1".Equals(entityModel.IsOut) && !string.IsNullOrWhiteSpace(entityModel.AUrl))
-            {
-                Response.Redirect(entityModel.AUrl);
-            }
-            return View(entityModel);
-        }
-
-        public ActionResult DownLoadFile(string id,string fileUrl)
-        {
-            EntityCounter(id, "Downer");
-            Response.Redirect(fileUrl);
+            Response.Redirect(url);
 
             return new EmptyResult();
         }
 
         private void EntityCounter(string id, string type)
         {
-            Download entity = m_FTISService.GetDownloadById(int.Parse(DecryptId(id)));
+            Epaper entity = m_FTISService.GetEpaperById(int.Parse(DecryptId(id)));
+
             switch (type)
             {
                 case "Vister":
                     entity.Vister += 1;
                     break;
-                case "Downer":
-                    entity.Downer += 1;
-                    break;
             }
-            m_FTISService.UpdateDownload(entity);
+            m_FTISService.UpdateEpaper(entity);
         }
 
         private string DecryptId(string id)

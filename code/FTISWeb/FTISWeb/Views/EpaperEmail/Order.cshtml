@@ -1,0 +1,116 @@
+﻿@model EpaperEmailModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {            
+            $("#btnClear").click(function () {
+                ClearUI('#frmSendOrder');
+            });
+            $("#safecode").click(function () {
+                $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
+            });
+            $("input[name=UserStatus]:radio").click(function () {
+                var userStatus = $(this).val();
+                ChangMode(userStatus);
+            });
+        });
+
+        function ChangMode(mode) {
+            if (mode == '1') {
+                $("#dvSex").show();
+                $("#dvName").show();
+                $("#dvInType").show();
+                $("#dvCompany").show();
+                $("#dvReceiveOtherFreeInfo").show();                
+            }
+            else {
+                $("#dvSex").hide();
+                $("#dvName").hide();
+                $("#dvInType").hide();
+                $("#dvCompany").hide();
+                $("#dvReceiveOtherFreeInfo").hide();
+            }
+        }
+    </script>
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("EpaperLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>電子報<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Epaper")">電子報</a> &gt; 歷史電子報</span></h1>    
+@using (Html.BeginForm("SendOrder", "EpaperEmail", FormMethod.Post, new { id = "frmSendOrder" }))
+{      
+      <div id="InShow-INob"><img src="/in-image/epaper-pp.jpg" width="576" height="87" />
+      <ul>
+      <li class="Epaper02-pp">訂／退閱：
+        <label>@Html.RadioButtonFor(m => m.UserStatus, "1") 訂閱</label>
+        <label>@Html.RadioButtonFor(m => m.UserStatus, "0") 退閱</label>
+        <span class="txt-red">( 退閱需填入與訂閱相同的E-mail )</span></li>
+      <li id="dvSex" class="Epaper02-pp">姓　　別：
+        <label>@Html.RadioButtonFor(m => m.Sex, "男") 男</label>
+        <label>@Html.RadioButtonFor(m => m.Sex, "女") 女</label>
+      </li>
+      <li id="dvName" class="Epaper02-pp">姓　　名：
+          @Html.TextBox("Name", Model.Name, new { id = "Name", @class = "Epaper-Order" })       
+      </li>
+      <li id="dvInType" class="Epaper02-pp">產業別　：
+        <input type="checkbox" name="InTypeList" value="1" />
+        製造業　
+        <input type="checkbox" name="InTypeList" value="2" />
+        服務業　
+        <input type="checkbox" name="InTypeList" value="3" />
+        政府機關　
+        <input type="checkbox" name="InTypeList" value="4" />
+        學術/研究單位　
+        <input type="checkbox" name="InTypeList" value="5" />
+        其他<span class="txt-red">(可複選)</span></li>
+      <li class="Epaper02-pp">電子郵件：
+        @Html.TextBox("Email", Model.Email, new { id = "Email", @class = "Epaper-Order" })
+      </li>
+      <li id="dvCompany" class="Epaper02-pp">公司名稱：
+        @Html.TextBox("Company", Model.Company, new { id = "Company", @class = "Epaper-Order" })
+      </li>
+      <li id="dvReceiveOtherFreeInfo" class="Epaper02-pp">是否同意獲得本會其他免費資訊：
+          <label>@Html.RadioButtonFor(m => m.ReceiveOtherFreeInfo, "1") 是</label>
+        <label>@Html.RadioButtonFor(m => m.ReceiveOtherFreeInfo, "0") 否</label>
+      </li>
+      <li class="Epaper02-pp">驗證碼　：
+        @Html.TextBox("ConfirmationCode", Model.ConfirmationCode, new { id = "ConfirmationCode", @class = "Epaper-Order2" })
+        <img id="safecode" src="@Url.Action("CaptchaImg", "EpaperEmail")" width="100" height="30" /><span class="txt-red"><br />
+        　　　　　　　( 請輸入 4 位字母數字組合驗證碼，如數字未標明清楚，請點擊更換圖片 )</span></li>
+    </ul>
+    <div class="Epaper02-Btn"><input type="image" name="Submit" src="/in-image/com-sent-btn.gif" width="78" height="25" alt="填好送出" />
+           <a id="btnClear" href="#"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
+    <div class="txt-red"> @Html.ValidationSummary()</div>
+  </div>
+} 
+  </div><!--內容結尾-->
+</div>
+@if (Model.SendOrderOk)
+{
+    string msg = "訂閱成功";
+    if ("0".Equals(Model.Status))
+    {
+        msg = "退閱成功";
+    }
+    <script type="text/javascript">
+        alert("@msg!");
+        window.location.href = "@Url.Action("Order","EpaperEmail")";
+    </script>
+
+}

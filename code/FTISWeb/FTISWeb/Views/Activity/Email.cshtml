@@ -37,7 +37,7 @@
     <script type="text/javascript">
         $(function () {
             $("#btnClear").click(function () {
-                ClearUI('#frmSave');
+                ClearUI('#frmSendEmail');
             });
             $("#safecode").click(function () {
                 $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
@@ -78,7 +78,7 @@
           <span class="Epaper02-pp"><img id="safecode" src="@Url.Action("CaptchaImg", "Activity")" width="100" height="30" /></span>
       </p>
       <div class="Epaper02-Btn"><input type="image" name="Submit" src="/in-image/com-sent-btn.gif" width="78" height="25" alt="填好送出" />
-           <a href="javascript:btnClear();"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
+           <a id="btnClear" href="#"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
     <div class="txt-red"> @Html.ValidationSummary()</div>
 </div>
 <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />

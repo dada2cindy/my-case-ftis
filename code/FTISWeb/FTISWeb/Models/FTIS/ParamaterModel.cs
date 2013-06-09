@@ -99,7 +99,7 @@ namespace FTISWeb.Models
                     m_VisibleColumns = new string[] { "Name", "ArticleName", "ENo", "SortId", "GetStr_Status", "Vister", "GetStr_PostDate" };
                     break;
                 case "EpaperEmail":
-                    m_VisibleColumns = new string[] { "Company", "Email", "GetStr_Status", "GetStr_RegDate" };
+                    m_VisibleColumns = new string[] { "Company", "Name", "EpaperEmailName", "Email", "GetStr_Status", "GetStr_RegDate" };
                     break;
                 case "Technology":
                     m_VisibleColumns = new string[] { "Company", "CompanyENG", "Charge", "Contact", "Tel", "Email", "GetStr_Status", "GetStr_ExpiredDate", "Node.Name" };
@@ -156,6 +156,10 @@ namespace FTISWeb.Models
                     if (m_VisibleColumns.Contains("ArticleName"))
                     {
                         displayName = "標題";
+                    }
+                    else if (m_VisibleColumns.Contains("EpaperEmailName"))
+                    {
+                        displayName = "姓名";
                     }
                     else
                     {
