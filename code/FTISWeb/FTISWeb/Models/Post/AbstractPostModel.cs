@@ -91,6 +91,13 @@ namespace FTISWeb.Models
         [Required]        
         public string Content { get; set; }
 
+        public string Tag { get; set; }
+
+        protected void LoadPost(int id)
+        {
+            LoadPost(id, false);
+        }
+
         protected void LoadPost(int id, bool noLazy)
         {
             Post post;
@@ -124,6 +131,7 @@ namespace FTISWeb.Models
                 Content = post.Content;                
                 SortId = post.SortId;
                 Status = post.Status;
+                Tag = post.Tag;
                 if (post.Node != null)
                 {
                     Node = post.Node;
@@ -164,6 +172,7 @@ namespace FTISWeb.Models
             post.Content = Content;
             post.SortId = SortId;
             post.Status = Status;
+            post.Tag = Tag;
 
             if (post.PostId == 0)
             {

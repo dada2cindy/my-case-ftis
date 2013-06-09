@@ -18,7 +18,7 @@ namespace FTISWeb.Models
     public abstract class AbstractNodeModel : AbstractShowModel
     {
         public AbstractNodeModel()
-        {     
+        {
         }
 
         public int NodeId { get; set; }
@@ -70,6 +70,8 @@ namespace FTISWeb.Models
         [Required]
         public string Status { get; set; }
 
+        public string Tag { get; set; }
+
         protected void LoadNode(int id)
         {
             LoadNode(id, false);
@@ -101,6 +103,7 @@ namespace FTISWeb.Models
                 ContentENG = node.ContentENG;
                 SortId = node.SortId;
                 Status = node.Status;
+                Tag = node.Tag;
                 if (node.ParentNode != null)
                 {
                     ParentNode = node.ParentNode;
@@ -121,6 +124,27 @@ namespace FTISWeb.Models
             Save(node);
         }
 
+        public IList<News> GetNewsByTags()
+        {
+            IList<News> result = new List<News>();
+
+            if (!string.IsNullOrWhiteSpace(Tag))
+            {
+                //查詢
+                IDictionary<string, string> conditions = new Dictionary<string, string>();
+                conditions.Add("Status", "1");
+                conditions.Add("Tags", this.Tag);
+
+                result = m_FTISService.GetNewsList(conditions);
+            }
+            if (result == null)
+            {
+                result = new List<News>();
+            }
+
+            return result;
+        }
+
         private void Save(Node node)
         {
             if (ParentNodeId > 0)
@@ -136,6 +160,7 @@ namespace FTISWeb.Models
             node.ContentENG = ContentENG;
             node.SortId = SortId;
             node.Status = Status;
+            node.Tag = Tag;
 
             if (node.NodeId == 0)
             {
@@ -147,6 +172,34 @@ namespace FTISWeb.Models
             }
 
             LoadNode(node.NodeId, false);
+        }
+
+        public IList<Post> GetPostList(bool onlyOpen, int nodeId = 0)
+        {
+            if (nodeId > 0)
+            {
+                NodeId = nodeId;
+            }
+
+            IList<Post> result = new List<Post>();
+
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            if (onlyOpen)
+            {
+                conditions.Add("Status", "1");
+            }
+            if (NodeId > 0)
+            {
+                conditions.Add("NodeId", ((int)NodeId).ToString());
+                result = m_FTISService.GetPostList(conditions);                
+            }
+
+            if (result == null)
+            {
+                result = new List<Post>();
+            }
+
+            return result;
         }
     }
 }

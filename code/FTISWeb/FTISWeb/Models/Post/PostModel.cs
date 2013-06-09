@@ -20,6 +20,16 @@ namespace FTISWeb.Models
         {
         }
 
+        public PostModel(string id, bool noLazy)
+        {
+            LoadPost(int.Parse(DecryptId(id)), noLazy);
+        }
+
+        public PostModel(string id)
+        {
+            LoadPost(int.Parse(DecryptId(id)));
+        }
+
         public PostModel(int id)
         {
             LoadPost(id, false);

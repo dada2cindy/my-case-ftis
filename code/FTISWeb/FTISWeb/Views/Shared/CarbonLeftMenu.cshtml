@@ -1,0 +1,20 @@
+﻿@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+    @*分類*@
+    IList<Node> m_NodeList = new List<Node>();
+    if (ViewData["NodeList"] != null)
+    {
+        m_NodeList = (List<Node>)ViewData["NodeList"];
+    } 
+}
+@using FTIS.Domain.Impl;
+@using FTISWeb.Models;
+
+<div id="In-leftTitle"><img src="/in-image/left-title-a3.png" alt="產品環境資訊揭露"/></div>
+@if (m_NodeList != null && m_NodeList.Count > 0)
+          {
+              foreach (Node node in m_NodeList)
+              {
+                  <a href="@Url.Action("Index", "Carbon", new { id = m_hsModel.EncryptId(node.NodeId) })"><div class="Left-sbtn">@node.Name</div></a>                         
+              }
+          } 

@@ -226,6 +226,8 @@
     <Compile Include="Controllers\LinksController.cs" />
     <Compile Include="Controllers\EpaperController.cs" />
     <Compile Include="Controllers\EpaperEmailController.cs" />
+    <Compile Include="Controllers\CarbonController.cs" />
+    <Compile Include="Controllers\GreenController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -293,6 +295,8 @@
     <Compile Include="ViewData\QuestionClassData.cs" />
     <Compile Include="ViewData\GreenFactoryClassData.cs" />
     <Compile Include="ViewData\EpaperYearData.cs" />
+    <Compile Include="ViewData\NodeSubData.cs" />
+    <Compile Include="ViewData\PostData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -2167,6 +2171,12 @@
     <Content Include="Views\Epaper\Index.cshtml" />
     <Content Include="Views\Shared\EpaperLeftMenu.cshtml" />
     <Content Include="Views\EpaperEmail\Order.cshtml" />
+    <Content Include="Views\Carbon\NodeSingleEdit.cshtml" />
+    <Content Include="Views\Carbon\Index.cshtml" />
+    <Content Include="Views\Shared\CarbonLeftMenu.cshtml" />
+    <Content Include="Views\Green\Index.cshtml" />
+    <Content Include="Views\Green\Index2.cshtml" />
+    <Content Include="Views\Shared\GreenLeftMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />
@@ -2195,9 +2205,7 @@
   <ItemGroup>
     <Content Include="Views\Admin\LeftMenu.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Carbon\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\Shared\AdminLayout.cshtml" />
   </ItemGroup>
