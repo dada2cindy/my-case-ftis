@@ -201,5 +201,33 @@ namespace FTISWeb.Models
 
             return result;
         }
+
+        public IList<Node> GetNodeList(bool onlyOpen, int nodeId = 0)
+        {
+            if (nodeId > 0)
+            {
+                NodeId = nodeId;
+            }
+
+            IList<Node> result = new List<Node>();
+
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            if (onlyOpen)
+            {
+                conditions.Add("Status", "1");
+            }
+            if (NodeId > 0)
+            {
+                conditions.Add("ParentNodeId", ((int)NodeId).ToString());
+                result = m_FTISService.GetNodeList(conditions);
+            }
+
+            if (result == null)
+            {
+                result = new List<Node>();
+            }
+
+            return result;
+        }
     }
 }

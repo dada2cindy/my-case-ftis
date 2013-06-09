@@ -229,6 +229,7 @@
     <Compile Include="Controllers\CarbonController.cs" />
     <Compile Include="Controllers\GreenController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2181,6 +2182,9 @@
     <Content Include="Views\Shared\QuestionLeftMenu.cshtml" />
     <Content Include="Views\Question\Index.cshtml" />
     <Content Include="Views\Question\Detail.cshtml" />
+    <Content Include="Views\Shared\TechnologyLeftMenu.cshtml" />
+    <Content Include="Views\Technology\Index2.cshtml" />
+    <Content Include="Views\Technology\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

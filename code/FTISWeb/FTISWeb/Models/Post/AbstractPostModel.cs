@@ -93,6 +93,11 @@ namespace FTISWeb.Models
 
         public string Tag { get; set; }
 
+        /// <summary>
+        /// 編號
+        /// </summary>
+        public string No { get; set; }
+
         protected void LoadPost(int id)
         {
             LoadPost(id, false);
@@ -132,6 +137,7 @@ namespace FTISWeb.Models
                 SortId = post.SortId;
                 Status = post.Status;
                 Tag = post.Tag;
+                No = post.No;
                 if (post.Node != null)
                 {
                     Node = post.Node;
@@ -173,6 +179,7 @@ namespace FTISWeb.Models
             post.SortId = SortId;
             post.Status = Status;
             post.Tag = Tag;
+            post.No = No;
 
             if (post.PostId == 0)
             {

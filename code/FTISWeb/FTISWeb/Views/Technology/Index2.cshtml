@@ -1,0 +1,74 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Post>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@using FTIS.Domain.Impl;
+@using MvcPaging;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+
+    Node m_Node = new Node();
+    if (ViewData["Node"] != null)
+    {
+        m_Node = (Node)ViewData["Node"];
+    }
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("TechnologyLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>技術服務能量登錄<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Technology")">技術服務能量登錄</a> &gt; 永續發展機構名單</span></h1>
+      <h2>@m_Node.Name </h2>
+      <div id="InShow-INob">
+          @{
+              foreach (var entity in Model)
+              {
+              <table border="0" cellpadding="6" cellspacing="1" class="Pro03-table1">
+                  <tbody>
+                      <tr>
+                          <td colspan="3" class="Pro03-title2">
+                              <p>登錄合格廠商 (中 / 英文)</p>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td width="93" rowspan="4" align="center" class="Pro03-title1">@entity.No</td>
+                          <td width="104" class="Pro03-txt02bb">公司名稱</td>
+                          <td class="Pro03-txt02">@entity.Company</td>
+                      </tr>
+                      <tr>
+                          <td width="104" class="Pro03-txt02bb">英文名稱</td>
+                          <td class="Pro03-txt02">@entity.CompanyENG</td>
+                      </tr>
+                      <tr>
+                          <td width="104" class="Pro03-txt02bb">登錄效期</td>
+                          <td width="397" class="Pro03-txt02">@entity.GetStr_ExpiredDate</td>
+                      </tr>
+                      <tr>
+                          <td class="Pro03-txt02bb">登錄項目明細</td>
+                          <td width="397" class="Pro03-txt02">@(new HtmlString(entity.Content))</td>
+                      </tr>
+                  </tbody>
+              </table>
+              }
+          }                   
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Activity")')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->
+</div>
