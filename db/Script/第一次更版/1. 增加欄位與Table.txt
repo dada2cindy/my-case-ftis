@@ -57,6 +57,7 @@ CREATE TABLE [tblNode](
 	[Content] [nvarchar](max) NULL,
 	[Content_ENG] [nvarchar](max) NULL,
 	[ParentID] [int] NULL,
+	[Tag] [nvarchar](50) NULL,
  CONSTRAINT [PK_tblNode] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -109,11 +110,12 @@ CREATE TABLE [tblPost](
 	[Fax] [nvarchar](200) NULL,
 	[Address] [nvarchar](200) NULL,
 	[Email] [nvarchar](200) NULL,	
-
 	[SortID] [int] NULL,
 	[Status] [char](1) NULL,
 	[Content] [nvarchar](max) NULL,
 	[NodeID] [int] NULL,
+	[Tag] [nvarchar](50) NULL,
+	[No] [nvarchar](50) NULL,
  CONSTRAINT [PK_tblPost] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
