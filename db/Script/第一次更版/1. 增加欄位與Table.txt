@@ -147,3 +147,10 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
+
+/****** ¹q¤l³ø­q¾\ ******/
+ALTER TABLE tblEpaper_Email ADD Sex nvarchar(2) null
+ALTER TABLE tblEpaper_Email ADD ReceiveOtherFreeInfo nvarchar(1) null
+
+GO
+

@@ -48,4 +48,5 @@ GO
 
 /****** Publication ******/
 ALTER TABLE tblPublication ALTER COLUMN Pic1 nvarchar(250)
+ALTER TABLE tblPublication ALTER COLUMN AFile1 nvarchar(250)
 GO
