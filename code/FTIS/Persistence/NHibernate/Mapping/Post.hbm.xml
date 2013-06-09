@@ -22,7 +22,8 @@
       <column name="Content" sql-type="nvarchar(max)"/>
     </property>
     <property name="SortId" column="SortID" type="Int32"/>
-    <property name="Status" column="Status" type="String" length="1"/>       
+    <property name="Status" column="Status" type="String" length="1"/>
+    <property name="Tag" column="Tag" type="String" length="50"/>
 
   </class>
 

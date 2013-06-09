@@ -91,6 +91,12 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string Content { get; set; }
 
+        /// <summary>
+        /// Tag 注：和國際環保標準 / 規範介紹相關聯 用,區隔
+        /// </summary>
+        [DataMember]
+        public virtual string Tag { get; set; }
+
         public virtual string GetStr_ExpiredDate
         {
             get

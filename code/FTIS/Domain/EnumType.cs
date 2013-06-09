@@ -118,6 +118,8 @@ namespace FTIS.Domain
     public enum SiteParentNode
     {
         None = 0,
+        Carbon = 2,
+        Green = 3,
         Technology = 18
     }
 
