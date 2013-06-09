@@ -75,5 +75,33 @@ namespace FTISWeb.Models
 
             LoadEntity(entity.GreenFactoryClassId);
         }
+
+        public IList<GreenFactory> GetGreenFactoryList(bool onlyOpen, int getGreenFactoryClassId)
+        {
+            if (getGreenFactoryClassId > 0)
+            {
+                EntityId = getGreenFactoryClassId;
+            }
+
+            IList<GreenFactory> result = new List<GreenFactory>();
+
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            if (onlyOpen)
+            {
+                conditions.Add("Status", "1");
+            }
+            if (EntityId > 0)
+            {
+                conditions.Add("GreenFactoryClassId", EntityId.ToString());
+                result = m_FTISService.GetGreenFactoryListNoLazy(conditions);
+            }
+
+            if (result == null)
+            {
+                result = new List<GreenFactory>();
+            }
+
+            return result;
+        }
     }
 }

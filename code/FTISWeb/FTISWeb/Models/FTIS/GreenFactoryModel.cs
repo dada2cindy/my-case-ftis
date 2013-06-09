@@ -24,9 +24,14 @@ namespace FTISWeb.Models
 
         }
 
-        public GreenFactoryModel(int id)
+        public GreenFactoryModel(string id, bool noLazy = false)
         {
-            LoadEntity(id);
+            LoadEntity(int.Parse(DecryptId(id)), noLazy);
+        }
+
+        public GreenFactoryModel(int id, bool noLazy = false)
+        {
+            LoadEntity(id, noLazy);
         }
 
         /// <summary>
@@ -50,11 +55,24 @@ namespace FTISWeb.Models
 
         #endregion
 
-        protected void LoadEntity(int id)
+        protected void LoadEntity(int id, bool noLazy)
         {
-            GreenFactory entity = m_FTISService.GetGreenFactoryById(id);
+            GreenFactory entity;
+            if (noLazy)
+            {
+                entity = m_FTISService.GetGreenFactoryByIdNoLazy(id);
+            }
+            else
+            {
+                entity = m_FTISService.GetGreenFactoryById(id);
+            }
 
             LoadEntity(entity);
+        }
+
+        protected void LoadEntity(int id)
+        {
+            LoadEntity(id, false);
         }
 
         protected void LoadEntity(GreenFactory entity)
@@ -65,8 +83,8 @@ namespace FTISWeb.Models
                 Name = entity.Name;
                 SortId = entity.SortId;
                 Status = entity.Status;
-                PostDate = entity.PostDate;                
-                Content = entity.Content;                
+                PostDate = entity.PostDate;
+                Content = entity.Content;
                 MainCode = entity.MainCode;
                 MainName = entity.MainName;
                 AdminCode = entity.AdminCode;
@@ -108,7 +126,7 @@ namespace FTISWeb.Models
             entity.SortId = SortId;
             entity.Status = Status;
             entity.PostDate = PostDate;
-            entity.Content = Content;            
+            entity.Content = Content;
             entity.MainCode = MainCode;
             entity.MainName = MainName;
             entity.AdminCode = AdminCode;

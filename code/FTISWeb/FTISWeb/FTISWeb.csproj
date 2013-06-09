@@ -230,6 +230,7 @@
     <Compile Include="Controllers\GreenController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
+    <Compile Include="Controllers\GreenFactoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2185,6 +2186,8 @@
     <Content Include="Views\Shared\TechnologyLeftMenu.cshtml" />
     <Content Include="Views\Technology\Index2.cshtml" />
     <Content Include="Views\Technology\Index.cshtml" />
+    <Content Include="Views\Shared\GreenFactoryLeftMenu.cshtml" />
+    <Content Include="Views\GreenFactory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

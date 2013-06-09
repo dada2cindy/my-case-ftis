@@ -190,7 +190,7 @@ namespace FTISWeb.Models
             }
             if (NodeId > 0)
             {
-                conditions.Add("NodeId", ((int)NodeId).ToString());
+                conditions.Add("NodeId", NodeId.ToString());
                 result = m_FTISService.GetPostList(conditions);                
             }
 
@@ -218,7 +218,7 @@ namespace FTISWeb.Models
             }
             if (NodeId > 0)
             {
-                conditions.Add("ParentNodeId", ((int)NodeId).ToString());
+                conditions.Add("ParentNodeId", NodeId.ToString());
                 result = m_FTISService.GetNodeList(conditions);
             }
 
