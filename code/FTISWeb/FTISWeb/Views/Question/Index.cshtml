@@ -1,0 +1,50 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Question>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+
+    QuestionClass m_QuestionClass = new QuestionClass();
+    if (ViewData["QuestionClass"] != null)
+    {
+        m_QuestionClass = (QuestionClass)ViewData["QuestionClass"];
+    }
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("QuestionLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>產業服務專區<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Question")">永續產業資訊FAQ</a> &gt; @m_QuestionClass.Name</span></h1>    
+      <h2>@m_QuestionClass.Name </h2>
+      <div id="InShow-INob">
+        <ul>
+          @{
+              foreach (var entity in Model)
+              {
+                  <li class="QA-Q-LI"><a href="@Url.Action("Detail", "Question", new { id= m_hsModel.EncryptId(entity.QuestionId)})" class="searchBtn">@entity.Name</a><span class="QA-DAY">(上線日期：@entity.GetStr_PostDate)</span></li>
+              }
+          }                   
+        </ul>
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o=>o
+       .AddRouteValue("QuestionClassId",m_hsModel.EncryptId(m_Conditions["QuestionClassId"])))
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Question", new { QuestionClassId = m_hsModel.EncryptId(m_Conditions["QuestionClassId"]) })')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->
+</div>

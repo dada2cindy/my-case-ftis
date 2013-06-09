@@ -35,7 +35,7 @@ namespace FTISWeb.Models
         /// </summary>
         [Required]
         [DisplayName("連結網址")]
-        public string AUrl { get; set; }
+        public override string AUrl { get; set; }
 
         public EpaperModel(int id)
         {

@@ -24,6 +24,16 @@ namespace FTISWeb.Models
 
         }
 
+        public QuestionModel(string id, bool noLazy)
+        {
+            LoadEntity(int.Parse(DecryptId(id)), noLazy);
+        }
+
+        public QuestionModel(string id)
+        {            
+            LoadEntity(int.Parse(DecryptId(id)));
+        }
+
         public QuestionModel(int id)
         {
             LoadEntity(id);
@@ -50,11 +60,24 @@ namespace FTISWeb.Models
 
         #endregion
 
-        protected void LoadEntity(int id)
+        protected void LoadEntity(int id, bool noLazy)
         {
-            Question entity = m_FTISService.GetQuestionById(id);
+            Question entity;
+            if (noLazy)
+            {
+                entity = m_FTISService.GetQuestionByIdNoLazy(id);
+            }
+            else
+            {
+                entity = m_FTISService.GetQuestionById(id);
+            }
 
             LoadEntity(entity);
+        }
+
+        protected void LoadEntity(int id)
+        {
+            LoadEntity(id, false);
         }
 
         protected void LoadEntity(Question entity)
