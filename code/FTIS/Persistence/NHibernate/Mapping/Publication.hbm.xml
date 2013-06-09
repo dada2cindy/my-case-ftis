@@ -28,7 +28,7 @@
     <property name="Spec4" column="Spec4" type="String" length="200"/>
     <property name="Spec5" column="Spec5" type="String" length="200"/>
     <property name="Spec6" column="Spec6" type="String" length="200"/>
-    <property name="AFile1" column="AFile1" type="String" length="50"/>
+    <property name="AFile1" column="AFile1" type="String" length="250"/>
     <property name="LinkFile" column="LinkFile" type="String" length="200"/>
 
   </class>

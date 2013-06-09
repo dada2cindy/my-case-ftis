@@ -79,6 +79,37 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string Status { get; set; }
 
+        /// <summary>
+        /// 性別 男.女
+        /// </summary>
+        [DataMember]
+        public virtual string Sex { get; set; }
+
+        /// <summary>
+        /// 是否同意獲得本會其他免費資訊. 0.否 1.是
+        /// </summary>
+        [DataMember]
+        public virtual string ReceiveOtherFreeInfo{ get; set; }
+
+        public virtual string GetStr_ReceiveOtherFreeInfo
+        {
+            get
+            {
+                string result = "否";
+                switch (this.ReceiveOtherFreeInfo)
+                {
+                    case "0":
+                        result = "否";
+                        break;
+                    case "1":
+                        result = "是";
+                        break;
+                }
+
+                return result;
+            }
+        }
+
         public virtual string GetStr_Status
         {
             get

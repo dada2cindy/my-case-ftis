@@ -57,15 +57,15 @@
     <property name="ContentENG" type="StringClob">
       <column name="Content_ENG" sql-type="NTEXT"/>
     </property>
-    <property name="Pic1ENG" column="Pic1_ENG" type="String" length="50"/>
-    <property name="Pic2ENG" column="Pic2_ENG" type="String" length="50"/>
-    <property name="Pic3ENG" column="Pic3_ENG" type="String" length="50"/>
+    <property name="Pic1ENG" column="Pic1_ENG" type="String" length="250"/>
+    <property name="Pic2ENG" column="Pic2_ENG" type="String" length="250"/>
+    <property name="Pic3ENG" column="Pic3_ENG" type="String" length="250"/>
     <property name="Pic1NameENG" column="Pic1_Name_ENG" type="String" length="200"/>
     <property name="Pic2NameENG" column="Pic2_Name_ENG" type="String" length="200"/>
     <property name="Pic3NameENG" column="Pic3_Name_ENG" type="String" length="200"/>
-    <property name="AFile1ENG" column="AFile1_ENG" type="String" length="50"/>
-    <property name="AFile2ENG" column="AFile2_ENG" type="String" length="50"/>
-    <property name="AFile3ENG" column="AFile3_ENG" type="String" length="50"/>
+    <property name="AFile1ENG" column="AFile1_ENG" type="String" length="250"/>
+    <property name="AFile2ENG" column="AFile2_ENG" type="String" length="250"/>
+    <property name="AFile3ENG" column="AFile3_ENG" type="String" length="250"/>
     <property name="AFile1NameENG" column="AFile1_Name_ENG" type="String" length="200"/>
     <property name="AFile2NameENG" column="AFile2_Name_ENG" type="String" length="200"/>
     <property name="AFile3NameENG" column="AFile3_Name_ENG" type="String" length="200"/>

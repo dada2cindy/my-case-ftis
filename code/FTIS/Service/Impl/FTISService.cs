@@ -1986,6 +1986,16 @@ namespace FTIS.Service.Impl
         {
             return FTISDao.GetEpaperCount(conditions);
         }
+
+        /// <summary>
+        /// 取得電子報年份清單
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns>電子報年份清單</returns>
+        public IList<string> GetEpaperYearList(IDictionary<string, string> conditions)
+        {
+            return FTISDao.GetEpaperYearList(conditions);
+        }
         #endregion
 
         #region EpaperEmail

@@ -1236,6 +1236,13 @@ namespace FTIS.Service
         /// <param name="conditions"></param>
         /// <returns></returns>
         int GetEpaperCount(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得電子報年份清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>電子報年份清單</returns>
+        IList<string> GetEpaperYearList(IDictionary<string, string> conditions);
         #endregion
 
         #region EpaperEmail

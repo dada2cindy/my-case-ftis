@@ -3200,6 +3200,31 @@ namespace FTIS.Persistence
             return count;
         }
 
+        /// <summary>
+        /// 取得電子報年份清單
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns>電子報年份清單</returns>
+        public IList<string> GetEpaperYearList(IDictionary<string, string> conditions)
+        {
+            IList<string> result = new List<string>();
+
+            ArrayList param = new ArrayList();
+            string fromScript = "select Distinct(YEAR(e.PostDate)) from Epaper e ";
+            StringBuilder whereScript = new StringBuilder();
+            IList list = this.QueryEpaper(param, fromScript, whereScript, conditions, false);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (var year in list)
+                {
+                    result.Add(year.ToString());
+                }
+            }
+
+            return result.OrderByDescending(y => y).ToList<string>();
+        }
+
         private IList QueryEpaper(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
             AppendEpaperKeyWord(conditions, whereScript, param);
@@ -3252,7 +3277,7 @@ namespace FTIS.Persistence
                 int yearFrom = int.Parse(conditions["ByYear"]);
                 DateTime dateFrom = new DateTime(yearFrom, 1, 1);
                 DateTime dateTo = new DateTime((yearFrom + 1), 1, 1);
-                whereScript.Append(" and e.PostDate >= ? & e.PostDate < ? ");
+                whereScript.Append(" and e.PostDate >= ? and e.PostDate < ? ");
                 param.Add(dateFrom);
                 param.Add(dateTo);
             }
@@ -3373,7 +3398,8 @@ namespace FTIS.Persistence
                 ////搜尋用
                 if (conditions.IsContainsValue("KeyWord"))
                 {
-                    whereScript.Append(" and (e.Email like ? or e.Company like ? ) ");
+                    whereScript.Append(" and (e.Email like ? or e.Company like ? or e.Name like ? ) ");
+                    param.Add("%" + conditions["KeyWord"] + "%");
                     param.Add("%" + conditions["KeyWord"] + "%");
                     param.Add("%" + conditions["KeyWord"] + "%");
                 }

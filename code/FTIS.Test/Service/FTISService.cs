@@ -343,9 +343,16 @@ namespace FOTIS.Test.Service
         }
 
         [Test]
-        public void Test_FreeGo()
+        public void Test_GetEpaperYearList()
         {
-
+            //查詢
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("Status", "1");
+            IList<string> yearList = m_FTISService.GetEpaperYearList(conditions);
+            foreach (string year in yearList)
+            {
+                Console.WriteLine("year = " + year);
+            }
         }
     }
 }
