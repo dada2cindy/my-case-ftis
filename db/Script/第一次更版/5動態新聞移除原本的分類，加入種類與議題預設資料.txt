@@ -9,11 +9,13 @@ GO
 /****** 加入新的新聞種類 ******/
 INSERT INTO [tblNews_Type]
            ([Name]
+           ,[Name_ENG]
            ,[Content]
            ,[SortID]
            ,[Status])
      VALUES
            ('永續政策／趨勢'
+           ,'永續政策／趨勢'
            ,'國際政府與企業執行永續發展相關策略與趨勢'
            ,1
            ,'1')
@@ -21,11 +23,13 @@ GO
 
 INSERT INTO [tblNews_Type]
            ([Name]
+           ,[Name_ENG]
            ,[Content]
            ,[SortID]
            ,[Status])
      VALUES
            ('國際環保規範'
+           ,'國際環保規範'
            ,'國際組織、各國政府及國際企業等制定或推動之環保相關標準/規範'
            ,2
            ,'1')
@@ -33,11 +37,13 @@ GO
 
 INSERT INTO [tblNews_Type]
            ([Name]
+           ,[Name_ENG]
            ,[Content]
            ,[SortID]
            ,[Status])
      VALUES
            ('綠色企業／產品'
+           ,'綠色企業／產品'
            ,'各國企業環保推動理念與做法及國際組織評比'
            ,3
            ,'1')
@@ -47,70 +53,84 @@ GO
 /****** 加入新的新聞議題 ******/
 INSERT INTO [tblNews_Class]
            ([Name]
+           ,[Name_ENG]
            ,[SortID]
            ,[Status])
      VALUES
            ('資源循環'
+           ,'資源循環'
            ,1
            ,'1')
 GO
 
 INSERT INTO [tblNews_Class]
            ([Name]
+           ,[Name_ENG]
            ,[SortID]
            ,[Status])
      VALUES
            ('能源效率'
+           ,'能源效率'
            ,2
            ,'1')
 GO
 
 INSERT INTO [tblNews_Class]
            ([Name]
+           ,[Name_ENG]
            ,[SortID]
            ,[Status])
      VALUES
            ('危害物質管制'
+           ,'危害物質管制'
            ,3
            ,'1')
 GO
 
 INSERT INTO [tblNews_Class]
            ([Name]
+           ,[Name_ENG]
            ,[SortID]
            ,[Status])
      VALUES
            ('企業社會責任'
+           ,'企業社會責任'
            ,4
            ,'1')
 GO
 
 INSERT INTO [tblNews_Class]
            ([Name]
+           ,[Name_ENG]
            ,[SortID]
            ,[Status])
      VALUES
            ('環境資訊揭露'
+           ,'環境資訊揭露'
            ,5
            ,'1')
 GO
 
 INSERT INTO [tblNews_Class]
            ([Name]
+           ,[Name_ENG]
            ,[SortID]
            ,[Status])
      VALUES
            ('供應鏈管理'
+           ,'供應鏈管理'
            ,6
            ,'1')
 GO
 
 INSERT INTO [tblNews_Class]
            ([Name]
+           ,[Name_ENG]
            ,[SortID]
            ,[Status])
      VALUES
            ('永續發展'
+           ,'永續發展'
            ,7
            ,'1')
 GO
