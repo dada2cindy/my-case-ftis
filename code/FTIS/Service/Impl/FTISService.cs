@@ -2629,6 +2629,67 @@ namespace FTIS.Service.Impl
         }
         #endregion
 
+        #region Report
+        /// <summary>
+        /// 新增報告書
+        /// </summary>
+        /// <param name="report">被新增的報告書</param>
+        /// <returns>新增後的報告書</returns>
+        public Report CreateReport(Report report)
+        {
+            return FTISDao.CreateReport(report);
+        }
+
+        /// <summary>
+        /// 更新報告書
+        /// </summary>
+        /// <param name="report">被更新的報告書</param>
+        /// <returns>更新後的報告書</returns>
+        public Report UpdateReport(Report report)
+        {
+            return FTISDao.UpdateReport(report);
+        }
+
+        /// <summary>
+        /// 刪除報告書
+        /// </summary>
+        /// <param name="report">被刪除的報告書</param>
+        public void DeleteReport(Report report)
+        {
+            FTISDao.DeleteReport(report);
+        }
+
+        /// <summary>
+        /// 取得報告書 By 識別碼
+        /// </summary>
+        /// <param name="reportId">識別碼</param>
+        /// <returns>報告書</returns>
+        public Report GetReportById(int reportId)
+        {
+            return FTISDao.GetReportById(reportId);
+        }
+
+        /// <summary>
+        /// 取得報告書清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>報告書清單</returns>
+        public IList<Report> GetReportList(IDictionary<string, string> conditions)
+        {
+            return FTISDao.GetReportList(conditions);
+        }
+
+        /// <summary>
+        /// 取得報告書數量
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        public int GetReportCount(IDictionary<string, string> conditions)
+        {
+            return FTISDao.GetReportCount(conditions);
+        }        
+        #endregion
+
         #endregion
     }
 }

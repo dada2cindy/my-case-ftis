@@ -125,6 +125,7 @@
     <Compile Include="Domain\Impl\Post.cs" />
     <Compile Include="Domain\Impl\TemplateVO.cs" />
     <Compile Include="Domain\Impl\SystemParamVO.cs" />
+    <Compile Include="Domain\Impl\Report.cs" />
     <Compile Include="FTISFactory.cs" />
     <Compile Include="Persistence\FTISDao.cs" />
     <Compile Include="Persistence\IFTISDao.cs" />
@@ -321,6 +322,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Persistence\NHibernate\Mapping\TemplateVO.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\NHibernate\Mapping\Report.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

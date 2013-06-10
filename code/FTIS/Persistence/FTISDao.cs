@@ -4282,6 +4282,203 @@ namespace FTIS.Persistence
         }
         #endregion
 
+        #region Report
+        /// <summary>
+        /// 新增報告書
+        /// </summary>
+        /// <param name="report">被新增的報告書</param>
+        /// <returns>新增後的報告書</returns>
+        public Report CreateReport(Report report)
+        {
+            NHibernateDao.Insert(report);
+            return report;
+        }
+
+        /// <summary>
+        /// 更新報告書
+        /// </summary>
+        /// <param name="report">被更新的報告書</param>
+        /// <returns>更新後的報告書</returns>
+        public Report UpdateReport(Report report)
+        {
+            NHibernateDao.Update(report);
+
+            return report;
+        }
+
+        /// <summary>
+        /// 刪除報告書
+        /// </summary>
+        /// <param name="report">被刪除的報告書</param>
+        public void DeleteReport(Report report)
+        {
+            NHibernateDao.Delete(report);
+        }
+
+        /// <summary>
+        /// 取得報告書 By 識別碼
+        /// </summary>
+        /// <param name="reportId">識別碼</param>
+        /// <returns>報告書</returns>
+        public Report GetReportById(int reportId)
+        {
+            return NHibernateDao.GetVOById<Report>(reportId);
+        }
+
+        /// <summary>
+        /// 取得報告書清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>報告書清單</returns>
+        public IList<Report> GetReportList(IDictionary<string, string> conditions)
+        {
+            ArrayList param = new ArrayList();
+            string fromScript = "select r from Report r ";
+            StringBuilder whereScript = new StringBuilder();
+            return this.QueryReport(param, fromScript, whereScript, conditions, true).OfType<Report>().ToList();
+        }
+
+        public int GetReportCount(IDictionary<string, string> conditions)
+        {
+            int count = 0;
+            ArrayList param = new ArrayList();
+            string fromScript = "select count(r.ReportId) from Report r ";
+            
+            ////Count公司數時
+            if (conditions.IsContainsValue("CountByCompany"))
+            {
+                fromScript = "select count( distinct( r.Company ) ) from Report r ";
+            }
+
+            StringBuilder whereScript = new StringBuilder();
+            IList result = this.QueryReport(param, fromScript, whereScript, conditions, false);
+            if (result.Count > 0)
+            {
+                count = Convert.ToInt32(result[0]);
+            }
+            return count;
+        }
+
+        private IList QueryReport(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
+        {
+            AppendReportKeyWord(conditions, whereScript, param);
+            AppendReportStatus(conditions, whereScript, param);
+            AppendReportSearch(conditions, whereScript, param);
+
+            string hql = fromScript + "where 1=1 " + whereScript;
+            if (useOrder)
+            {
+                hql += AppendReportOrder(conditions);
+            }
+
+            return NHibernateDao.Query(hql, param, conditions);
+        }
+
+        private void AppendReportSearch(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("Company"))
+            {
+                whereScript.Append(" and (r.Company like ? ) ");
+                param.Add("%" + conditions["Company"] + "%");
+            }
+
+            if (conditions.IsContainsValue("CompanyTrade"))
+            {
+                whereScript.Append(" and r.CompanyTrade = ? ");
+                param.Add(conditions["CompanyTrade"]);
+            }
+
+            if (conditions.IsContainsValue("CompanyTrade"))
+            {
+                whereScript.Append(" and r.CompanyTrade = ? ");
+                param.Add(conditions["CompanyTrade"]);
+            }
+
+            if (conditions.IsContainsValue("CompanyNationality"))
+            {
+                whereScript.Append(" and r.CompanyNationality = ? ");
+                param.Add(conditions["CompanyNationality"]);
+            }
+
+            if (conditions.IsContainsValue("CompanyScale"))
+            {
+                whereScript.Append(" and r.CompanyScale = ? ");
+                param.Add(conditions["CompanyScale"]);
+            }
+
+            if (conditions.IsContainsValue("CompanyType"))
+            {
+                whereScript.Append(" and r.CompanyType = ? ");
+                param.Add(conditions["CompanyType"]);
+            }
+
+            if (conditions.IsContainsValue("IsAA1000"))
+            {
+                whereScript.Append(" and r.AA1000 <> ? ");
+                param.Add(conditions["ISAA1000"]);
+            }
+
+            if (conditions.IsContainsValue("IsGRI"))
+            {
+                whereScript.Append(" and r.IsGRI <> ? ");
+                param.Add(conditions["IsGRI"]);
+            }
+
+            if (conditions.IsContainsValue("PostYearFrom"))
+            {
+                whereScript.Append(" and r.PostYear >= ? ");
+                param.Add(conditions["PostYearFrom"]);
+            }
+            if (conditions.IsContainsValue("PostYearTo"))
+            {
+                whereScript.Append(" and r.PostYear <= ? ");
+                param.Add(conditions["PostYearTo"]);
+            }
+
+            if (conditions.IsContainsValue("ReportYearFrom"))
+            {
+                whereScript.Append(" and r.ReportYear >= ? ");
+                param.Add(conditions["ReportYearFrom"]);
+            }
+            if (conditions.IsContainsValue("ReportYearTo"))
+            {
+                whereScript.Append(" and r.ReportYear <= ? ");
+                param.Add(conditions["ReportYearTo"]);
+            }
+        }
+
+        private string AppendReportOrder(IDictionary<string, string> conditions)
+        {
+            //// 排序條件
+            string order = "order by r.SortId, r.PostDate desc ";
+            if (conditions.IsContainsValue("Order"))
+            {
+                order = conditions["Order"];
+            }
+
+            return order;
+        }
+
+        private void AppendReportKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("KeyWord"))
+            {
+                whereScript.Append(" and (r.Company like ? or r.ReportName like ? ) ");
+                param.Add("%" + conditions["KeyWord"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
+            }
+        }
+
+        private void AppendReportStatus(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("Status"))
+            {
+                whereScript.Append(" and r.Status = ? ");
+                param.Add(conditions["Status"]);
+            }
+        }
+        #endregion
+
         #endregion
     }
 }

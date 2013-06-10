@@ -1639,5 +1639,48 @@ namespace FTIS.Service
         Post GetPostByIdNoLazy(int postId);
 
         #endregion
+
+        #region Report
+        /// <summary>
+        /// 新增報告書
+        /// </summary>
+        /// <param name="report">被新增的報告書</param>
+        /// <returns>新增後的報告書</returns>
+        Report CreateReport(Report report);
+
+        /// <summary>
+        /// 更新報告書
+        /// </summary>
+        /// <param name="report">被更新的報告書</param>
+        /// <returns>更新後的報告書</returns>
+        Report UpdateReport(Report report);
+
+        /// <summary>
+        /// 刪除報告書
+        /// </summary>
+        /// <param name="report">被刪除的報告書</param>
+        void DeleteReport(Report report);
+
+        /// <summary>
+        /// 取得報告書 By 識別碼
+        /// </summary>
+        /// <param name="reportId">識別碼</param>
+        /// <returns>報告書</returns>
+        Report GetReportById(int reportId);
+
+        /// <summary>
+        /// 取得報告書清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>報告書清單</returns>
+        IList<Report> GetReportList(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得報告書數量
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        int GetReportCount(IDictionary<string, string> conditions);        
+        #endregion
     }
 }

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="Report" lazy="true" table="tblReport" dynamic-update="true" dynamic-insert="true">
+
+    <id name="ReportId" column="ID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+    
+    <property name="Company" column="Company" type="String" length="250"/>
+    <property name="PostDate" column="PostDate" type="DateTime"/>
+    <property name="CompanyTrade" column="CompanyTrade" type="String" length="50"/>
+    <property name="AUrl" column="AURL" type="String" length="250"/>    
+    <property name="CompanyNationality" column="CompanyNationality" type="String" length="250"/>
+    <property name="CompanyScale" column="CompanyScale" type="String" length="50"/>
+    <property name="CompanyType" column="CompanyType" type="String" length="250"/>    
+    <property name="PostYear" column="PostYear" type="Int32"/>
+    <property name="ReportName" column="ReportName" type="String" length="250"/>
+    <property name="ReportYear" column="ReportYear" type="Int32"/>
+    <property name="ReportType" column="ReportType" type="String" length="250"/>
+    <property name="ReportPage" column="ReportPage" type="String" length="250"/>
+    <property name="AA1000" column="AA1000" type="String" length="250"/>
+    <property name="GRI" column="GRI" type="String" length="250"/>        
+    <property name="ReportPic" column="ReportPic" type="String" length="250"/>
+    <property name="CSRPage1" column="CSRPage1" type="String" length="250"/>
+    <property name="CSRPage2" column="CSRPage2" type="String" length="250"/>    
+    <property name="CAUrl" column="CAUrl" type="String" length="250"/>
+    <property name="CVister" column="CVister" type="Int32"/>
+    <property name="EAUrl" column="EAUrl" type="String" length="250"/>
+    <property name="EVister" column="EVister" type="Int32"/>
+    <property name="DAUrl" column="DAUrl" type="String" length="250"/>
+    <property name="DVister" column="DVister" type="Int32"/>    
+    <property name="ReportCert" column="ReportCert" type="String" length="250"/>
+    <property name="OpinionTel" column="OpinionTel" type="String" length="250"/>
+    <property name="OpinionEmail" column="OpinionEmail" type="String" length="250"/>
+    <property name="ContactName" column="ContactName" type="String" length="250"/>
+    <property name="ContactDept" column="ContactDept" type="String" length="250"/>
+    <property name="ContactTel" column="ContactTel" type="String" length="250"/>
+    <property name="ContactEmail" column="ContactEmail" type="String" length="250"/>    
+    <property name="Content" type="StringClob">
+      <column name="Content" sql-type="NTEXT"/>
+    </property>
+    <property name="SortId" column="SortID" type="Int32"/>
+    <property name="Status" column="Status" type="String" length="1"/>
+    <property name="MainCode" column="Main_Code" type="String" length="50"/>
+    <property name="MainName" column="Main_Name" type="String" length="200"/>
+    <property name="AdminCode" column="Admin_Code" type="String" length="50"/>
+    <property name="AdminName" column="Admin_Name" type="String" length="200"/>
+    <property name="ServiceCode" column="Service_Code" type="String" length="50"/>
+    <property name="ServiceName" column="Service_Name" type="String" length="200"/>        
+
+  </class>
+
+</hibernate-mapping>
