@@ -1,0 +1,44 @@
+﻿@model FTISWeb.Models.NewsModel
+@{
+    Layout = "~/Views/Shared/EngLayout.cshtml";
+}
+@using FTISWeb.Models;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel(); 
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    <div id="In-leftTitle"><img src="/e-image/left-b1.png" alt="News"/></div>
+    <a href="@Url.Action("EngIndex", "News")"><div class="Left-sbtn">News</div></a>
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>News<span class="Pon"><a href="@Url.Action("EngIndex", "Home")">Home</a> &gt; News</span></h1>    
+    <div id="InShow-INob">
+      <p class="News-IN-Title">@Model.NameENG</p>
+      <p class="News-IN-Day">Start Date：@m_hsModel.GetStr_Date(Model.PostDate)</p>
+      @(new HtmlString(Model.ContentENG))
+      <br />
+        <table border="0" cellpadding="5" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td style="text-align:left;vertical-align:top;width:80px;">
+                        <span class="News-IN-Source">Source：</span>
+                    </td>
+                    <td>
+                        <div class="News-IN-Source2"><a href="@Model.AUrl1LinkENG" target="_blank">@Model.AUrl1ENG</a></div>
+                        <div class="News-IN-Source2"><a href="@Model.AUrl2LinkENG" target="_blank">@Model.AUrl2ENG</a></div>
+                        <div class="News-IN-Source2"><a href="@Model.AUrl3LinkENG" target="_blank">@Model.AUrl3ENG</a></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>      
+      <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
+    </div>
+    
+  </div><!--內容結尾-->
+</div>

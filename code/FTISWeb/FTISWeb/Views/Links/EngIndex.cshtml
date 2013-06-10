@@ -1,0 +1,39 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Links>
+@{
+    Layout = "~/Views/Shared/EngLayout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    <div id="In-leftTitle"><img src="/e-image/left-b3.png" alt="Link"/></div>
+    <a href="@Url.Action("EngIndex", "Links")"><div class="Left-sbtn">Link</div></a>
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>Link<span class="Pon"><a href="@Url.Action("EngIndex", "Home")">Home</a> &gt; Link</span></h1>    
+      <div id="InShow-INob">
+        <ul>
+          @{
+              foreach (var entity in Model)
+              {
+                  <li class="Web-txt">@entity.Name<span class="Web-txt2"><a href="@entity.AUrl" target="_blank">@entity.AUrl</a></span></li>
+              }
+          }                   
+        </ul>
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">PAGE @(Model.PageIndex + 1)，Altogether @(Model.TotalItemCount)</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+          <span class="PageNumber-txt3">PAGE <input id="txtPage" type="text" size="1" /> <a href="javascript:GoPage('@Url.Action("EngIndex", "Links")')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->
+</div>

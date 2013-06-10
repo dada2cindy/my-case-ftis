@@ -24,9 +24,14 @@ namespace FTISWeb.Models
 
         }
 
-        public ApplicationModel(int id)
+        public ApplicationModel(string id, bool noLazy = false)
         {
-            LoadEntity(id);
+            LoadEntity(int.Parse(DecryptId(id)), noLazy);
+        }
+
+        public ApplicationModel(int id, bool noLazy = false)
+        {
+            LoadEntity(id, noLazy);
         }
 
         /// <summary>
@@ -50,9 +55,17 @@ namespace FTISWeb.Models
 
         #endregion
 
-        protected void LoadEntity(int id)
+        protected void LoadEntity(int id, bool noLazy = false)
         {
-            Application entity = m_FTISService.GetApplicationById(id);
+            Application entity;
+            if (noLazy)
+            {
+                entity = m_FTISService.GetApplicationByIdNoLazy(id);
+            }
+            else
+            {
+                entity = m_FTISService.GetApplicationById(id);
+            }
 
             LoadEntity(entity);
         }
@@ -66,7 +79,7 @@ namespace FTISWeb.Models
                 SortId = entity.SortId;
                 Status = entity.Status;
                 Tag = entity.Tag;
-                PostDate = entity.PostDate;                
+                PostDate = entity.PostDate;
                 Content = entity.Content;
                 Pic1 = entity.Pic1;
                 Pic1Name = entity.Pic1Name;
@@ -79,7 +92,7 @@ namespace FTISWeb.Models
                 AFile2 = entity.AFile2;
                 AFile2Name = entity.AFile2Name;
                 AFile3 = entity.AFile3;
-                AFile3Name = entity.AFile3Name;                
+                AFile3Name = entity.AFile3Name;
                 AUrl1 = entity.AUrl1;
                 AUrl2 = entity.AUrl2;
                 AUrl3 = entity.AUrl3;
@@ -107,6 +120,27 @@ namespace FTISWeb.Models
         {
             Application entity = m_FTISService.GetApplicationById(EntityId);
             Save(entity);
+        }
+
+        public IList<News> GetNewsByTags()
+        {
+            IList<News> result = new List<News>();
+
+            if (!string.IsNullOrWhiteSpace(Tag))
+            {
+                //查詢
+                IDictionary<string, string> conditions = new Dictionary<string, string>();
+                conditions.Add("Status", "1");
+                conditions.Add("Tags", this.Tag);
+
+                result = m_FTISService.GetNewsList(conditions);
+            }
+            if (result == null)
+            {
+                result = new List<News>();
+            }
+
+            return result;
         }
 
         private void Save(Application entity)

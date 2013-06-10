@@ -14,5 +14,11 @@ namespace FTISWeb.Controllers
             return View(new HomeShowModel());
         }
 
+        public ActionResult EngIndex()
+        {
+            //Introduction
+            int id = 5; 
+            return View(new NodeModel(id));
+        }
     }
 }

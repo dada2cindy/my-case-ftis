@@ -1,0 +1,44 @@
+﻿@model FTISWeb.Models.NodeModel
+@{
+    Layout = "~/Views/Shared/EngLayout.cshtml";
+}
+
+@{
+    
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")
+    
+    <div id="Left-11btn-table">
+      <table border="0" cellspacing="3" cellpadding="0">
+        <tr>
+          <td><a href="http://www.gov.tw/" target="_blank"><img src="/e-image/ladv01.gif" width="200" height="45" alt="我的E政府" /></a></td>
+        </tr>
+        <tr>
+          <td><a href="http://www.moea.gov.tw/Mns/populace/home/Home.aspx" target="_blank"><img src="/e-image/ladv02.gif" width="200" height="45" alt="經濟部全球資訊網" /></a></td>
+        </tr>
+        <tr>
+          <td><a href="http://assist.nat.gov.tw/wSite/mp?mp=2" target="_blank"><img src="/e-image/ladv03.gif" width="200" height="45" alt="企業輔導網" /></a></td>
+        </tr>
+        <tr>
+          <td><a href="http://greenliving.epa.gov.tw/GreenLife/" target="_blank"><img src="/e-image/ladv04.gif" width="200" height="45" alt="全民綠色消費" /></a></td>
+        </tr>
+        <tr>
+          <td><a href="http://www.moeaidb.gov.tw/" target="_blank"><img src="/e-image/ladv05.gif" width="200" height="45" alt="經濟部工業局" /></a></td>
+        </tr>
+        <tr>
+          <td><a href="http://www.ftis.org.tw/" target="_blank"><img src="/e-image/ladv06.gif" width="200" height="45" alt="財團法人台灣產業服務基金會" /></a></td>
+        </tr>
+      </table>
+    </div>
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>Introduction<span class="Pon"><a href="@Url.Action("EngIndex", "Home")">Home</a> &gt; @Model.NameENG</span></h1>
+    <div id="InShow-INob">@(new HtmlString(Model.Content))</div>
+    
+  </div><!--內容結尾-->
+</div>

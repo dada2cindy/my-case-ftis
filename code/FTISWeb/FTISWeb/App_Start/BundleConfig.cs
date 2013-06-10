@@ -78,6 +78,13 @@ namespace FTISWeb
                 "~/css/AllCss.css",
                 "~/css/In-Style.css",
                 "~/css/InCss.css"));
+
+            bundles.Add(new StyleBundle("~/Content/EngSiteInCSS").Include(
+                "~/Content/MvcPaging.css",
+                "~/css/AllCss.css",
+                "~/css/In-Style.css",
+                "~/css/Ecss.css",
+                "~/css/InCss.css"));
         }
     }
 }

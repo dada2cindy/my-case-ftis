@@ -29,6 +29,11 @@ namespace FTISWeb.Controllers
             return View(GetDataByGroupYear());
         }
 
+        public ActionResult EngIndex()
+        {
+            return View(GetDataByGroupYear());
+        }
+
         [PublicationClassData(OnlyOpen = true)]
         public ActionResult Print()
         {

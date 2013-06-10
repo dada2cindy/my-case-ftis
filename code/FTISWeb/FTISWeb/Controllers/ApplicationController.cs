@@ -20,20 +20,20 @@ using MvcPaging;
 
 namespace FTISWeb.Controllers
 {
-    public partial class LinksController : Controller
+    public partial class ApplicationController : Controller
     {
-        [LinksClassData(OnlyOpen = true)]
-        public ActionResult Index(string keyWord, string linksClassId, int? page)
+        [ApplicationClassData(OnlyOpen = true)]
+        public ActionResult Index(string keyWord, string applicationClassId, int? page)
         {
-            linksClassId = DecryptId(linksClassId);
-            if (string.IsNullOrWhiteSpace(linksClassId))
+            applicationClassId = DecryptId(applicationClassId);
+            if (string.IsNullOrWhiteSpace(applicationClassId))
             {
-                linksClassId = ((IList<LinksClass>)ViewData["LinksClassList"])[0].LinksClassId.ToString();
+                applicationClassId = ((IList<ApplicationClass>)ViewData["ApplicationClassList"])[0].ApplicationClassId.ToString();
             }
-            LinksClass linksClass = m_FTISService.GetLinksClassById(int.Parse(linksClassId));
-            ViewData["LinksClass"] = linksClass;
+            ApplicationClass applicationClass = m_FTISService.GetApplicationClassById(int.Parse(applicationClassId));
+            ViewData["ApplicationClass"] = applicationClass;
 
-            SetConditions(string.Empty, linksClassId, "2");
+            SetConditions(string.Empty, applicationClassId);
             m_Conditions.Add("Status", "1");
             int total = GetGridTotal();
             int pageIndex = page.HasValue ? page.Value - 1 : 0;
@@ -44,17 +44,11 @@ namespace FTISWeb.Controllers
             return View(data.ToPagedList(pageIndex, AppSettings.InSitePageSize, total));
         }
 
-        public ActionResult EngIndex(int? page)
+        [ApplicationClassData(OnlyOpen = true)]
+        public ActionResult Detail(string id, string cdts)
         {
-            SetConditions(string.Empty, string.Empty, "1");
-            m_Conditions.Add("Status", "1");
-            int total = GetGridTotal();
-            int pageIndex = page.HasValue ? page.Value - 1 : 0;
-            m_Conditions.Add("PageIndex", pageIndex.ToString());
-            m_Conditions.Add("PageSize", AppSettings.InSitePageSize.ToString());
-
-            var data = GetGridData();
-            return View(data.ToPagedList(pageIndex, AppSettings.InSitePageSize, total));
+            GetConditions(cdts);
+            return View(new ApplicationModel(id, true));
         }
 
         private string DecryptId(string id)

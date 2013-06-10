@@ -1,0 +1,50 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Application>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+
+    ApplicationClass m_ApplicationClass = new ApplicationClass();
+    if (ViewData["ApplicationClass"] != null)
+    {
+        m_ApplicationClass = (ApplicationClass)ViewData["ApplicationClass"];
+    }
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("ApplicationLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>企業社會責任<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Application")">企業社會責任</a> &gt; @m_ApplicationClass.Name</span></h1>    
+      <h2>@m_ApplicationClass.Name </h2>
+      <div id="InShow-INob">
+        <ul>
+          @{
+              foreach (var entity in Model)
+              {
+                  <li class="CSR-txt"><a href="@Url.Action("Detail", "Application", new { id = m_hsModel.EncryptId(entity.ApplicationId) })" class="searchBtn">@entity.Name</a></li>                  
+              }
+          }                   
+        </ul>
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o=>o
+       .AddRouteValue("applicationClassId",m_hsModel.EncryptId(m_Conditions["ApplicationClassId"])))
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Application", new { applicationClassId = m_hsModel.EncryptId(m_Conditions["ApplicationClassId"]) })')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->
+</div>

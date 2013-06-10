@@ -231,6 +231,7 @@
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\GreenFactoryController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -267,6 +268,7 @@
     <Compile Include="Models\FTIS\QuestionModel.cs" />
     <Compile Include="Models\FTIS\GreenFactoryClassModel.cs" />
     <Compile Include="Models\FTIS\GreenFactoryModel.cs" />
+    <Compile Include="Models\FTIS\ReportModel.cs" />
     <Compile Include="Models\Home\HomeShowModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
@@ -2188,6 +2190,15 @@
     <Content Include="Views\Technology\Index.cshtml" />
     <Content Include="Views\Shared\GreenFactoryLeftMenu.cshtml" />
     <Content Include="Views\GreenFactory\Index.cshtml" />
+    <Content Include="Views\Shared\ApplicationLeftMenu.cshtml" />
+    <Content Include="Views\Application\Index.cshtml" />
+    <Content Include="Views\Application\Detail.cshtml" />
+    <Content Include="Views\Shared\EngLayout.cshtml" />
+    <Content Include="Views\Home\EngIndex.cshtml" />
+    <Content Include="Views\Brief\EngIndex.cshtml" />
+    <Content Include="Views\Links\EngIndex.cshtml" />
+    <Content Include="Views\News\EngIndex.cshtml" />
+    <Content Include="Views\News\EngDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

@@ -1,0 +1,126 @@
+﻿@model IPagedList<FTIS.Domain.Impl.News>
+@{
+    Layout = "~/Views/Shared/EngLayout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    
+    @*種類、議題*@
+    IList<NewsType> m_NewsTypeList = new List<NewsType>();
+    if (ViewData["NewsTypeList"] != null)
+    {
+        m_NewsTypeList = (List<NewsType>)ViewData["NewsTypeList"];
+    } 
+    
+    IList<NewsClass> m_NewsClassList = new List<NewsClass>();
+    if (ViewData["NewsClassList"] != null)
+    {
+        m_NewsClassList = (List<NewsClass>)ViewData["NewsClassList"];
+    } 
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    <div id="In-leftTitle"><img src="/e-image/left-b1.png" alt="News"/></div>
+    <a href="@Url.Action("EngIndex", "News")"><div class="Left-sbtn">News</div></a>
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+      @Html.Partial("InShowAdv"); 
+      <h1>News<span class="Pon"><a href="@Url.Action("EngIndex", "Home")">Home</a> &gt; News</span></h1>
+      <div id="News-Slect-table">
+          @{
+              string allSelected = string.Empty;
+                if (!m_Conditions.IsContainsValue("NewsTypeId") && !m_Conditions.IsContainsValue("NewsClassId"))
+                {
+                    allSelected = "-Selected";
+                }
+              <a href="@Url.Action("EngIndex", "News")"><div class="News-Slect@(allSelected)">All</div></a>  
+          }
+          @if (m_NewsTypeList != null && m_NewsTypeList.Count > 0)
+          {
+              foreach (NewsType newsType in m_NewsTypeList)
+              {
+                  string selected = string.Empty;
+                  if (m_Conditions.IsContainsValue("NewsTypeId") && m_Conditions["NewsTypeId"] == newsType.NewsTypeId.ToString())
+                  {
+                      selected = "-Selected";
+                  }
+                <a href="@Url.Action("EngIndex", "News", new { newsTypeId = m_hsModel.EncryptId(newsType.NewsTypeId), newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]) })">
+                    <div class="News-Slect@(selected)">@newsType.NameENG</div>
+                </a>                                
+              }
+          } 
+          @if (m_NewsClassList != null && m_NewsClassList.Count > 0)
+          {
+              foreach (NewsClass newsClass in m_NewsClassList)
+              {
+                  string selected = string.Empty;
+                  if (m_Conditions.IsContainsValue("NewsClassId") && m_Conditions["NewsClassId"] == newsClass.NewsClassId.ToString())
+                  {
+                      selected = "-Selected";
+                  }
+                <a href="@Url.Action("EngIndex", "News", new { newsClassId = m_hsModel.EncryptId(newsClass.NewsClassId), newsTypeId = m_hsModel.EncryptId(m_Conditions["NewsTypeId"]) })">
+                    <div class="News-SSlect@(selected)">@newsClass.NameENG</div>
+                </a>                                
+              }
+          }         
+      </div>
+
+      <div id="InShow-INob">
+      <table width="650" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="News-Stitle">Start Date</td>
+            <td class="News-Stitle">Title</td>
+            <td class="News-Stitle" style="width:80px;">Issues</td>
+            <td class="News-Stitle" style="width:60px;">Species</td>
+            <td class="News-Stitle" style="width:60px;">Visited</td>
+          </tr>
+          @{
+              int i = 1;
+              foreach (var entity in Model)
+              {
+                  string rowClass = (i % 2 == 0) ? "News-Sob02" : "News-Sob01";
+              <tr>
+                  <td class="@rowClass">@entity.GetStr_PostDate</td>
+                  <td class="@rowClass">
+                      @if ("1".Equals(entity.IsOut) && !string.IsNullOrWhiteSpace(entity.AUrl))
+                      {
+                          <a target="_blank" href="@Url.Action("EngDetail", "News", new { id= m_hsModel.EncryptId(entity.NewsId)})">@m_hsModel.SubString(entity.NameENG, 150, true)</a>
+                      }
+                      else
+                      {
+                        <a href="@Url.Action("EngDetail", "News", new { id= m_hsModel.EncryptId(entity.NewsId)})">@m_hsModel.SubString(entity.NameENG, 150, true)</a>
+                      }
+                      @if ("1".Equals(entity.IsNew))
+                      {
+                        <img src="/image/newsicon.gif" width="30" height="13" alt="New" />
+                      }
+                  </td>
+                  <td class="@rowClass">@entity.NewsClass.NameENG</td>
+                  <td class="@rowClass">@entity.NewsType.NameENG</td>
+                  <td class="@rowClass" style="text-align:center">@entity.VisterENG</td>
+              </tr>
+                  i++; 
+              }
+          }                   
+      </table>
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">PAGE @(Model.PageIndex + 1)，Altogether @(Model.TotalItemCount)</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o=>o
+       .AddRouteValue("newsClassId",m_hsModel.EncryptId(m_Conditions["NewsClassId"]))
+       .AddRouteValue("newsTypeId",m_hsModel.EncryptId(m_Conditions["NewsTypeId"])))
+          <span class="PageNumber-txt3">PAGE <input id="txtPage" type="text" size="1" /> <a href="javascript:GoPage('@Url.Action("EngIndex", "News", new { newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]), newsTypeId = m_hsModel.EncryptId(m_Conditions["NewsTypeId"]) })')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->    
+</div>
