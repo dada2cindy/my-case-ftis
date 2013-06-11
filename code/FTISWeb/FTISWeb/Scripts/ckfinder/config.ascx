@@ -135,19 +135,38 @@
 		//	- The "ResourceType" attribute accepts the special value "*", which
 		//	  means "all resource types".
 		AccessControl acl = AccessControl.Add();
-		acl.Role = "*";
-		acl.ResourceType = "*";
-		acl.Folder = "/";
+        if (CheckAuthentication())
+        {                 
+            acl.Role = "*";
+            acl.ResourceType = "*";
+            acl.Folder = "/";
 
-		acl.FolderView = true;
-		acl.FolderCreate = true;
-		acl.FolderRename = true;
-		acl.FolderDelete = true;
+            acl.FolderView = true;
+            acl.FolderCreate = true;
+            acl.FolderRename = true;
+            acl.FolderDelete = true;
 
-		acl.FileView = true;
-		acl.FileUpload = true;
-		acl.FileRename = true;
-		acl.FileDelete = true;
+            acl.FileView = true;
+            acl.FileUpload = true;
+            acl.FileRename = true;
+            acl.FileDelete = true;                    
+        }
+        else
+        {
+            acl.Role = "*";
+            acl.ResourceType = "WebUserImages";
+            acl.Folder = "/";
+
+            acl.FolderView = true;
+            acl.FolderCreate = false;
+            acl.FolderRename = false;
+            acl.FolderDelete = false;
+
+            acl.FileView = true;
+            acl.FileUpload = true;
+            acl.FileRename = false;
+            acl.FileDelete = false;
+        }
 
 		// Resource Type settings.
 		// A resource type is nothing more than a way to group files under
@@ -192,6 +211,14 @@
 		type.MaxSize = 0;
 		type.AllowedExtensions = new string[] { "swf", "flv" };
 		type.DeniedExtensions = new string[] { ".exe" };
+
+        ////網站前台上傳用-圖片
+        type = ResourceType.Add("WebUserImages");
+        type.Url = BaseUrl + "webuser/images/";
+        type.Dir = BaseDir == "" ? "" : BaseDir + "webuser/images/";
+        type.MaxSize = 1024 * 1024;
+        type.AllowedExtensions = new string[] { "bmp", "gif", "jpeg", "jpg", "png" };
+        type.DeniedExtensions = new string[] { ".exe" };
 	}
 
 </script>
