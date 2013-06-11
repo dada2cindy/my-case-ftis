@@ -213,6 +213,7 @@
     <Compile Include="Controllers\Admin\AdminQuestionController.cs" />
     <Compile Include="Controllers\Admin\AdminGreenFactoryClassController.cs" />
     <Compile Include="Controllers\Admin\AdminGreenFactoryController.cs" />
+    <Compile Include="Controllers\Admin\AdminReportController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
@@ -302,6 +303,7 @@
     <Compile Include="ViewData\EpaperYearData.cs" />
     <Compile Include="ViewData\NodeSubData.cs" />
     <Compile Include="ViewData\PostData.cs" />
+    <Compile Include="ViewData\ReportItemData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -2199,6 +2201,9 @@
     <Content Include="Views\Links\EngIndex.cshtml" />
     <Content Include="Views\News\EngIndex.cshtml" />
     <Content Include="Views\News\EngDetail.cshtml" />
+    <Content Include="Views\Report\AdminIndex.cshtml" />
+    <Content Include="Views\Report\Save.cshtml" />
+    <Content Include="Views\Report\AdminGridList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

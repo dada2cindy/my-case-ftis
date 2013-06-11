@@ -94,6 +94,15 @@ function ClearUI(tag) {
     });
 }
 
+function GetCheckBoxValue(selector) {
+    if ($(selector).prop('checked')) {
+        return $(selector).val();
+    }
+    else {
+        return "";
+    }
+}
+
 /***************************************************************************
 Enter 預設按鈕
 ***************************************************************************/
