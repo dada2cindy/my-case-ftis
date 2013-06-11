@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database">
+  
+  <object id="SystemParamVO" type="FTIS.Domain.Impl.SystemParamVO, FTIS">
+    <property name="SystemParamId" value="1"></property>
+    <property name="SendEmail" value="test@test.com"></property>
+    <property name="Account" value="SmtpUser"></property>
+    <property name="Password" value="abc+1234"></property>
+    <property name="MailSmtp" value="60.248.19.168"></property>
+    <property name="MailPort" value="25"></property>
+    <property name="EnableSSL" value="False"></property>
+  </object>
+
+
+</objects>

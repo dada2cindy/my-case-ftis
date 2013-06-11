@@ -1,0 +1,400 @@
+﻿@model FTISWeb.Models.ReportModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+@using FTIS.Domain.Impl;
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if (Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+    
+    @*查詢項目*@
+    ////行業別
+    IList<SelectListItem> m_CompanyTradeList = new List<SelectListItem>();
+    if (ViewData["CompanyTradeList"] != null)
+    {
+        m_CompanyTradeList = (List<SelectListItem>)ViewData["CompanyTradeList"];
+    }
+
+    ////公司國籍
+    IList<SelectListItem> m_CompanyNationalityList = new List<SelectListItem>();
+    if (ViewData["CompanyNationalityList"] != null)
+    {
+        m_CompanyNationalityList = (List<SelectListItem>)ViewData["CompanyNationalityList"];
+    }
+
+    ////公司規模
+    IList<SelectListItem> m_CompanyScaleList = new List<SelectListItem>();
+    if (ViewData["CompanyScaleList"] != null)
+    {
+        m_CompanyScaleList = (List<SelectListItem>)ViewData["CompanyScaleList"];
+    }
+
+    ////公司類型
+    IList<SelectListItem> m_CompanyTypeList = new List<SelectListItem>();
+    if (ViewData["CompanyTypeList"] != null)
+    {
+        m_CompanyTypeList = (List<SelectListItem>)ViewData["CompanyTypeList"];
+    }
+
+    ////應用標準AA1000
+    IList<SelectListItem> m_AA1000List = new List<SelectListItem>();
+    if (ViewData["AA1000List"] != null)
+    {
+        m_AA1000List = (List<SelectListItem>)ViewData["AA1000List"];
+    }
+
+    ////應用標準GRI 
+    IList<SelectListItem> m_GRIList = new List<SelectListItem>();
+    if (ViewData["GRIList"] != null)
+    {
+        m_GRIList = (List<SelectListItem>)ViewData["GRIList"];
+    }
+}
+@section TitleContent{}
+@section HeadContent{
+    @Scripts.Render("~/bundles/CKEditor")
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+                CKEDITOR.instances.Content.setData('');
+                $("#SortId").val('100');
+                $("#CVister").val('0');
+                $("#EVister").val('0');
+                $("#DVister").val('0');
+            });
+
+            $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+
+            $("#PostDate").kendoDatePicker({
+                change: OnPostDateChange,
+                format: "yyyy/MM/dd"
+            });
+        });
+
+        function SetFileField(fileUrl, data) {
+            var filepath = fileUrl.replace("@AppSettings.CKFinderFileHandler", "");
+            document.getElementById(data["selectActionData"]).value = filepath;
+        }
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "Report", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
+    <fieldset class="fieldset">
+        <h1>Q&A管理 </h1>
+        <table style="width: 100%" class="FormTable">
+            <tr>
+                <td style="text-align:right;">主題分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("MainCode", Model.MainCode, new { id = "MainCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("MainName", Model.MainName, new { id = "MainName" })
+                    <select id="ddlMainCode" onchange="GetSelInfo('ddlMainCode','MainCode','MainName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">農業環保</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">施政分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("AdminCode", Model.AdminCode, new { id = "AdminCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("AdminName", Model.AdminName, new { id = "AdminName" })
+                    <select id="ddlAdminCode" onchange="GetSelInfo('ddlAdminCode','AdminCode','AdminName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">經濟貿易</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">服務分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("ServiceCode", Model.ServiceCode, new { id = "ServiceCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("ServiceName", Model.ServiceName, new { id = "ServiceName" })
+                    <select id="ddlServiceCode" onchange="GetSelInfo('ddlServiceCode','ServiceCode','ServiceName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">生活安全及品質</option>
+                    </select>
+                </td>
+            </tr>             
+            <tr>
+                <td style="text-align:right;">*公司名稱：
+                </td>
+                <td>
+                    @Html.TextBox("Company", Model.Company, new { id = "Company", @style = "width: 600px;" })
+                </td>
+            </tr>    
+            <tr>
+                <td style="text-align:right;">*提供日期：
+                </td>
+                <td>
+                    @Html.TextBox("PostDate", Model.PostDate, new { id = "PostDate" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*行業別：
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.CompanyTrade, m_CompanyTradeList, "請選擇")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*公司網址：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl", Model.AUrl, new { id = "AUrl", @style = "width: 600px;" })
+                </td>
+            </tr>     
+            <tr>
+                <td style="text-align:right;">*公司國籍：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.CompanyNationality, "1")國內</label>
+                    <label>@Html.RadioButtonFor(m => m.CompanyNationality, "0")國外</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*公司規模：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.CompanyScale, "1")大企業</label>
+                    <label>@Html.RadioButtonFor(m => m.CompanyScale, "0")中小企業</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*公司類型：
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.CompanyType, m_CompanyTypeList, "請選擇")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*發佈年份：
+                </td>
+                <td>
+                    @Html.TextBox("PostYear", Model.PostYear, new { id = "PostYear" }) (西元年) 
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*報告書名稱：
+                </td>
+                <td>
+                    @Html.TextBox("ReportName", Model.ReportName, new { id = "ReportName", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*報告年份：
+                </td>
+                <td>
+                    @Html.TextBox("ReportYear", Model.ReportYear, new { id = "ReportYear" }) (西元年) 
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*報告格式：
+                </td>
+                <td>
+                    @Html.TextBox("ReportType", Model.ReportType, new { id = "ReportType", @style = "width: 600px;" }) (如PDF、線上閱讀) 
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*報告頁數：
+                </td>
+                <td>
+                    @Html.TextBox("ReportPage", Model.ReportPage, new { id = "ReportPage", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*AA1000標準：
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.AA1000, m_AA1000List, "請選擇")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*GRI等級：
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.GRI, m_GRIList, "請選擇")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">報告書封面：
+                </td>
+                <td>
+                    @Html.TextBox("ReportPic", Model.ReportPic, new { id = "ReportPic", @readonly = "readonly" , onclick = "BrowseServer('WebUserImages:/', 'ReportPic');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('WebUserImages:/', 'ReportPic');" /> 
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*CSR網頁1：
+                </td>
+                <td>
+                    @Html.TextBox("CSRPage1", Model.CSRPage1, new { id = "CSRPage1", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*CSR網頁2：
+                </td>
+                <td>
+                    @Html.TextBox("CSRPage2", Model.CSRPage2, new { id = "CSRPage2", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*語言版本--中文：下載網址：
+                </td>
+                <td>
+                    @Html.TextBox("CAUrl", Model.CAUrl, new { id = "CAUrl", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">中文：下載人數：
+                </td>
+                <td>
+                    @Html.TextBox("CVister", Model.CVister, new { id = "CVister" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*語言版本--英文：下載網址：
+                </td>
+                <td>
+                    @Html.TextBox("EAUrl", Model.EAUrl, new { id = "EAUrl", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">英文：下載人數：
+                </td>
+                <td>
+                    @Html.TextBox("EVister", Model.EVister, new { id = "EVister" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*語言版本--雙語：下載網址：
+                </td>
+                <td>
+                    @Html.TextBox("DAUrl", Model.DAUrl, new { id = "DAUrl", @style = "width: 600px;" }) (如中文+英文) 
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">雙語：下載人數：
+                </td>
+                <td>
+                    @Html.TextBox("DVister", Model.DVister, new { id = "DVister" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">報告確證：
+                </td>
+                <td>
+                    @Html.TextBox("ReportCert", Model.ReportCert, new { id = "ReportCert", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*意見回饋-電話：
+                </td>
+                <td>
+                    @Html.TextBox("OpinionTel", Model.OpinionTel, new { id = "OpinionTel", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*意見回饋-E-mail：
+                </td>
+                <td>
+                    @Html.TextBox("OpinionEmail", Model.OpinionEmail, new { id = "OpinionEmail", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*聯絡方式-姓名：
+                </td>
+                <td>
+                    @Html.TextBox("ContactName", Model.ContactName, new { id = "ContactName", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*聯絡方式-職稱：
+                </td>
+                <td>
+                    @Html.TextBox("ContactDept", Model.ContactDept, new { id = "ContactDept", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*聯絡方式-電話：
+                </td>
+                <td>
+                    @Html.TextBox("ContactTel", Model.ContactTel, new { id = "ContactTel", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*聯絡方式-E-mail ：
+                </td>
+                <td>
+                    @Html.TextBox("ContactEmail", Model.ContactEmail, new { id = "ContactEmail", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">*報告書介紹：
+                </td>
+                <td>
+                    @Html.TextArea("Content", Model.Content, new { id = "Content" })
+                </td>
+            </tr>                                                               
+            <tr>
+                <td style="text-align:right;">*排序：
+                </td>
+                <td>
+                    @Html.TextBox("SortId", Model.SortId, new { id = "SortId", @style = "width: 50px;" })排列順序︰越小越前面。
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input id="btnCreate" class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input id="btnEdit" class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "Report", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />
+@if (Model.ShowFreeGOMsg)
+{
+    switch (Model.FreeGOColumnName)
+    {
+        case "Content":
+            Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel("內容", Model.Content));
+            break;            
+    }
+}

@@ -119,6 +119,9 @@ namespace FTISWeb.Models
                 case "Green":
                     m_VisibleColumns = new string[] { "Name", "GetStr_Status" };
                     break;
+                case "Report":
+                    m_VisibleColumns = new string[] { "Company", "GetStr_CompanyTrade", "SortId", "GetStr_Status", "GetStr_PostDate", "ReportName", "PostYear", "ReportYear", "ReportName" };
+                    break;
             }
         }
 

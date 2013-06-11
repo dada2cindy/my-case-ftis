@@ -1,0 +1,247 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@using System.Web.Optimization
+@using FTIS.Domain;
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using WuDada.Core.Generic.Extension;
+@{
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();    
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    string m_Cdts = (string)ViewData["Conditions"];
+
+    @*權限*@
+    bool AllowRead = (bool)ViewData["AllowRead"];
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];
+    
+    @*查詢項目*@
+    ////行業別
+    IList<SelectListItem> m_CompanyTradeList = new List<SelectListItem>();
+    if (ViewData["CompanyTradeList"] != null)
+    {
+        m_CompanyTradeList = (List<SelectListItem>)ViewData["CompanyTradeList"];
+        if(m_Conditions.IsContainsValue("CompanyTrade"))
+        {
+            foreach(SelectListItem item in m_CompanyTradeList)
+            {
+                if(item.Value ==m_Conditions["CompanyTrade"])
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    ////公司國籍
+    IList<SelectListItem>  m_CompanyNationalityList = new List<SelectListItem>();
+    if (ViewData["CompanyNationalityList"] != null)
+    {
+        m_CompanyNationalityList = (List<SelectListItem>)ViewData["CompanyNationalityList"];
+        if (m_Conditions.IsContainsValue("CompanyNationality"))
+        {
+            foreach (SelectListItem item in m_CompanyNationalityList)
+            {
+                if (item.Value == m_Conditions["CompanyNationality"])
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    ////公司規模
+    IList<SelectListItem> m_CompanyScaleList = new List<SelectListItem>();
+    if (ViewData["CompanyScaleList"] != null)
+    {
+        m_CompanyScaleList = (List<SelectListItem>)ViewData["CompanyScaleList"];
+        if (m_Conditions.IsContainsValue("CompanyScale"))
+        {
+            foreach (SelectListItem item in m_CompanyScaleList)
+            {
+                if (item.Value == m_Conditions["CompanyScale"])
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    ////公司類型
+    IList<SelectListItem> m_CompanyTypeList = new List<SelectListItem>();
+    if (ViewData["CompanyTypeList"] != null)
+    {
+        m_CompanyTypeList = (List<SelectListItem>)ViewData["CompanyTypeList"];
+        if (m_Conditions.IsContainsValue("CompanyType"))
+        {
+            foreach (SelectListItem item in m_CompanyTypeList)
+            {
+                if (item.Value == m_Conditions["CompanyType"])
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+        }
+    } 
+    
+    ////應用標準AA1000
+    string m_CheckedIsAA1000 = string.Empty;
+    if (m_Conditions.IsContainsValue("IsAA1000"))
+    {
+        m_CheckedIsAA1000 = "checked='checked'";
+    }
+
+    ////應用標準GRI 
+    string m_CheckedIsGRI = string.Empty;
+    if (m_Conditions.IsContainsValue("IsGRI"))
+    {
+        m_CheckedIsAA1000 = "checked='checked'";
+    }
+ }
+
+@section TitleContent{}
+@section HeadContent{        
+    <script>
+        $(function () {
+            //按下查詢鈕
+            $("#btnQuery").click(function () {
+                Query();
+            });
+
+            //按下刪除鈕
+            $("#btnDeleteAll").click(function () {
+                DeleteItems('所選項目');
+            });
+
+            $("#KeyWord").enterPressed(function () {
+                Query();
+            });
+
+            $("#CompanyTrade").enterPressed(function () {
+                Query();
+            });
+
+            $("#CompanyNationality").enterPressed(function () {
+                Query();
+            });
+
+            $("#CompanyScale").enterPressed(function () {
+                Query();
+            });
+
+            $("#CompanyType").enterPressed(function () {
+                Query();
+            });
+
+            $("#PostYearFrom").enterPressed(function () {
+                Query();
+            });
+
+            $("#PostYearTo").enterPressed(function () {
+                Query();
+            });
+
+            //Grid的刪除
+            $("#dvGrid").on("click", ".k-grid-Delete", function () {
+                var entityId = $(this).attr('entityId');
+                var entityName = $(this).attr('entityName');
+                DeleteItem(entityId, entityName);
+            });
+        });
+
+        function Query() {
+            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "Report")', {
+                keyWord: $("#KeyWord").val(),
+                companyTrade: $("#CompanyTrade").val(),
+                companyNationality: $("#CompanyNationality").val(),
+                companyScale: $("#CompanyScale").val(),
+                companyType: $("#CompanyType").val(),
+                isAA1000: GetCheckBoxValue("#IsAA1000"),
+                isGRI: GetCheckBoxValue("#IsGRI"),
+                postYearFrom: $("#PostYearFrom").val(),
+                postYearTo: $("#PostYearTo").val(),
+                ReportYearFrom: "",
+                ReportYearTo: ""
+            });
+        }        
+
+        //刪除1筆動作(留在頁面寫)
+        function OnDeleteItem(id) {            
+            $.post('@Url.Action("Delete", "Report")', { id: id }, function (data) {                
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+
+        //刪除多筆動作(留在頁面寫)
+        function OnDeleteItems(allId) {
+            $.post('@Url.Action("MultiDelete", "Report")', { allId: allId }, function (data) {
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+    </script>
+}
+
+<fieldset class="fieldset">
+    <h1>Q&A管理 </h1>
+    <table style="width: 100%" class="FormTable">
+        <tr>
+            <td style="width:100px; text-align:right;">關鍵字：
+            </td>
+            <td >
+                @Html.TextBox("KeyWord", m_Conditions["KeyWord"])
+                行業別：
+                @Html.DropDownList("CompanyTrade", m_CompanyTradeList, "請選擇")
+                公司國籍：
+                @Html.DropDownList("CompanyNationality", m_CompanyNationalityList, "請選擇")
+                公司規模：
+                @Html.DropDownList("CompanyScale", m_CompanyScaleList, "請選擇")
+                公司類型：
+                @Html.DropDownList("CompanyType", m_CompanyTypeList, "請選擇")                
+            </td>
+        </tr>  
+        <tr>
+            <td style="width:100px; text-align:right;">發佈年份：
+            </td>
+            <td >
+                @Html.TextBox("PostYearFrom", m_Conditions["PostYearFrom"])
+                至
+                @Html.TextBox("PostYearTo", m_Conditions["PostYearTo"])
+                應用標準：
+                <input id="IsAA1000" name="IsAA1000" type="checkbox" value="2" @m_CheckedIsAA1000 />AA1000 
+                <input id="IsGRI" name="IsGRI" type="checkbox" value="7" @m_CheckedIsGRI />GRI  
+                <input type="button" class="btn" value="查詢" id="btnQuery" />
+            </td>
+        </tr>          
+    </table>
+    <br />
+    <table>
+        <tr>            
+            <td style="text-align:left;">
+                @Html.Raw(Url.ButtonLink("新增", "Create", "Report", AllowCreate, new { cdts = m_Cdts }, new { @class = "btn" }))
+                @if (AllowDelete)
+                {
+                    <input type="button" class="btn" value="刪除" id="btnDeleteAll" />                
+                }
+            </td>
+        </tr>  
+    </table>
+    <div id="dvGrid">
+        @Html.Partial("AdminGridList", new ParamaterModel("Edit", "Report", m_Cdts))
+    </div>    
+    <div class="deleteMsgFail"></div>
+</fieldset>

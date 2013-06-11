@@ -20,7 +20,8 @@ namespace FTISWeb.Models
     public class ReportModel : AbstractEntityModel, ICheckFreeGO
     {
         public ReportModel()
-        {
+        {           
+            this.SortId = 100;
             this.PostDate = DateTime.Today;
         }
 
