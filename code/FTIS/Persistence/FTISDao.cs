@@ -4388,12 +4388,6 @@ namespace FTIS.Persistence
                 param.Add(conditions["CompanyTrade"]);
             }
 
-            if (conditions.IsContainsValue("CompanyTrade"))
-            {
-                whereScript.Append(" and r.CompanyTrade = ? ");
-                param.Add(conditions["CompanyTrade"]);
-            }
-
             if (conditions.IsContainsValue("CompanyNationality"))
             {
                 whereScript.Append(" and r.CompanyNationality = ? ");
@@ -4415,12 +4409,12 @@ namespace FTIS.Persistence
             if (conditions.IsContainsValue("IsAA1000"))
             {
                 whereScript.Append(" and r.AA1000 <> ? ");
-                param.Add(conditions["ISAA1000"]);
+                param.Add(conditions["IsAA1000"]);
             }
 
             if (conditions.IsContainsValue("IsGRI"))
             {
-                whereScript.Append(" and r.IsGRI <> ? ");
+                whereScript.Append(" and r.GRI <> ? ");
                 param.Add(conditions["IsGRI"]);
             }
 
