@@ -21,10 +21,16 @@ namespace FTISWeb.Models
     {
         public NormClass ParentEntity { get; set; }
 
+        /// <summary>
+        /// 地區
+        /// </summary>
+        [DisplayName("地區")]
+        [Required(ErrorMessage = "請選擇地區")]
+        [Range(1, int.MaxValue, ErrorMessage = "請選擇地區")]
         public int ParentId { get; set; }
 
         /// <summary>
-        /// 名稱
+        /// 圖片1
         /// </summary>
         [DisplayName("圖片1")]
         public string Pic1 { get; set; }
@@ -97,6 +103,35 @@ namespace FTISWeb.Models
             }
 
             LoadEntity(entity.NormClassId);
+        }
+
+        public IList<NormClass> GetNormClassList(bool onlyOpen, int parentId)
+        {
+            IList<NormClass> result = new List<NormClass>();
+
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            if (onlyOpen)
+            {
+                conditions.Add("Status", "1");
+            }
+            if (parentId > 0)
+            {
+                conditions.Add("OnlySub", "OnlySub");
+                conditions.Add("ParentNormClassId", parentId.ToString());
+
+                result = m_FTISService.GetNormClassListNoLazy(conditions);
+            }
+            else
+            {
+                result = m_FTISService.GetNormClassListNoLazy(conditions);
+            }
+
+            if (result == null)
+            {
+                result = new List<NormClass>();
+            }
+
+            return result;
         }
     }
 }

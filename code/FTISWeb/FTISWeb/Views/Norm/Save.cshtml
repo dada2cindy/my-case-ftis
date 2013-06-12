@@ -1,0 +1,218 @@
+﻿@model FTISWeb.Models.NormModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+@using FTIS.Domain.Impl;
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    NormClassModel m_NormClassModel = new NormClassModel();
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if (Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+    
+    @*地區、國家*@   
+    IList<SelectListItem> m_NormClassSelectListItem = new List<SelectListItem>();
+    IList<SelectListItem> m_NormClassParentSelectListItem = new List<SelectListItem>();
+    if (ViewData["ParentNormClassList"] != null)
+    {
+        IList<NormClass> m_NormClassList = (List<NormClass>)ViewData["ParentNormClassList"];
+
+        foreach (NormClass normClass in m_NormClassList)
+        {
+            SelectListItem selectListItem = new SelectListItem();
+            selectListItem.Text = normClass.Name;
+            selectListItem.Value = normClass.NormClassId.ToString();
+            if (Model.NormClassId == normClass.NormClassId)
+            {
+                selectListItem.Selected = true;
+                
+                ////有選擇地區就再抓國家
+                IList<NormClass> m_NormClassParentList = m_NormClassModel.GetNormClassList(false, normClass.NormClassId);
+                foreach (NormClass subNormClass in m_NormClassParentList)
+                {
+                    SelectListItem selectListItem2 = new SelectListItem();
+                    selectListItem2.Text = subNormClass.Name;
+                    selectListItem2.Value = subNormClass.NormClassId.ToString();
+                    if (Model.NormClassParentId == subNormClass.NormClassId)
+                    {
+                        selectListItem2.Selected = true;
+                    }
+                    m_NormClassParentSelectListItem.Add(selectListItem2);
+                }
+            }
+            m_NormClassSelectListItem.Add(selectListItem);
+        }
+    }        
+    }
+@section TitleContent{}
+@section HeadContent{
+    @Scripts.Render("~/bundles/CKEditor")
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+                CKEDITOR.instances.Content.setData('');
+                $("#SortId").val('0');
+            });
+
+            $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+            $('#NormClassId').change(function () { ChangeNormClass(); });
+        });
+
+        ////切換地區
+        function ChangeNormClass() {
+            $('#NormClassParentId').empty();
+            $('#NormClassParentId').append($('<option></option>').val('').text('國家'));
+            var parentId = $('#NormClassId option:selected').val();
+            if ($.trim(parentId).length > 0) {
+                GetNormClassParentList(parentId);
+            }
+        }
+
+        function GetNormClassParentList(parentId) {
+            $.ajax({
+                url: '@Url.Action("GetSubNormList", "Norm")',
+                data: { parentId: parentId },
+                type: 'post',
+                cache: false,
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.length > 0) {
+                        $.each(data, function (i, item) {
+                            $('#NormClassParentId').append($('<option></option>').val(item.NormClassId).text(item.Name));
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "Norm", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
+    <fieldset class="fieldset">
+        <h1>標準/規範資訊管理管理</h1>
+        <table style="width: 100%" class="FormTable">
+            <tr>
+                <td style="text-align:right;">主題分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("MainCode", Model.MainCode, new { id = "MainCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("MainName", Model.MainName, new { id = "MainName" })
+                    <select id="ddlMainCode" onchange="GetSelInfo('ddlMainCode','MainCode','MainName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">農業環保</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">施政分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("AdminCode", Model.AdminCode, new { id = "AdminCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("AdminName", Model.AdminName, new { id = "AdminName" })
+                    <select id="ddlAdminCode" onchange="GetSelInfo('ddlAdminCode','AdminCode','AdminName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">經濟貿易</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">服務分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("ServiceCode", Model.ServiceCode, new { id = "ServiceCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("ServiceName", Model.ServiceName, new { id = "ServiceName" })
+                    <select id="ddlServiceCode" onchange="GetSelInfo('ddlServiceCode','ServiceCode','ServiceName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">生活安全及品質</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*選擇分類：
+                </td>
+                <td>
+                    @Html.DropDownList("NormClassId", m_NormClassSelectListItem, "請選擇地區")
+                    @Html.DropDownList("NormClassParentId", m_NormClassParentSelectListItem, "請選擇國家")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">Tag：
+                </td>
+                <td>
+                    @Html.TextBox("Tag", Model.Tag, new { id = "Tag", @style = "width: 600px;" }) 
+                    <br/>注：和新聞動態相關聯,多個請用","分隔
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*標題：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">內容：
+                </td>
+                <td>
+                    @Html.TextArea("Content", Model.Content, new { id = "Content" })
+                </td>
+            </tr>                                                                 
+            <tr>
+                <td style="text-align:right;">*排序：
+                </td>
+                <td>
+                    @Html.TextBox("SortId", Model.SortId, new { id = "SortId", @style = "width: 50px;" })排列順序︰越小越前面。
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "Norm", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />
+@if (Model.ShowFreeGOMsg)
+{
+    switch (Model.FreeGOColumnName)
+    {
+        case "Content":
+            Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel("內容", Model.Content));
+            break; 
+    }
+}

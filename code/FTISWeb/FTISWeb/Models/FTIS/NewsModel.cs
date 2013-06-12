@@ -146,7 +146,9 @@ namespace FTISWeb.Models
                 AUrl3LinkENG = entity.AUrl3LinkENG;
                 VisterENG = entity.VisterENG;
                 EmailerENG = entity.EmailerENG;
-                PrinterENG = entity.PrinterENG;
+                PrinterENG = entity.PrinterENG;                
+
+                #endregion
 
                 if (entity.NewsClass != null)
                 {
@@ -159,8 +161,6 @@ namespace FTISWeb.Models
                     NewsType = entity.NewsType;
                     NewsTypeId = entity.NewsType.NewsTypeId;
                 }
-
-                #endregion
             }
         }
 

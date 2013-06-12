@@ -18,7 +18,7 @@ using KendoGridBinder.Containers;
 
 namespace FTISWeb.Controllers
 {
-    public partial class NormClassController : Controller
+    public partial class NormController : Controller
     {
         protected static FTISFactory m_FTISFactory = new FTISFactory();
         protected static IFTISService m_FTISService = m_FTISFactory.GetFTISService();
@@ -28,6 +28,7 @@ namespace FTISWeb.Controllers
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Read)]
         [AuthorizationData(AppFunction = SiteEntities.Norm)]
+        [NormClassData]
         public ActionResult AdminIndex(string cdts)
         {
             GetConditions(cdts);
@@ -36,28 +37,46 @@ namespace FTISWeb.Controllers
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Edit)]
         [AuthorizationData(AppFunction = SiteEntities.Norm)]
+        [NormClassData]
         public ActionResult Edit(int id, string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NormClassModel(id));
+            return View("Save", new NormModel(id));
         }
 
+        [ValidateInput(false)]
         [AuthorizationData(AppFunction = SiteEntities.Norm)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Edit)]
         [HttpPost]
-        public ActionResult Edit(NormClassModel model, string cdts)
+        [NormClassData]
+        public ActionResult Edit(NormModel model, string cdts)
         {
             GetConditions(cdts);
+
+            ////檢查內容無障礙是否通過
+            if (!AccessibilityUtil.CheckFreeGO(model.Content))
+            {
+                model.ShowFreeGOMsg = true;
+                model.FreeGOColumnName = "Content";
+            }
+
             model.Update();
+
+            if (model.ShowFreeGOMsg)
+            {
+                return View("Save", model);
+            }
+
             return View("AdminIndex");
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Create)]
         [AuthorizationData(AppFunction = SiteEntities.Norm)]
+        [NormClassData]
         public ActionResult Create(string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new NormClassModel());
+            return View("Save", new NormModel());
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Delete)]
@@ -68,18 +87,9 @@ namespace FTISWeb.Controllers
 
             try
             {
-                NormClass entity = m_FTISService.GetNormClassById(id);
+                Norm entity = m_FTISService.GetNormById(id);
 
-                //檢查底下的SubNormClass數量
-                IDictionary<string, string> conditions = new Dictionary<string, string>();
-                conditions.Add("ParentNormClassId", id.ToString());
-                int subsCount = m_FTISService.GetNormClassCount(conditions);
-                if (subsCount > 0)
-                {
-                    return this.Json(new AjaxResult(AjaxResultStatus.Fail, string.Format("{0}底下尚有國家分類，不可刪除。", entity.Name)));
-                }
-
-                m_FTISService.DeleteNormClass(entity);
+                m_FTISService.DeleteNorm(entity);
 
                 result.ErrorCode = AjaxResultStatus.Success;
                 result.Message = string.Format("{0}刪除成功", entity.Name);
@@ -106,20 +116,8 @@ namespace FTISWeb.Controllers
             {
                 try
                 {
-                    NormClass entity = m_FTISService.GetNormClassById(Convert.ToInt32(id));
-                    //檢查底下的SubNormClass數量
-                    IDictionary<string, string> conditions = new Dictionary<string, string>();
-                    conditions.Add("ParentNormClassId", id.ToString());
-                    int subsCount = m_FTISService.GetNormClassCount(conditions);
-                    if (subsCount == 0)
-                    {
-                        m_FTISService.DeleteNormClass(entity);
-                    }
-                    else
-                    {
-                        result.ErrorCode = AjaxResultStatus.Fail;
-                        sbMsg.AppendFormat("{0}，底下尚有國家分類，不可刪除。<br/>", entity.Name);
-                    }
+                    Norm entity = m_FTISService.GetNormById(Convert.ToInt32(id));
+                    m_FTISService.DeleteNorm(entity);
                 }
                 catch (Exception ex)
                 {
@@ -132,13 +130,29 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
+        [ValidateInput(false)]
         [AuthorizationData(AppFunction = SiteEntities.Norm)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Create)]
         [HttpPost]
-        public ActionResult Create(NormClassModel model, string cdts)
+        [NormClassData]
+        public ActionResult Create(NormModel model, string cdts)
         {
             GetConditions(cdts);
+
+            ////檢查內容無障礙是否通過
+            if (!AccessibilityUtil.CheckFreeGO(model.Content))
+            {
+                model.ShowFreeGOMsg = true;
+                model.FreeGOColumnName = "Content";
+            }
+
             model.Insert();
+
+            if (model.ShowFreeGOMsg)
+            {
+                return View("Save", model);
+            }
+
             return View("AdminIndex");
         }
 
@@ -146,7 +160,7 @@ namespace FTISWeb.Controllers
         {
             if (string.IsNullOrWhiteSpace(cdts))
             {
-                ViewData["Conditions"] = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = string.Empty });
+                ViewData["Conditions"] = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = string.Empty, NormClassId = string.Empty, NormClassParentId = string.Empty });
             }
             else
             {
@@ -154,18 +168,18 @@ namespace FTISWeb.Controllers
             }
         }
 
-        private void SetConditions(string keyWord)
+        private void SetConditions(string keyWord, string normClassId, string normClassParentId)
         {
-            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord });
+            string cdts = ScriptSerializationUtility.GetSerializedQueryConditions(new { KeyWord = keyWord, NormClassId = normClassId, NormClassParentId = normClassParentId });
             m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>(cdts);
 
             ViewData["Conditions"] = cdts;
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Read)]
-        public JsonResult AjaxBinding(KendoGridRequest request, string keyWord)
+        public JsonResult AjaxBinding(KendoGridRequest request, string keyWord, string normClassId, string normClassParentId)
         {
-            SetConditions(keyWord);
+            SetConditions(keyWord, normClassId, normClassParentId);
             int total = GetGridTotal();
             int pageIndex = (request.Page - 1);
             m_Conditions.Add("PageIndex", pageIndex.ToString());
@@ -173,7 +187,7 @@ namespace FTISWeb.Controllers
             AppendSortingCondition(request);
 
             var data = GetGridData();
-            var result = new KendoGrid<NormClass>(request, data, total);
+            var result = new KendoGrid<Norm>(request, data, total);
             return Json(result);
         }
 
@@ -182,10 +196,47 @@ namespace FTISWeb.Controllers
         /// </summary>
         [AuthorizationData(AppFunction = SiteEntities.Norm)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Norm, Operation = SiteOperations.Read)]
-        public ActionResult RefreshAdminGrid(string keyWord)
+        public ActionResult RefreshAdminGrid(string keyWord, string normClassId, string normTypeId)
         {
-            SetConditions(keyWord);
-            return View("AdminGridList", new ParamaterModel("Edit", "NormClass", (string)ViewData["Conditions"]));
+            SetConditions(keyWord, normClassId, normTypeId);
+            return View("AdminGridList", new ParamaterModel("Edit", "Norm", (string)ViewData["Conditions"]));
+        }
+
+        [HttpPost]
+
+        public JsonResult GetSubNormList(string parentId, bool onlyOpen = false)
+        {
+            IList<NormClass> list = new List<NormClass>();
+            if (!string.IsNullOrWhiteSpace(parentId))
+            {
+                list = new NormClassModel().GetNormClassList(onlyOpen, int.Parse(parentId));
+            }
+            //List<KeyValuePair<string, string>> items = new List<KeyValuePair<string, string>>();
+            //if (!string.IsNullOrWhiteSpace(customerID))
+            //{
+
+            //    var orders = this.GetOrders(customerID);
+
+            //    if (orders.Count() > 0)
+            //    {
+
+            //        foreach (var order in orders)
+            //        {
+
+            //            items.Add(new KeyValuePair<string, string>(
+
+            //                order.OrderID.ToString(),
+
+            //                string.Format("{0} ({1:yyyy-MM-dd})", order.OrderID, order.OrderDate)));
+
+            //        }
+
+            //    }
+
+            //}
+
+            return this.Json(list);
+
         }
 
         private void AppendSortingCondition(KendoGridRequest request)
@@ -202,13 +253,13 @@ namespace FTISWeb.Controllers
 
         private int GetGridTotal()
         {
-            int total = m_FTISService.GetNormClassCount(m_Conditions);
+            int total = m_FTISService.GetNormCount(m_Conditions);
             return total;
         }
 
-        private IEnumerable<NormClass> GetGridData()
+        private IEnumerable<Norm> GetGridData()
         {
-            IList<NormClass> datasource = m_FTISService.GetNormClassList(m_Conditions);
+            IList<Norm> datasource = m_FTISService.GetNormListNoLazy(m_Conditions);
             return datasource;
         }
     }

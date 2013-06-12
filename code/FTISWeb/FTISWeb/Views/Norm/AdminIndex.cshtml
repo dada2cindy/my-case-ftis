@@ -1,0 +1,191 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@using System.Web.Optimization
+@using FTIS.Domain;
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using WuDada.Core.Generic.Extension;
+@{
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();    
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    string m_Cdts = (string)ViewData["Conditions"];
+    NormClassModel m_NormClassModel = new NormClassModel();
+
+    @*權限*@
+    bool AllowRead = (bool)ViewData["AllowRead"];
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];
+    
+    @*地區、國家*@        
+    IList<NormClass> m_NormClassList = new List<NormClass>(); //地區
+    IList<NormClass> m_NormClassParentList = new List<NormClass>(); //國家
+    if (ViewData["ParentNormClassList"] != null)
+    {
+        m_NormClassList = (List<NormClass>)ViewData["ParentNormClassList"];
+
+        ////有選擇地區時，要長國家
+        if (m_Conditions.IsContainsValue("NormClassId"))
+        {
+            m_NormClassParentList = m_NormClassModel.GetNormClassList(false, int.Parse(m_Conditions["NormClassId"]));
+        }
+    }
+ }
+
+@section TitleContent{}
+@section HeadContent{        
+    <script>
+        $(function () {
+            //按下查詢鈕
+            $("#btnQuery").click(function () {
+                Query();
+            });
+
+            //按下刪除鈕
+            $("#btnDeleteAll").click(function () {
+                DeleteItems('所選項目');
+            });
+
+            $("#KeyWord").enterPressed(function () {
+                Query();
+            });
+
+            $("#NormClassId").enterPressed(function () {
+                Query();
+            });
+
+            $("#NormClassParentId").enterPressed(function () {
+                Query();
+            });
+
+            $('#NormClassId').change(function () { ChangeNormClass(); });
+
+            //Grid的刪除
+            $("#dvGrid").on("click", ".k-grid-Delete", function () {
+                var entityId = $(this).attr('entityId');
+                var entityName = $(this).attr('entityName');
+                DeleteItem(entityId, entityName);
+            });
+        });
+
+        ////切換地區
+        function ChangeNormClass() {
+            $('#NormClassParentId').empty();
+            $('#NormClassParentId').append($('<option></option>').val('').text('國家'));
+            var parentId = $('#NormClassId option:selected').val();
+            if ($.trim(parentId).length > 0) {
+                GetNormClassParentList(parentId);
+            }
+        }
+
+        function GetNormClassParentList(parentId) {            
+            $.ajax({
+                url: '@Url.Action("GetSubNormList", "Norm")',
+                data: { parentId: parentId },
+                type: 'post',
+                cache: false,
+                async: false,
+                dataType: 'json',
+                success: function (data) {                    
+                    if (data.length > 0) {                                                
+                        $.each(data, function (i, item) {
+                            $('#NormClassParentId').append($('<option></option>').val(item.NormClassId).text(item.Name));
+                        });
+                    }
+                }
+            });
+        }
+
+        function Query() {
+            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "Norm")', {
+                keyWord: $("#KeyWord").val(),
+                normClassId: $("#NormClassId").val(),
+                normClassParentId: $("#NormClassParentId").val()
+            });
+        }                      
+
+        //刪除1筆動作(留在頁面寫)
+        function OnDeleteItem(id) {            
+            $.post('@Url.Action("Delete", "Norm")', { id: id }, function (data) {                
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+
+        //刪除多筆動作(留在頁面寫)
+        function OnDeleteItems(allId) {
+            $.post('@Url.Action("MultiDelete", "Norm")', { allId: allId }, function (data) {
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+    </script>
+}
+
+<fieldset class="fieldset">
+    <h1>標準/規範資訊管理管理</h1>
+    <table style="width: 100%" class="FormTable">
+        <tr>
+            <td style="width:100px; text-align:right;">關鍵字：
+            </td>
+            <td >
+                @Html.TextBox("KeyWord", m_Conditions["KeyWord"])
+                <select id="NormClassId" name="NormClassId">    
+                    <option selected="selected" value="">地區</option>                                        
+                @if (m_NormClassList != null && m_NormClassList.Count > 0)
+                {
+                    foreach (NormClass normClass in m_NormClassList)
+                    {
+                        string selected = string.Empty;
+                        if (m_Conditions.IsContainsValue("NormClassId") && m_Conditions["NormClassId"] == normClass.NormClassId.ToString())
+                        {
+                            selected = "selected='selected'";
+                        }
+                        <option value="@normClass.NormClassId" @selected>@normClass.Name</option>                                
+                    }
+                }
+                </select>
+                <select id="NormClassParentId" name="NormClassParentId">    
+                    <option selected="selected" value="">國家</option>                                        
+                @if (m_NormClassParentList != null && m_NormClassParentList.Count > 0)
+                {
+                    foreach (NormClass normClass in m_NormClassParentList)
+                    {
+                        string selected = string.Empty;
+                        if (m_Conditions.IsContainsValue("NormClassParentId") && m_Conditions["NormClassParentId"] == normClass.NormClassId.ToString())
+                        {
+                            selected = "selected='selected'";
+                        }
+                        <option value="@normClass.NormClassId" @selected>@normClass.Name</option>                                
+                    }
+                }
+                </select>
+                <input type="button" class="btn" value="查詢" id="btnQuery" />
+            </td>
+        </tr>        
+    </table>
+    <br />
+    <table>
+        <tr>            
+            <td style="text-align:left;">
+                @Html.Raw(Url.ButtonLink("新增", "Create", "Norm", AllowCreate, new { cdts = m_Cdts }, new { @class = "btn" }))
+                @if (AllowDelete)
+                {
+                    <input type="button" class="btn" value="刪除" id="btnDeleteAll" />                
+                }
+            </td>
+        </tr>  
+    </table>
+    <div id="dvGrid">
+        @Html.Partial("AdminGridList", new ParamaterModel("Edit", "Norm", m_Cdts))
+    </div>    
+    <div class="deleteMsgFail"></div>
+</fieldset>

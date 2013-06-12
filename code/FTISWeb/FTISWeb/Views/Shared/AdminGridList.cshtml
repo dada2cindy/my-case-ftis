@@ -49,6 +49,15 @@
                             },
                             greenFactoryClassId: function () {
                                 return $("#GreenFactoryClassId").val();
+                            },
+                            parentNormClassId: function () {
+                                return $("#ParentNormClassId").val();
+                            },
+                            normClassId: function () {
+                                return $("#NormClassId").val();
+                            },
+                            normClassParentId: function () {
+                                return $("#NormClassParentId").val();
                             }
                         }
                     }
@@ -143,6 +152,22 @@
                         hidden: $.parseJSON("@(Model.Hidden("NewsClass.Name"))"),
                         attributes: { "style": "text-align: center;" },
                         width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("NormClass.Name")",
+                        title: "地區分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("NormClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("NormClassParent.Name")",
+                        title: "國家分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("NormClassParent.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
                     },
                     {
                         field: "@Model.GetColumnName("GreenFactoryClass.Name")",

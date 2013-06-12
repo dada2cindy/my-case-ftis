@@ -13,6 +13,10 @@ namespace FTISWeb.Models
             this.ActionName = actionName;
             this.ControllerName = controllerName;
             this.EntityId = controllerName + "Id";
+            if (controllerName == "SubNormClass")
+            {
+                this.EntityId = "NormClassId";
+            }
             this.EntityName = "Name";
         }
 
@@ -121,6 +125,12 @@ namespace FTISWeb.Models
                     break;
                 case "Report":
                     m_VisibleColumns = new string[] { "Company", "GetStr_CompanyTrade", "SortId", "GetStr_Status", "GetStr_PostDate", "ReportName", "PostYear", "ReportYear", "ReportName" };
+                    break;
+                case "SubNormClass":
+                    m_VisibleColumns = new string[] { "Name", "SortId", "GetStr_Status" };
+                    break;
+                case "Norm":
+                    m_VisibleColumns = new string[] { "Name", "ArticleName", "NormClass.Name", "NormClassParent.Name", "SortId", "GetStr_Status" };
                     break;
             }
         }

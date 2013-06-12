@@ -214,6 +214,8 @@
     <Compile Include="Controllers\Admin\AdminGreenFactoryClassController.cs" />
     <Compile Include="Controllers\Admin\AdminGreenFactoryController.cs" />
     <Compile Include="Controllers\Admin\AdminReportController.cs" />
+    <Compile Include="Controllers\Admin\AdminSubNormClassController.cs" />
+    <Compile Include="Controllers\Admin\AdminNormController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
@@ -272,6 +274,7 @@
     <Compile Include="Models\FTIS\GreenFactoryModel.cs" />
     <Compile Include="Models\FTIS\ReportModel.cs" />
     <Compile Include="Models\FTIS\MemberModel.cs" />
+    <Compile Include="Models\FTIS\NormModel.cs" />
     <Compile Include="Models\Home\HomeShowModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
@@ -307,6 +310,7 @@
     <Compile Include="ViewData\NodeSubData.cs" />
     <Compile Include="ViewData\PostData.cs" />
     <Compile Include="ViewData\ReportItemData.cs" />
+    <Compile Include="ViewData\NormClassData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -2213,6 +2217,10 @@
     <Content Include="Views\Report\Provide.cshtml" />
     <Content Include="Views\Report\Provide2.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\SubNormClass\AdminIndex.cshtml" />
+    <Content Include="Views\SubNormClass\Save.cshtml" />
+    <Content Include="Views\Norm\AdminIndex.cshtml" />
+    <Content Include="Views\Norm\Save.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

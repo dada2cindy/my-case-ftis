@@ -7,7 +7,8 @@
 @using FTISWeb.Models;
 @using FTIS.ACUtility;
 @using FTIS.Domain;
-
+@using FTIS.Domain.Impl;
+@using FTISWeb.Utility;
 @{
     string m_Cdts = (string)ViewData["Conditions"];
     
@@ -20,9 +21,29 @@
     {
         Action = SiteOperations.Edit;
     }
+    
+    @*地區分類*@    
+    IList<SelectListItem> m_ParentNormClassSelectListItem = new List<SelectListItem>();
+    if (ViewData["ParentNormClassList"] != null)
+    {
+        IList<NormClass> m_ParentNormClassList = (List<NormClass>)ViewData["ParentNormClassList"];
+
+        foreach (NormClass normClass in m_ParentNormClassList)
+        {
+            SelectListItem selectListItem = new SelectListItem();
+            selectListItem.Text = normClass.Name;
+            selectListItem.Value = normClass.NormClassId.ToString();
+            if (Model.ParentId == normClass.NormClassId)
+            {
+                selectListItem.Selected = true;
+            }
+            m_ParentNormClassSelectListItem.Add(selectListItem);
+        }
+    }
 }
 @section TitleContent{}
 @section HeadContent{
+    @Scripts.Render("~/bundles/CKEditor")
     <script type="text/javascript">
         $(function () {
             $("#btnClear").click(function () {
@@ -30,20 +51,46 @@
                 $("#SortId").val('0');
             });
         });
+        function SetFileField(fileUrl, data) {
+            var filepath = fileUrl.replace("@AppSettings.CKFinderFileHandler", "");
+            document.getElementById(data["selectActionData"]).value = filepath;
+        }
     </script>
 }
 
-@using (Html.BeginForm(Action.ToString(), "NormClass", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+@using (Html.BeginForm(Action.ToString(), "SubNormClass", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
 {
     @Html.HiddenFor(m => m.EntityId)         
     <fieldset class="fieldset">
-        <h1>標準/規範地區分類管理</h1>
+        <h1>標準/規範國家分類管理</h1>
         <table style="width: 100%" class="FormTable">
             <tr>
                 <td style="text-align:right; width:40%;">*名稱：
                 </td>
                 <td>
                     @Html.TextBox("Name", Model.Name, new { id = "Name" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:40%;">英文名稱：
+                </td>
+                <td>
+                    @Html.TextBox("NameENG", Model.NameENG, new { id = "NameENG" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*選擇地區：
+                </td>
+                <td>
+                    @Html.DropDownList("ParentId", m_ParentNormClassSelectListItem, "請選擇")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片1：
+                </td>
+                <td>
+                    @Html.TextBox("Pic1", Model.Pic1, new { id = "Pic1", @readonly = "readonly", onclick = "BrowseServer('Images:/', 'Pic1');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic1');" />
                 </td>
             </tr>
             <tr>
@@ -74,7 +121,7 @@
                         <input id="btnEdit" class="btn" type="submit" value="修改" />                        
                     }
                     <input id="btnClear" class="btn" type="button" value="重填" />
-                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "NormClass", new { cdts = m_Cdts }, new { @class = "btn" }))
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "SubNormClass", new { cdts = m_Cdts }, new { @class = "btn" }))
                 </td>
             </tr>
         </table>
