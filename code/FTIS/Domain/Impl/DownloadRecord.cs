@@ -26,10 +26,10 @@ namespace FTIS.Domain.Impl
         public virtual int DownloadRecordId { get; set; }
 
         /// <summary>
-        /// 會員
+        /// 會員Id
         /// </summary>
         [DataMember]
-        public virtual Member Member { get; set; }
+        public virtual string MemberId { get; set; }
 
         /// <summary>
         /// 文件名稱
@@ -47,7 +47,7 @@ namespace FTIS.Domain.Impl
         /// 下載日期
         /// </summary>
         [DataMember]
-        public virtual DateTime? PostDate { get; set; }
+        public virtual string PostDate { get; set; }
 
         /// <summary>
         /// 下載次數(統計時用，不是db的欄位)

@@ -1894,22 +1894,22 @@ namespace FTIS.Service.Impl
             return FTISDao.GetDownloadRecordCount(conditions);
         }
 
-        /// <summary>
-        /// 取得會員下載紀錄 By 識別碼
-        /// </summary>
-        /// <param name="downloadRecordId">識別碼</param>
-        /// <returns>會員下載紀錄</returns>
-        public DownloadRecord GetDownloadRecordByIdNoLazy(int downloadRecordId)
-        {
-            DownloadRecord downloadRecord = FTISDao.GetDownloadRecordById(downloadRecordId);
+        ///// <summary>
+        ///// 取得會員下載紀錄 By 識別碼
+        ///// </summary>
+        ///// <param name="downloadRecordId">識別碼</param>
+        ///// <returns>會員下載紀錄</returns>
+        //public DownloadRecord GetDownloadRecordByIdNoLazy(int downloadRecordId)
+        //{
+        //    DownloadRecord downloadRecord = FTISDao.GetDownloadRecordById(downloadRecordId);
 
-            if (downloadRecord != null && downloadRecord.Member != null)
-            {
-                NHibernateUtil.Initialize(downloadRecord.Member);
-            }
+        //    if (downloadRecord != null && downloadRecord.Member != null)
+        //    {
+        //        NHibernateUtil.Initialize(downloadRecord.Member);
+        //    }
 
-            return downloadRecord;
-        }
+        //    return downloadRecord;
+        //}
 
         /// <summary>
         /// 取得會員下載紀錄統計表清單
@@ -2253,6 +2253,29 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
+        /// 取得標準/規範分類清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>標準/規範分類清單</returns>
+        public IList<NormClass> GetNormClassListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<NormClass> list = FTISDao.GetNormClassList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (NormClass normClass in list)
+                {
+                    if (normClass != null && normClass.ParentNormClass != null)
+                    {
+                        NHibernateUtil.Initialize(normClass.ParentNormClass);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// 取得標準/規範分類數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -2328,6 +2351,34 @@ namespace FTIS.Service.Impl
         public IList<Norm> GetNormList(IDictionary<string, string> conditions)
         {
             return FTISDao.GetNormList(conditions);
+        }
+
+        /// <summary>
+        /// 取得標準/規範資訊清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>標準/規範資訊清單</returns>
+        public IList<Norm> GetNormListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<Norm> list = FTISDao.GetNormList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Norm norm in list)
+                {
+                    if (norm != null && norm.NormClassParent != null)
+                    {
+                        NHibernateUtil.Initialize(norm.NormClassParent);
+                    }
+
+                    if (norm != null && norm.NormClass != null)
+                    {
+                        NHibernateUtil.Initialize(norm.NormClass);
+                    }
+                }
+            }
+
+            return list;
         }
 
         /// <summary>

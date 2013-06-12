@@ -1179,12 +1179,12 @@ namespace FTIS.Service
         /// <returns></returns>
         int GetDownloadRecordCount(IDictionary<string, string> conditions);
 
-        /// <summary>
-        /// 取得會員下載紀錄 By 識別碼
-        /// </summary>
-        /// <param name="downloadRecordId">識別碼</param>
-        /// <returns>會員下載紀錄</returns>
-        DownloadRecord GetDownloadRecordByIdNoLazy(int downloadRecordId);
+        ///// <summary>
+        ///// 取得會員下載紀錄 By 識別碼
+        ///// </summary>
+        ///// <param name="downloadRecordId">識別碼</param>
+        ///// <returns>會員下載紀錄</returns>
+        //DownloadRecord GetDownloadRecordByIdNoLazy(int downloadRecordId);
 
         /// <summary>
         /// 取得會員下載紀錄統計表清單
@@ -1417,6 +1417,13 @@ namespace FTIS.Service
         IList<NormClass> GetNormClassList(IDictionary<string, string> conditions);
 
         /// <summary>
+        /// 取得標準/規範分類清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>標準/規範分類清單</returns>
+        IList<NormClass> GetNormClassListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
         /// 取得標準/規範分類數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -1465,6 +1472,13 @@ namespace FTIS.Service
         /// <param name="conditions">搜尋條件</param>
         /// <returns>標準/規範資訊清單</returns>
         IList<Norm> GetNormList(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得標準/規範資訊清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>標準/規範資訊清單</returns>
+        IList<Norm> GetNormListNoLazy(IDictionary<string, string> conditions);
 
         /// <summary>
         /// 取得標準/規範資訊數量

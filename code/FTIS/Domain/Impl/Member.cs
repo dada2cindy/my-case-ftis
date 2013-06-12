@@ -137,7 +137,44 @@ namespace FTIS.Domain.Impl
         /// 狀態. 0.審核中 1.審核通過 2.審核不通過
         /// </summary>
         [DataMember]
-        public virtual string Status { get; set; }              
+        public virtual string Status { get; set; }
+
+        public virtual string GetStr_Status
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.Status)
+                {
+                    case "0":
+                        result = "審核中";
+                        break;
+                    case "1":
+                        result = "審核通過";
+                        break;
+                    case "2":
+                        result = "審核不通過";
+                        break;
+                }
+
+                return result;
+            }
+        }
+
+        public virtual string GetStr_RegDate
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (RegDate != null)
+                {
+                    result = RegDate.Value.ToString("yyyy/MM/dd");
+                }
+
+                return result;
+            }
+        }
 
         #endregion
     }

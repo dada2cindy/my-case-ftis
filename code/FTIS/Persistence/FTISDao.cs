@@ -3057,6 +3057,7 @@ namespace FTIS.Persistence
             AppendDownloadRecordMember(conditions, whereScript, param);
             AppendDownloadRecordName(conditions, whereScript, param);
             AppendDownloadClassId(conditions, whereScript, param);
+            AppendDownloadPostDate(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
             if (useOrder)
@@ -3074,6 +3075,7 @@ namespace FTIS.Persistence
             AppendDownloadRecordMember(conditions, whereScript, param);
             AppendDownloadRecordName(conditions, whereScript, param);
             AppendDownloadClassId(conditions, whereScript, param);
+            AppendDownloadPostDate(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
             if (useOrder)
@@ -3088,7 +3090,7 @@ namespace FTIS.Persistence
         {
             if (conditions.IsContainsValue("MemberId"))
             {
-                whereScript.Append(" and d.Member.MemberId = ? ");
+                whereScript.Append(" and d.MemberId = ? ");
                 param.Add(conditions["MemberId"]);
             }
         }
@@ -3120,6 +3122,17 @@ namespace FTIS.Persistence
             {
                 whereScript.Append(" and d.ClassId = ? ");
                 param.Add(conditions["ClassId"]);
+            }
+        }
+
+        private void AppendDownloadPostDate(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("PostDate"))
+            {
+                ////db的日期格式為 yyyy/M/d
+                string date = DateTime.Parse(conditions["PostDate"]).ToString("yyyyMd");
+                whereScript.Append(" and d.PostDate = ? ");                
+                param.Add(date);
             }
         }
         #endregion
@@ -3772,11 +3785,16 @@ namespace FTIS.Persistence
         }
 
         private void AppendNormParentNormClass(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
-        {
+        {           
             if (conditions.IsContainsValue("ParentNormClassId"))
             {
                 whereScript.Append(" and n.ParentNormClass.NormClassId = ? ");
                 param.Add(conditions["ParentNormClassId"]);
+            }
+            
+            if (conditions.IsContainsValue("OnlySub"))
+            {
+                whereScript.Append(" and n.ParentNormClass.NormClassId is not null ");
             }
             else
             {
@@ -3863,6 +3881,7 @@ namespace FTIS.Persistence
         private IList QueryNorm(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
             AppendNormClassParent(conditions, whereScript, param);
+            AppendNormClass(conditions, whereScript, param);
             AppendNormKeyWord(conditions, whereScript, param);
             AppendNormStatus(conditions, whereScript, param);
 
@@ -3877,10 +3896,19 @@ namespace FTIS.Persistence
 
         private void AppendNormClassParent(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("NewsClassParentId"))
+            if (conditions.IsContainsValue("NormClassParentId"))
             {
-                whereScript.Append(" and n.NormClassParent.NormId = ? ");
-                param.Add(conditions["NewsClassParentId"]);
+                whereScript.Append(" and n.NormClassParent.NormClassId = ? ");
+                param.Add(conditions["NormClassParentId"]);
+            }
+        }
+
+        private void AppendNormClass(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("NormClassId"))
+            {
+                whereScript.Append(" and n.NormClass.NormClassId = ? ");
+                param.Add(conditions["NormClassId"]);
             }
         }
 
