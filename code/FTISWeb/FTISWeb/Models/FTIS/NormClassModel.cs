@@ -39,6 +39,11 @@ namespace FTISWeb.Models
         {
         }
 
+        public NormClassModel(string id)
+        {
+            LoadEntity(int.Parse(DecryptId(id)));
+        }
+
         public NormClassModel(int id)
         {
             LoadEntity(id);

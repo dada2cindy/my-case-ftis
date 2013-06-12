@@ -94,6 +94,7 @@ namespace FTISWeb.Models
             {
                 return string.Empty;
             }
+            
             string name = EncryptUtil.EncryptDES(fileName, AppSettings.EncryptKey, AppSettings.EncryptIV);
             return AppSettings.CKFinderFileHandlerByEncrypt + name;
         }

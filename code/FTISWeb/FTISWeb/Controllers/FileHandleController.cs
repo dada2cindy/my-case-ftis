@@ -15,6 +15,12 @@ namespace FTISWeb.Controllers
         {
             string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
             string filePath = Path.Combine(ckFinderBaseDir, path);
+
+            if (!new FileInfo(filePath).Exists)
+            {
+                return new EmptyResult();
+            }
+
             return File(GetFile(filePath), FileUtil.GetMIMEfromExtension(System.IO.Path.GetExtension(filePath)), System.IO.Path.GetFileName(filePath));
         }
 
@@ -23,6 +29,12 @@ namespace FTISWeb.Controllers
             string path = System.Web.HttpUtility.UrlDecode(EncryptUtil.DecryptDES(encryptPath, AppSettings.EncryptKey, AppSettings.EncryptIV));
             string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
             string filePath = Path.Combine(ckFinderBaseDir, path);
+
+            if (!new FileInfo(filePath).Exists)
+            {
+                return new EmptyResult();
+            }
+
             return File(GetFile(filePath), FileUtil.GetMIMEfromExtension(System.IO.Path.GetExtension(filePath)), System.IO.Path.GetFileName(filePath));
         }
 
