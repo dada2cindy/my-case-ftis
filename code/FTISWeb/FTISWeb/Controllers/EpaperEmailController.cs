@@ -27,12 +27,12 @@ namespace FTISWeb.Controllers
         {
             string captcha = AccountUtil.GetCaptcha();
             if (!captcha.Equals(model.ConfirmationCode, StringComparison.OrdinalIgnoreCase))
-            {                
-                ModelState.AddModelError(string.Empty, "驗證碼錯誤");
+            {
+                ModelState.AddModelError("ConfirmationCode", "驗證碼錯誤");
             }
             else
             {
-                if (model.IsValid(ModelState))
+                if (model.IsValid())
                 {
                     model.SendOrder();                                        
                 }

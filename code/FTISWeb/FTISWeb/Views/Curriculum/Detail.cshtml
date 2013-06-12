@@ -26,15 +26,15 @@
         @{
             if(!string.IsNullOrWhiteSpace(Model.AFile1))
             {
-                <a target="_blank" href="@Url.Action("DownloadFile", "Curriculum", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = m_hsModel.GetFileByEncrypt(Model.AFile1)})"><p class="News-IN-Next"><strong>附件檔案1</strong>：@m_hsModel.GetFileName(Model.AFile1Name)</p></a>
+                <a target="_blank" href="@Url.Action("DownloadFile", "Curriculum", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = m_hsModel.GetFileByEncrypt(Model.AFile1), name = Model.Name})"><p class="News-IN-Next"><strong>附件檔案1</strong>：@m_hsModel.GetFileName(Model.AFile1Name)</p></a>
             }
             if(!string.IsNullOrWhiteSpace(Model.AFile2))
             {
-                <a target="_blank" href="@Url.Action("DownloadFile", "Curriculum", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = m_hsModel.GetFileByEncrypt(Model.AFile2)})"><p class="News-IN-Next"><strong>附件檔案2</strong>：@m_hsModel.GetFileName(Model.AFile2Name)</p></a>
+                <a target="_blank" href="@Url.Action("DownloadFile", "Curriculum", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = m_hsModel.GetFileByEncrypt(Model.AFile2), name = Model.Name})"><p class="News-IN-Next"><strong>附件檔案2</strong>：@m_hsModel.GetFileName(Model.AFile2Name)</p></a>
             }
             if(!string.IsNullOrWhiteSpace(Model.AFile3))
             {
-                <a target="_blank" href="@Url.Action("DownloadFile", "Curriculum", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = m_hsModel.GetFileByEncrypt(Model.AFile3)})"><p class="News-IN-Next"><strong>附件檔案3</strong>：@m_hsModel.GetFileName(Model.AFile3Name)</p></a>
+                <a target="_blank" href="@Url.Action("DownloadFile", "Curriculum", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = m_hsModel.GetFileByEncrypt(Model.AFile3), name = Model.Name})"><p class="News-IN-Next"><strong>附件檔案3</strong>：@m_hsModel.GetFileName(Model.AFile3Name)</p></a>
             }      
         }
       <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>

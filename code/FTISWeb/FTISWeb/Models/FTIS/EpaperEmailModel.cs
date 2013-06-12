@@ -197,7 +197,7 @@ namespace FTISWeb.Models
             LoadEntity(entity.EpaperEmailId);
         }
 
-        internal bool IsValid(System.Web.Mvc.ModelStateDictionary modelState)
+        internal bool IsValid()
         {
             bool isValid = true;
 

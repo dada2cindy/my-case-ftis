@@ -1,0 +1,70 @@
+﻿@model FTISWeb.Models.ReportModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel(); 
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")
+    @Html.Partial("ApplicationLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>企業社會責任<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Application")">企業社會責任</a> &gt; CSR報告書查詢</span>    </h1>    
+      <h2>報告書資訊查詢</h2>
+    <div id="InShow-INob">
+        <table border="0" cellpadding="0" cellspacing="0" class="csr04c-BookTable">
+        <tr>
+          <td width="125" height="250" valign="top"><a href="csr04c-in.html"><img src="@m_hsModel.GetFile(Model.ReportPic)" width="797" height="1124" class="csr04-inpp" alt="@Model.ReportName" /></a>
+              @{
+                  if(!string.IsNullOrWhiteSpace(Model.CAUrl))
+                  {
+          <div class="csr04c-Download"><a href="@Url.Action("ReportFile", "Report", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = Model.CAUrl, type = "CVister"})" target="_blank" >下載中文報告書<span class="Vistors-txt">(@Model.CVister)</span></a></div>
+              }
+              if(!string.IsNullOrWhiteSpace(Model.EAUrl))
+                  {
+          <div class="csr04c-Download"><a href="@Url.Action("ReportFile", "Report", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = Model.EAUrl, type = "EVister"})" target="_blank" >下載英文文報告書<span class="Vistors-txt">(@Model.EVister)</span></a></div>
+              }
+              if(!string.IsNullOrWhiteSpace(Model.DAUrl))
+                  {
+          <div class="csr04c-Download"><a href="@Url.Action("ReportFile", "Report", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = Model.DAUrl, type = "DVister"})" target="_blank" >下載雙語報告書<span class="Vistors-txt">(@Model.DVister)</span></a></div>
+              }
+              }
+          </td>
+          <td width="475" valign="top"><span class="Txt-BBBBBB">公司名稱</span>　：@Model.Company<br />
+            <span class="Txt-BBBBBB">報告書名稱</span>：@Model.ReportName<br />
+            <span class="Txt-BBBBBB">行業別</span>　　：@Model.GetStr_CompanyTrade()<br />
+            <span class="Txt-BBBBBB">公司類型</span>　：@Model.GetStr_CompanyType()<br />
+            <span class="Txt-BBBBBB">發佈年份</span>　：@Model.PostYear<br />
+            <span class="Txt-BBBBBB">報告年份</span>　：@Model.ReportYear<br />
+            <span class="Txt-BBBBBB">報告頁數</span>　：@Model.ReportPage<br />
+            <span class="Txt-BBBBBB">報告格式</span>　：@Model.ReportType<br />
+            <span class="Txt-BBBBBB">語言版本</span>　：@Model.GetStr_Lang()<br />
+            <span class="Txt-BBBBBB">應用標準</span>　：@Model.GetStr_AA1000()<br />
+            <span class="Txt-BBBBBB">GRI等級</span>　 ：@Model.GetStr_GRI()<br />
+            <span class="Txt-BBBBBB">驗證單位</span>　：@Model.ReportCert<br />
+            <span class="Txt-BBBBBB">網頁資訊</span>　：@(new HtmlString(Model.GetStr_CSRPage()))<br />
+          <span class="Txt-BBBBBB">意見回饋</span>　：@Model.OpinionTel，@Model.OpinionEmail<br />
+          <img src="in-image/white.gif" width="250" height="20" /></td>
+        </tr>
+        <tr>
+          <td valign="top">
+          <a href="#" target="_blank"></a></td>
+          <td width="475" valign="top">&nbsp;</td>
+        </tr>
+      </table>
+      
+      <p class="csr04c-stitle">報告書簡介：</p>
+      <p class="csr04c-stxt">@(new HtmlString(Model.Content))</p>      
+      <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
+      </div>
+    
+  </div><!--內容結尾-->
+</div>

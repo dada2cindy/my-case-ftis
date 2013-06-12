@@ -10,6 +10,7 @@ using FTIS.Domain;
 using FTIS.Domain.Dto;
 using FTIS.Domain.Impl;
 using FTIS.Service;
+using FTISWeb.Helper;
 using FTISWeb.Models;
 using FTISWeb.Utility;
 using MvcPaging;
@@ -18,6 +19,8 @@ namespace FTISWeb.Controllers
 {
     public partial class CurriculumController : Controller
     {
+        SessionHelper m_SessionHelper = new SessionHelper();
+
         public ActionResult Index(string keyWord, int? page)
         {
             SetConditions(keyWord);
@@ -43,8 +46,14 @@ namespace FTISWeb.Controllers
             return View(entityModel);
         }
 
-        public ActionResult DownloadFile(string id,string fileUrl)
+        public ActionResult DownloadFile(string id,string fileUrl, string name)
         {
+            Member member = m_SessionHelper.WebMember;
+            if (member != null)
+            {
+                new MemberModel().AddDownloadRecord(name, "2", member.MemberId.ToString());
+            }            
+
             Response.Redirect(fileUrl);
 
             return new EmptyResult();

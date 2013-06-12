@@ -188,7 +188,7 @@
                 <td style="text-align:right; vertical-align:top;">*發佈年份：
                 </td>
                 <td>
-                    @Html.TextBox("PostYear", Model.PostYear, new { id = "PostYear" }) (西元年) 
+                    @Html.TextBox("PostYear", Model.PostYear, new { id = "PostYear", onkeyup = @"this.value=this.value.replace(/[^\d]/g,'')", size = "5", maxlength = "4" }) (西元年) 
                 </td>
             </tr>
             <tr>
@@ -202,7 +202,7 @@
                 <td style="text-align:right; vertical-align:top;">*報告年份：
                 </td>
                 <td>
-                    @Html.TextBox("ReportYear", Model.ReportYear, new { id = "ReportYear" }) (西元年) 
+                    @Html.TextBox("ReportYear", Model.ReportYear, new { id = "ReportYear", onkeyup = @"this.value=this.value.replace(/[^\d]/g,'')", size = "5", maxlength = "4" }) (西元年) 
                 </td>
             </tr>
             <tr>

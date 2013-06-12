@@ -1,0 +1,249 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Report>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    
+    @*查詢項目*@
+    ////行業別
+    IList<SelectListItem> m_CompanyTradeList = new List<SelectListItem>();
+    if (ViewData["CompanyTradeList"] != null)
+    {
+        m_CompanyTradeList = (List<SelectListItem>)ViewData["CompanyTradeList"];
+        if (m_Conditions.IsContainsValue("CompanyTrade"))
+        {
+            foreach (SelectListItem item in m_CompanyTradeList)
+            {
+                if (item.Value == m_Conditions["CompanyTrade"])
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    ////公司國籍
+    IList<SelectListItem> m_CompanyNationalityList = new List<SelectListItem>();
+    if (ViewData["CompanyNationalityList"] != null)
+    {
+        m_CompanyNationalityList = (List<SelectListItem>)ViewData["CompanyNationalityList"];
+        if (m_Conditions.IsContainsValue("CompanyNationality"))
+        {
+            foreach (SelectListItem item in m_CompanyNationalityList)
+            {
+                if (item.Value == m_Conditions["CompanyNationality"])
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    ////公司規模
+    IList<SelectListItem> m_CompanyScaleList = new List<SelectListItem>();
+    if (ViewData["CompanyScaleList"] != null)
+    {
+        m_CompanyScaleList = (List<SelectListItem>)ViewData["CompanyScaleList"];
+        if (m_Conditions.IsContainsValue("CompanyScale"))
+        {
+            foreach (SelectListItem item in m_CompanyScaleList)
+            {
+                if (item.Value == m_Conditions["CompanyScale"])
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    ////公司類型
+    IList<SelectListItem> m_CompanyTypeList = new List<SelectListItem>();
+    if (ViewData["CompanyTypeList"] != null)
+    {
+        m_CompanyTypeList = (List<SelectListItem>)ViewData["CompanyTypeList"];
+        if (m_Conditions.IsContainsValue("CompanyType"))
+        {
+            foreach (SelectListItem item in m_CompanyTypeList)
+            {
+                if (item.Value == m_Conditions["CompanyType"])
+                {
+                    item.Selected = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    ////應用標準AA1000
+    string m_CheckedIsAA1000 = string.Empty;
+    if (m_Conditions.IsContainsValue("IsAA1000"))
+    {
+        m_CheckedIsAA1000 = "checked='checked'";
+    }
+
+    ////應用標準GRI 
+    string m_CheckedIsGRI = string.Empty;
+    if (m_Conditions.IsContainsValue("IsGRI"))
+    {
+        m_CheckedIsAA1000 = "checked='checked'";
+    }
+}
+@section HeadContent{        
+    <script>
+        $(function () {
+            //按下查詢鈕
+            $("#btnQuery").click(function () {
+                Query();
+            });
+
+            $("#Company").enterPressed(function () {
+                Query();
+            });
+
+            $("#CompanyTrade").enterPressed(function () {
+                Query();
+            });
+
+            $("#CompanyNationality").enterPressed(function () {
+                Query();
+            });
+
+            $("#CompanyScale").enterPressed(function () {
+                Query();
+            });
+
+            $("#CompanyType").enterPressed(function () {
+                Query();
+            });
+
+            $("#PostYearFrom").enterPressed(function () {
+                Query();
+            });
+
+            $("#PostYearTo").enterPressed(function () {
+                Query();
+            });
+        });
+
+        function Query() {
+            var url = "@Url.Action("Index", "Report", new { page = "1" })"
+                + "&company=" + $("#Company").val()
+                + "&companyTrade=" + $("#CompanyTrade").val()
+                + "&companyNationality=" + $("#CompanyNationality").val()
+                + "&companyScale=" + $("#CompanyScale").val()
+                + "&companyType=" + $("#CompanyType").val()
+                + "&isAA1000=" + GetCheckBoxValue("#IsAA1000")
+                + "&isGRI=" + GetCheckBoxValue("#IsGRI")
+                + "&postYearFrom=" + $("#PostYearFrom").val()
+                + "&postYearTo=" + $("#PostYearTo").val();
+            window.location.href = url;
+        }                              
+    </script>
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("ApplicationLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>企業社會責任<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Application")">企業社會責任</a> &gt; CSR報告書查詢</span>    </h1>    
+      <h2>報告書資訊查詢</h2>
+      <div id="InShow-INob">
+     <table border="0" cellpadding="0" cellspacing="0" class="Extend-table">
+        <tr>
+          <td><img src="/in-image/com-related-report.gif" width="640" height="49" /></td>
+        </tr>
+        <tr>
+          <td><table border="0" align="center" cellpadding="0" cellspacing="4" class="csr04c-orderTable">
+            <tr>
+              <td width="170">行業別
+                  @Html.DropDownList("CompanyTrade", m_CompanyTradeList, "請選擇", new { @class = "csr-Order" })　　
+              </td>
+              <td width="449">公司名稱　
+                @Html.TextBox("Company", m_Conditions["Company"], new { @class = "csr-Order2" })
+              </td>
+            </tr>
+            <tr>
+              <td>公司國籍　
+                @Html.DropDownList("CompanyNationality", m_CompanyNationalityList, "請選擇", new { @class = "csr-Order" })
+              </td>
+              <td>公司規模　
+                @Html.DropDownList("CompanyScale", m_CompanyScaleList, "請選擇", new { @class = "csr-Order" })
+              　　發佈年份
+                  @Html.TextBox("PostYearFrom", m_Conditions["PostYearFrom"], new { onkeyup = @"this.value=this.value.replace(/[^\d]/g,'')", size = "5", maxlength = "4", css = "csr-Order" })                                    
+              至                                
+                  @Html.TextBox("PostYearTo", m_Conditions["PostYearTo"], new { onkeyup = @"this.value=this.value.replace(/[^\d]/g,'')", size = "5", maxlength = "4", css = "csr-Order" })                  
+              </td>
+            </tr>
+            <tr>
+              <td>公司類型　
+                  @Html.DropDownList("CompanyType", m_CompanyTypeList, "請選擇", new { @class = "csr-Order" })
+              </td>
+              <td>應用標準　
+                <input id="IsAA1000" name="IsAA1000" type="checkbox" value="2" @m_CheckedIsAA1000 />
+AA1000　
+<input id="IsGRI" name="IsGRI" type="checkbox" value="7" @m_CheckedIsGRI />
+GRI</td>
+            </tr>
+            <tr>
+              <td colspan="2" align="right"><span class="txt-red">(共查詢 @Model.TotalItemCount 本報告書，搜尋結果如下)</span><a href="#" id="btnQuery"><img src="/in-image/csr-btn-7.gif" width="114" height="25" /></a></td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td><img src="/in-image/com-related-news-D.gif" width="640" height="12" /></td>
+        </tr>
+      </table>
+     @{
+         foreach (var entity in Model)
+         {
+                  <table border="0" cellpadding="0" cellspacing="0" class="csr04c-BookTable">
+        <tr>
+          <td width="125" valign="top"><a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })"><img src="@m_hsModel.GetFile(entity.ReportPic)" width="100" height="138" class="csr04-pp" alt="@entity.ReportName" /></a></td>
+          <td width="475" valign="top"><span class="Txt-BBBBBB">公司名稱</span>　：<a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })" class="searchBtn">@entity.Company </a><a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })"><img src="/in-image/com-more3.gif" width="28" height="10" /></a><br />
+            <span class="Txt-BBBBBB">報告書名稱</span>：@entity.ReportName<br />
+            <span class="Txt-BBBBBB">行業別</span>　　：@entity.GetStr_CompanyTrade<br />
+            <span class="Txt-BBBBBB">發佈年份</span>　：@entity.PostYear<br />
+          <span class="Txt-BBBBBB">報告年份</span>　：@entity.ReportYear</td>
+        </tr>
+      </table>
+         }                
+      }
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o => o
+       .AddRouteValue("company", m_Conditions["Company"])
+       .AddRouteValue("companyTrade", m_Conditions["CompanyTrade"])
+       .AddRouteValue("companyNationality", m_Conditions["CompanyNationality"])
+       .AddRouteValue("companyScale", m_Conditions["CompanyScale"])
+       .AddRouteValue("companyType", m_Conditions["CompanyType"])
+       .AddRouteValue("isAA1000", m_Conditions["IsAA1000"])
+       .AddRouteValue("isGRI", m_Conditions["IsGRI"])
+       .AddRouteValue("postYearFrom", m_Conditions["PostYearFrom"])
+       .AddRouteValue("postYearTo", m_Conditions["PostYearTo"])
+       .AddRouteValue("reportYearFrom", m_Conditions["ReportYearFrom"])
+       .AddRouteValue("reportYearTo", m_Conditions["ReportYearTo"]))
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Report"
+          , new { Company = m_Conditions["Company"], CompanyTrade = m_Conditions["CompanyTrade"]
+          , companyNationality = m_Conditions["CompanyNationality"] , companyScale = m_Conditions["CompanyScale"]
+          , companyType = m_Conditions["CompanyType"] , isAA1000 = m_Conditions["IsAA1000"]
+          , isGRI = m_Conditions["IsGRI"] , postYearFrom = m_Conditions["PostYearFrom"]
+          , postYearTo = m_Conditions["PostYearTo"] , reportYearFrom = m_Conditions["ReportYearFrom"]
+          , reportYearTo = m_Conditions["ReportYearTo"] })')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->
+</div>

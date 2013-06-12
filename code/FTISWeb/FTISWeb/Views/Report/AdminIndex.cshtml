@@ -218,9 +218,9 @@
             <td style="width:100px; text-align:right;">發佈年份：
             </td>
             <td >
-                @Html.TextBox("PostYearFrom", m_Conditions["PostYearFrom"])
+                @Html.TextBox("PostYearFrom", m_Conditions["PostYearFrom"], new { onkeyup = @"this.value=this.value.replace(/[^\d]/g,'')", size = "5", maxlength = "4" })
                 至
-                @Html.TextBox("PostYearTo", m_Conditions["PostYearTo"])
+                @Html.TextBox("PostYearTo", m_Conditions["PostYearTo"], new { onkeyup = @"this.value=this.value.replace(/[^\d]/g,'')", size = "5", maxlength = "4" })
                 應用標準：
                 <input id="IsAA1000" name="IsAA1000" type="checkbox" value="2" @m_CheckedIsAA1000 />AA1000 
                 <input id="IsGRI" name="IsGRI" type="checkbox" value="7" @m_CheckedIsGRI />GRI  

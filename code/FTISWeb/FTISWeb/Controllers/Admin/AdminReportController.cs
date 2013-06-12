@@ -53,12 +53,19 @@ namespace FTISWeb.Controllers
         {
             GetConditions(cdts);
 
+            ModelState.Remove("Name");
+            ModelState.Remove("ConfirmationCode");            
+            if (!model.IsValid(ModelState))
+            {
+                return View("Save", model);
+            }
+
             ////檢查內容無障礙是否通過
             if (!AccessibilityUtil.CheckFreeGO(model.Content))
             {
                 model.ShowFreeGOMsg = true;
                 model.FreeGOColumnName = "Content";
-            }
+            }            
 
             model.Update();
 
@@ -138,6 +145,13 @@ namespace FTISWeb.Controllers
         public ActionResult Create(ReportModel model, string cdts)
         {
             GetConditions(cdts);
+
+            ModelState.Remove("Name");
+            ModelState.Remove("ConfirmationCode");
+            if (!model.IsValid(ModelState))
+            {
+                return View("Save", model);
+            }
 
             ////檢查內容無障礙是否通過
             if (!AccessibilityUtil.CheckFreeGO(model.Content))

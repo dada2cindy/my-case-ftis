@@ -11,6 +11,7 @@ using FTISWeb.Security;
 using FTISWeb.Helper;
 using WuDada.Core.Generic.Util;
 using System.ComponentModel;
+using System.Web.Mvc;
 
 namespace FTISWeb.Models
 {
@@ -159,7 +160,6 @@ namespace FTISWeb.Models
         /// 語言版本--中文
         /// </summary>
         [DisplayName("語言版本--中文")]
-        [Required]
         public string CAUrl { get; set; }
 
         /// <summary>
@@ -170,6 +170,7 @@ namespace FTISWeb.Models
         /// <summary>
         /// 語言版本--英文：下載網址
         /// </summary>
+        [DisplayName("語言版本--英文")]
         public string EAUrl { get; set; }
 
         /// <summary>
@@ -180,6 +181,7 @@ namespace FTISWeb.Models
         /// <summary>
         /// 語言版本--雙語：下載網址
         /// </summary>
+        [DisplayName("語言版本--雙語")]
         public string DAUrl { get; set; }
 
         /// <summary>
@@ -277,6 +279,8 @@ namespace FTISWeb.Models
         /// 服務分類名稱
         /// </summary>
         public string ServiceName { get; set; }
+
+        public bool SendOrderOk { get; set; }
 
         #region ICheckFreeGO 成員
 
@@ -405,7 +409,185 @@ namespace FTISWeb.Models
                 m_FTISService.UpdateReport(entity);
             }
 
+            this.SendOrderOk = true;
             LoadEntity(entity.ReportId);
+        }
+
+        internal bool IsValid(ModelStateDictionary modelState)
+        {
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(this.CAUrl) && string.IsNullOrWhiteSpace(this.EAUrl) && string.IsNullOrWhiteSpace(this.DAUrl))
+            {
+                modelState.AddModelError("CAUrl", "下載網址請選擇一種語言填寫");
+                modelState.AddModelError("EAUrl", "");
+                modelState.AddModelError("DAUrl", "");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        public string GetStr_CSRPage()
+        {
+            string result = "";
+            int count = 1;
+
+            if (!string.IsNullOrWhiteSpace(this.CSRPage1))
+            {
+                result += string.Format("<a href='{0}' target='_blank'>網址{1}</a>、", this.CSRPage1, count);
+                count += 1;
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.CSRPage2))
+            {
+                result += string.Format("<a href='{0}' target='_blank'>網址{1}</a>、", this.CSRPage2, count);
+            }
+
+            return result.TrimEnd('、');
+        }
+
+        public string GetStr_CompanyTrade()
+        {
+            string result = string.Empty;
+
+            switch (this.CompanyTrade)
+            {
+                case "1":
+                    result = "一般服務業";
+                    break;
+                case "2":
+                    result = "技術服務業";
+                    break;
+                case "3":
+                    result = "旅遊餐飲業";
+                    break;
+                case "4":
+                    result = "批發零售業";
+                    break;
+                case "5":
+                    result = "金融保險業";
+                    break;
+                case "6":
+                    result = "電子資訊業";
+                    break;
+                case "7":
+                    result = "倉儲物流業";
+                    break;
+                case "8":
+                    result = "傳統製造業";
+                    break;
+                case "9":
+                    result = "傳播出版業";
+                    break;
+                case "10":
+                    result = "營建不動產";
+                    break;
+                case "11":
+                    result = "公行社福業";
+                    break;
+                case "12":
+                    result = "教育學術業";
+                    break;
+                case "13":
+                    result = "醫療保健業";
+                    break;
+                case "14":
+                    result = "其他行業";
+                    break;
+            }
+
+            return result;
+        }
+
+        public string GetStr_CompanyType()
+        {
+            string result = string.Empty;
+
+            switch (this.CompanyTrade)
+            {
+                case "1":
+                    result = "上市公司";
+                    break;
+                case "2":
+                    result = "上櫃公司";
+                    break;
+                case "3":
+                    result = "興櫃公司";
+                    break;
+                case "4":
+                    result = "其它";
+                    break;
+            }
+
+            return result;
+        }
+
+        public string GetStr_Lang()
+        {
+            string result = string.Empty;
+            if (!string.IsNullOrWhiteSpace(this.CAUrl))
+            {
+                result += "中文、";
+            }
+            if (!string.IsNullOrWhiteSpace(this.EAUrl))
+            {
+                result += "英文、";
+            }
+            if (!string.IsNullOrWhiteSpace(this.DAUrl))
+            {
+                result += "雙語、";
+            }
+            return result.TrimEnd('、');
+        }
+
+        public string GetStr_AA1000()
+        {
+            string result = string.Empty;
+
+            switch (this.CompanyTrade)
+            {
+                case "1":
+                    result = "A+";
+                    break;
+                case "2":
+                    result = "A";
+                    break;
+                case "3":
+                    result = "B+";
+                    break;
+                case "4":
+                    result = "B";
+                    break;
+                case "5":
+                    result = "C+";
+                    break;
+                case "6":
+                    result = "C";
+                    break;
+                case "7":
+                    result = "無";
+                    break;
+            }
+
+            return result;
+        }
+
+        public string GetStr_GRI()
+        {
+            string result = string.Empty;
+
+            switch (this.CompanyTrade)
+            {
+                case "1":
+                    result = "通過";
+                    break;
+                case "2":
+                    result = "無";
+                    break;
+            }
+
+            return result;
         }
     }
 }

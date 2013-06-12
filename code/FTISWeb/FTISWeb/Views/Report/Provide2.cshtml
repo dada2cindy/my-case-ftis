@@ -1,0 +1,216 @@
+﻿@model ReportModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@using FTISWeb.Utility;
+@using System.Web.Optimization
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+    
+    @*查詢項目*@
+    ////行業別
+    IList<SelectListItem> m_CompanyTradeList = new List<SelectListItem>();
+    if (ViewData["CompanyTradeList"] != null)
+    {
+        m_CompanyTradeList = (List<SelectListItem>)ViewData["CompanyTradeList"];
+    }
+
+    ////公司國籍
+    IList<SelectListItem> m_CompanyNationalityList = new List<SelectListItem>();
+    if (ViewData["CompanyNationalityList"] != null)
+    {
+        m_CompanyNationalityList = (List<SelectListItem>)ViewData["CompanyNationalityList"];
+    }
+
+    ////公司規模
+    IList<SelectListItem> m_CompanyScaleList = new List<SelectListItem>();
+    if (ViewData["CompanyScaleList"] != null)
+    {
+        m_CompanyScaleList = (List<SelectListItem>)ViewData["CompanyScaleList"];
+    }
+
+    ////公司類型
+    IList<SelectListItem> m_CompanyTypeList = new List<SelectListItem>();
+    if (ViewData["CompanyTypeList"] != null)
+    {
+        m_CompanyTypeList = (List<SelectListItem>)ViewData["CompanyTypeList"];
+    }
+
+    ////應用標準AA1000
+    IList<SelectListItem> m_AA1000List = new List<SelectListItem>();
+    if (ViewData["AA1000List"] != null)
+    {
+        m_AA1000List = (List<SelectListItem>)ViewData["AA1000List"];
+    }
+
+    ////應用標準GRI 
+    IList<SelectListItem> m_GRIList = new List<SelectListItem>();
+    if (ViewData["GRIList"] != null)
+    {
+        m_GRIList = (List<SelectListItem>)ViewData["GRIList"];
+    }
+}
+@section HeadContent{
+    @Scripts.Render("~/bundles/CKFinder")
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+            });
+            $("#safecode").click(function () {
+                $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
+            });
+        });
+
+        function SetFileField(fileUrl, data) {
+            var filepath = fileUrl.replace("@AppSettings.CKFinderFileHandler", "");
+            document.getElementById(data["selectActionData"]).value = filepath;
+        }
+
+        /***************************************************************************
+        CKFinder 單個Input使用的上傳圖片
+        ***************************************************************************/
+        function BrowseServer(startupPath, functionData) {
+            // You can use the "CKFinder" class to render CKFinder in a page:
+            var finder = new CKFinder();
+
+            // The path for the installation of CKFinder (default = "/ckfinder/").
+            //finder.basePath = '../';
+
+            //Startup path in a form: "Type:/path/to/directory/"
+            finder.startupPath = startupPath;
+
+            // Name of a function which is called when a file is selected in CKFinder.
+            finder.selectActionFunction = SetFileField;
+
+            // Additional data to be passed to the selectActionFunction in a second argument.
+            // We'll use this feature to pass the Id of a field that will be updated.
+            finder.selectActionData = functionData;
+
+            // Name of a function which is called when a thumbnail is selected in CKFinder.
+            //finder.selectThumbnailActionFunction = ShowThumbnails;
+
+            // Launch CKFinder
+            finder.popup();
+        }
+    </script>
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("ApplicationLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>企業社會責任<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Application")">企業社會責任</a> &gt; CSR報告書查詢</span>    </h1>    
+      <h2>報告書資訊提供</h2>
+            @using (Html.BeginForm("SendOrder", "Report", FormMethod.Post, new { id = "frmSave" }))
+            {
+      <div id="InShow-INob"><img src="/in-image/csr-step-2.gif" width="634" height="85" alt="Step2" /><br />
+      <br />
+        <span class="txt-red">皆為必填欄位</span><br />
+      
+      <ul>
+      <li class="Epaper02-pp">公司名稱　：
+        @Html.TextBox("Company", Model.Company, new { id = "Company", @class = "csr-Order2" })
+      </li>
+      <li class="Epaper02-pp">行業別　　：      
+        @Html.DropDownListFor(m => m.CompanyTrade, m_CompanyTradeList, "請選擇", new { @class = "csr-Order" })
+      </li>
+      <li class="Epaper02-pp">公司網址　：
+        @Html.TextBox("AUrl", Model.AUrl, new { id = "AUrl", @class = "csr-Order2" })
+      </li>
+      <li class="Epaper02-pp">公司國籍　：
+          <label>@Html.RadioButtonFor(m => m.CompanyNationality, "1")國內</label>
+          <label>@Html.RadioButtonFor(m => m.CompanyNationality, "0")國外</label>
+      </li>
+      <li class="Epaper02-pp">公司規模　：
+          <label>@Html.RadioButtonFor(m => m.CompanyScale, "1")大企業</label>
+          <label>@Html.RadioButtonFor(m => m.CompanyScale, "0")中小企業</label>
+      </li>
+      <li class="Epaper02-pp">公司類型　：
+        @Html.DropDownListFor(m => m.CompanyType, m_CompanyTypeList, "請選擇", new { @class = "csr-Order" })
+      </li>
+      <li class="Epaper02-pp">發佈年份　：
+        @Html.TextBox("PostYear", Model.PostYear, new { id = "PostYear", onkeyup = @"this.value=this.value.replace(/[^\d]/g,'')", size = "5", maxlength = "4" })
+        <span class="txt-red">(西元年)</span></li>
+      <li class="Epaper02-pp">報告書名稱：
+        @Html.TextBox("ReportName", Model.ReportName, new { id = "ReportName", @class = "csr-Order2" })
+      </li>
+      <li class="Epaper02-pp">報告年份　：
+        @Html.TextBox("ReportYear", Model.ReportYear, new { id = "ReportYear", onkeyup = @"this.value=this.value.replace(/[^\d]/g,'')", size = "5", maxlength = "4" })
+        <span class="txt-red">(西元年)</span></li>
+      <li class="Epaper02-pp">報告格式　：
+        @Html.TextBox("ReportType", Model.ReportType, new { id = "ReportType", @class = "csr-Order", size = "5" })
+        <span class="txt-red">(如PDF、線上閱讀)</span></li>
+      <li class="Epaper02-pp">報告頁數　：        
+          @Html.TextBox("ReportPage", Model.ReportPage, new { id = "ReportPage", @class = "csr-Order", size = "5" })
+      </li>
+      <li class="Epaper02-pp">AA1000標準：
+        @Html.DropDownListFor(m => m.AA1000, m_AA1000List, "請選擇", new { @class = "csr-Order" })
+      </li>
+      <li class="Epaper02-pp">GRI等級　：
+        @Html.DropDownListFor(m => m.GRI, m_GRIList, "請選擇", new { @class = "csr-Order" })
+      </li>
+      <li class="Epaper02-pp">報告書封面：@Html.TextBox("ReportPic", Model.ReportPic, new { id = "ReportPic", @class = "csr-Order2", @readonly = "readonly", onclick = "BrowseServer('WebUserImages:/', 'ReportPic');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('WebUserImages:/', 'ReportPic');" /></li>
+      <li class="Epaper02-pp">CSR網頁　：CSR網頁1
+      　@Html.TextBox("CSRPage1", Model.CSRPage1, new { id = "CSRPage1", @class = "csr-Order", size = "25" })
+                 　CSR網頁2       
+          @Html.TextBox("CSRPage2", Model.CSRPage2, new { id = "CSRPage2", @class = "csr-Order", size = "25" })
+      </li>
+      <li class="Epaper02-pp">語言版本　：<br />
+        　&nbsp; 中文下載網址          
+          @Html.TextBox("CAUrl", Model.CAUrl, new { id = "CAUrl", @class = "csr-Order2" })
+        <br />
+       　&nbsp; 英文下載網址       
+          @Html.TextBox("EAUrl", Model.EAUrl, new { id = "EAUrl", @class = "csr-Order2" })
+       <br />
+      　&nbsp; 雙語下載網址
+      @Html.TextBox("DAUrl", Model.DAUrl, new { id = "DAUrl", @class = "csr-Order2" })
+      <span class="txt-red">      (如中文+英文)</span></li>
+      <li class="Epaper02-pp">報告確證　：
+        @Html.TextBox("ReportCert", Model.ReportCert, new { id = "ReportCert", @class = "csr-Order2" })
+        <span class="txt-red">(第三方確證單位)</span></li>
+      <li class="Epaper02-pp">意見回饋　：電話
+          @Html.TextBox("OpinionTel", Model.OpinionTel, new { id = "OpinionTel", @class = "csr-Order", size = "5" })
+      　信箱
+      @Html.TextBox("OpinionEmail", Model.OpinionEmail, new { id = "OpinionEmail", @class = "csr-Order2" })
+      </li>
+      <li class="Epaper02-pp">聯絡方式　：姓名        
+          @Html.TextBox("ContactName", Model.ContactName, new { id = "ContactName", @class = "csr-Order", size = "5" })
+      　職稱      
+          @Html.TextBox("ContactDept", Model.ContactDept, new { id = "ContactDept", @class = "csr-Order", size = "5" })
+      　電話      
+          @Html.TextBox("ContactTel", Model.ContactTel, new { id = "ContactTel", @class = "csr-Order", size = "10" })
+      　信箱
+          @Html.TextBox("ContactEmail", Model.ContactEmail, new { id = "ContactEmail", @class = "csr-Order", size = "10" })
+      </li>
+      <li class="Epaper02-pp">報告書介紹：        
+          @Html.TextArea("Content", Model.Content, new { id = "Content", @class = "csr-Order3", cols = "45", rows = "3" })
+      </li>
+      <li class="Epaper02-pp">驗證碼　：
+        @Html.TextBox("ConfirmationCode", Model.ConfirmationCode, new { id = "ConfirmationCode", @class = "Epaper-Order2" })
+        <img id="safecode" src="@Url.Action("CaptchaImg", "Report")" width="100" height="30" /><span class="txt-red"><br />
+        　　　　　　　( 請輸入 4 位字母數字組合驗證碼，如數字未標明清楚，請點擊更換圖片 )</span></li>
+      <div class="Epaper02-Btn"><input type="image" name="Submit" src="/in-image/com-sent-btn.gif" width="78" height="25" alt="填好送出" />
+           <a id="btnClear" href="#"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
+      <div class="txt-red"> @Html.ValidationSummary()</div>
+    </div>
+            }      
+  </div><!--內容結尾-->
+</div>
+@if (Model.SendOrderOk)
+{
+    string msg = "提交成功";
+    <script type="text/javascript">
+        alert("@msg!");
+        window.location.href = "@Url.Action("Index", "Report")";
+    </script>
+
+}

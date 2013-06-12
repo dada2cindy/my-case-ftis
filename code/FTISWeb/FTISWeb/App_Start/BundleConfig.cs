@@ -85,6 +85,9 @@ namespace FTISWeb
                 "~/css/In-Style.css",
                 "~/css/Ecss.css",
                 "~/css/InCss.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/CKFinder").Include(
+                "~/Scripts/ckfinder/ckfinder.js"));
         }
     }
 }

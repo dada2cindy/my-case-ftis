@@ -233,6 +233,7 @@
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\GreenFactoryController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -270,6 +271,7 @@
     <Compile Include="Models\FTIS\GreenFactoryClassModel.cs" />
     <Compile Include="Models\FTIS\GreenFactoryModel.cs" />
     <Compile Include="Models\FTIS\ReportModel.cs" />
+    <Compile Include="Models\FTIS\MemberModel.cs" />
     <Compile Include="Models\Home\HomeShowModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
@@ -278,6 +280,7 @@
     <Compile Include="Models\Post\PostModel.cs" />
     <Compile Include="Models\AbstractShowModel.cs" />
     <Compile Include="Models\Home\SendMailModel.cs" />
+    <Compile Include="Models\Template\TemplateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AdminAuthorizeAttribute.cs" />
     <Compile Include="Security\Ticket.cs" />
@@ -2204,6 +2207,12 @@
     <Content Include="Views\Report\AdminIndex.cshtml" />
     <Content Include="Views\Report\Save.cshtml" />
     <Content Include="Views\Report\AdminGridList.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\Detail.cshtml" />
+    <Content Include="Views\Report\Index2.cshtml" />
+    <Content Include="Views\Report\Provide.cshtml" />
+    <Content Include="Views\Report\Provide2.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

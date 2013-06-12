@@ -26,7 +26,7 @@
         @{
             if(!string.IsNullOrWhiteSpace(Model.AFile1))
             {
-                <a target="_blank" href="@Url.Action("DownLoadFile", "Download", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = m_hsModel.GetFileByEncrypt(Model.AFile1)})"><p class="News-IN-Next"><strong>附件檔案</strong>：@m_hsModel.GetFileName(Model.AFile1Name)</p></a>
+                <a target="_blank" href="@Url.Action("DownLoadFile", "Download", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = m_hsModel.GetFileByEncrypt(Model.AFile1), name = Model.Name})"><p class="News-IN-Next"><strong>附件檔案</strong>：@m_hsModel.GetFileName(Model.AFile1Name)</p></a>
             }      
         }
       <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>

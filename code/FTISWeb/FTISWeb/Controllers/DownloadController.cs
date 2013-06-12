@@ -10,6 +10,7 @@ using FTIS.Domain;
 using FTIS.Domain.Dto;
 using FTIS.Domain.Impl;
 using FTIS.Service;
+using FTISWeb.Helper;
 using FTISWeb.Models;
 using FTISWeb.Utility;
 using MvcPaging;
@@ -19,6 +20,8 @@ namespace FTISWeb.Controllers
 {
     public partial class DownloadController : Controller
     {
+        SessionHelper m_SessionHelper = new SessionHelper();
+
         public ActionResult Index(string keyWord, int? page)
         {
             SetConditions(keyWord);
@@ -44,8 +47,16 @@ namespace FTISWeb.Controllers
             return View(entityModel);
         }
 
-        public ActionResult DownLoadFile(string id,string fileUrl)
+        public ActionResult DownLoadFile(string id,string fileUrl, string name)
         {
+            Member member = m_SessionHelper.WebMember;
+            if (member == null)
+            {
+                Response.Redirect(Url.Action("Index", "Member"));
+            }
+
+            new MemberModel().AddDownloadRecord(name, "1", member.MemberId.ToString());
+
             EntityCounter(id, "Downer");
             Response.Redirect(fileUrl);
 

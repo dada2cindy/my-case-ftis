@@ -1,0 +1,32 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Report>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("ApplicationLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>企業社會責任<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Application")">企業社會責任</a> &gt; CSR報告書查詢</span>    </h1>    
+      <h2>國內外報告書現況</h2>
+      <div id="InShow-INob"> 
+      <table border="0" cellspacing="5" cellpadding="0">
+        <tr>
+          <td><a href="@Url.Action("Provide", "Report")" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image18','','/in-image/csr01a.gif',1)"><img src="/in-image/csr01.gif" name="Image18" width="314" height="85" border="0" id="Image18" alt="我要提供報告書" /></a></td>
+          <td><a href="@Url.Action("Index", "Report")" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image19','','/in-image/csr02a.gif',1)"><img src="/in-image/csr02.gif" name="Image19" width="314" height="85" border="0" id="Image19" alt="查詢更多報告書" /></a></td>
+        </tr>
+      </table>
+    </div>
+      
+  </div><!--內容結尾-->
+</div>
