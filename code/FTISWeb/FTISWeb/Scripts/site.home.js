@@ -15,6 +15,15 @@ function GoPage(url) {
     }
 }
 
+function GetCheckBoxValue(selector) {
+    if ($(selector).prop('checked')) {
+        return $(selector).val();
+    }
+    else {
+        return "";
+    }
+}
+
 /***************************************************************************
 清除輸入框
 ***************************************************************************/
