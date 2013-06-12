@@ -35,11 +35,6 @@ namespace FTISWeb.Models
         public LinksClass LinksClass { get; set; }
 
         /// <summary>
-        /// 語言. 1.英文 2.中文
-        /// </summary>
-        public string LangId { get; set; }
-
-        /// <summary>
         /// 網路資源分類
         /// </summary>
         [DisplayName("分類")]
