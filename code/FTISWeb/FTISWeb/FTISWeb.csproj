@@ -746,6 +746,14 @@
     <Content Include="Content\kendo\Uniform\sprite.png" />
     <Content Include="Content\kendo\kendo.blueopal.css" />
     <Content Include="Content\kendo\kendo.common.css" />
+    <Content Include="pp\banner-10.gif" />
+    <Content Include="pp\banner-2.gif" />
+    <Content Include="pp\banner-3.gif" />
+    <Content Include="pp\banner-4.gif" />
+    <Content Include="pp\banner-5.gif" />
+    <Content Include="pp\banner-6.gif" />
+    <Content Include="pp\banner-7.gif" />
+    <Content Include="pp\banner-9.gif" />
     <Content Include="Scripts\ckfinder\userfiles\flash\flash.swf" />
     <Content Include="swf\inTopflash.swf" />
     <Content Include="pp\adv.jpg" />
