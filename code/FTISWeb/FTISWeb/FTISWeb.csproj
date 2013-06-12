@@ -236,6 +236,7 @@
     <Compile Include="Controllers\GreenFactoryController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\NormController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2221,6 +2222,9 @@
     <Content Include="Views\SubNormClass\Save.cshtml" />
     <Content Include="Views\Norm\AdminIndex.cshtml" />
     <Content Include="Views\Norm\Save.cshtml" />
+    <Content Include="Views\Norm\Index.cshtml" />
+    <Content Include="Views\Shared\NormLeftMenu.cshtml" />
+    <Content Include="Views\Norm\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />
