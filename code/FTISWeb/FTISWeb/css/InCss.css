@@ -1047,7 +1047,7 @@ a.btn-organ:active {
 	text-decoration: none;
 }
 .Mem-btn {
-	background-image: url(../in-image/member-login-btn.gif);
+	/*background-image: url(../in-image/member-login-btn.gif);*/
 	height: 50px;
 	width: 54px;
 	margin-top: 45px;
@@ -1055,7 +1055,7 @@ a.btn-organ:active {
 	position: absolute;
 }
 .forget-btn {
-	background-image: url(../in-image/member-send-btn.gif);
+	/*background-image: url(../in-image/member-send-btn.gif);*/
 	height: 50px;
 	width: 54px;
 	margin-top: 45px;

@@ -83,10 +83,8 @@
                                                         </td>
                                                         <td width="56">
                                                             @Html.TextBoxFor(m => m.ConfirmationCode, new { @class = "order01" })
-                                                            @*@Html.ValidationMessageFor(m => m.ConfirmationCode)*@
                                                         </td>
                                                         <td width="67" align="center">
-                                                            @*<input type="image" name="safecode" id="safecode" src="@Url.Action("CaptchaImg")" width="70" height="30" />*@
                                                             <img id="safecode" src="@Url.Action("CaptchaImg")" width="70" height="30" />
                                                         </td>
                                                         <td width="167">

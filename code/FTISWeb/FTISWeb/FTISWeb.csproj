@@ -238,6 +238,7 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\NormController.cs" />
     <Compile Include="Controllers\MNormController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -313,6 +314,7 @@
     <Compile Include="ViewData\PostData.cs" />
     <Compile Include="ViewData\ReportItemData.cs" />
     <Compile Include="ViewData\NormClassData.cs" />
+    <Compile Include="ViewData\IndustryData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -2236,6 +2238,11 @@
     <Content Include="Views\Norm\Detail.cshtml" />
     <Content Include="Views\MNorm\Index.cshtml" />
     <Content Include="Views\MNorm\Detail.cshtml" />
+    <Content Include="Views\Member\Logon.cshtml" />
+    <Content Include="Views\Shared\MemberLeftMenu.cshtml" />
+    <Content Include="Views\Member\Logoff.cshtml" />
+    <Content Include="Views\Member\Join.cshtml" />
+    <Content Include="Views\Member\ForgetPass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

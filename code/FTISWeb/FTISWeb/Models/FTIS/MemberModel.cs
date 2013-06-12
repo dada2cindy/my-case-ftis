@@ -19,6 +19,8 @@ namespace FTISWeb.Models
     /// </summary>
     public class MemberModel : AbstractEntityModel
     {
+        SessionHelper m_SessionHelper = new SessionHelper();
+
         public MemberModel()
         {
         }
@@ -34,11 +36,6 @@ namespace FTISWeb.Models
 
             LoadEntity(entity);
         }
-
-        /// <summary>
-        /// 新聞種類
-        /// </summary>
-        public Industry Industry { get; set; }
 
         /// <summary>
         /// 行業別
@@ -70,6 +67,13 @@ namespace FTISWeb.Models
         public string Password { get; set; }
 
         /// <summary>
+        /// 確認密碼
+        /// </summary>
+        [DisplayName("確認密碼")]
+        [Required]
+        public string CheckPassword { get; set; }
+
+        /// <summary>
         /// 公司名稱
         /// </summary>
         [DisplayName("公司名稱")]
@@ -80,7 +84,6 @@ namespace FTISWeb.Models
         /// 統一編號
         /// </summary>
         [DisplayName("統一編號")]
-        [Required]
         public string CompanyNo { get; set; }
 
         /// <summary>
@@ -167,6 +170,8 @@ namespace FTISWeb.Models
 
         public string ErrorMsg { get; set; }
 
+        public string Msg { get; set; }
+
         protected void LoadEntity(Member entity)
         {
             if (entity != null)
@@ -190,12 +195,7 @@ namespace FTISWeb.Models
                 Tel2 = entity.Tel2;
                 Fax = entity.Fax;
                 Content = entity.Content;
-
-                if (entity.Industry != null)
-                {
-                    Industry = entity.Industry;
-                    IndustryId = entity.Industry.IndustryId;
-                }
+                IndustryId = entity.IndustryId;
             }
         }
 
@@ -211,6 +211,8 @@ namespace FTISWeb.Models
             }
 
             Insert();
+            Member member = m_FTISService.GetMemberById(this.EntityId);
+            m_SessionHelper.WebMember = member;
             this.SendOrderOk = true;
         }
 
@@ -247,6 +249,7 @@ namespace FTISWeb.Models
             entity.Tel2 = Tel2;
             entity.Fax = Fax;
             entity.Content = Content;
+            entity.IndustryId = IndustryId;
 
             if (CompanyTypeList != null && CompanyTypeList.Count() > 0)
             {
@@ -259,6 +262,7 @@ namespace FTISWeb.Models
 
             if (entity.MemberId == 0)
             {
+                entity.RegDate = DateTime.Now;
                 m_FTISService.CreateMember(entity);
             }
             else
@@ -307,6 +311,55 @@ namespace FTISWeb.Models
                 };
                 m_FTISService.CreateDownloadRecord(downloadRecord);
             }
+        }
+
+        public bool DoLogon()
+        {
+            Member member = m_FTISService.GetMemberByLoginId(this.LoginId);
+            if (member != null && member.Password.Equals(this.Password) && member.Status == "1")
+            {
+                m_SessionHelper.WebMember = member;
+                this.SendOrderOk = true;
+                return true;
+            }
+
+            this.ErrorMsg = "帳號錯誤";
+            this.SendOrderOk = false;
+            return false;
+        }
+
+        public bool CheckLoginId(string loginId)
+        {
+            bool result = true;
+            Member member = m_FTISService.GetMemberByLoginId(loginId);
+            if (member == null)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+
+        public void ForgetPass()
+        {
+            Member member = m_FTISService.GetMemberByLoginId(this.LoginId);
+            if (member == null || member.Email != this.Email || member.Status == "0")
+            {
+                this.SendOrderOk = false;
+                this.ErrorMsg = "帳號錯誤";
+                return;
+            }
+
+            SendMailModel sendMailModel = new SendMailModel();
+            sendMailModel.SendMailTitle = "收到一封從產業永續發展整合資訊網的忘記密碼信。";
+            sendMailModel.SendMailContent = string.Format("{0}您好，您的密碼為{1}", member.LoginId, member.Password);
+            sendMailModel.SendMailTo = member.Email;
+            sendMailModel.SendMail();
+
+            this.SendOrderOk = true;
+            this.ErrorMsg = string.Empty;
+            this.Msg = "您的密碼已寄發至註冊信箱中";
         }
     }
 }
