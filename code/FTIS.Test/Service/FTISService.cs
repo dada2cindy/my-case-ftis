@@ -354,5 +354,24 @@ namespace FOTIS.Test.Service
                 Console.WriteLine("year = " + year);
             }
         }
+
+        [Test]
+        public void Test_Count()
+        {
+            //CountVO count = m_FTISService.GetTodayCount();
+
+            //Assert.IsNull(count);
+
+            //count = new CountVO() { BarID = 1, CountDate = DateTime.Today, Hits = 1 };
+            //m_FTISService.CreateCount(count);
+
+            //CountVO count2 = m_FTISService.GetTodayCount();
+            //Assert.IsNotNull(count2);
+
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("BarId", "1");
+            int total = m_FTISService.GetSumCountHits(conditions);
+            Assert.AreNotEqual(total, 0);
+        }
     }
 }
