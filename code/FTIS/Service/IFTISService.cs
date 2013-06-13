@@ -1696,5 +1696,42 @@ namespace FTIS.Service
         /// <returns></returns>
         int GetReportCount(IDictionary<string, string> conditions);        
         #endregion
+
+        #region CountVO
+        /// <summary>
+        /// 新增計數器
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        CountVO CreateCount(CountVO count);
+
+        /// <summary>
+        /// 更新計數器
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        CountVO UpdateCount(CountVO count);
+
+        /// <summary>
+        /// 取得計數器清單
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        IList<CountVO> GetCountList(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得合計總數
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        int GetSumCountHits(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得今日的計數器
+        /// </summary>
+        /// <param name="barId"></param>
+        /// <returns></returns>
+        CountVO GetTodayCount(string barId);
+        #endregion
     }
 }

@@ -4501,6 +4501,109 @@ namespace FTIS.Persistence
         }
         #endregion
 
+        #region CountVO
+        /// <summary>
+        /// 新增計數器
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public CountVO CreateCount(CountVO count)
+        {
+            NHibernateDao.Insert(count);
+            return count;
+        }
+
+        /// <summary>
+        /// 更新計數器
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public CountVO UpdateCount(CountVO count)
+        {
+            NHibernateDao.Update(count);
+
+            return count;
+        }
+
+        /// <summary>
+        /// 取得計數器清單
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        public IList<CountVO> GetCountList(IDictionary<string, string> conditions)
+        {
+            ArrayList param = new ArrayList();
+            string fromScript = "select c from CountVO c ";
+            StringBuilder whereScript = new StringBuilder();
+            return this.QueryCount(param, fromScript, whereScript, conditions, true).OfType<CountVO>().ToList();
+        }
+
+        /// <summary>
+        /// 取得合計總數
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        public int GetSumCountHits(IDictionary<string, string> conditions)
+        {
+            int count = 0;
+            ArrayList param = new ArrayList();
+            string fromScript = "select Sum(c.Hits) from CountVO c ";
+
+            StringBuilder whereScript = new StringBuilder();
+            IList result = this.QueryCount(param, fromScript, whereScript, conditions, false);
+            if (result.Count > 0)
+            {
+                count = Convert.ToInt32(result[0]);
+            }
+            return count;
+        }
+
+        private IList QueryCount(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
+        {
+            AppendCountDate(conditions, whereScript, param);
+            AppendCountBarId(conditions, whereScript, param);
+
+            string hql = fromScript + "where 1=1 " + whereScript;
+            if (useOrder)
+            {
+                hql += AppendCountOrder(conditions);
+            }
+
+            return NHibernateDao.Query(hql, param, conditions);
+        }        
+
+        private string AppendCountOrder(IDictionary<string, string> conditions)
+        {
+            //// 排序條件
+            string order = "order by c.CountDate desc ";
+            if (conditions.IsContainsValue("Order"))
+            {
+                order = conditions["Order"];
+            }
+
+            return order;
+        }
+
+        private void AppendCountDate(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("CountDate"))
+            {
+                whereScript.Append(" and (c.CountDate = ? ) ");
+                param.Add(DateTime.Parse(conditions["CountDate"]));
+            }
+        }
+
+        private void AppendCountBarId(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("BarId"))
+            {
+                whereScript.Append(" and (c.BarId = ? ) ");
+                param.Add(conditions["BarId"]);
+            }
+        }
+        
+        #endregion
+
         #endregion
     }
 }

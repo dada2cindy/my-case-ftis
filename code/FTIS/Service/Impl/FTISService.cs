@@ -2741,6 +2741,70 @@ namespace FTIS.Service.Impl
         }        
         #endregion
 
+        #region CountVO
+        /// <summary>
+        /// 新增計數器
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public CountVO CreateCount(CountVO count)
+        {
+            return FTISDao.CreateCount(count);
+        }
+
+        /// <summary>
+        /// 更新計數器
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public CountVO UpdateCount(CountVO count)
+        {
+            return FTISDao.UpdateCount(count);
+        }
+
+        /// <summary>
+        /// 取得計數器清單
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        public IList<CountVO> GetCountList(IDictionary<string, string> conditions)
+        {
+            return FTISDao.GetCountList(conditions);
+        }
+
+        /// <summary>
+        /// 取得合計總數
+        /// </summary>
+        /// <param name="conditions"></param>
+        /// <returns></returns>
+        public int GetSumCountHits(IDictionary<string, string> conditions)
+        {
+            return FTISDao.GetSumCountHits(conditions);
+        }
+
+        /// <summary>
+        /// 取得今日的計數器
+        /// </summary>
+        /// <param name="barId"></param>
+        /// <returns></returns>
+        public CountVO GetTodayCount(string barId)
+        {
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("CountDate", DateTime.Today.ToString("yyyy/MM/dd"));
+            conditions.Add("BarId", barId);
+            IList<CountVO> list = FTISDao.GetCountList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                return list[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #endregion
     }
 }

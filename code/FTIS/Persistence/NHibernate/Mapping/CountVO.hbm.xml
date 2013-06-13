@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="FTIS.Domain.Impl" assembly="FTIS">
+
+  <class name="CountVO" lazy="true" table="tblCount" dynamic-update="true" dynamic-insert="true">
+
+    <id name="CountId" column="CountID" type="Int32" unsaved-value="0">
+      <generator class="native"/>
+    </id>
+
+    <property name="CountDate" column="CountDate" type="DateTime"/>
+    <property name="Hits" column="Hits" type="Int32"/>
+    <property name="BarId" column="BarID" type="Int32"/>
+
+  </class>
+
+</hibernate-mapping>
