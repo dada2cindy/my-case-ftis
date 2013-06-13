@@ -69,9 +69,9 @@
         <label>@Html.RadioButtonFor(m => m.Question1, "3") 偶爾使用 </label>
         <label>@Html.RadioButtonFor(m => m.Question1, "4") 第1次使用 </label>
       </p>
-      <p class="Vote01-stxt">2.您是從哪個管道得知「產業永續發展整合資訊網」<br />      
-          &nbsp;          　
-        <input type="checkbox" name="QuestionSelects2" value="1" @(Model.QuestionSelects2.Contains("1")? "checked" :string.Empty) />
+      <p class="Vote01-stxt">2.您是從哪個管道得知「產業永續發展整合資訊網」<br /> 
+      &nbsp;
+          <input type="checkbox" name="QuestionSelects2" value="1" @(Model.QuestionSelects2.Contains("1")? "checked" :string.Empty) />
       搜尋引擎　
       <input type="checkbox" name="QuestionSelects2" value="2" @(Model.QuestionSelects2.Contains("2")? "checked" :string.Empty) />
       其他單位相關連結　
@@ -86,7 +86,7 @@
       @Html.TextBox("QOther2", Model.QOther2, new { id = "QOther2", @class = "csr-Order2" })
       </p>
       <p class="Vote01-stxt">3.您使用這個網站的主要原因？<br />
-        　&nbsp; 
+          &nbsp; 
       <input type="checkbox" name="QuestionSelects3" value="1" @(Model.QuestionSelects3.Contains("1")? "checked" :string.Empty) />
       業務需要　
       <input type="checkbox" name="QuestionSelects3" value="2" @(Model.QuestionSelects3.Contains("2")? "checked" :string.Empty) />
@@ -101,7 +101,7 @@
       @Html.TextBox("QOther3", Model.QOther3, new { id = "QOther3", @class = "csr-Order2" })      
       </p>
       <p class="Vote01-stxt">4. 您對本網站的美工設計感覺滿意嗎？<br />
-     &nbsp;&nbsp; 
+     &nbsp; 
         <label>@Html.RadioButtonFor(m => m.Question4, "1") 非常滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question4, "2") 滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question4, "3") 尚可 </label>
@@ -109,7 +109,7 @@
         <label>@Html.RadioButtonFor(m => m.Question4, "5") 非常不滿意 </label>    
      </p>
       <p class="Vote01-stxt">5. 您對本網站的內容豐富/實用程度感覺滿意嗎？<br />
-     &nbsp;&nbsp;
+     &nbsp;
          <label>@Html.RadioButtonFor(m => m.Question5, "1") 非常滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question5, "2") 滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question5, "3") 尚可 </label>
@@ -117,7 +117,7 @@
         <label>@Html.RadioButtonFor(m => m.Question5, "5") 非常不滿意 </label>
 </p>
       <p class="Vote01-stxt">6. 您對本網站的使用容易度感覺滿意嗎？<br />
-     &nbsp;&nbsp; 
+     &nbsp; 
         <label>@Html.RadioButtonFor(m => m.Question6, "1") 非常滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question6, "2") 滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question6, "3") 尚可 </label>
@@ -126,8 +126,7 @@
       </p>
       <p class="Vote01-stxt">
         7. 您對我們資料更新速度感覺滿意嗎？<br />
-        &nbsp;
-       &nbsp; 
+        &nbsp; 
         <label>@Html.RadioButtonFor(m => m.Question7, "1") 非常滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question7, "2") 滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question7, "3") 尚可 </label>
@@ -137,7 +136,6 @@
       <p class="Vote01-stxt">
         8. 整體而言，您對本網站的整體表現感覺滿意嗎？<br />
         &nbsp;
-       &nbsp; 
         <label>@Html.RadioButtonFor(m => m.Question8, "1") 非常滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question8, "2") 滿意 </label>
         <label>@Html.RadioButtonFor(m => m.Question8, "3") 尚可 </label>

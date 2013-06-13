@@ -17,7 +17,7 @@
 <div id="TopBtn"><!--按鈕bar-->
  <div id="TopBtn-table">
   <a href="@Url.Action("Index", "Home")"><div id="Logo"></div></a>
-  <div id="Visitors">您是本站第<span class="Vistors-txt">12345678</span>位訪客</div>
+  <div id="Visitors">您是本站第<span class="Vistors-txt">@Model.GetSumCountHits("1")</span>位訪客</div>
   <ul class="Rubtn-Ul">
     <li class="Rubtn-icon"><a href="@Url.Action("Index", "Home")">回首頁</a></li>
     <li class="Rubtn-icon3"><a href="@Url.Action("Index", "Member")">會員專區</a></li>

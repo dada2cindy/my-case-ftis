@@ -84,5 +84,32 @@ namespace FTISWeb.Models
 
             return templateVO;
         }
+
+        public void AddCount(string barId)
+        {
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("BarId", barId);
+
+            CountVO count = m_FTISService.GetTodayCount(barId);
+            if (count == null)
+            {
+                count = new CountVO() { BarId = int.Parse(barId), Hits = 1, CountDate = DateTime.Today };
+                m_FTISService.CreateCount(count);
+            }
+            else
+            {
+                count.Hits += 1;
+                m_FTISService.UpdateCount(count);
+            }
+        }
+
+        public int GetSumCountHits(string barId)
+        {
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("BarId", barId);
+            int total = m_FTISService.GetSumCountHits(conditions);
+
+            return total;
+        }
     }
 }

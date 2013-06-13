@@ -11,7 +11,9 @@ namespace FTISWeb.Controllers
     {
         public ActionResult Index()
         {
-            return View(new HomeShowModel());
+            HomeShowModel model = new HomeShowModel();
+            model.AddCount("1");
+            return View(model);
         }
 
         public ActionResult EngIndex()
