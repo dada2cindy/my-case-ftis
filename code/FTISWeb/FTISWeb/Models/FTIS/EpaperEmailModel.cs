@@ -195,9 +195,9 @@ namespace FTISWeb.Models
             }
 
             LoadEntity(entity.EpaperEmailId);
-        }
+        }        
 
-        internal bool IsValid()
+        public bool IsValid()
         {
             bool isValid = true;
 

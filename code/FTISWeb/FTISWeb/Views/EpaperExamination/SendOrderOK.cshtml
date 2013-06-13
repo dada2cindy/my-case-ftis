@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("ExaminationLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>電子報滿意度調查<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Examination")">問卷調查</a> &gt; 電子報滿意度調查</span></h1>    
+    <div id="InShow-INob">
+      <div class="Vote01-txt">
+        <span class="Vistors-txt">~ 您所填寫的問卷已成功送出 ~</span><br />
+        感謝您填寫「產業永續發展整合資訊網」的問卷調查，我們將會針對您所填寫的建議，改善本網站並期能滿足您的需求！若您有任何問題，請與我們聯絡~
+        <br />
+      <span class="Vote01-txt-txt">產業永續發展整合資訊網 敬上 </span></div>
+    </div>
+  </div><!--內容結尾-->
+</div>

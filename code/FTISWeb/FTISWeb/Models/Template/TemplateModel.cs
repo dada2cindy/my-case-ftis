@@ -54,12 +54,19 @@ namespace FTISWeb.Models
         /// <summary>
         /// 類別
         /// </summary>
-        public virtual TemplateVO.Type TemplateType { get; set; }
+        public virtual string TemplateType { get; set; }
 
         public TemplateModel()
         {
             m_TemplateService = m_FTISFactory.GetTemplateService();
             Status = "1";
+        }
+
+        public TemplateModel(string templateType)
+        {
+            m_TemplateService = m_FTISFactory.GetTemplateService();
+            Status = "1";
+            this.TemplateType = templateType;
         }
 
         public TemplateModel(int id)
@@ -88,7 +95,7 @@ namespace FTISWeb.Models
                 StartDate = template.StartDate;
                 EndDate = template.EndDate;
                 Status = template.Flag.ToString();
-                TemplateType = template.TemplateType;
+                TemplateType = template.TemplateType.ToString();
             }
         }
 
@@ -106,8 +113,7 @@ namespace FTISWeb.Models
 
         private void Save(TemplateVO template)
         {
-            template.Name = Name;
-            template.Name = Name;
+            template.Name = Name;            
             template.CSS = CSS;
             template.FileName = FileName;
             template.FileName2 = FileName2;
@@ -117,7 +123,7 @@ namespace FTISWeb.Models
             if (template.TemplateId == 0)
             {
                 template.Flag = 1;
-                template.TemplateType = TemplateType;
+                template.TemplateType = (TemplateVO.Type)Enum.Parse(typeof(TemplateVO.Type), TemplateType);
                 m_TemplateService.CreateTemplate(template);
             }
             else

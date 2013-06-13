@@ -69,8 +69,8 @@ namespace FTISWeb.Controllers
             try
             {
                 Industry entity = m_FTISService.GetIndustryById(id);
-
-                m_FTISService.DeleteIndustry(entity);
+                entity.Status = "0";
+                m_FTISService.UpdateIndustry(entity);
 
                 result.ErrorCode = AjaxResultStatus.Success;
                 result.Message = string.Format("{0}刪除成功", entity.Name);
@@ -98,7 +98,8 @@ namespace FTISWeb.Controllers
                 try
                 {
                     Industry entity = m_FTISService.GetIndustryById(Convert.ToInt32(id));
-                    m_FTISService.DeleteIndustry(entity);
+                    entity.Status = "0";
+                    m_FTISService.UpdateIndustry(entity);
                 }
                 catch (Exception ex)
                 {

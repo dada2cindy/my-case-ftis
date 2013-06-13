@@ -216,6 +216,7 @@
     <Compile Include="Controllers\Admin\AdminReportController.cs" />
     <Compile Include="Controllers\Admin\AdminSubNormClassController.cs" />
     <Compile Include="Controllers\Admin\AdminNormController.cs" />
+    <Compile Include="Controllers\Admin\TemplateController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
@@ -239,6 +240,8 @@
     <Compile Include="Controllers\NormController.cs" />
     <Compile Include="Controllers\MNormController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\EpaperExaminationController.cs" />
+    <Compile Include="Controllers\ExaminationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -278,6 +281,9 @@
     <Compile Include="Models\FTIS\ReportModel.cs" />
     <Compile Include="Models\FTIS\MemberModel.cs" />
     <Compile Include="Models\FTIS\NormModel.cs" />
+    <Compile Include="Models\FTIS\AbstractExaminationModel.cs" />
+    <Compile Include="Models\FTIS\EpaperExaminationModel.cs" />
+    <Compile Include="Models\FTIS\ExaminationModel.cs" />
     <Compile Include="Models\Home\HomeShowModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
@@ -2243,6 +2249,11 @@
     <Content Include="Views\Member\Logoff.cshtml" />
     <Content Include="Views\Member\Join.cshtml" />
     <Content Include="Views\Member\ForgetPass.cshtml" />
+    <Content Include="Views\EpaperExamination\Index.cshtml" />
+    <Content Include="Views\Shared\ExaminationLeftMenu.cshtml" />
+    <Content Include="Views\EpaperExamination\SendOrderOK.cshtml" />
+    <Content Include="Views\Examination\Index.cshtml" />
+    <Content Include="Views\Examination\SendOrderOK.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

@@ -195,7 +195,7 @@ namespace FTISWeb.Models
                 Tel2 = entity.Tel2;
                 Fax = entity.Fax;
                 Content = entity.Content;
-                IndustryId = entity.IndustryId;
+                IndustryId = entity.Industry.IndustryId;
             }
         }
 
@@ -249,7 +249,10 @@ namespace FTISWeb.Models
             entity.Tel2 = Tel2;
             entity.Fax = Fax;
             entity.Content = Content;
-            entity.IndustryId = IndustryId;
+            if (IndustryId > 0)
+            {
+                entity.Industry = m_FTISService.GetIndustryById(IndustryId);
+            }
 
             if (CompanyTypeList != null && CompanyTypeList.Count() > 0)
             {

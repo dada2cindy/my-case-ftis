@@ -1,0 +1,141 @@
+﻿@model EpaperExaminationModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+    
+    @*行業別*@
+    IList<SelectListItem> m_IndustryList = new List<SelectListItem>();
+    if(ViewData["IndustrySelectList"]!=null)
+    {
+        m_IndustryList = (IList<SelectListItem>)ViewData["IndustrySelectList"];
+    }
+}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {            
+            $("#btnClear").click(function () {
+                //ClearUI('#frmSendOrder');
+                window.location.href = "@Url.Action("Index", "EpaperExamination")";
+            });
+            $("#safecode").click(function () {
+                $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
+            });
+        });
+    </script>
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("ExaminationLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>電子報滿意度調查<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Examination")">問卷調查</a> &gt; 電子報滿意度調查</span></h1>    
+@using (Html.BeginForm("SendOrder", "EpaperExamination", FormMethod.Post, new { id = "frmSendOrder" }))
+{      
+      <div id="InShow-INob">
+      <div class="Vote01-txt">親愛的朋友 您好！<br />
+      感謝您對<strong>「產業永續發展整合資訊網」</strong>的支持，改善本計畫網站並期能滿足使用者的需求，一直是我們努力的目標，敬請撥允完成以下之問題，可以讓我們知道您對本計畫網站的滿意程度及改善建議，您的指導及參與是我們進步的最大動力！<br />
+      <span class="Vote01-txt-txt">產業永續發展整合資訊網 敬上</span> </div>
+      <div class="Vote01-stitle">填表人基本資料<span class="Act-Status">(皆為必填項目)</span></div>
+      <p class="Vote01-stxt">姓　　名
+          @Html.TextBox("Name", Model.Name, new { id = "Name", @class = "csr-Order2" })        
+      </p>
+      <p class="Vote01-stxt">性　　別：
+          <label>@Html.RadioButtonFor(m => m.Gender, "1") 男</label>
+        <label>@Html.RadioButtonFor(m => m.Gender, "0") 女</label>
+      </p>
+      <p class="Vote01-stxt">電子信箱：
+          @Html.TextBox("Email", Model.Email, new { id = "Email", @class = "csr-Order2" })        
+      </p>
+      <p class="Vote01-stxt">行業別　：
+        @Html.DropDownList("IndustryId", m_IndustryList, "請選擇", new { @class = "csr-Order" })　
+      </p>
+      
+      <div class="Vote01-stitle">電子報滿意度調查</div>
+      <p class="Vote01-stxt">1. 您對電子報的版面編輯/排版是否易於瀏覽閱讀感覺滿意嗎？<br />     
+             　
+        <label>@Html.RadioButtonFor(m => m.Question1, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "5") 非常不滿意 </label>
+      </p>
+      <p class="Vote01-stxt">2. 您對電子報每季所提供的產業永續動態摘要與趨勢報導感覺滿意嗎？<br />
+          &nbsp;&nbsp;
+        <label>@Html.RadioButtonFor(m => m.Question2, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question2, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question2, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question2, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question2, "5") 非常不滿意 </label>
+      </p>
+      <p class="Vote01-stxt">3.當您收到電子報時，閱讀習慣/順序是？<br />
+          &nbsp;&nbsp;
+          <label>@Html.RadioButtonFor(m => m.Question3, "1") 依序並全文閱讀 </label>
+          <label>@Html.RadioButtonFor(m => m.Question3, "2") 全部閱讀；但是會先點閱感興趣的新聞標題，再瀏覽其他新聞 </label><br />
+          &nbsp;&nbsp;
+          <label>@Html.RadioButtonFor(m => m.Question3, "3") 只瀏覽標題 </label>
+          <label>@Html.RadioButtonFor(m => m.Question3, "4") 只點閱有興趣的新聞，其餘不看 </label>
+          <label>@Html.RadioButtonFor(m => m.Question3, "5") 不一定 </label>             
+      </p>
+      <p class="Vote01-stxt">4. 您對電子報所刊載的內容數量？<br />
+     &nbsp;&nbsp;
+        <label>@Html.RadioButtonFor(m => m.Question4, "1") 過多 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "2") 稍多 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "3") 適中 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "4") 稍少 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "5") 過少 </label>     
+     </p>
+      <p class="Vote01-stxt">5.您對電子報發行的頻率，您覺得比較適合的週期為？<br />
+     &nbsp;&nbsp;
+         <label>@Html.RadioButtonFor(m => m.Question5, "1") 不定期 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "2") 一週 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "3") 雙週 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "4") 一個月 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "5") 一季 </label> 
+        <label>@Html.RadioButtonFor(m => m.Question5, "6") 沒意見 </label>
+</p>
+      <p class="Vote01-stxt">6. 您是否會習慣性地將您收到的電子報轉寄或推薦給別人嗎？<br />
+     &nbsp;&nbsp; 
+        <label>@Html.RadioButtonFor(m => m.Question6, "1") 是 </label>
+        <label>@Html.RadioButtonFor(m => m.Question6, "2") 否 </label>
+      </p>
+      <p class="Vote01-stxt">
+        7. 整體而言，您對電子報的整體表現感覺滿意嗎？<br />
+        &nbsp;
+       &nbsp; 
+        <label>@Html.RadioButtonFor(m => m.Question7, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "5") 非常不滿意 </label>
+      </p>
+      <p class="Vote01-stxt">8. 您希望我們增加電子報哪一方面的資訊(請簡單扼要說明)： <br />
+      &nbsp;&nbsp;&nbsp; <span class="Epaper02-pp">
+          @Html.TextArea("Question8", Model.Question8, new { id = "Question8", @class = "csr-Order3", cols="45", rows="3" })      
+  </span></p>
+      <p class="Vote01-stxt">
+        <label for="number">9. 其他對於電子報內容的建議：</label>
+        <br />
+      &nbsp;&nbsp;&nbsp; <span class="Epaper02-pp">
+          @Html.TextArea("Question9", Model.Question9, new { id = "Question9", @class = "csr-Order3", cols="45", rows="3" })           
+      </span></p>
+      <p class="Vote01-stxt">10. 驗證碼<span class="Epaper02-pp">
+          @Html.TextBox("ConfirmationCode", Model.ConfirmationCode, new { id = "ConfirmationCode", @class = "Epaper-Order2" })        
+      </span><span class="Epaper02-pp"><img id="safecode" src="@Url.Action("CaptchaImg", "EpaperExamination")" width="100" height="30" alt="識別碼" /></span></p>
+    <div class="Epaper02-Btn"><input type="image" name="Submit" src="/in-image/com-sent-btn.gif" width="78" height="25" alt="填好送出" />
+           <a id="btnClear" href="#"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
+    <div class="txt-red"> @Html.ValidationSummary()</div>
+  </div>
+} 
+  </div><!--內容結尾-->
+</div>

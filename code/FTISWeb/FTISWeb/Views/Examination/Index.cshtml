@@ -1,0 +1,209 @@
+﻿@model ExaminationModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+    
+    @*行業別*@
+    IList<SelectListItem> m_IndustryList = new List<SelectListItem>();
+    if(ViewData["IndustrySelectList"]!=null)
+    {
+        m_IndustryList = (IList<SelectListItem>)ViewData["IndustrySelectList"];
+    }
+}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {            
+            $("#btnClear").click(function () {
+                //ClearUI('#frmSendOrder');
+                window.location.href = "@Url.Action("Index", "Examination")";
+            });
+            $("#safecode").click(function () {
+                $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
+            });
+        });
+    </script>
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("ExaminationLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>網站滿意度調查<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Examination")">問卷調查</a> &gt; 網站滿意度調查</span></h1>    
+@using (Html.BeginForm("SendOrder", "Examination", FormMethod.Post, new { id = "frmSendOrder" }))
+{      
+      <div id="InShow-INob">
+      <div class="Vote01-txt">親愛的朋友 您好！<br />
+      感謝您對<strong>「產業永續發展整合資訊網」</strong>的支持，改善本計畫網站並期能滿足使用者的需求，一直是我們努力的目標，敬請撥允完成以下之問題，可以讓我們知道您對本計畫網站的滿意程度及改善建議，您的指導及參與是我們進步的最大動力！<br />
+      <span class="Vote01-txt-txt">產業永續發展整合資訊網 敬上</span> </div>
+      <div class="Vote01-stitle">填表人基本資料<span class="Act-Status">(皆為必填項目)</span></div>
+      <p class="Vote01-stxt">姓　　名
+          @Html.TextBox("Name", Model.Name, new { id = "Name", @class = "csr-Order2" })        
+      </p>
+      <p class="Vote01-stxt">性　　別：
+          <label>@Html.RadioButtonFor(m => m.Gender, "1") 男</label>
+        <label>@Html.RadioButtonFor(m => m.Gender, "0") 女</label>
+      </p>
+      <p class="Vote01-stxt">電子信箱：
+          @Html.TextBox("Email", Model.Email, new { id = "Email", @class = "csr-Order2" })        
+      </p>
+      <p class="Vote01-stxt">行業別　：
+        @Html.DropDownList("IndustryId", m_IndustryList, "請選擇", new { @class = "csr-Order" })　
+      </p>
+      
+      <div class="Vote01-stitle">「產業永續發展整合資訊網」滿意度</div>
+      <p class="Vote01-stxt">1. 您使用本網站的頻率？　
+         　
+        <label>@Html.RadioButtonFor(m => m.Question1, "1") 每天使用 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "2") 經常使用 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "3") 偶爾使用 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "4") 第1次使用 </label>
+      </p>
+      <p class="Vote01-stxt">2.您是從哪個管道得知「產業永續發展整合資訊網」<br />      
+          &nbsp;          　
+        <input type="checkbox" name="QuestionSelects2" value="1" @(Model.QuestionSelects2.Contains("1")? "checked" :string.Empty) />
+      搜尋引擎　
+      <input type="checkbox" name="QuestionSelects2" value="2" @(Model.QuestionSelects2.Contains("2")? "checked" :string.Empty) />
+      其他單位相關連結　
+      <input type="checkbox" name="QuestionSelects2" value="3" @(Model.QuestionSelects2.Contains("3")? "checked" :string.Empty) />
+      文宣/課程/出版品　
+      <input type="checkbox" name="QuestionSelects2" value="4" @(Model.QuestionSelects2.Contains("4")? "checked" :string.Empty) />
+      他人介紹
+      <br />
+     &nbsp;
+     <input type="checkbox" name="QuestionSelects2" value="5" />
+      其他(請說明) 
+      @Html.TextBox("QOther2", Model.QOther2, new { id = "QOther2", @class = "csr-Order2" })
+      </p>
+      <p class="Vote01-stxt">3.您使用這個網站的主要原因？<br />
+        　&nbsp; 
+      <input type="checkbox" name="QuestionSelects3" value="1" @(Model.QuestionSelects3.Contains("1")? "checked" :string.Empty) />
+      業務需要　
+      <input type="checkbox" name="QuestionSelects3" value="2" @(Model.QuestionSelects3.Contains("2")? "checked" :string.Empty) />
+      個人需要　
+      <input type="checkbox" name="QuestionSelects3" value="3" @(Model.QuestionSelects3.Contains("3")? "checked" :string.Empty) />
+      學術研究　
+      <input type="checkbox" name="QuestionSelects3" value="4" @(Model.QuestionSelects3.Contains("4")? "checked" :string.Empty) />
+      隨意瀏覽<br />
+     &nbsp;
+     <input type="checkbox" name="QuestionSelects3" value="5" />
+      其他(請說明)
+      @Html.TextBox("QOther3", Model.QOther3, new { id = "QOther3", @class = "csr-Order2" })      
+      </p>
+      <p class="Vote01-stxt">4. 您對本網站的美工設計感覺滿意嗎？<br />
+     &nbsp;&nbsp; 
+        <label>@Html.RadioButtonFor(m => m.Question4, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "5") 非常不滿意 </label>    
+     </p>
+      <p class="Vote01-stxt">5. 您對本網站的內容豐富/實用程度感覺滿意嗎？<br />
+     &nbsp;&nbsp;
+         <label>@Html.RadioButtonFor(m => m.Question5, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "5") 非常不滿意 </label>
+</p>
+      <p class="Vote01-stxt">6. 您對本網站的使用容易度感覺滿意嗎？<br />
+     &nbsp;&nbsp; 
+        <label>@Html.RadioButtonFor(m => m.Question6, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question6, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question6, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question6, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question6, "5") 非常不滿意 </label>
+      </p>
+      <p class="Vote01-stxt">
+        7. 您對我們資料更新速度感覺滿意嗎？<br />
+        &nbsp;
+       &nbsp; 
+        <label>@Html.RadioButtonFor(m => m.Question7, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "5") 非常不滿意 </label>
+      </p>
+      <p class="Vote01-stxt">
+        8. 整體而言，您對本網站的整體表現感覺滿意嗎？<br />
+        &nbsp;
+       &nbsp; 
+        <label>@Html.RadioButtonFor(m => m.Question8, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question8, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question8, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question8, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question8, "5") 非常不滿意 </label>
+      </p>
+      <p class="Vote01-stxt">9. 您最常使用本網站所提供何種單元內容？<br />
+      &nbsp; 
+      <input type="checkbox" name="QuestionSelects9" value="1" @(Model.QuestionSelects9.Contains("1")? "checked" :string.Empty) />
+      新聞動態　
+      <input type="checkbox" name="QuestionSelects9" value="2" @(Model.QuestionSelects9.Contains("2")? "checked" :string.Empty) />
+      活動訊息　
+      <input type="checkbox" name="QuestionSelects9" value="3" @(Model.QuestionSelects9.Contains("3")? "checked" :string.Empty) />
+      下載專區　
+      <input type="checkbox" name="QuestionSelects9" value="4" @(Model.QuestionSelects9.Contains("4")? "checked" :string.Empty) />
+      國際環保標準/規範介紹　
+      <input type="checkbox" name="QuestionSelects9" value="5" @(Model.QuestionSelects9.Contains("5")? "checked" :string.Empty) />
+      產品環境宣告/碳足跡<br />
+      &nbsp;
+      <input type="checkbox" name="QuestionSelects9" value="6" @(Model.QuestionSelects9.Contains("6")? "checked" :string.Empty) />
+     企業社會責任　
+     <input type="checkbox" name="QuestionSelects9" value="7" @(Model.QuestionSelects9.Contains("7")? "checked" :string.Empty) />
+     線上諮詢　
+     <br />
+     &nbsp; 
+     <input type="checkbox" name="QuestionSelects9" value="8" />
+     其他(請說明) 
+     @Html.TextBox("QOther9", Model.QOther9, new { id = "QOther9", @class = "csr-Order2" })
+      </p>
+      <p class="Vote01-stxt">10.請問您希望本網站的內容上，能再加強哪些項目？<br />
+&nbsp;
+<input type="checkbox" name="QuestionSelects10" value="1" @(Model.QuestionSelects10.Contains("1")? "checked" :string.Empty) />
+資料的更新頻率　
+<input type="checkbox" name="QuestionSelects10" value="2" @(Model.QuestionSelects10.Contains("2")? "checked" :string.Empty)/>
+資訊的即時性　
+<input type="checkbox" name="QuestionSelects10" value="3" @(Model.QuestionSelects10.Contains("3")? "checked" :string.Empty)/>
+內容的豐富　
+<input type="checkbox" name="QuestionSelects10" value="4" @(Model.QuestionSelects10.Contains("4")? "checked" :string.Empty)/>
+分類架構　
+<input type="checkbox" name="QuestionSelects10" value="5" @(Model.QuestionSelects10.Contains("5")? "checked" :string.Empty)/>
+瀏覽的方便性　 <br />
+&nbsp;
+<input type="checkbox" name="QuestionSelects10" value="6" @(Model.QuestionSelects10.Contains("6")? "checked" :string.Empty)/>
+連結的有效性及正確性　 <br />
+&nbsp;
+<input type="checkbox" name="QuestionSelects10" value="7" @(Model.QuestionSelects10.Contains("7")? "checked" :string.Empty)/>
+其他(請說明)
+@Html.TextBox("QOther10", Model.QOther10, new { id = "QOther10", @class = "csr-Order2" })
+      </p>
+      <p class="Vote01-stxt">11. 您希望我們增加電子報哪一方面的資訊(請簡單扼要說明)： <br />
+      &nbsp;&nbsp;&nbsp; <span class="Epaper02-pp">
+          @Html.TextArea("Question11", Model.Question11, new { id = "Question11", @class = "csr-Order3", cols="45", rows="3" })      
+  </span></p>
+      <p class="Vote01-stxt">
+        <label for="number">12.  其他對於網站內容的建議：</label>
+        <br />
+      &nbsp;&nbsp;&nbsp; <span class="Epaper02-pp">
+          @Html.TextArea("Question12", Model.Question12, new { id = "Question12", @class = "csr-Order3", cols="45", rows="3" })           
+      </span></p>
+      <p class="Vote01-stxt">10. 驗證碼<span class="Epaper02-pp">
+          @Html.TextBox("ConfirmationCode", Model.ConfirmationCode, new { id = "ConfirmationCode", @class = "Epaper-Order2" })        
+      </span><span class="Epaper02-pp"><img id="safecode" src="@Url.Action("CaptchaImg", "Examination")" width="100" height="30" alt="識別碼" /></span></p>
+    <div class="Epaper02-Btn"><input type="image" name="Submit" src="/in-image/com-sent-btn.gif" width="78" height="25" alt="填好送出" />
+           <a id="btnClear" href="#"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
+    <div class="txt-red"> @Html.ValidationSummary()</div>
+  </div>
+} 
+  </div><!--內容結尾-->
+</div>
