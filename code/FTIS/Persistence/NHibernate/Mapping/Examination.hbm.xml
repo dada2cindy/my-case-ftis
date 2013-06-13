@@ -10,8 +10,8 @@
     <many-to-one name="Industry" class="Industry" column="IndustryID" unique="false"  />    
     <property name="Name" column="Name" type="String" length="200"/>
     <property name="Gender" column="Gender" type="String" length="1"/>
-    <property name="Email" column="Email" type="String" length="200"/>    
-    <property name="PostDate" column="RegDate" type="DateTime"/>
+    <property name="Email" column="Email" type="String" length="200"/>
+    <property name="PostDate" column="PostDate" type="DateTime"/>
     <property name="Question1" column="Question1" type="String" length="50"/>
     <property name="Question2" column="Question2" type="String" length="50"/>
     <property name="QOther2" column="QOther2" type="String" length="200"/>

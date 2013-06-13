@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class Examination
+    public class Examination : Entity
     {
         #region Constructor
 
@@ -32,12 +32,6 @@ namespace FTIS.Domain.Impl
         public virtual Industry Industry { get; set; }
 
         /// <summary>
-        /// 姓名
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
-
-        /// <summary>
         /// 性別
         /// </summary>
         [DataMember]
@@ -50,7 +44,7 @@ namespace FTIS.Domain.Impl
         public virtual string Email { get; set; }
 
         /// <summary>
-        /// 填寫日期
+        /// 填表日期
         /// </summary>
         [DataMember]
         public virtual DateTime? PostDate { get; set; }
