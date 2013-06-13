@@ -1,0 +1,291 @@
+﻿@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+    GreenFactoryClassModel m_GreenFactoryClassModel = new GreenFactoryClassModel();
+    NodeModel m_NodeModel = new NodeModel();
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    <div id="In-leftTitle"><img src="/in-image/left-title-b2.png" alt="網站導覽"/></div>
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>網站導覽<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 網站導覽</span></h1>    
+      <div id="InShow-INob">
+      <div class="Map-t01"><a href="@Url.Action("Index", "AboutUs", new { id = m_hsModel.EncryptId(5) })">關於我們</a></div>
+      <ul class="Map-UL">
+        <a href="@Url.Action("Index", "AboutUs", new { id = m_hsModel.EncryptId(5) })"><li class="Map-t02-li">計畫介紹</li></a>
+      </ul>
+      
+      <ul class="Map-UL">
+        <a href="@Url.Action("Index", "AboutUs", new { id = m_hsModel.EncryptId(6) })"><li class="Map-t02-li">計畫介紹</li></a>
+      </ul>
+      
+      <ul class="Map-UL">
+        <a href="@Url.Action("Index", "AboutUs", new { id = m_hsModel.EncryptId(7) })"><li class="Map-t02-li">計畫介紹</li></a>
+      </ul>
+
+      <div class="Map-t01"><a href="@Url.Action("Index", "News")">新聞動態</a></div>
+      <div class="Map-t01"><a href="@Url.Action("Index", "Activity")">活動訊息</a></div>
+      <div class="Map-t01"><a href="@Url.Action("Index", "Download")">下載專區</a></div>
+      <ul class="Map-UL">
+        <a href="@Url.Action("Index", "Download")"><li class="Map-t02-li">技術工具／文件</li></a>
+      </ul>      
+      <ul class="Map-UL">
+        <a href="@Url.Action("Index", "Curriculum")"><li class="Map-t02-li">課程講義</li>
+        </a>
+      </ul>      
+      <ul class="Map-UL">
+        <a href="@Url.Action("Index", "Publication")"><li class="Map-t02-li">永續產業發展刊物</li></a>
+        <a href="@Url.Action("Index", "Publication")"><li class="Map-t03-li">永續產業發展期刊</li></a>
+        <a href="@Url.Action("Index", "Brief")"><li class="Map-t03-li">永續產業發展簡訊</li></a>        
+      </ul>
+      <div class="Map-t01"><a href="@Url.Action("Index", "Epaper")">電子報</a></div>
+      <ul class="Map-UL">
+        <a href="@Url.Action("Index", "Epaper")"><li class="Map-t02-li">歷史電子報</li></a>
+      </ul>      
+      <ul class="Map-UL">
+        <a href="@Url.Action("Order", "EpaperEmail")"><li class="Map-t02-li">訂閱/退閱電子報</li>
+        </a>
+      </ul>
+      @{
+    @*網路資源分類*@
+    IList<LinksClass> m_LinksClassList = new List<LinksClass>();
+    if (ViewData["LinksClassList"] != null)
+    {
+        m_LinksClassList = (List<LinksClass>)ViewData["LinksClassList"];
+    } 
+}    
+      <div class="Map-t01"><a href="@Url.Action("Index", "Links")">網路資源</a></div>
+          @if (m_LinksClassList != null && m_LinksClassList.Count > 0)
+          {
+              foreach (LinksClass linksClass in m_LinksClassList)
+              {
+                  <ul class="Map-UL">
+        <a href="@Url.Action("Index", "Links", new { linksClassId = m_hsModel.EncryptId(linksClass.LinksClassId) })"><li class="Map-t02-li">@linksClass.Name</li></a>
+      </ul>                    
+              }
+          }       
+
+          @{
+    @*企業社會責任分類*@
+              IList<ApplicationClass> m_ApplicationClassList = new List<ApplicationClass>();
+              if (ViewData["ApplicationClassList"] != null)
+              {
+                  m_ApplicationClassList = (List<ApplicationClass>)ViewData["ApplicationClassList"];
+              } 
+}    
+      <div class="Map-t01"><a href="@Url.Action("Index", "Application")">企業社會責任</a></div>
+          @if (m_ApplicationClassList != null && m_ApplicationClassList.Count > 0)
+          {
+              foreach (ApplicationClass applicationClass in m_ApplicationClassList)
+              {               
+              <ul class="Map-UL">
+        <a href="@Url.Action("Index", "Application", new { applicationClassId = m_hsModel.EncryptId(applicationClass.ApplicationClassId) })"><li class="Map-t02-li">@applicationClass.Name</li></a>
+      </ul>         
+              }
+          }
+          <ul class="Map-UL">
+        <a href="@Url.Action("Index2", "Report")"><li class="Map-t02-li">CSR報告書查詢</li></a>
+        <a href="@Url.Action("Index2", "Report")"><li class="Map-t03-li">國內外報告書現況</li></a>
+        <a href="@Url.Action("Provide", "Report")"><li class="Map-t03-li">報告書資訊提供</li></a>   
+        <a href="@Url.Action("Index", "Report")"><li class="Map-t03-li">報告書資訊查詢</li></a>        
+      </ul>    
+@{
+          @*國際環保標準規範介紹*@
+    IList<NormClass> m_ParentNormClassList = new List<NormClass>();
+    if (ViewData["ParentNormClassList"] != null)
+    {
+        m_ParentNormClassList = (List<NormClass>)ViewData["ParentNormClassList"];
+    }  
+}    
+      <div class="Map-t01"><a href="@Url.Action("Index", "Norm")">國際環保標準規範介紹</a></div>
+          <ul class="Map-UL">
+          <a href="@Url.Action("Index", "Norm")"><li class="Map-t02-li">各地區標準／規範</li></a>
+          @if (m_ParentNormClassList != null && m_ParentNormClassList.Count > 0)
+          {
+              foreach (NormClass normClass in m_ParentNormClassList)
+              {  
+        <a href="@Url.Action("Index", "Norm", new { id = m_hsModel.EncryptId(normClass.NormClassId) })"><li class="Map-t03-li">@normClass.Name</li></a>                  
+              }
+          } 
+              </ul>
+          <ul class="Map-UL">
+          <a href="@Url.Action("Index", "MNorm")"><li class="Map-t02-li">國際組織標準/系統動態</li></a>
+                </ul>
+
+          @{
+          @*產品環境資訊揭露*@
+              IList<Node> m_NodeList = new List<Node>();
+              if (ViewData["NodeList"] != null)
+              {
+                  m_NodeList = (List<Node>)ViewData["NodeList"];
+              } 
+}    
+      <div class="Map-t01"><a href="@Url.Action("Index", "Carbon")">產品環境資訊揭露</a></div>
+          @if (m_NodeList != null && m_NodeList.Count > 0)
+          {
+              foreach (Node node in m_NodeList)
+              {
+                  <ul class="Map-UL">
+          <a href="@Url.Action("Index", "Carbon", new { id = m_hsModel.EncryptId(node.NodeId) })"><li class="Map-t02-li">@node.Name</li></a>
+                </ul>                                        
+              }
+          } 
+
+          @{
+          @*綠色工廠*@
+              IList<GreenFactoryClass> m_GreenFactoryClassList = new List<GreenFactoryClass>();
+              if (ViewData["GreenFactoryClassList"] != null)
+              {
+                  m_GreenFactoryClassList = (List<GreenFactoryClass>)ViewData["GreenFactoryClassList"];
+              } 
+} 
+          @{
+              <div class="Map-t01"><a href="@Url.Action("Index", "GreenFactory")">綠色工廠</a></div>
+    if (m_GreenFactoryClassList != null && m_GreenFactoryClassList.Count > 0)
+    {
+        foreach (GreenFactoryClass greenFactoryClass in m_GreenFactoryClassList)
+        {
+            IList<GreenFactory> greenFactoryList = m_GreenFactoryClassModel.GetGreenFactoryList(true, greenFactoryClass.GreenFactoryClassId);
+
+            if (greenFactoryList.Count == 0)
+            {
+               
+            }                   
+            else
+            {
+                 <ul class="Map-UL">
+                     <a href="@Url.Action("Index", "GreenFactory", new { id = m_hsModel.EncryptId(greenFactoryList[0].GreenFactoryId) })"><li class="Map-t02-li">@greenFactoryClass.Name</li></a>                
+                @foreach (GreenFactory greenFactory in greenFactoryList)
+                {                    
+                     <a href="@Url.Action("Index", "GreenFactory", new { id = m_hsModel.EncryptId(greenFactory.GreenFactoryId) })"><li class="Map-t03-li">@greenFactory.Name</li></a>                
+                }
+                </ul>
+            }
+        }
+    } 
+}
+
+          @{
+          @*企業永續發展應用*@
+              IList<Node> m_GreenNodeList = new List<Node>();
+              if (ViewData["GreenNodeList"] != null)
+              {
+                  m_GreenNodeList = (List<Node>)ViewData["GreenNodeList"];
+              } 
+} 
+          @{
+              <div class="Map-t01"><a href="@Url.Action("Index", "Green")">企業永續發展應用</a></div>
+              if (m_GreenNodeList != null && m_GreenNodeList.Count > 0)
+    {
+        foreach (Node node in m_GreenNodeList)
+        {
+            IList<Post> postList = m_NodeModel.GetPostList(true, node.NodeId);
+                  
+            if(postList.Count==0)
+            {
+                <ul class="Map-UL">
+                     <a href="@Url.Action("Index", "Green", new { id = m_hsModel.EncryptId(node.NodeId) })"><li class="Map-t02-li">@node.Name</li></a>                
+                    </ul>   
+            }                   
+            else
+            {
+                <ul class="Map-UL">
+                     <a href="@Url.Action("Index2", "Green", new { id = m_hsModel.EncryptId(postList[0].PostId) })"><li class="Map-t02-li">@node.Name</li></a>                
+                @foreach (Post post in postList)
+                {
+                    <a href="@Url.Action("Index2", "Green", new { id = m_hsModel.EncryptId(post.PostId) })"><li class="Map-t03-li">@post.Name</li></a>                                
+                }
+                </ul>
+            }
+        }
+    } 
+}
+
+          @{
+          @*技術服務能量登錄*@
+              IList<Node> m_TechnologyNodeList = new List<Node>();
+              if (ViewData["TechnologyNodeList"] != null)
+              {
+                  m_TechnologyNodeList = (List<Node>)ViewData["TechnologyNodeList"];
+              } 
+} 
+          @{
+              <div class="Map-t01"><a href="@Url.Action("Index", "Technology")">技術服務能量登錄</a></div>
+              if (m_TechnologyNodeList != null && m_TechnologyNodeList.Count > 0)
+    {
+        foreach (Node node in m_TechnologyNodeList)
+        {
+            IList<Node> nodeList = m_NodeModel.GetNodeList(true, node.NodeId);
+
+            if (nodeList.Count == 0)
+            {
+                <ul class="Map-UL">
+                     <a href="@Url.Action("Index", "Technology", new { id = m_hsModel.EncryptId(node.NodeId) })"><li class="Map-t02-li">@node.Name</li></a>                
+                    </ul>   
+            }                   
+            else
+            {
+                <ul class="Map-UL">
+                     <a href="@Url.Action("Index2", "Technology", new { id = m_hsModel.EncryptId(nodeList[0].NodeId) })"><li class="Map-t02-li">@node.Name</li></a>                
+                @foreach (Node subNode in nodeList)
+                {
+                    <a href="@Url.Action("Index2", "Technology", new { nodeId = m_hsModel.EncryptId(subNode.NodeId) })"><li class="Map-t03-li">@subNode.Name</li></a>                                
+                }
+                </ul>
+            }
+        }
+    } 
+}
+
+          @{
+          @*永續產業資訊FAQ*@
+              IList<QuestionClass> m_QuestionClassList = new List<QuestionClass>();
+              if (ViewData["QuestionClassList"] != null)
+              {
+                  m_QuestionClassList = (List<QuestionClass>)ViewData["QuestionClassList"];
+              } 
+}           
+          <div class="Map-t01"><a href="@Url.Action("Index", "Question")">產業服務專區</a></div>
+          <ul class="Map-UL">
+          <a href="http://www.ftis.org.tw/Consultation/index.aspx" target="_blank"><li class="Map-t02-li">線上諮詢</li></a>
+                </ul>
+          <ul class="Map-UL">
+          <a href="@Url.Action("Index", "AboutUs", new { id = m_hsModel.EncryptId(6) })" ><li class="Map-t02-li">服務窗口</li></a>
+                </ul>
+
+          <ul class="Map-UL">
+          <a href="@Url.Action("Index", "Question")"><li class="Map-t02-li">永續產業資訊FAQ</li></a>
+              <a href="@Url.Action("Index", "Question")"><li class="Map-t03-li">全部</li></a>                  
+          @if (m_QuestionClassList != null && m_QuestionClassList.Count > 0)
+{
+    foreach (QuestionClass questionClass in m_QuestionClassList)
+    {
+        <a href="@Url.Action("Index", "Question", new { questionClassId = m_hsModel.EncryptId(questionClass.QuestionClassId) })"><li class="Map-t03-li">@questionClass.Name</li></a>  
+    }
+}
+              </ul>
+
+          <div class="Map-t01"><a href="@Url.Action("Index", "Examination")">問卷調查</a></div>
+          <ul class="Map-UL">
+          <a href="@Url.Action("Index", "Examination")" ><li class="Map-t02-li">網站滿意度調查</li></a>
+                </ul>
+          <ul class="Map-UL">
+          <a href="@Url.Action("Index", "EpaperExamination")"><li class="Map-t02-li">電子報滿意度調查</li></a>
+                </ul>
+
+    </div>
+  </div><!--內容結尾-->
+</div>

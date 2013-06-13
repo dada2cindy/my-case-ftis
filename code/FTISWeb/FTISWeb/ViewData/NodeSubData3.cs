@@ -9,7 +9,7 @@ using FTISWeb.Helper;
 
 namespace FTISWeb.Controllers
 {
-    public class NodeSubData : ActionFilterAttribute
+    public class NodeSubData3 : ActionFilterAttribute
     {
         /// <summary>
         /// 僅Status = 1 (開啟)

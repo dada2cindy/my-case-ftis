@@ -9,19 +9,12 @@ using FTISWeb.Helper;
 
 namespace FTISWeb.Controllers
 {
-    public class NodeSubData : ActionFilterAttribute
+    public class IndustryData : ActionFilterAttribute
     {
         /// <summary>
         /// 僅Status = 1 (開啟)
         /// </summary>
         public bool OnlyOpen { get; set; }
-
-        public string NodeName { get; set; }
-
-        /// <summary>
-        /// ParentNodeId
-        /// </summary>
-        public SiteParentNode ParentNodeId { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -32,13 +25,18 @@ namespace FTISWeb.Controllers
             {
                 conditions.Add("Status", "1");
             }
-            if ((int)ParentNodeId > 0)
+
+            IList<SelectListItem> industryList = new List<SelectListItem>();
+            IList<Industry> list = m_FTISService.GetIndustryList(conditions);
+            if (list != null && list.Count > 0)
             {
-                conditions.Add("ParentNodeId", ((int)ParentNodeId).ToString());
-                IList<Node> nodeList = m_FTISService.GetNodeList(conditions);
-                context.Controller.ViewData[NodeName + "NodeList"] = nodeList;
+                foreach (Industry entity in list)
+                {
+                    industryList.Add(new SelectListItem() { Text = entity.Name, Value = entity.IndustryId.ToString() });
+                }
             }
-        
+
+            context.Controller.ViewData["IndustrySelectList"] = industryList;
         }
     }
 }

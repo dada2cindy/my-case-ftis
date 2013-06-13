@@ -321,6 +321,8 @@
     <Compile Include="ViewData\ReportItemData.cs" />
     <Compile Include="ViewData\NormClassData.cs" />
     <Compile Include="ViewData\IndustryData.cs" />
+    <Compile Include="ViewData\NodeSubData2.cs" />
+    <Compile Include="ViewData\NodeSubData3.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -2254,6 +2256,8 @@
     <Content Include="Views\EpaperExamination\SendOrderOK.cshtml" />
     <Content Include="Views\Examination\Index.cshtml" />
     <Content Include="Views\Examination\SendOrderOK.cshtml" />
+    <Content Include="Views\Home\EngSiteMap.cshtml" />
+    <Content Include="Views\Home\SiteMap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />
