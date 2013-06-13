@@ -59,7 +59,7 @@
     <script type="text/javascript">
         $(function () {
             $("#btnClear").click(function () {
-                ClearUI('#frmSave');
+                window.location.href("@Url.Action("Provide2", "Report")");
             });
             $("#safecode").click(function () {
                 $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
@@ -199,7 +199,7 @@
         <img id="safecode" src="@Url.Action("CaptchaImg", "Report")" width="100" height="30"  alt="識別碼" /><span class="txt-red"><br />
         　　　　　　　( 請輸入 4 位字母數字組合驗證碼，如數字未標明清楚，請點擊更換圖片 )</span></li>
       <div class="Epaper02-Btn"><input type="image" name="Submit" src="/in-image/com-sent-btn.gif" width="78" height="25" alt="填好送出" />
-           <a id="btnClear" href="#"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
+           <a id="btnClear" href="@Url.Action("Provide2", "Report")"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
       <div class="txt-red"> @Html.ValidationSummary()</div>
     </div>
             }      
