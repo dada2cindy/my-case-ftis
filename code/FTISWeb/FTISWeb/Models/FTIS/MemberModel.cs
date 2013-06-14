@@ -204,6 +204,7 @@ namespace FTISWeb.Models
                 Content = entity.Content;
                 IndustryId = entity.Industry.IndustryId;
                 ReceiveEpaperInfo = entity.ReceiveEpaperInfo;
+                CompanyTypeList = entity.CompanyType.Replace(", ", ",").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             }
         }
 

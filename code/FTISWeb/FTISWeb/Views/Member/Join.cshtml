@@ -84,14 +84,14 @@
               @Html.DropDownList("IndustryId", m_IndustryList, "請選擇", new { @class = "csr-Order" })　
           </p>
           <p class="Join-txtP">　公司屬性：
-            <input type="checkbox" name="CompanyTypeList" value="1" />
+            <input type="checkbox" name="CompanyTypeList" value="1" @(Model.CompanyTypeList.Contains("1")? "checked" :string.Empty) />
             ODM(設計製造代工廠)　
-            <input type="checkbox" name="CompanyTypeList" value="2" />
+            <input type="checkbox" name="CompanyTypeList" value="2" @(Model.CompanyTypeList.Contains("2")? "checked" :string.Empty)/>
             OBM(品牌廠商)　
-            <input type="checkbox" name="CompanyTypeList" value="3" />
+            <input type="checkbox" name="CompanyTypeList" value="3" @(Model.CompanyTypeList.Contains("3")? "checked" :string.Empty)/>
             OEM(設備製造代工廠)　<br />
             　　　　　　
-            <input type="checkbox" name="CompanyTypeList" value="4" />
+            <input type="checkbox" name="CompanyTypeList" value="4" @(Model.CompanyTypeList.Contains("4")? "checked" :string.Empty)/>
             其他 
             @Html.TextBox("CompanyTypeOther", Model.CompanyTypeOther, new { id = "CompanyTypeOther", @class = "csr-Order2" })  
           </p>

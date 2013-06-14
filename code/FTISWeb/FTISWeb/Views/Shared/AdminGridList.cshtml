@@ -214,6 +214,14 @@
                         width: 100
                     },
                     {
+                        field: "@Model.GetColumnName("LoginId")",
+                        title: "登入帳號",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("LoginId"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
                         field: "@Model.GetColumnName("Name")",
                         title: "@Model.GetDisplayName("Name")",
                         template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("Name") + "</span>" #',
@@ -327,11 +335,11 @@
                     },
                     {
                         field: "@Model.GetColumnName("GetStr_RegDate")",
-                        title: "訂/退閱時間",
+                        title: "@Model.GetDisplayName("GetStr_RegDate")",
                         hidden: $.parseJSON("@(Model.Hidden("GetStr_RegDate"))"),
                         attributes: { "style": "text-align: center;" },
                         sortable: true,
-                        width: 80
+                        width: 90
                     },
                     {
                         field: "@Model.GetColumnName("GetStr_Status")",
@@ -339,7 +347,7 @@
                         sortable: true,
                         hidden: $.parseJSON("@(Model.Hidden("GetStr_Status"))"),
                         attributes: { "style": "text-align: center;" },
-                        width: 60
+                        width: 100
                     },
                     {
                         title: "操作",

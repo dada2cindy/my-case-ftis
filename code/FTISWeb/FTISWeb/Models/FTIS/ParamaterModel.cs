@@ -138,6 +138,9 @@ namespace FTISWeb.Models
                 case "Examination":
                     m_VisibleColumns = new string[] { "Name", "ExaminationName", "Industry.Name", "GetStr_PostDate" };
                     break;
+                case "Member":
+                    m_VisibleColumns = new string[] { "Name", "Company", "LoginId", "MemberName", "Industry.Name", "GetStr_RegDate", "GetStr_Status" };
+                    break;
             }
         }
 
@@ -184,6 +187,10 @@ namespace FTISWeb.Models
                     {
                         displayName = "姓名";
                     }
+                    else if (m_VisibleColumns.Contains("MemberName"))
+                    {
+                        displayName = "姓名";
+                    }
                     else
                     {
                         displayName = "名稱";
@@ -208,6 +215,16 @@ namespace FTISWeb.Models
                     {
                         displayName = "刊登日期";
                     }                    
+                    break;
+                case "GetStr_RegDate":
+                    if (m_VisibleColumns.Contains("MemberName"))
+                    {
+                        displayName = "申請日期";
+                    }
+                    else
+                    {
+                        displayName = "訂/退閱時間";
+                    }
                     break;
             }
 
