@@ -1531,6 +1531,13 @@ namespace FTIS.Service
         IList<Examination> GetExaminationList(IDictionary<string, string> conditions);
 
         /// <summary>
+        /// 取得網站滿意度問卷清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>網站滿意度問卷清單</returns>
+        IList<Examination> GetExaminationListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
         /// 取得網站滿意度問卷數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -1579,6 +1586,13 @@ namespace FTIS.Service
         /// <param name="conditions">搜尋條件</param>
         /// <returns>電子報滿意度問卷清單</returns>
         IList<EpaperExamination> GetEpaperExaminationList(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得電子報滿意度問卷清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>電子報滿意度問卷清單</returns>
+        IList<EpaperExamination> GetEpaperExaminationListNoLazy(IDictionary<string, string> conditions);
 
         /// <summary>
         /// 取得電子報滿意度問卷數量

@@ -139,6 +139,12 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string Status { get; set; }
 
+        /// <summary>
+        /// 是否同意本會提供免費電子報資訊 1.同意 2.不同意
+        /// </summary>
+        [DataMember]
+        public virtual string ReceiveEpaperInfo { get; set; }
+
         public virtual string GetStr_Status
         {
             get

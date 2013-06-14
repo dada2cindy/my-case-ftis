@@ -2465,6 +2465,29 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
+        /// 取得網站滿意度問卷清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>網站滿意度問卷清單</returns>
+        public IList<Examination> GetExaminationListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<Examination> list = FTISDao.GetExaminationList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Examination examination in list)
+                {
+                    if (examination != null && examination.Industry != null)
+                    {
+                        NHibernateUtil.Initialize(examination.Industry);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// 取得網站滿意度問卷數量
         /// </summary>
         /// <param name="conditions"></param>
@@ -2540,6 +2563,29 @@ namespace FTIS.Service.Impl
         public IList<EpaperExamination> GetEpaperExaminationList(IDictionary<string, string> conditions)
         {
             return FTISDao.GetEpaperExaminationList(conditions);
+        }
+
+        /// <summary>
+        /// 取得電子報滿意度問卷清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>電子報滿意度問卷清單</returns>
+        public IList<EpaperExamination> GetEpaperExaminationListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<EpaperExamination> list = FTISDao.GetEpaperExaminationList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (EpaperExamination epaperExamination in list)
+                {
+                    if (epaperExamination != null && epaperExamination.Industry != null)
+                    {
+                        NHibernateUtil.Initialize(epaperExamination.Industry);
+                    }
+                }
+            }
+
+            return list;
         }
 
         /// <summary>
@@ -2669,7 +2715,7 @@ namespace FTIS.Service.Impl
 
             if (post != null && post.Node != null)
             {
-                NHibernateUtil.Initialize(post.Node);                
+                NHibernateUtil.Initialize(post.Node);
             }
             else
             {
@@ -2738,7 +2784,7 @@ namespace FTIS.Service.Impl
         public int GetReportCount(IDictionary<string, string> conditions)
         {
             return FTISDao.GetReportCount(conditions);
-        }        
+        }
         #endregion
 
         #region CountVO

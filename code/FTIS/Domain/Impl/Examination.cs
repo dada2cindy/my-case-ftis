@@ -145,6 +145,21 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string Question12 { get; set; }
 
+        public virtual string GetStr_PostDate
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (PostDate != null)
+                {
+                    result = PostDate.Value.ToString("yyyy/MM/dd");
+                }
+
+                return result;
+            }
+        }
+
         #endregion
     }
 }

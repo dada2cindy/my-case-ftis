@@ -28,6 +28,7 @@
       <column name="Content" sql-type="NTEXT"/>
     </property>
     <property name="Status" column="Status" type="String" length="1"/>
+    <property name="ReceiveEpaperInfo" column="ReceiveEpaperInfo" type="String" length="1"/>
 
   </class>
 
