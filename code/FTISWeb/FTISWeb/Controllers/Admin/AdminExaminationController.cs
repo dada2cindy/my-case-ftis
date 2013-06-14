@@ -18,7 +18,7 @@ using KendoGridBinder.Containers;
 
 namespace FTISWeb.Controllers
 {
-    public partial class EpaperExaminationController : Controller
+    public partial class ExaminationController : Controller
     {
         protected static FTISFactory m_FTISFactory = new FTISFactory();
         protected static IFTISService m_FTISService = m_FTISFactory.GetFTISService();
@@ -41,7 +41,7 @@ namespace FTISWeb.Controllers
         public ActionResult Edit(int id, string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new EpaperExaminationModel(id));
+            return View("Save", new ExaminationModel(id));
         }
 
         [ValidateInput(false)]
@@ -49,7 +49,7 @@ namespace FTISWeb.Controllers
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Examination, Operation = SiteOperations.Edit)]
         [HttpPost]
         [IndustryData]
-        public ActionResult Edit(EpaperExaminationModel model, string cdts)
+        public ActionResult Edit(ExaminationModel model, string cdts)
         {
             GetConditions(cdts);
             model.Update();
@@ -62,7 +62,7 @@ namespace FTISWeb.Controllers
         public ActionResult Create(string cdts)
         {
             GetConditions(cdts);
-            return View("Save", new EpaperExaminationModel());
+            return View("Save", new ExaminationModel());
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Examination, Operation = SiteOperations.Delete)]
@@ -73,9 +73,9 @@ namespace FTISWeb.Controllers
 
             try
             {
-                EpaperExamination entity = m_FTISService.GetEpaperExaminationById(id);
+                Examination entity = m_FTISService.GetExaminationById(id);
 
-                m_FTISService.DeleteEpaperExamination(entity);
+                m_FTISService.DeleteExamination(entity);
 
                 result.ErrorCode = AjaxResultStatus.Success;
                 result.Message = string.Format("{0}刪除成功", entity.Name);
@@ -102,8 +102,8 @@ namespace FTISWeb.Controllers
             {
                 try
                 {
-                    EpaperExamination entity = m_FTISService.GetEpaperExaminationById(Convert.ToInt32(id));
-                    m_FTISService.DeleteEpaperExamination(entity);
+                    Examination entity = m_FTISService.GetExaminationById(Convert.ToInt32(id));
+                    m_FTISService.DeleteExamination(entity);
                 }
                 catch (Exception ex)
                 {
@@ -121,7 +121,7 @@ namespace FTISWeb.Controllers
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Examination, Operation = SiteOperations.Create)]
         [HttpPost]
         [IndustryData]
-        public ActionResult Create(EpaperExaminationModel model, string cdts)
+        public ActionResult Create(ExaminationModel model, string cdts)
         {
             GetConditions(cdts);
             model.Insert();
@@ -159,7 +159,7 @@ namespace FTISWeb.Controllers
             AppendSortingCondition(request);
 
             var data = GetGridData();
-            var result = new KendoGrid<EpaperExamination>(request, data, total);
+            var result = new KendoGrid<Examination>(request, data, total);
             return Json(result);
         }
 
@@ -171,7 +171,7 @@ namespace FTISWeb.Controllers
         public ActionResult RefreshAdminGrid(string keyWord, string industryId)
         {
             SetConditions(keyWord, industryId);
-            return View("AdminGridList", new ParamaterModel("Edit", "EpaperExamination", (string)ViewData["Conditions"]));
+            return View("AdminGridList", new ParamaterModel("Edit", "Examination", (string)ViewData["Conditions"]));
         }
 
         private void AppendSortingCondition(KendoGridRequest request)
@@ -182,19 +182,19 @@ namespace FTISWeb.Controllers
                 string field = sortObject.Field.Replace("GetStr_", "");
                 string direction = sortObject.Direction;
 
-                m_Conditions.Add("Order", string.Format("order by q.{0} {1}", field, direction));
+                m_Conditions.Add("Order", string.Format("order by e.{0} {1}", field, direction));
             }
         }
 
         private int GetGridTotal()
         {
-            int total = m_FTISService.GetEpaperExaminationCount(m_Conditions);
+            int total = m_FTISService.GetExaminationCount(m_Conditions);
             return total;
         }
 
-        private IEnumerable<EpaperExamination> GetGridData()
+        private IEnumerable<Examination> GetGridData()
         {
-            IList<EpaperExamination> datasource = m_FTISService.GetEpaperExaminationListNoLazy(m_Conditions);
+            IList<Examination> datasource = m_FTISService.GetExaminationListNoLazy(m_Conditions);
             return datasource;
         }
     }

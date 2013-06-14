@@ -135,6 +135,9 @@ namespace FTISWeb.Models
                 case "EpaperExamination":
                     m_VisibleColumns = new string[] { "Name", "ExaminationName", "Industry.Name", "GetStr_PostDate" };
                     break;
+                case "Examination":
+                    m_VisibleColumns = new string[] { "Name", "ExaminationName", "Industry.Name", "GetStr_PostDate" };
+                    break;
             }
         }
 

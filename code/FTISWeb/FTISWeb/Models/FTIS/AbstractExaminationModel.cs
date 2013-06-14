@@ -33,9 +33,9 @@ namespace FTISWeb.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// 填寫日期
+        /// 調查日期
         /// </summary>
-        [DisplayName("填寫日期")]
+        [DisplayName("調查日期")]
         [Required]
         public DateTime? PostDate { get; set; }
 
