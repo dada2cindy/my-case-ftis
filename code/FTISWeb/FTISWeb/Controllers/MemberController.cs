@@ -42,8 +42,7 @@ namespace FTISWeb.Controllers
         [IndustryData(OnlyOpen = true)]
         [HttpPost]
         public ActionResult Join(MemberModel model)
-        {
-            ModelState.Remove("Name");
+        {            
             ModelState.Remove("RegDate");
             string captcha = AccountUtil.GetCaptcha();
             if (!captcha.Equals(model.ConfirmationCode, StringComparison.OrdinalIgnoreCase))

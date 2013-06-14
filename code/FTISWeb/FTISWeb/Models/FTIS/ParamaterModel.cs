@@ -132,6 +132,9 @@ namespace FTISWeb.Models
                 case "Norm":
                     m_VisibleColumns = new string[] { "Name", "ArticleName", "NormClass.Name", "NormClassParent.Name", "SortId", "GetStr_Status" };
                     break;
+                case "EpaperExamination":
+                    m_VisibleColumns = new string[] { "Name", "ExaminationName", "Industry.Name", "GetStr_PostDate" };
+                    break;
             }
         }
 
@@ -174,6 +177,10 @@ namespace FTISWeb.Models
                     {
                         displayName = "姓名";
                     }
+                    else if (m_VisibleColumns.Contains("ExaminationName"))
+                    {
+                        displayName = "姓名";
+                    }
                     else
                     {
                         displayName = "名稱";
@@ -188,6 +195,16 @@ namespace FTISWeb.Models
                     {
                         displayName = "名稱(英)";
                     }
+                    break;
+                case "GetStr_PostDate":
+                    if (m_VisibleColumns.Contains("ExaminationName"))
+                    {
+                        displayName = "填寫日期";
+                    }
+                    else
+                    {
+                        displayName = "刊登日期";
+                    }                    
                     break;
             }
 

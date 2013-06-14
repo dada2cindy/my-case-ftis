@@ -1,0 +1,200 @@
+﻿@model FTISWeb.Models.EpaperExaminationModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+@using FTIS.Domain.Impl;
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if (Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+    
+    @*分類*@    
+    IList<SelectListItem> m_IndustrySelectListItem = new List<SelectListItem>();
+    if (ViewData["IndustrySelectList"] != null)
+    {
+        m_IndustrySelectListItem = (List<SelectListItem>)ViewData["IndustrySelectList"];
+    } 
+}
+@section TitleContent{}
+@section HeadContent{
+    @Scripts.Render("~/bundles/CKEditor")
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+            });
+
+            $("#PostDate").kendoDatePicker({
+                change: OnPostDateChange,
+                format: "yyyy/MM/dd"
+            });
+        });        
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "EpaperExamination", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
+    <fieldset class="fieldset">
+        <h1>電子報滿意度管理 </h1>
+        <table style="width: 100%" class="FormTable">            
+            <tr>
+                <td style="text-align:right;">*姓名：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*性別：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Gender, "1")男</label>
+                    <label>@Html.RadioButtonFor(m => m.Gender, "0")女</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*電子郵件：
+                </td>
+                <td>
+                    @Html.TextBox("Email", Model.Email, new { id = "Email", @style = "width: 600px;" })
+                </td>
+            </tr>
+             <tr>
+                <td style="text-align:right;">*行業別：
+                </td>
+                <td>
+                    @Html.DropDownList("IndustryId", m_IndustrySelectListItem, "請選擇")
+                </td>
+            </tr>                
+            <tr>
+                <td style="text-align:right;">*調查日期：
+                </td>
+                <td>
+                    @Html.TextBox("PostDate", Model.PostDate, new { id = "PostDate" })
+                </td>
+            </tr>                                                                   
+            <tr>
+                <td style="text-align:right;">*您對電子報的版面編輯/排版是否易於瀏覽閱讀感覺滿意嗎？：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Question1, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question1, "5") 非常不滿意 </label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*您對電子報每季所提供的產業永續動態摘要與趨勢報導感覺滿意嗎？：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Question2, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question2, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question2, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question2, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question2, "5") 非常不滿意 </label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*當您收到電子報時，閱讀習慣/順序是？：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Question3, "1") 依序並全文閱讀 </label>
+          <label>@Html.RadioButtonFor(m => m.Question3, "2") 全部閱讀；但是會先點閱感興趣的新聞標題，再瀏覽其他新聞 </label><br />
+          <label>@Html.RadioButtonFor(m => m.Question3, "3") 只瀏覽標題 </label>
+          <label>@Html.RadioButtonFor(m => m.Question3, "4") 只點閱有興趣的新聞，其餘不看 </label>
+          <label>@Html.RadioButtonFor(m => m.Question3, "5") 不一定 </label>   
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*您對電子報所刊載的內容數量？：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Question4, "1") 過多 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "2") 稍多 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "3") 適中 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "4") 稍少 </label>
+        <label>@Html.RadioButtonFor(m => m.Question4, "5") 過少 </label>    
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*您對電子報發行的頻率，您覺得比較適合的週期為？：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Question5, "1") 不定期 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "2") 一週 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "3") 雙週 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "4") 一個月 </label>
+        <label>@Html.RadioButtonFor(m => m.Question5, "5") 一季 </label> 
+        <label>@Html.RadioButtonFor(m => m.Question5, "6") 沒意見 </label>    
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*您是否會習慣性地將您收到的電子報轉寄或推薦給別人嗎？：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Question6, "1") 是 </label>
+        <label>@Html.RadioButtonFor(m => m.Question6, "2") 否 </label>   
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*整體而言，您對電子報的整體表現感覺滿意嗎？：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Question7, "1") 非常滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "2") 滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "3") 尚可 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "4") 不滿意 </label>
+        <label>@Html.RadioButtonFor(m => m.Question7, "5") 非常不滿意 </label>   
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*您希望我們增加電子報哪一方面的資訊(請簡單扼要說明)？：
+                </td>
+                <td>
+                    @Html.TextArea("Question8", Model.Question8, new { id = "Question8", cols="45", rows="3" })  
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*其他對於電子報內容的建議(請簡單扼要說明)？：
+                </td>
+                <td>
+                    @Html.TextArea("Question9", Model.Question9, new { id = "Question8", cols="45", rows="3" })  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input id="btnCreate" class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input id="btnEdit" class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "EpaperExamination", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />

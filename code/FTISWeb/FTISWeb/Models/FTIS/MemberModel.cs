@@ -172,6 +172,13 @@ namespace FTISWeb.Models
 
         public string Msg { get; set; }
 
+        /// <summary>
+        /// 是否同意本會提供免費電子報資訊
+        /// </summary>
+        [DisplayName("是否同意本會提供免費電子報資訊")]
+        [Required]
+        public virtual string ReceiveEpaperInfo { get; set; }
+
         protected void LoadEntity(Member entity)
         {
             if (entity != null)
@@ -196,6 +203,7 @@ namespace FTISWeb.Models
                 Fax = entity.Fax;
                 Content = entity.Content;
                 IndustryId = entity.Industry.IndustryId;
+                ReceiveEpaperInfo = entity.ReceiveEpaperInfo;
             }
         }
 
@@ -209,11 +217,26 @@ namespace FTISWeb.Models
                 this.ErrorMsg = "此帳號已經有人使用!";
                 return;
             }
-
+            this.Status = "0";
             Insert();
             Member member = m_FTISService.GetMemberById(this.EntityId);
             m_SessionHelper.WebMember = member;
             this.SendOrderOk = true;
+
+            ////電子報
+            if ("1".Equals(this.ReceiveEpaperInfo))
+            {
+                EpaperEmailModel epaperEmailModel = new EpaperEmailModel()
+                {
+                    Company = this.Company,
+                    Dept = this.Dept,
+                    Email = this.Email,
+                    Name = this.Name,
+                    Tel = this.Tel,
+                    UserStatus = "1"
+                };
+                epaperEmailModel.SendOrder();
+            }
         }
 
         public void Insert()
@@ -249,6 +272,7 @@ namespace FTISWeb.Models
             entity.Tel2 = Tel2;
             entity.Fax = Fax;
             entity.Content = Content;
+            entity.ReceiveEpaperInfo = ReceiveEpaperInfo;
             if (IndustryId > 0)
             {
                 entity.Industry = m_FTISService.GetIndustryById(IndustryId);

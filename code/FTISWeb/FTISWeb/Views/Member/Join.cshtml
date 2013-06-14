@@ -67,6 +67,9 @@
           <p class="Join-txtP"><span class="txt-orgon">＊</span>確認密碼：
               @Html.Password("CheckPassword", Model.CheckPassword, new { id = "CheckPassword", @class = "csr-Order", size = "25" })            
           </p>
+          <p class="Join-txtP"><span class="txt-orgon">＊</span>姓名：
+              @Html.TextBox("Name", Model.Name, new { id = "Name", @class = "csr-Order", size = "25" })            
+          </p>
           <p class="Join-txtP"><span class="txt-orgon">＊</span>公司名稱：
               @Html.TextBox("Company", Model.Company, new { id = "Company", @class = "csr-Order2" })  
           </p>
@@ -103,6 +106,10 @@
           </p>
           <p class="Join-txtP">　主要產品：
               @Html.TextArea("Content", Model.Content, new { id = "Content", @class = "csr-Order3", cols = "45", rows="3" })            
+          </p>
+          <p class="Join-txtP">　是否同意本會提供免費電子報資訊：
+              <label>@Html.RadioButtonFor(m => m.ReceiveEpaperInfo, "1") 是</label>
+        <label>@Html.RadioButtonFor(m => m.ReceiveEpaperInfo, "0") 否</label>            
           </p>
           <p class="Join-txtP"><span class="txt-orgon">＊</span>識別碼　：
               @Html.Password("ConfirmationCode", Model.ConfirmationCode, new { id = "ConfirmationCode", @class = "csr-Order", size = "10" })              

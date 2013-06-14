@@ -59,6 +59,10 @@
                             normClassParentId: function () {
                                 return $("#NormClassParentId").val();
                             }
+                            ,
+                            industryId: function () {
+                                return $("#IndustryId").val();
+                            }
                         }
                     }
                 },
@@ -114,7 +118,7 @@
                     },
                     {
                         field: "@Model.GetColumnName("GetStr_PostDate")",
-                        title: "刊登日期",
+                        title: "@Model.GetDisplayName("GetStr_PostDate")",
                         template: '#= "<span>" + @Model.GetColumnName("GetStr_PostDate") + "</span>" #',
                         hidden: $.parseJSON("@(Model.Hidden("GetStr_PostDate"))"),
                         attributes: { "style": "text-align: center;" },
@@ -215,13 +219,21 @@
                         template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("Name") + "</span>" #',
                         hidden: $.parseJSON("@(Model.Hidden("Name"))"),
                         sortable: true
-                    },
+                    },                    
                     {
                         field: "@Model.GetColumnName("NameENG")",
                         title: "@Model.GetDisplayName("NameENG")",
                         template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("NameENG") + "</span>" #',
                         hidden: $.parseJSON("@(Model.Hidden("NameENG"))"),
                         sortable: true
+                    },
+                    {
+                        field: "@Model.GetColumnName("Industry.Name")",
+                        title: "行業別",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Industry.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 300
                     },
                     {
                         field: "@Model.GetColumnName("Company")",
