@@ -1769,6 +1769,29 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
+        /// 取得會員清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>會員清單</returns>
+        public IList<Member> GetMemberListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<Member> list = FTISDao.GetMemberList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Member member in list)
+                {
+                    if (member != null && member.Industry != null)
+                    {
+                        NHibernateUtil.Initialize(member.Industry);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// 取得會員數量
         /// </summary>
         /// <param name="conditions"></param>

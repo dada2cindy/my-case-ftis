@@ -1109,6 +1109,13 @@ namespace FTIS.Service
         IList<Member> GetMemberList(IDictionary<string, string> conditions);
 
         /// <summary>
+        /// 取得會員清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>會員清單</returns>
+        IList<Member> GetMemberListNoLazy(IDictionary<string, string> conditions);        
+
+        /// <summary>
         /// 取得會員數量
         /// </summary>
         /// <param name="conditions"></param>
