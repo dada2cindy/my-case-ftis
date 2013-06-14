@@ -4022,6 +4022,7 @@ namespace FTIS.Persistence
         private IList QueryExamination(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
             AppendExaminationKeyWord(conditions, whereScript, param);
+            AppendExaminationIndustry(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
             if (useOrder)
@@ -4030,6 +4031,15 @@ namespace FTIS.Persistence
             }
 
             return NHibernateDao.Query(hql, param, conditions);
+        }
+
+        private void AppendExaminationIndustry(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("IndustryId"))
+            {
+                whereScript.Append(" and e.Industry.IndustryId = ? ");
+                param.Add(conditions["IndustryId"]);
+            }
         }
 
         private string AppendExaminationOrder(IDictionary<string, string> conditions)
@@ -4133,6 +4143,7 @@ namespace FTIS.Persistence
         private IList QueryEpaperExamination(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
             AppendEpaperExaminationKeyWord(conditions, whereScript, param);
+            AppendEpaperExaminationIndustry(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
             if (useOrder)
@@ -4141,6 +4152,15 @@ namespace FTIS.Persistence
             }
 
             return NHibernateDao.Query(hql, param, conditions);
+        }
+
+        private void AppendEpaperExaminationIndustry(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("IndustryId"))
+            {
+                whereScript.Append(" and e.Industry.IndustryId = ? ");
+                param.Add(conditions["IndustryId"]);
+            }
         }
 
         private string AppendEpaperExaminationOrder(IDictionary<string, string> conditions)
