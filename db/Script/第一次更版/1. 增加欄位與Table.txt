@@ -156,3 +156,6 @@ ALTER TABLE tblEpaper_Email ADD ReceiveOtherFreeInfo nvarchar(1) null
 
 GO
 
+/****** ·|­û ******/
+ALTER TABLE tblGeneral_Member ADD ReceiveEpaperInfo nvarchar(1) null
+GO
