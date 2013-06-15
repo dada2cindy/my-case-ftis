@@ -158,4 +158,5 @@ GO
 
 /****** ·|­û ******/
 ALTER TABLE tblGeneral_Member ADD ReceiveEpaperInfo nvarchar(1) null
+ALTER TABLE tblDownloadRecord ALTER COLUMN MemID int NULL
 GO
