@@ -7,8 +7,8 @@
 @using System.Web.Optimization
 @using FTIS.Domain;
 @using FTISWeb.Models;
-@using FTIS.Domain.Impl;
 @using WuDada.Core.Generic.Extension;
+
 @{
     JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();    
     IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
@@ -21,20 +21,20 @@
     bool AllowDelete = (bool)ViewData["AllowDelete"];
     
     @*分類*@
-    IList<SelectListItem> m_IndustrySelectListItem = new List<SelectListItem>();
-    if (ViewData["IndustrySelectList"] != null)
+    IList<SelectListItem> m_DownloadClassListItem = new List<SelectListItem>();
+    if (ViewData["DownloadClassList"] != null)
     {
-        m_IndustrySelectListItem = (List<SelectListItem>)ViewData["IndustrySelectList"];
-        
-        foreach(SelectListItem item in m_IndustrySelectListItem)
+        m_DownloadClassListItem = (List<SelectListItem>)ViewData["DownloadClassList"];
+
+        foreach (SelectListItem item in m_DownloadClassListItem)
         {
-            if (m_Conditions.IsContainsValue("IndustryId") && m_Conditions["IndustryId"] == item.Value.ToString())
+            if (m_Conditions.IsContainsValue("ClassId") && m_Conditions["ClassId"] == item.Value.ToString())
             {
                 item.Selected = true;
             }
         }
     }
-}
+ }
 
 @section TitleContent{}
 @section HeadContent{        
@@ -54,7 +54,11 @@
                 Query();
             });
 
-            $("#IndustryId").enterPressed(function () {
+            $("#MemberLoginId").enterPressed(function () {
+                Query();
+            });
+
+            $("#ClassId").enterPressed(function () {
                 Query();
             });
 
@@ -67,15 +71,16 @@
         });
 
         function Query() {
-            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "EpaperExamination")', {
+            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "DownloadRecord")', {
                 keyWord: $("#KeyWord").val(),
-                industryId: $("#IndustryId").val()
+                downloadClassId: $("#ClassId").val(),
+                memberLoginId: $("#MemberLoginId").val()
             });
         }                      
 
         //刪除1筆動作(留在頁面寫)
         function OnDeleteItem(id) {            
-            $.post('@Url.Action("Delete", "EpaperExamination")', { id: id }, function (data) {                
+            $.post('@Url.Action("Delete", "DownloadRecord")', { id: id }, function (data) {                
                 if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
                     $(".deleteMsgFail").append(data.Message + '<br/>')
                 }                
@@ -85,7 +90,7 @@
 
         //刪除多筆動作(留在頁面寫)
         function OnDeleteItems(allId) {
-            $.post('@Url.Action("MultiDelete", "EpaperExamination")', { allId: allId }, function (data) {
+            $.post('@Url.Action("MultiDelete", "DownloadRecord")', { allId: allId }, function (data) {
                 if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
                     $(".deleteMsgFail").append(data.Message + '<br/>')
                 }                
@@ -96,32 +101,22 @@
 }
 
 <fieldset class="fieldset">
-    <h1>電子報滿意度問卷管理 </h1>
+    <h1>下載記錄管理</h1>
     <table style="width: 100%" class="FormTable">
         <tr>
-            <td style="width:100px; text-align:right;">關鍵字：
+            <td style="width:100px; text-align:right;">文件名稱：
             </td>
             <td >
                 @Html.TextBox("KeyWord", m_Conditions["KeyWord"])
-                @Html.DropDownList("IndustryId", m_IndustrySelectListItem, "行業別")
-                <input type="button" class="btn" value="查詢" id="btnQuery" />
+                會員帳號：@Html.TextBox("MemberLoginId", m_Conditions["LoginId"])
+                @Html.DropDownList("ClassId", m_DownloadClassListItem, "下載單元")
+                <input type="button" class="btn" value="查詢" id="btnQuery" />                
             </td>
         </tr>        
     </table>
     <br />
-    <table>
-        <tr>            
-            <td style="text-align:left;">
-                @Html.Raw(Url.ButtonLink("新增", "Create", "EpaperExamination", AllowCreate, new { cdts = m_Cdts }, new { @class = "btn" }))
-                @if (AllowDelete)
-                {
-                    <input type="button" class="btn" value="刪除" id="btnDeleteAll" />                
-                }
-            </td>
-        </tr>  
-    </table>
     <div id="dvGrid">
-        @Html.Partial("AdminGridList", new ParamaterModel("Edit", "EpaperExamination", m_Cdts))
+        @Html.Partial("AdminGridList", new ParamaterModel("Edit", "DownloadRecord", m_Cdts))
     </div>    
     <div class="deleteMsgFail"></div>
 </fieldset>

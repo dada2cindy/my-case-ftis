@@ -185,7 +185,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\Admin\AdminAboutUsController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
-    <Compile Include="Controllers\Admin\LogOnController.cs" />
+    <Compile Include="Controllers\Admin\AdminLogOnController.cs" />
     <Compile Include="Controllers\Admin\AdminLayoutController.cs" />
     <Compile Include="Controllers\Admin\AdminNewsClassController.cs" />
     <Compile Include="Controllers\Admin\AdminNewsTypeController.cs" />
@@ -216,10 +216,12 @@
     <Compile Include="Controllers\Admin\AdminReportController.cs" />
     <Compile Include="Controllers\Admin\AdminSubNormClassController.cs" />
     <Compile Include="Controllers\Admin\AdminNormController.cs" />
-    <Compile Include="Controllers\Admin\TemplateController.cs" />
+    <Compile Include="Controllers\Admin\AdminTemplateController.cs" />
     <Compile Include="Controllers\Admin\AdminEpaperExaminationController.cs" />
     <Compile Include="Controllers\Admin\AdminExaminationController.cs" />
     <Compile Include="Controllers\Admin\AdminMemberController.cs" />
+    <Compile Include="Controllers\Admin\AdminDownloadRecordController.cs" />
+    <Compile Include="Controllers\Admin\AdminDownloadRecordStatisticsController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
@@ -326,6 +328,7 @@
     <Compile Include="ViewData\IndustryData.cs" />
     <Compile Include="ViewData\NodeSubData2.cs" />
     <Compile Include="ViewData\NodeSubData3.cs" />
+    <Compile Include="ViewData\DownloadClassData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -2267,6 +2270,11 @@
     <Content Include="Views\Examination\Save.cshtml" />
     <Content Include="Views\Member\AdminIndex.cshtml" />
     <Content Include="Views\Member\Save.cshtml" />
+    <Content Include="Views\DownloadRecord\AdminIndex.cshtml" />
+    <Content Include="Views\DownloadRecord\AdminGridList.cshtml" />
+    <Content Include="Views\Member\AdminGridList.cshtml" />
+    <Content Include="Views\DownloadRecordStatistics\AdminIndex.cshtml" />
+    <Content Include="Views\DownloadRecordStatistics\AdminGridList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

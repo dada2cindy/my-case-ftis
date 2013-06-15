@@ -141,6 +141,9 @@ namespace FTISWeb.Models
                 case "Member":
                     m_VisibleColumns = new string[] { "Name", "Company", "LoginId", "MemberName", "Industry.Name", "GetStr_RegDate", "GetStr_Status" };
                     break;
+                case "DownloadRecord":
+                    m_VisibleColumns = new string[] { "Name", "Member.LoginId", "Industry.Name", "PostDate", "GetStr_Class", "Downer" };
+                    break;
             }
         }
 
@@ -214,7 +217,7 @@ namespace FTISWeb.Models
                     else
                     {
                         displayName = "刊登日期";
-                    }                    
+                    }
                     break;
                 case "GetStr_RegDate":
                     if (m_VisibleColumns.Contains("MemberName"))

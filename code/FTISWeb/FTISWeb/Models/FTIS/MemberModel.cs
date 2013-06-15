@@ -334,7 +334,7 @@ namespace FTISWeb.Models
                 {
                     Name = name,
                     ClassId = classId,
-                    MemberId = memberId,
+                    Member = m_FTISService.GetMemberById(int.Parse(memberId)),
                     PostDate = postDate
                 };
                 m_FTISService.CreateDownloadRecord(downloadRecord);
