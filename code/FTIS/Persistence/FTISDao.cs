@@ -3055,7 +3055,7 @@ namespace FTIS.Persistence
         {
             IList<T> list = new List<T>();
             AppendDownloadRecordMember(conditions, whereScript, param);
-            AppendDownloadRecordName(conditions, whereScript, param);
+            AppendDownloadRecordKeyWord(conditions, whereScript, param);
             AppendDownloadClassId(conditions, whereScript, param);
             AppendDownloadPostDate(conditions, whereScript, param);
 
@@ -3073,7 +3073,7 @@ namespace FTIS.Persistence
         private IList QueryDownloadRecord(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
             AppendDownloadRecordMember(conditions, whereScript, param);
-            AppendDownloadRecordName(conditions, whereScript, param);
+            AppendDownloadRecordKeyWord(conditions, whereScript, param);
             AppendDownloadClassId(conditions, whereScript, param);
             AppendDownloadPostDate(conditions, whereScript, param);
 
@@ -3090,8 +3090,14 @@ namespace FTIS.Persistence
         {
             if (conditions.IsContainsValue("MemberId"))
             {
-                whereScript.Append(" and d.MemberId = ? ");
+                whereScript.Append(" and d.Member.MemberId = ? ");
                 param.Add(conditions["MemberId"]);
+            }
+
+            if (conditions.IsContainsValue("LoginId"))
+            {
+                whereScript.Append(" and d.Member.LoginId = ? ");
+                param.Add(conditions["LoginId"]);
             }
         }
 
@@ -3107,12 +3113,12 @@ namespace FTIS.Persistence
             return order;
         }
 
-        private void AppendDownloadRecordName(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        private void AppendDownloadRecordKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
         {
-            if (conditions.IsContainsValue("Name"))
+            if (conditions.IsContainsValue("KeyWord"))
             {
-                whereScript.Append(" and d.Name = ? ");
-                param.Add(conditions["Name"]);
+                whereScript.Append(" and d.Name like ? ");
+                param.Add("%" + conditions["KeyWord"] + "%");
             }
         }
 

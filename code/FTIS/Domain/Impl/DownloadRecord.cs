@@ -26,10 +26,10 @@ namespace FTIS.Domain.Impl
         public virtual int DownloadRecordId { get; set; }
 
         /// <summary>
-        /// 會員Id
+        /// 會員
         /// </summary>
         [DataMember]
-        public virtual string MemberId { get; set; }
+        public virtual Member Member { get; set; }
 
         /// <summary>
         /// 文件名稱
@@ -54,6 +54,26 @@ namespace FTIS.Domain.Impl
         /// </summary>
         [DataMember]
         public virtual int Downer { get; set; }
+
+        public virtual string GetStr_Class
+        {
+            get
+            {
+                string result = string.Empty;
+
+                switch (ClassId)
+                {
+                    case "1":
+                        result = "技術工具/文件";
+                        break;
+                    case "2":
+                        result = "課程講義";
+                        break;
+                }
+
+                return result;
+            }
+        }
 
         #endregion
     }

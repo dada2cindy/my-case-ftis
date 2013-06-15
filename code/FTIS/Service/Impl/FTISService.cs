@@ -1908,6 +1908,31 @@ namespace FTIS.Service.Impl
         }
 
         /// <summary>
+        /// 取得會員下載紀錄清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>會員下載紀錄清單</returns>
+        public IList<DownloadRecord> GetDownloadRecordListNoLazy(IDictionary<string, string> conditions)
+        {
+            IList<DownloadRecord> list = FTISDao.GetDownloadRecordList(conditions);
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (DownloadRecord downloadRecord in list)
+                {
+                    if (downloadRecord != null && downloadRecord.Member != null)
+                    {
+                        NHibernateUtil.Initialize(downloadRecord.Member);
+
+                        downloadRecord.Member.Industry = new Industry();
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// 取得會員下載紀錄數量
         /// </summary>
         /// <param name="conditions"></param>

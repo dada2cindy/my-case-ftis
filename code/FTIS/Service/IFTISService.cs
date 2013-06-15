@@ -1180,6 +1180,13 @@ namespace FTIS.Service
         IList<DownloadRecord> GetDownloadRecordList(IDictionary<string, string> conditions);
 
         /// <summary>
+        /// 取得會員下載紀錄清單
+        /// </summary>
+        /// <param name="conditions">搜尋條件</param>
+        /// <returns>會員下載紀錄清單</returns>
+        IList<DownloadRecord> GetDownloadRecordListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
         /// 取得會員下載紀錄數量
         /// </summary>
         /// <param name="conditions"></param>
