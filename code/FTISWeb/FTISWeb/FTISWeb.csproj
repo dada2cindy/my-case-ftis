@@ -217,7 +217,9 @@
     <Compile Include="Controllers\Admin\AdminSubNormClassController.cs" />
     <Compile Include="Controllers\Admin\AdminNormController.cs" />
     <Compile Include="Controllers\Admin\TemplateController.cs" />
-    <Compile Include="Controllers\Admin\EpaperExaminationController.cs" />
+    <Compile Include="Controllers\Admin\AdminEpaperExaminationController.cs" />
+    <Compile Include="Controllers\Admin\AdminExaminationController.cs" />
+    <Compile Include="Controllers\Admin\AdminMemberController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
@@ -2261,6 +2263,10 @@
     <Content Include="Views\Home\SiteMap.cshtml" />
     <Content Include="Views\EpaperExamination\Save.cshtml" />
     <Content Include="Views\EpaperExamination\AdminIndex.cshtml" />
+    <Content Include="Views\Examination\AdminIndex.cshtml" />
+    <Content Include="Views\Examination\Save.cshtml" />
+    <Content Include="Views\Member\AdminIndex.cshtml" />
+    <Content Include="Views\Member\Save.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />
