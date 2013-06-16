@@ -3,7 +3,13 @@
 ***************************************************************************/
 function SiteSearch() {
     var keyword = $("#txtSiteKeyWord").val();
-    alert(keyword);
+    if (keyword.length <= 0) {
+        alert("請輸入關鍵字!");
+        return false;
+    }
+
+    var searchUrl = "/Home/Search/?keyWord=" + encodeURIComponent(keyword);
+    window.location.href = searchUrl;
 }
 
 function GoPage(url) {
@@ -23,6 +29,19 @@ function GetCheckBoxValue(selector) {
         return "";
     }
 }
+
+/***************************************************************************
+Enter 預設按鈕
+***************************************************************************/
+(function ($) {
+    $.prototype.enterPressed = function (fn) {
+        $(this).keyup(function (e) {
+            if ((e.keyCode || e.which) == 13) {
+                fn();
+            }
+        });
+    };
+})(jQuery);
 
 /***************************************************************************
 清除輸入框
