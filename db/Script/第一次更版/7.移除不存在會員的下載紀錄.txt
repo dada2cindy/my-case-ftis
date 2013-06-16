@@ -1,0 +1,8 @@
+DELETE FROM [tblDownloadRecord]
+      WHERE ID in ( SELECT [ID]
+  FROM [tblDownloadRecord]
+where memID not in (SELECT [ID]
+
+  FROM [tblGeneral_Member]) )
+  
+ GO
