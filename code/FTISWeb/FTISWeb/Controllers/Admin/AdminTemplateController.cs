@@ -54,7 +54,7 @@ namespace FTISWeb.Controllers
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Season, Operation = SiteOperations.Create)]
         [AuthorizationData(AppFunction = SiteEntities.Season)]
-        public ActionResult Create(string templateType)
+        public ActionResult Create(string id, string templateType)
         {
             SetConditions(templateType);
             return View("Save", new TemplateModel(templateType));

@@ -10,6 +10,13 @@
 <title>產業永續發展整合資訊網</title>
     @Scripts.Render("~/bundles/JQuery", "~/bundles/SiteHome")
     @Styles.Render("~/Content/SiteHomeCSS")
+    <script type="text/javascript">
+        $(function () {
+            $("#txtSiteKeyWord").enterPressed(function () {
+                SiteSearch();
+            });
+        });
+    </script>
     @RenderSection("HeadContent", false)
 </head>
 

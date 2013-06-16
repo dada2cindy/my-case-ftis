@@ -36,6 +36,14 @@ namespace FTISWeb.Models
             return conditions;
         }
 
+        public IDictionary<string, string> GetDefaultCountConditions()
+        {
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("Status", "1");
+
+            return conditions;
+        }
+
         public string SubString(string source, int maxLength, bool ellipsis)
         {
             string result = source;

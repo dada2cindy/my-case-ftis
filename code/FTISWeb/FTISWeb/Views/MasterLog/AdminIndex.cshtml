@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@using System.Web.Optimization
+@using FTIS.Domain;
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using WuDada.Core.Generic.Extension;
+@{
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();    
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    string m_Cdts = (string)ViewData["Conditions"];
+
+    @*權限*@
+    bool AllowRead = (bool)ViewData["AllowRead"];
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];
+ }
+
+@section TitleContent{}
+@section HeadContent{    
+    @Scripts.Render("~/bundles/CKEditor")    
+    <script>
+        $(function () {
+            //按下查詢鈕
+            $("#btnQuery").click(function () {
+                Query();
+            });
+
+            //按下刪除鈕
+            $("#btnDeleteAll").click(function () {
+                DeleteItems('所選項目');
+            });
+
+            $("#EnterTimeFrom").enterPressed(function () {
+                Query();
+            });
+
+            $("#EnterTimeTo").enterPressed(function () {
+                Query();
+            });
+
+            $("#EnterTimeFrom").kendoDatePicker({
+                change: OnPostDateChange,
+                format: "yyyy/MM/dd"
+            });
+
+            $("#EnterTimeTo").kendoDatePicker({
+                change: OnPostDateChange,
+                format: "yyyy/MM/dd"
+            });
+
+            //Grid的刪除
+            $("#dvGrid").on("click", ".k-grid-Delete", function () {
+                var entityId = $(this).attr('entityId');
+                var entityName = $(this).attr('entityName');
+                DeleteItem(entityId, entityName);
+            });
+        });
+
+        function Query() {
+            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "MasterLog")', {
+                enterTimeFrom: $("#EnterTimeFrom").val(),
+                enterTimeTo: $("#EnterTimeTo").val()
+            });
+        }                      
+
+        //刪除1筆動作(留在頁面寫)
+        function OnDeleteItem(id) {            
+            $.post('@Url.Action("Delete", "MasterLog")', { id: id }, function (data) {                
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+
+        //刪除多筆動作(留在頁面寫)
+        function OnDeleteItems(allId) {
+            $.post('@Url.Action("MultiDelete", "MasterLog")', { allId: allId }, function (data) {
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+    </script>
+}
+
+<fieldset class="fieldset">
+    <h1>登入日誌 </h1>
+    <table style="width: 100%" class="FormTable">
+        <tr>
+            <td style="width:100px; text-align:right;">日期範圍：
+            </td>
+            <td >
+                @Html.TextBox("EnterTimeFrom", m_Conditions["EnterTimeFrom"])
+                 - 
+                @Html.TextBox("EnterTimeTo", m_Conditions["EnterTimeTo"])                
+                <input type="button" class="btn" value="查詢" id="btnQuery" />
+            </td>
+        </tr>        
+    </table>
+    <br />
+    <table>
+        <tr>            
+            <td style="text-align:left;">                
+                @if (AllowDelete)
+                {
+                    <input type="button" class="btn" value="刪除" id="btnDeleteAll" />                
+                }
+            </td>
+        </tr>  
+    </table>
+    <div id="dvGrid">
+        @Html.Partial("AdminGridList", new ParamaterModel("Edit", "MasterLog", m_Cdts))
+    </div>    
+    <div class="deleteMsgFail"></div>
+</fieldset>

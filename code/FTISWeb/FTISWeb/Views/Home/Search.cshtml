@@ -1,0 +1,63 @@
+﻿@model FTISWeb.Models.SearchModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTIS.Domain.Impl;
+@{
+    IList<News> m_NewsList = Model.GetNewsList();
+    IList<Activity> m_ActivityList = Model.GetActivityList();
+    IList<Download> m_DownloadList = Model.GetDownLoadList();
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")
+    
+    <div id="In-leftTitle"><img src="/in-image/left-title7.png" width="205" height="72" alt="搜尋結果"/></div>    
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>搜尋結果<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 搜尋結果</span></h1>
+    <h2 style="color:green">找到有關 "<span style="color:blue;">@Model.KeyWord</span>" 的資料如下： </h2>
+      <div id="InShow-INob">
+      @{
+          if(m_NewsList!=null && m_NewsList.Count>0)
+          {
+    <div style="font-weight:bold;margin-bottom:10px;"><span style="color:#F77B02; ">新聞動態</span>-
+        共找到 <span style="color:blue;">@Model.GetNewsCount()</span> 筆資料，最多列出前 <span style="color:blue;">5</span> 筆如下： <span class="Pon"><a target="_blank" href="@Url.Action("Index", "News", new { KeyWord = Model.KeyWord })">更多搜尋結果</a></span></div>               
+            foreach(News entity in m_NewsList)
+            {
+                  <ul class="Pro02-contact-UL">
+                    <li class="Pro02-contact-LI1"><a target="_blank" href="@Url.Action("Detail", "News", new { id = Model.EncryptId(entity.NewsId) })" class="searchBtn">@entity.Name</a></li></ul>
+            }
+          }                    
+       }
+          @{
+          if(m_NewsList!=null && m_NewsList.Count>0)
+          {
+    <div style="font-weight:bold;margin-bottom:10px;"><span style="color:#F77B02; ">活動訊息</span>-
+        共找到 <span style="color:blue;">@Model.GetActivityCount()</span> 筆資料，最多列出前 <span style="color:blue;">5</span> 筆如下： <span class="Pon"><a target="_blank" href="@Url.Action("Index", "Activity", new { KeyWord = Model.KeyWord })">更多搜尋結果</a></span></div>               
+            foreach(Activity entity in m_ActivityList)
+            {
+                  <ul class="Pro02-contact-UL">
+                    <li class="Pro02-contact-LI1"><a target="_blank" href="@Url.Action("Detail", "Activity", new { id = Model.EncryptId(entity.ActivityId) })" class="searchBtn">@entity.Name</a></li></ul>
+            }
+          }                    
+       } 
+          @{
+          if(m_NewsList!=null && m_NewsList.Count>0)
+          {
+    <div style="font-weight:bold;margin-bottom:10px;"><span style="color:#F77B02; ">下載專區</span>-
+        共找到 <span style="color:blue;">@Model.GetDownLoadCount()</span> 筆資料，最多列出前 <span style="color:blue;">5</span> 筆如下： <span class="Pon"><a target="_blank" href="@Url.Action("Index", "Download", new { KeyWord = Model.KeyWord })">更多搜尋結果</a></span></div>               
+            foreach(Download entity in m_DownloadList)
+            {
+                  <ul class="Pro02-contact-UL">
+                    <li class="Pro02-contact-LI1"><a target="_blank" href="@Url.Action("Detail", "Download", new { id = Model.EncryptId(entity.DownloadId) })" class="searchBtn">@entity.Name</a></li></ul>
+            }
+          }                    
+       } 
+    </div>
+  </div><!--內容結尾-->
+</div>

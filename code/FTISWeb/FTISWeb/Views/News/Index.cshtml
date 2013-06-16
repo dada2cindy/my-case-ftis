@@ -37,6 +37,12 @@
   <div id="InShow"><!--內容-->
       @Html.Partial("InShowAdv")
       <h1>新聞動態<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 新聞動態</span></h1>
+      @{
+          if(m_Conditions.IsContainsValue("KeyWord"))
+          {
+            <h2 style="color:green">找到有關 "<span style="color:blue;">@m_Conditions["KeyWord"]</span>" 的資料如下： </h2>
+          }
+      }
       <div id="News-Slect-table">
           @{
               string allSelected = string.Empty;
@@ -44,7 +50,7 @@
                 {
                     allSelected = "-Selected";
                 }
-              <a href="@Url.Action("Index", "News")"><div class="News-Slect@(allSelected)">全部</div></a>  
+              <a href="@Url.Action("Index", "News", new { keyWord = m_Conditions["KeyWord"] })"><div class="News-Slect@(allSelected)">全部</div></a>  
           }
           @if (m_NewsTypeList != null && m_NewsTypeList.Count > 0)
           {
@@ -55,7 +61,7 @@
                   {
                       selected = "-Selected";
                   }
-                <a href="@Url.Action("Index", "News", new { newsTypeId = m_hsModel.EncryptId(newsType.NewsTypeId), newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]) })">
+                <a href="@Url.Action("Index", "News", new { newsTypeId = m_hsModel.EncryptId(newsType.NewsTypeId), newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]), keyWord = m_Conditions["KeyWord"] })">
                     <div class="News-Slect@(selected)">@newsType.Name</div>
                 </a>                                
               }
@@ -118,9 +124,10 @@
       <div class="PageNumber pager">
           <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
         @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o=>o
-       .AddRouteValue("newsClassId",m_hsModel.EncryptId(m_Conditions["NewsClassId"]))
-       .AddRouteValue("newsTypeId",m_hsModel.EncryptId(m_Conditions["NewsTypeId"])))
-          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "News", new { newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]), newsTypeId = m_hsModel.EncryptId(m_Conditions["NewsTypeId"]) }))')">GO</a></span>
+       .AddRouteValue("newsClassId", m_hsModel.EncryptId(m_Conditions["NewsClassId"]))
+       .AddRouteValue("newsTypeId", m_hsModel.EncryptId(m_Conditions["NewsTypeId"]))
+       .AddRouteValue("keyWord", m_Conditions["KeyWord"]))
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "News", new { newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]), newsTypeId = m_hsModel.EncryptId(m_Conditions["NewsTypeId"]), keyWord = m_Conditions["KeyWord"] })')">GO</a></span>
       </div>
   </div><!--內容結尾-->    
 </div>

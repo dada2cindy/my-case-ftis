@@ -41,5 +41,12 @@ namespace FTISWeb.Controllers
         {
             return View();
         }
+
+        public ActionResult Search(string keyWord)
+        {
+            SearchModel searchModel = new SearchModel(keyWord);
+
+            return View(searchModel);
+        }
     }
 }

@@ -4,8 +4,13 @@
 }
 @using MvcPaging
 @using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
 @{
     HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
 }
 <div id="In-Table">
   <div id="In-left"><!--左-->
@@ -18,6 +23,12 @@
   <div id="InShow"><!--內容-->
     @Html.Partial("InShowAdv")
       <h1>活動訊息<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 活動訊息</span></h1>    
+      @{
+          if(m_Conditions.IsContainsValue("KeyWord"))
+          {
+            <h2 style="color:green">找到有關 "<span style="color:blue;">@m_Conditions["KeyWord"]</span>" 的資料如下： </h2>
+          }
+      }
       <div id="InShow-INob">
       <table width="650" border="0" cellpadding="0" cellspacing="0">
             <tr>
@@ -49,8 +60,9 @@
     </div>
       <div class="PageNumber pager">
           <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
-        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Activity")')">GO</a></span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o=>o
+       .AddRouteValue("keyWord", m_Conditions["KeyWord"]))
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Activity", new { keyWord = m_Conditions["KeyWord"] })')">GO</a></span>
       </div>
   </div><!--內容結尾-->
 </div>

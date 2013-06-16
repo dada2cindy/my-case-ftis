@@ -15,7 +15,7 @@ using System.ComponentModel;
 namespace FTISWeb.Models
 {
     /// <summary>
-    /// 電子報訂閱
+    /// 會員
     /// </summary>
     public class MemberModel : AbstractEntityModel
     {

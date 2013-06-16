@@ -5,6 +5,7 @@
 @using FTIS.Domain;
 @using FTISWeb.Helper;
 @using System.Web.Optimization
+@using FTIS.Domain.Impl
 
 @{
     SessionHelper m_SessionHelper = new SessionHelper();
@@ -223,8 +224,8 @@
                             {
                                 <li class="closed nodeIcon"><span class="menuParent">首頁四季節慶設置</span>
                                     <ul>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Season")" target="mainfrm">四季設置</a></span></li>                                      
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Festival")" target="mainfrm">節慶設置</a></span></li>                                      
+                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Template", new { templateType = TemplateVO.Type.Season.ToString() })" target="mainfrm">四季設置</a></span></li>                                      
+                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Template", new { templateType = TemplateVO.Type.Festival.ToString() })" target="mainfrm">節慶設置</a></span></li>                                      
                                     </ul>
                                 </li>
                             }
@@ -232,7 +233,7 @@
                             {
                                 <li class="closed nodeIcon"><span class="menuParent">網站管理員</span>
                                     <ul>
-                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "Master")" target="mainfrm">管理員設定</a></span></li>
+                                        <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "MasterMember")" target="mainfrm">管理員設定</a></span></li>
                                         <li><span class="folder menuNode"><a href="@Url.Action("AdminIndex", "MasterLog")" target="mainfrm">登入日誌</a></span></li>                                        
                                     </ul>
                                 </li>

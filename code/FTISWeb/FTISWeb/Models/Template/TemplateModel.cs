@@ -40,14 +40,14 @@ namespace FTISWeb.Models
         /// <summary>
         /// 起始日期
         /// </summary>
-        [DisplayName("樣板檔案")]
+        [DisplayName("開始日期")]
         [Required]
         public string StartDate { get; set; }
 
         /// <summary>
         /// 結束日期
         /// </summary>
-        [DisplayName("樣板檔案")]
+        [DisplayName("結束日期")]
         [Required]
         public string EndDate { get; set; }
 
@@ -71,10 +71,11 @@ namespace FTISWeb.Models
 
         public TemplateModel(int id)
         {
+            m_TemplateService = m_FTISFactory.GetTemplateService();
             LoadTemplate(id);
         }
 
-        protected void LoadTemplate(int id)
+        public void LoadTemplate(int id)
         {
             TemplateVO template;
 
@@ -83,7 +84,7 @@ namespace FTISWeb.Models
             LoadTemplate(template);
         }
 
-        protected void LoadTemplate(TemplateVO template)
+        public void LoadTemplate(TemplateVO template)
         {
             if (template != null)
             {
@@ -118,11 +119,11 @@ namespace FTISWeb.Models
             template.FileName = FileName;
             template.FileName2 = FileName2;
             template.StartDate = StartDate;
-            template.EndDate = string.IsNullOrWhiteSpace(EndDate) ? StartDate : EndDate;                   
+            template.EndDate = string.IsNullOrWhiteSpace(EndDate) ? StartDate : EndDate;
+            template.Flag = int.Parse(Status);
 
             if (template.TemplateId == 0)
-            {
-                template.Flag = 1;
+            {                
                 template.TemplateType = (TemplateVO.Type)Enum.Parse(typeof(TemplateVO.Type), TemplateType);
                 m_TemplateService.CreateTemplate(template);
             }

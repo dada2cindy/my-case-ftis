@@ -1,0 +1,118 @@
+﻿@model FTISWeb.Models.ParamaterModel
+
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@{
+    @*權限*@
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];    
+ }
+<script>
+        $(function () {
+            //建立資料來源物件
+            var dataSrc = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        //以下其實就是$.ajax的參數
+                        type: "POST",
+                        url: "/@Model.ControllerName/AjaxBinding",
+                        dataType: "json",
+                        data: {
+                            //額外傳至後方的參數
+                            enterTimeFrom: function () {
+                                return $("#EnterTimeFrom").val();
+                            },
+                            enterTimeTo: function () {
+                                return $("#EnterTimeTo").val();
+                            }
+                        }
+                    }
+                },
+                schema: {
+                    //取出資料陣列
+                    data: function (d) { return d.data; },
+                    //取出資料總筆數(計算頁數用)
+                    total: function (d) { return d.total; }
+                },
+                pageSize: Number('@AppSettings.AdminPageSize'),
+                serverPaging: true,
+                serverSorting: true
+            });
+            //JSON日期轉換
+            //var dateRegExp = /^\/Date\((.*?)\)\/$/;
+            //window.toDate = function (value) {
+            //    var date = dateRegExp.exec(value);
+            //    return new Date(parseInt(date[1]));
+            //}
+            $("#dvGrid").kendoGrid({
+                dataSource: dataSrc,
+                columns: [
+                    {
+                        fiels: "@Model.EntityId",
+                        headerTemplate: "<input type='checkbox' onchange='ToggleAll(this);' id='ToggleCheckbox'/>",
+                        template: "<input type='checkbox' value='#= @Model.EntityId#' name='IsDelete' class='IsDelete' />",
+                        sortable: false,
+                        attributes: { "style": "text-align: center;" },
+                        width: 50
+                    },
+                    {
+                        field: "Account",
+                        title: "用戶名稱",
+                        sortable: true,                        
+                    },
+                    {
+                        field: "GetStr_EnterTime",
+                        title: "登入時間",
+                        sortable: true,
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        field: "IP",
+                        title: "登陸IP",
+                        attributes: { "style": "text-align: center;" },
+                        width: 200
+                    },
+                    {
+                        field: "GetStr_LeaveTime",
+                        title: "登出時間",
+                        sortable: true,
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },                                       
+                    {
+                        title: "操作",
+                        template: kendo.template($("#command-template").html()),
+                        sortable: false,
+                        width: 100
+                    }
+                ],
+                editable: "popup",
+                sortable: true,
+                pageable: {
+                    refresh: true
+                    //, pageSizes: true
+                },
+                scrollable: false
+            });            
+        });
+
+        //全選，全不選
+        function ToggleAll(sender) {
+            if ($(sender).prop('checked')) {
+                SelectAll('#dvGrid');
+                return;
+            } else {
+                ClearSelect('#dvGrid');
+            }
+        }
+
+    </script>
+
+<script id="command-template" type="text/x-kendo-template">
+    @if(AllowDelete)
+    {
+        <div class="k-button k-grid-Delete" entityId="#: @Model.EntityId #" entityName="#: Account #"><span>刪除</span> </div>
+    }   
+</script>

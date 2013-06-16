@@ -74,6 +74,11 @@ namespace FTISWeb.Models
                     FormsAuthentication.SetAuthCookie(this.Account, this.RememberMe);
                     Ticket.SignIn(this.Account, this.RememberMe, 1);
                     m_SessionHelper.LoginUser = admin;
+
+                    ////登入紀錄
+                    MasterLog masterLog = new MasterLog(this.Account, HttpHelper.GetUserIp());
+                    m_FTISService.CreateMasterLog(masterLog);
+
                     return true;
                 }
             }
