@@ -222,6 +222,8 @@
     <Compile Include="Controllers\Admin\AdminMemberController.cs" />
     <Compile Include="Controllers\Admin\AdminDownloadRecordController.cs" />
     <Compile Include="Controllers\Admin\AdminDownloadRecordStatisticsController.cs" />
+    <Compile Include="Controllers\Admin\AdminMasterLogController.cs" />
+    <Compile Include="Controllers\Admin\AdminMasterMemberController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
@@ -250,6 +252,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\UrlButtonHelper.cs" />
     <Compile Include="Models\Account\LogOnModel.cs" />
     <Compile Include="Models\Account\UnthorizedModel.cs" />
@@ -289,7 +292,9 @@
     <Compile Include="Models\FTIS\AbstractExaminationModel.cs" />
     <Compile Include="Models\FTIS\EpaperExaminationModel.cs" />
     <Compile Include="Models\FTIS\ExaminationModel.cs" />
+    <Compile Include="Models\FTIS\MasterMemberModel.cs" />
     <Compile Include="Models\Home\HomeShowModel.cs" />
+    <Compile Include="Models\Home\SearchModel.cs" />
     <Compile Include="Models\Post\AbstractNodeModel.cs" />
     <Compile Include="Models\FreeGO\CheckFreeGOModel.cs" />
     <Compile Include="Models\Post\NodeModel.cs" />
@@ -2275,6 +2280,15 @@
     <Content Include="Views\Member\AdminGridList.cshtml" />
     <Content Include="Views\DownloadRecordStatistics\AdminIndex.cshtml" />
     <Content Include="Views\DownloadRecordStatistics\AdminGridList.cshtml" />
+    <Content Include="Views\Template\AdminIndex.cshtml" />
+    <Content Include="Views\Template\Save.cshtml" />
+    <Content Include="Views\Template\AdminGridList.cshtml" />
+    <Content Include="Views\MasterLog\AdminIndex.cshtml" />
+    <Content Include="Views\MasterLog\AdminGridList.cshtml" />
+    <Content Include="Views\MasterMember\AdminGridList.cshtml" />
+    <Content Include="Views\MasterMember\AdminIndex.cshtml" />
+    <Content Include="Views\MasterMember\Save.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />
