@@ -302,10 +302,52 @@ namespace FTIS.Service.Impl
                     foreach (AdminRole role in admin.AdminRoles)
                     {
                         NHibernateUtil.Initialize(role.AdminBar);
+
+                        role.MasterMember = new MasterMember();
                     }
                 }
             }
             return list;
+        }
+
+        /// <summary>
+        /// 取得管理者帳號 By 識別碼
+        /// </summary>
+        /// <param name="masterMemberId">識別碼</param>
+        /// <returns>管理者帳號</returns>
+        public MasterMember GetMasterMemberByIdNoLazy(int GetMasterMemberById)
+        {
+            MasterMember entity = FTISDao.GetMasterMemberById(GetMasterMemberById);
+            if (entity != null)
+            {
+                NHibernateUtil.Initialize(entity.AdminRoles);
+                foreach (AdminRole role in entity.AdminRoles)
+                {
+                    NHibernateUtil.Initialize(role.AdminBar);
+                }
+            }
+            return entity;
+        }
+
+        /// <summary>
+        /// 取得管理者帳號 By 登入帳號
+        /// </summary>
+        /// <param name="account">帳號</param>
+        /// <returns>管理者帳號</returns>
+        public MasterMember GetMasterMemberByAccount(string account)
+        {
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("Account", account);
+            IList<MasterMember> masterMemberList = FTISDao.GetMasterMemberList(conditions);
+
+            if (masterMemberList != null && masterMemberList.Count > 0)
+            {
+                return masterMemberList[0];
+            }
+            else
+            {
+                return null;
+            }
         }
         #endregion
 

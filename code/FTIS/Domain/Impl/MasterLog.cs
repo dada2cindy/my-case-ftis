@@ -74,6 +74,36 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string Password { get; set; }
 
+        public virtual string GetStr_EnterTime
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (EnterTime != null)
+                {
+                    result = EnterTime.Value.ToString("yyyy/MM/dd HH:mm:ss");
+                }
+
+                return result;
+            }
+        }
+
+        public virtual string GetStr_LeaveTime
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (LeaveTime != null)
+                {
+                    result = LeaveTime.Value.ToString("yyyy/MM/dd HH:mm:ss");
+                }
+
+                return result;
+            }
+        }
+
         #endregion
     }
 }

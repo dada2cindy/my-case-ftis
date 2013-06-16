@@ -359,6 +359,7 @@ namespace FTIS.Persistence
         private IList QueryMasterMember(ArrayList param, string fromScript, StringBuilder whereScript, IDictionary<string, string> conditions, bool useOrder)
         {
             AppendMasterMemberAccount(conditions, whereScript, param);
+            AppendMasterMemberKeyWord(conditions, whereScript, param);
 
             string hql = fromScript + "where 1=1 " + whereScript;
             if (useOrder)
@@ -379,6 +380,16 @@ namespace FTIS.Persistence
             }
 
             return order;
+        }
+
+        private void AppendMasterMemberKeyWord(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)
+        {
+            if (conditions.IsContainsValue("KeyWord"))
+            {
+                whereScript.Append(" and (m.Name like ? or m.Account like ? ) ");
+                param.Add("%" + conditions["KeyWord"] + "%");
+                param.Add("%" + conditions["KeyWord"] + "%");
+            }
         }
 
         private void AppendMasterMemberAccount(IDictionary<string, string> conditions, StringBuilder whereScript, ArrayList param)

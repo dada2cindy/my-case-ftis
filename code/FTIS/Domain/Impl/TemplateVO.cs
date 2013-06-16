@@ -99,6 +99,25 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual DateTime? LastDate { get; set; }
 
+        public virtual string GetStr_Status
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.Flag)
+                {
+                    case 0:
+                        result = "關閉";
+                        break;
+                    case 1:
+                        result = "開啟";
+                        break;
+                }
+
+                return result;
+            }
+        }
+
         #endregion
     }
 }

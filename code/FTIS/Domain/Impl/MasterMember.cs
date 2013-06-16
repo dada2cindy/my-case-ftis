@@ -11,7 +11,7 @@ namespace FTIS.Domain.Impl
     /// </summary>
     [Serializable]
     [DataContract]
-    public class MasterMember
+    public class MasterMember : Entity
     {
         #region Constructor
 
@@ -38,12 +38,6 @@ namespace FTIS.Domain.Impl
         public virtual string Password { get; set; }
 
         /// <summary>
-        /// 姓名
-        /// </summary>
-        [DataMember]
-        public virtual string Name { get; set; }
-
-        /// <summary>
         /// 電話
         /// </summary>
         [DataMember]
@@ -68,16 +62,25 @@ namespace FTIS.Domain.Impl
         public virtual DateTime? RegDate { get; set; }
 
         /// <summary>
-        /// 狀態. 0.關閉 1.開啟
-        /// </summary>
-        [DataMember]
-        public virtual string Status { get; set; }
-
-        /// <summary>
         /// 功能權限
         /// </summary>
         [DataMember]
         public virtual IList<AdminRole> AdminRoles { get; set; }
+
+        public virtual string GetStr_RegDate
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (RegDate != null)
+                {
+                    result = RegDate.Value.ToString("yyyy/MM/dd");
+                }
+
+                return result;
+            }
+        }
 
         #endregion
     }

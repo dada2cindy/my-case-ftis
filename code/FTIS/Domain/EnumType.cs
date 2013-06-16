@@ -102,9 +102,9 @@ namespace FTIS.Domain
     {
         None = 0,
         Read = 1,
-        Create = 2,
-        Edit = 4,
-        Delete = 8
+        Create = 8,
+        Edit = 2,
+        Delete = 4
     }
 
     public enum AjaxResultStatus

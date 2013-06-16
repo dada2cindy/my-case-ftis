@@ -37,13 +37,13 @@ namespace FTIS.Domain.Container
                     LoginUserContainer container = new LoginUserContainer();
                     m_LoginUserContainer = container;
 
-                    loadAllUser();
+                    LoadAllUser();
                 }
                 return m_LoginUserContainer;
             }
         }
 
-        private static void loadAllUser()
+        private static void LoadAllUser()
         {
             FTISFactory ftisFactory = new FTISFactory();
             IFTISService ftisService = ftisFactory.GetFTISService();
@@ -62,7 +62,7 @@ namespace FTIS.Domain.Container
 
         public MasterMember GetUser(string userId)
         {
-            initData(userId);
+            InitData(userId);
 
             return m_LoginUserContainer.m_UserDic[userId];
         }
@@ -71,18 +71,27 @@ namespace FTIS.Domain.Container
         /// 初始化
         /// </summary>
         /// <param name="userId"></param>
-        private void initData(string userId)
+        public void InitMember(string userId)
+        {
+            LoadUser(userId);
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="userId"></param>
+        private void InitData(string userId)
         {
             if (m_LoginUserContainer.m_UserDic.Count > 0)
             {
                 if (!m_LoginUserContainer.m_UserDic.ContainsKey(userId))
                 {
-                    loadUser(userId);
+                    LoadUser(userId);
                 }
             }
             else
             {
-                loadUser(userId);
+                LoadUser(userId);
             }
         }
 
@@ -90,7 +99,7 @@ namespace FTIS.Domain.Container
         /// 載入user的資料
         /// </summary>
         /// <param name="userId"></param>
-        private void loadUser(string userId)
+        private void LoadUser(string userId)
         {
             FTISFactory ftisFactory = new FTISFactory();
             IFTISService ftisService = ftisFactory.GetFTISService();

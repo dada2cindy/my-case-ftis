@@ -170,6 +170,20 @@ namespace FTIS.Service
         /// <param name="conditions">搜尋條件</param>
         /// <returns>管理者帳號清單</returns>
         IList<MasterMember> GetMasterMemberListNoLazy(IDictionary<string, string> conditions);
+
+        /// <summary>
+        /// 取得管理者帳號 By 識別碼
+        /// </summary>
+        /// <param name="masterMemberId">識別碼</param>
+        /// <returns>管理者帳號</returns>
+        MasterMember GetMasterMemberByIdNoLazy(int masterMemberId);
+
+        /// <summary>
+        /// 取得管理者帳號 By 登入帳號
+        /// </summary>
+        /// <param name="account">帳號</param>
+        /// <returns>管理者帳號</returns>
+        MasterMember GetMasterMemberByAccount(string account);
         #endregion
 
         #region NewsType
