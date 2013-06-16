@@ -160,3 +160,19 @@ GO
 ALTER TABLE tblGeneral_Member ADD ReceiveEpaperInfo nvarchar(1) null
 ALTER TABLE tblDownloadRecord ALTER COLUMN MemID int NULL
 GO
+
+/****** AdminBar ******/
+UPDATE tblAdminBar
+   SET BarName = '產品環境資訊揭露管理'
+where AdminBarID = 9 
+GO
+
+UPDATE tblAdminBar
+   SET BarName = '企業永續發展應用/企業社會責任管理'
+where AdminBarID = 10 
+GO
+
+UPDATE tblAdminBar
+   SET BarName = '首頁四季節慶設置'
+where AdminBarID = 15 
+GO
