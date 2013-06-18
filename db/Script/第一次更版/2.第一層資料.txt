@@ -52,7 +52,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (0
            ,'春'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/春.swf'
            ,'0301'
            ,'0531'
            ,'1')
@@ -68,7 +68,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (0
            ,'夏'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/夏.swf'
            ,'0601'
            ,'0831'
            ,'1')
@@ -84,7 +84,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (0
            ,'秋'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/秋.swf'
            ,'0901'
            ,'1130'
            ,'1')
@@ -100,7 +100,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (0
            ,'冬'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/冬.swf'
            ,'1201'
            ,'0229'
            ,'1')
@@ -116,7 +116,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (1
            ,'中秋節'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/中秋.swf'
            ,'0815'
            ,'0815'
            ,'1')
@@ -132,7 +132,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (1
            ,'元宵節'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/元宵.swf'
            ,'0115'
            ,'0115'
            ,'1')
@@ -148,7 +148,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (1
            ,'端午節'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/端午.swf'
            ,'0505'
            ,'0505'
            ,'1')
@@ -164,7 +164,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (1
            ,'中國情人節'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/情人節.swf'
            ,'0707'
            ,'0707'
            ,'1')
@@ -180,7 +180,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (1
            ,'聖誕節'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/聖誕.swf'
            ,'1225'
            ,'1225'
            ,'1')
@@ -196,7 +196,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (1
            ,'春節'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/春節.swf'
            ,'0101'
            ,'0101'
            ,'1')
@@ -212,7 +212,7 @@ INSERT INTO [tblSystemTemplate]
      VALUES
            (1
            ,'西洋情人節'
-           ,'/Scripts/ckfinder/userfiles/flash/flash.swf'
+           ,'/Scripts/ckfinder/userfiles/flash/情人節.swf'
            ,'0214'
            ,'0214'
            ,'1')
