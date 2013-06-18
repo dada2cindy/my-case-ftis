@@ -127,7 +127,7 @@
         @{
             foreach (HomeNews homeNews in Model.GetHomeNews())
             {
-                <li class="Right-message-LI"><a href="@Url.Action("Detail", "HomeNews", new { id = Model.EncryptId(homeNews.HomeNewsId) })" class="message">@homeNews.Name</a></li>
+                <li class="Right-message-LI"><a href="@homeNews.AUrl" target="_blank" class="message">@homeNews.Name</a></li>
             }
          }
     </ul>
@@ -140,7 +140,7 @@
           <td class="Right2-table"><a href="http://www.ftis.org.tw/Consultation/index.aspx" target="_blank" onmouseover="MM_swapImage('Image15','','image/home-banner-title-5-over.gif',1)" onmouseout="MM_swapImgRestore()"><img src="image/home-banner-title-5.gif" name="Image15" width="126" height="34" border="0" id="Image15" /></a></td>
         </tr>
         <tr>
-          <td class="Right2-table"><a href="@Url.Action("Index", "About", new { id = Model.EncryptId(6) })" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image16','','image/home-banner-title-8-over.gif',1)"><img src="image/home-banner-title-8.gif" name="Image16" width="105" height="34" border="0" id="Image16" /></a></td>
+          <td class="Right2-table"><a href="@Url.Action("Index", "AboutUs", new { id = Model.EncryptId(6) })" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image16','','image/home-banner-title-8-over.gif',1)"><img src="image/home-banner-title-8.gif" name="Image16" width="105" height="34" border="0" id="Image16" /></a></td>
         </tr>
         <tr>
           <td class="Right2-table"><a href="@Url.Action("Index", "Question")" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image17','','image/home-banner-title-7-over.gif',1)"><img src="image/home-banner-title-7.gif" name="Image17" width="159" height="34" border="0" id="Image17" /></a></td>

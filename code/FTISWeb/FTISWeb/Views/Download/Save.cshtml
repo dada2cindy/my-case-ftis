@@ -116,6 +116,7 @@
                 <td>
                     @Html.TextBox("AFile1", Model.AFile1, new { id = "AFile1", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile1');" })
                     <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile1');" />
+                    <input type="button" value="清除" onclick="ClearFile('#AFile1');" />
                 </td>
             </tr>
             <tr>

@@ -776,6 +776,16 @@
     <Content Include="pp\banner-7.gif" />
     <Content Include="pp\banner-9.gif" />
     <Content Include="Scripts\ckfinder\userfiles\flash\flash.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\中秋.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\元宵.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\冬.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\夏.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\情人節.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\春.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\春節.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\秋.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\端午.swf" />
+    <Content Include="Scripts\ckfinder\userfiles\flash\聖誕.swf" />
     <Content Include="swf\inTopflash.swf" />
     <Content Include="pp\adv.jpg" />
     <Content Include="pp\banner-1.gif" />

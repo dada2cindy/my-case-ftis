@@ -239,6 +239,7 @@
                 <td>
                     @Html.TextBox("ReportPic", Model.ReportPic, new { id = "ReportPic", @readonly = "readonly" , onclick = "BrowseServer('WebUserImages:/', 'ReportPic');" })
                     <input type="button" value="上傳圖片" onclick="BrowseServer('WebUserImages:/', 'ReportPic');" /> 
+                    <input type="button" value="清除" onclick="ClearFile('#ReportPic');" />
                 </td>
             </tr>
             <tr>

@@ -23,6 +23,7 @@ namespace FTISWeb.Models
 
         public MemberModel()
         {
+            CompanyTypeList = new string[] { };
         }
 
         public MemberModel(int id)

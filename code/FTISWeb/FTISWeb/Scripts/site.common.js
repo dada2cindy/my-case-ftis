@@ -94,6 +94,10 @@ function ClearUI(tag) {
     });
 }
 
+function ClearFile(tag) {
+    $(tag).val('');
+}
+
 function GetCheckBoxValue(selector) {
     if ($(selector).prop('checked')) {
         return $(selector).val();

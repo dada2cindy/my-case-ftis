@@ -148,6 +148,7 @@
                 <td>
                     @Html.TextBox("Pic1", Model.Pic1, new { id = "Pic1", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic1');" })
                     <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic1');" />
+                    <input type="button" value="清除" onclick="ClearFile('#Pic1');" />
                 </td>
             </tr>
             <tr>
@@ -163,6 +164,7 @@
                 <td>
                     @Html.TextBox("Pic2", Model.Pic2, new { id = "Pic2", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic2');" })
                     <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic2');" />
+                    <input type="button" value="清除" onclick="ClearFile('#Pic2');" />
                 </td>
             </tr>
             <tr>
@@ -178,6 +180,7 @@
                 <td>
                     @Html.TextBox("Pic3", Model.Pic3, new { id = "Pic3", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic3');" })
                     <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic3');" />
+                    <input type="button" value="清除" onclick="ClearFile('#Pic3');" />
                 </td>
             </tr>
             <tr>
@@ -193,6 +196,7 @@
                 <td>
                     @Html.TextBox("AFile1", Model.AFile1, new { id = "AFile1", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile1');" })
                     <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile1');" />
+                    <input type="button" value="清除" onclick="ClearFile('#AFile1');" />
                 </td>
             </tr>
             <tr>
@@ -208,6 +212,7 @@
                 <td>
                     @Html.TextBox("AFile2", Model.AFile2, new { id = "AFile2", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile2');" })
                     <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile2');" />
+                    <input type="button" value="清除" onclick="ClearFile('#AFile2');" />
                 </td>
             </tr>
             <tr>
@@ -223,6 +228,7 @@
                 <td>
                     @Html.TextBox("AFile3", Model.AFile3, new { id = "AFile3", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile3');" })
                     <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile3');" />
+                    <input type="button" value="清除" onclick="ClearFile('#AFile3');" />
                 </td>
             </tr>
             <tr>
