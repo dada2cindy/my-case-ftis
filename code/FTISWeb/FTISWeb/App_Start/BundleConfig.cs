@@ -66,6 +66,7 @@ namespace FTISWeb
             ***************************************************************************/
             bundles.Add(new ScriptBundle("~/bundles/SiteHome").Include(
                 "~/Scripts/site.home.js",
+                "~/Scripts/AC_RunActiveContent.js",
                 "~/Scripts/swfobject_modified.js"));
 
             bundles.Add(new StyleBundle("~/Content/SiteHomeCSS").Include(

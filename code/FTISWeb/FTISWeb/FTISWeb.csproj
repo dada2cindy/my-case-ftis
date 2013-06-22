@@ -775,6 +775,7 @@
     <Content Include="pp\banner-6.gif" />
     <Content Include="pp\banner-7.gif" />
     <Content Include="pp\banner-9.gif" />
+    <Content Include="Scripts\AC_RunActiveContent.js" />
     <Content Include="Scripts\ckfinder\userfiles\flash\flash.swf" />
     <Content Include="Scripts\ckfinder\userfiles\flash\中秋.swf" />
     <Content Include="Scripts\ckfinder\userfiles\flash\元宵.swf" />

@@ -14,6 +14,12 @@
 	width: 253px;
 	margin-left: -3px;
 }
+#In-left2 {
+	float: left;
+	width: 253px;
+	height: 600px;
+	margin-left: -3px;
+}
 #In-leftTitle {
 	height: 72px;
 	width: 205px;
@@ -912,10 +918,9 @@ a.searchBtn:active {
 	font-size: 13px;
 	font-weight: bold;
 	color: #2E82CD;
-	height: 22px;
 	margin-bottom: 10px;
-	padding-bottom: 6px;
-	line-height: normal;
+	padding-bottom: 13px;
+	line-height: 22px;
 	list-style-position: inside;
 	background-image: url(../in-image/qa-Q.gif);
 	background-repeat: no-repeat;
