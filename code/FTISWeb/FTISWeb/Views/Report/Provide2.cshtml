@@ -109,7 +109,7 @@
     @Html.Partial("InShowAdv")
       <h1>企業社會責任<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Application")">企業社會責任</a> &gt; CSR報告書查詢</span>    </h1>    
       <h2>報告書資訊提供</h2>
-            @using (Html.BeginForm("SendOrder", "Report", FormMethod.Post, new { id = "frmSave" }))
+            @using (Html.BeginForm("SendOrder", "Report", FormMethod.Post, new { id = "frmSave", enctype = "multipart/form-data" }))
             {
       <div id="InShow-INob"><img src="/in-image/csr-step-2.gif" width="634" height="85" alt="Step2" /><br />
       <br />
@@ -157,12 +157,13 @@
       <li class="Epaper02-pp">GRI等級　：
         @Html.DropDownListFor(m => m.GRI, m_GRIList, "請選擇", new { @class = "csr-Order" })
       </li>
-      <li class="Epaper02-pp">報告書封面：@Html.TextBox("ReportPic", Model.ReportPic, new { id = "ReportPic", @class = "csr-Order2", @readonly = "readonly", onclick = "BrowseServer('WebUserImages:/', 'ReportPic');" })
-                    <input type="button" value="上傳圖片" onclick="BrowseServer('WebUserImages:/', 'ReportPic');" /></li>
+      <li class="Epaper02-pp">報告書封面：@*@Html.TextBox("ReportPic", Model.ReportPic, new { id = "ReportPic", @class = "csr-Order2", @readonly = "readonly", onclick = "BrowseServer('WebUserImages:/', 'ReportPic');" })*@
+          <input type="file" name="picFile" id="picFile" />
+                    @*<input type="button" value="上傳圖片" onclick="BrowseServer('WebUserImages:/', 'ReportPic');" />*@</li>
       <li class="Epaper02-pp">CSR網頁　：CSR網頁1
-      　@Html.TextBox("CSRPage1", Model.CSRPage1, new { id = "CSRPage1", @class = "csr-Order", size = "25" })
+      　@Html.TextBox("CSRPage1", Model.CSRPage1, new { id = "CSRPage1", @class = "csr-Order", size = "22" })
                  　CSR網頁2       
-          @Html.TextBox("CSRPage2", Model.CSRPage2, new { id = "CSRPage2", @class = "csr-Order", size = "25" })
+          @Html.TextBox("CSRPage2", Model.CSRPage2, new { id = "CSRPage2", @class = "csr-Order", size = "22" })
       </li>
       <li class="Epaper02-pp">語言版本　：<br />
         　&nbsp; 中文下載網址          

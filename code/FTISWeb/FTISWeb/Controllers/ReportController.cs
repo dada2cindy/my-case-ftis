@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -48,7 +49,7 @@ namespace FTISWeb.Controllers
             return View(entityModel);
         }
 
-        public ActionResult ReportFile(string id,string fileUrl, string type)
+        public ActionResult ReportFile(string id, string fileUrl, string type)
         {
             EntityCounter(id, type);
             Response.Redirect(fileUrl);
@@ -78,16 +79,37 @@ namespace FTISWeb.Controllers
         [HttpPost]
         [ReportItemData]
         [ApplicationClassData(OnlyOpen = true)]
-        public ActionResult SendOrder(ReportModel model)
+        public ActionResult SendOrder(ReportModel model, HttpPostedFileBase picFile)
         {
             ModelState.Remove("Name");
             string captcha = AccountUtil.GetCaptcha();
-            if (!captcha.Equals(model.ConfirmationCode, StringComparison.OrdinalIgnoreCase))
+            if (picFile == null || picFile.ContentLength <= 0)
+            {
+                ModelState.AddModelError("ReportPic", "請選擇報告書封面圖片");
+            }
+            else if (picFile.ContentLength > (1024 * 1024))
+            {
+                ModelState.AddModelError("ReportPic", "請選擇小於 1MB 的報告書封面圖片");
+            }
+            else if (!captcha.Equals(model.ConfirmationCode, StringComparison.OrdinalIgnoreCase))
             {
                 ModelState.AddModelError("ConfirmationCode", "驗證碼錯誤");
             }
             else
             {
+                if (picFile.ContentLength > 0)
+                {
+
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(picFile.FileName);
+
+                    var path = Path.Combine(AppSettings.CKFinderBaseDir, "webuser/images/", fileName);
+
+                    picFile.SaveAs(path);
+
+                    model.ReportPic = "webuser/images/" + fileName;
+
+                }
+
                 if (model.IsValid(ModelState))
                 {
                     model.Status = "0";
