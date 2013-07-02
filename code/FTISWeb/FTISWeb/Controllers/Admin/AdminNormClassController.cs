@@ -73,12 +73,12 @@ namespace FTISWeb.Controllers
                 //檢查底下的SubNormClass數量
                 IDictionary<string, string> conditions = new Dictionary<string, string>();
                 conditions.Add("ParentNormClassId", id.ToString());
+                conditions.Add("OnlySub", "OnlySub");
                 int subsCount = m_FTISService.GetNormClassCount(conditions);
                 if (subsCount > 0)
                 {
                     return this.Json(new AjaxResult(AjaxResultStatus.Fail, string.Format("{0}底下尚有國家分類，不可刪除。", entity.Name)));
                 }
-
                 m_FTISService.DeleteNormClass(entity);
 
                 result.ErrorCode = AjaxResultStatus.Success;
@@ -110,6 +110,7 @@ namespace FTISWeb.Controllers
                     //檢查底下的SubNormClass數量
                     IDictionary<string, string> conditions = new Dictionary<string, string>();
                     conditions.Add("ParentNormClassId", id.ToString());
+                    conditions.Add("OnlySub", "OnlySub");
                     int subsCount = m_FTISService.GetNormClassCount(conditions);
                     if (subsCount == 0)
                     {

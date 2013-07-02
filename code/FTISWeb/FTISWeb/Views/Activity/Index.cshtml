@@ -42,6 +42,7 @@
               foreach (var entity in Model)
               {
                   string rowClass = (i % 2 == 0) ? "News-Sob02" : "News-Sob01";
+                  string actStatusClass = "結束".Equals(entity.ActStatus) ? "Act-Status-End" : "Act-Status";
                   <tr>
                     <td class="@rowClass">@entity.GetStr_PostDate</td>
                     <td class="@rowClass"><a href="@Url.Action("Detail", "Activity", new { id= m_hsModel.EncryptId(entity.ActivityId)})">@m_hsModel.SubString(entity.Name, 30, true)</a>
@@ -51,7 +52,7 @@
                         }
                     </td>
                     <td class="@rowClass" style="width:90px;">@entity.MCompany</td>
-                    <td class="@rowClass"><span class="Act-Status">@entity.ActStatus</span></td>
+                    <td class="@rowClass"><span class="@actStatusClass">@entity.ActStatus</span></td>
                  </tr>
                   i++; 
               }

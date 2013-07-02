@@ -2300,6 +2300,7 @@
     <Content Include="Views\MasterMember\AdminIndex.cshtml" />
     <Content Include="Views\MasterMember\Save.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Green\NodeSingleEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

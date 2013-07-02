@@ -34,7 +34,18 @@
           @{
               foreach (var entity in Model)
               {
-                  <li class="Web-txt">@entity.Name<span class="Web-txt2"><a href="@entity.AUrl" target="_blank">@entity.AUrl</a></span></li>
+                  <li class="Web-txt">
+                      <table>
+                          <tr>
+                              <td style="width:300px;word-wrap: break-word;word-break: normal;">
+                                  @entity.Name
+                              </td>
+                              <td>
+                                  <span class="Web-txt2"><a href="@entity.AUrl" target="_blank">@entity.AUrl</a></span>
+                              </td>
+                          </tr>
+                      </table>
+                      </li>
               }
           }                   
         </ul>
