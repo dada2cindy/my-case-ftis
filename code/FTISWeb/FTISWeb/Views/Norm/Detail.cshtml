@@ -36,7 +36,7 @@
                   string selectClass = (entity.NormId == Model.EntityId) ? "NormIn-Slect" : "NormIn-Slect2";
                   string selectClass2 = (entity.NormId == Model.EntityId) ? "NormIn-right" : "NormIn-right2";
               <div class="@selectClass">
-        <div class="NormIn-txt"><a href="@Url.Action("Detail", "Norm", new { id = entity.NormId, parentId = m_hsModel.EncryptId(m_NormClass.NormClassId) })">@entity.Name</a></div>
+        <div class="NormIn-txt"><a class="NormIn-slect-btn" href="@Url.Action("Detail", "Norm", new { id = entity.NormId, parentId = m_hsModel.EncryptId(m_NormClass.NormClassId) })">@entity.Name</a></div>
         <div class="@selectClass2"></div>
       </div>
               }
