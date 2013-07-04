@@ -59,6 +59,16 @@ namespace FTISWeb.Models
         [Range(1, int.MaxValue, ErrorMessage = "請選擇種類")]
         public int NewsTypeId { get; set; }
 
+        /// <summary>
+        /// 上一筆
+        /// </summary>
+        public News PrevEntity { get; set; }
+
+        /// <summary>
+        /// 下一筆
+        /// </summary>
+        public News NextEntity { get; set; }
+
         #region ICheckFreeGO 成員
 
         public bool ShowFreeGOMsg { get; set; }
@@ -277,6 +287,51 @@ namespace FTISWeb.Models
             }
 
             LoadEntity(entity.NewsId);
+        }
+
+        /// <summary>
+        /// 取得上一筆, 下一筆
+        /// </summary>
+        /// <param name="dataIndex"></param>
+        /// <param name="keyWord"></param>
+        /// <param name="newsClassId"></param>
+        /// <param name="newsTypeId"></param>
+        public void GetPrevNextEntity(int dataIndex, string keyWord, string newsClassId, string newsTypeId)
+        {
+            
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("KeyWord", keyWord);
+            conditions.Add("NewsClassId", DecryptId(newsClassId));
+            conditions.Add("NewsTypeId", DecryptId(newsTypeId));
+            conditions.Add("PageSize", "1");
+            
+            ////上一筆
+            if (dataIndex > 0)
+            {
+                conditions.Add("PageIndex", (dataIndex - 1).ToString());
+
+                IList<News> list = m_FTISService.GetNewsListNoLazy(conditions);
+                if (list != null && list.Count > 0)
+                {
+                    PrevEntity = list[0];
+                }
+            }
+
+            ////下一筆
+            if (dataIndex >= 0)
+            {
+                if (conditions.ContainsKey("PageIndex"))
+                {
+                    conditions.Remove("PageIndex");
+                }
+                conditions.Add("PageIndex", (dataIndex + 1).ToString());
+
+                IList<News> list = m_FTISService.GetNewsListNoLazy(conditions);
+                if (list != null && list.Count > 0)
+                {
+                    NextEntity = list[0];
+                }
+            }
         }
     }
 }

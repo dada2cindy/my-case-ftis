@@ -37,7 +37,21 @@
                     </td>
                 </tr>
             </tbody>
-        </table>      
+        </table>
+        @{
+            if(Model.PrevEntity!=null)
+            {
+                int dataIndex = (int)ViewData["DataIndex"] - 1;
+                <p class="News-IN-Prev"><a href="@Url.Action("Detail", "News", new { id= m_hsModel.EncryptId(Model.PrevEntity.NewsId), dataIndex = dataIndex, newsClassId = ViewData["NewsClassId"], newsTypeId = ViewData["NewsTypeId"], keyWord = ViewData["KeyWord"]})">上一篇：@Model.PrevEntity.Name</a></p>             
+            }
+        }  
+        @{
+            if (Model.NextEntity != null)
+            {
+                int dataIndex = (int)ViewData["DataIndex"] + 1;
+                <p class="News-IN-Next"><a href="@Url.Action("Detail", "News", new { id= m_hsModel.EncryptId(Model.NextEntity.NewsId), dataIndex = dataIndex, newsClassId = ViewData["NewsClassId"], newsTypeId = ViewData["NewsTypeId"], keyWord = ViewData["KeyWord"]})">下一篇：@Model.NextEntity.Name</a></p>      
+            }
+        }              
       <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
     </div>
     

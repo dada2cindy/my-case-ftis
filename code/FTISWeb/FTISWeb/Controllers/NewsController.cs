@@ -17,6 +17,7 @@ using KendoGridBinder;
 using KendoGridBinder.Containers;
 using WuDada.Core.Generic.Util;
 using MvcPaging;
+using FTISWeb.Helper;
 
 namespace FTISWeb.Controllers
 {
@@ -50,7 +51,7 @@ namespace FTISWeb.Controllers
             return View(data.ToPagedList(pageIndex, AppSettings.InSitePageSize, total));
         }
 
-        public ActionResult Detail(string id, string cdts)
+        public ActionResult Detail(string id, string cdts, int dataIndex, string keyWord, string newsClassId, string newsTypeId)
         {
             GetConditions(cdts);
             EntityCounter(id, "Vister");
@@ -59,10 +60,15 @@ namespace FTISWeb.Controllers
             {
                 Response.Redirect(entityModel.AUrl);
             }
+            ViewData["DataIndex"] = dataIndex;
+            ViewData["KeyWord"] = keyWord;
+            ViewData["NewsClassId"] = newsClassId;
+            ViewData["NewsTypeId"] = newsTypeId;
+            entityModel.GetPrevNextEntity(dataIndex, keyWord, newsClassId, newsTypeId);
             return View(entityModel);
         }
 
-        public ActionResult EngDetail(string id, string cdts)
+        public ActionResult EngDetail(string id, string cdts, int dataIndex, string keyWord, string newsClassId, string newsTypeId)
         {
             GetConditions(cdts);
             EntityCounter(id, "VisterENG");
@@ -71,6 +77,11 @@ namespace FTISWeb.Controllers
             {
                 Response.Redirect(entityModel.AUrl);
             }
+            entityModel.GetPrevNextEntity(dataIndex, keyWord, newsClassId, newsTypeId);
+            ViewData["DataIndex"] = dataIndex;
+            ViewData["KeyWord"] = keyWord;
+            ViewData["NewsClassId"] = newsClassId;
+            ViewData["NewsTypeId"] = newsTypeId;
             return View(entityModel);
         }
 
@@ -107,7 +118,7 @@ namespace FTISWeb.Controllers
 
         public ActionResult CaptchaImg()
         {
-            var builder = new XCaptcha.ImageBuilder(4);
+            var builder = new XCaptcha.ImageBuilder(CaptchaHelper.GetRandomStringOnlyNum(6));
 
             var result = builder.Create();
             AccountUtil.SetCaptcha(result.Solution);

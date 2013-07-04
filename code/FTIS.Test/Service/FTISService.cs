@@ -373,5 +373,15 @@ namespace FOTIS.Test.Service
             int total = m_FTISService.GetSumCountHits(conditions);
             Assert.AreNotEqual(total, 0);
         }
+
+        [Test]
+        public void Test_GetNormClassCount()
+        {
+            IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("ParentNormClassId", "1");
+            conditions.Add("OnlySub", "OnlySub");
+            int subsCount = m_FTISService.GetNormClassCount(conditions);
+            Assert.AreNotEqual(subsCount, 0);
+        }
     }
 }

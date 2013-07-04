@@ -93,6 +93,7 @@
           </tr>
           @{
               int i = 1;
+              int dataIndex = Model.PageIndex * Model.PageSize;
               foreach (var entity in Model)
               {
                   string rowClass = (i % 2 == 0) ? "News-Sob02" : "News-Sob01";
@@ -105,7 +106,7 @@
                       }
                       else
                       {
-                        <a href="@Url.Action("Detail", "News", new { id= m_hsModel.EncryptId(entity.NewsId)})">@m_hsModel.SubString(entity.Name, 28, true)</a>
+                        <a href="@Url.Action("Detail", "News", new { id= m_hsModel.EncryptId(entity.NewsId), dataIndex = dataIndex, newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]), newsTypeId = m_hsModel.EncryptId(m_Conditions["NewsTypeId"]), keyWord = m_Conditions["KeyWord"]})">@m_hsModel.SubString(entity.Name, 28, true)</a>
                       }
                       @if ("1".Equals(entity.IsNew))
                       {
@@ -116,7 +117,8 @@
                   <td class="@rowClass">@entity.NewsType.Name</td>
                   <td class="@rowClass" style="text-align:center">@entity.Vister</td>
               </tr>
-                  i++; 
+                  i++;
+                  dataIndex++;
               }
           }                   
       </table>

@@ -84,6 +84,7 @@ namespace FTISWeb.Controllers
             ModelState.Remove("Email");
             ModelState.Remove("RegDate");
             ModelState.Remove("CheckPassword");
+            ModelState.Remove("ReceiveEpaperInfo");
             string captcha = AccountUtil.GetCaptcha();
             if (!captcha.Equals(model.ConfirmationCode, StringComparison.OrdinalIgnoreCase))
             {
@@ -112,7 +113,7 @@ namespace FTISWeb.Controllers
 
         public ActionResult CaptchaImg()
         {
-            var builder = new XCaptcha.ImageBuilder(4);
+            var builder = new XCaptcha.ImageBuilder(CaptchaHelper.GetRandomStringOnlyNum(6));
 
             var result = builder.Create();
             AccountUtil.SetCaptcha(result.Solution);
@@ -144,6 +145,7 @@ namespace FTISWeb.Controllers
             ModelState.Remove("CompanyTypeList");
             ModelState.Remove("RegDate");
             ModelState.Remove("CheckPassword");
+            ModelState.Remove("ReceiveEpaperInfo");
             string captcha = AccountUtil.GetCaptcha();
             if (!captcha.Equals(model.ConfirmationCode, StringComparison.OrdinalIgnoreCase))
             {

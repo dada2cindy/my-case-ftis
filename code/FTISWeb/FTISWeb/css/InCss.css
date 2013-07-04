@@ -495,6 +495,30 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+.News-IN-Prev {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	color: #1675D2;
+	background-image: url(../in-image/news-prev.gif);
+	padding-left: 20px;
+	background-repeat: no-repeat;
+	background-position: left 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.News-IN-Prev:hover {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	color: #FE6D00;
+	background-image: url(../in-image/news-prev.gif);
+	padding-left: 20px;
+	background-repeat: no-repeat;
+	background-position: left 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 .Act-Status {
 	font-size: 13px;
 	font-weight: bold;

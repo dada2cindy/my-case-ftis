@@ -10,6 +10,7 @@ using FTIS.Domain;
 using FTIS.Domain.Dto;
 using FTIS.Domain.Impl;
 using FTIS.Service;
+using FTISWeb.Helper;
 using FTISWeb.Models;
 using FTISWeb.Utility;
 using MvcPaging;
@@ -46,7 +47,7 @@ namespace FTISWeb.Controllers
 
         public ActionResult CaptchaImg()
         {
-            var builder = new XCaptcha.ImageBuilder(4);
+            var builder = new XCaptcha.ImageBuilder(CaptchaHelper.GetRandomStringOnlyNum(6));
 
             var result = builder.Create();
             AccountUtil.SetCaptcha(result.Solution);

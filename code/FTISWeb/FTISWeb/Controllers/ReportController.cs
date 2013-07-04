@@ -125,7 +125,7 @@ namespace FTISWeb.Controllers
 
         public ActionResult CaptchaImg()
         {
-            var builder = new XCaptcha.ImageBuilder(4);
+            var builder = new XCaptcha.ImageBuilder(CaptchaHelper.GetRandomStringOnlyNum(6));
 
             var result = builder.Create();
             AccountUtil.SetCaptcha(result.Solution);
