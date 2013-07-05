@@ -48,6 +48,11 @@
                 Query();
             });
 
+            //按下匯出鈕
+            $("#btnExport").click(function () {
+                Export();
+            });
+
             //Grid的刪除
             $("#dvGrid").on("click", ".k-grid-Delete", function () {
                 var entityId = $(this).attr('entityId');
@@ -61,7 +66,14 @@
                 keyWord: $("#KeyWord").val(),
                 status: $("#EStatus").val()
             });
-        }                      
+        }
+
+        function Export() {            
+            $("#dvExport").load('@Url.Action("Export", "EpaperEmail")', {
+                keyWord: $("#KeyWord").val(),
+                status: $("#EStatus").val()
+            });
+        }
 
         //刪除1筆動作(留在頁面寫)
         function OnDeleteItem(id) {            
@@ -95,6 +107,7 @@
                 @Html.TextBox("KeyWord", m_Conditions["KeyWord"])
                 @Html.DropDownList("EStatus", m_StatusSelectListItem, "狀態")
                 <input type="button" class="btn" value="查詢" id="btnQuery" />
+                <input type="button" class="btn" value="匯出" id="btnExport" />
             </td>
         </tr>        
     </table>
@@ -114,4 +127,5 @@
         @Html.Partial("AdminGridList", new ParamaterModel("Edit", "EpaperEmail", m_Cdts))
     </div>    
     <div class="deleteMsgFail"></div>
+    <div id="dvExport" style="display:none;"></div>
 </fieldset>

@@ -37,7 +37,8 @@ namespace FTISWeb
                 "~/Scripts/jquery.treeview.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/SiteCommon").Include(
-                "~/Scripts/site.common.js"));
+                "~/Scripts/site.common.js",
+                "~/Scripts/exportExcel.js"));
 
             bundles.Add(new StyleBundle("~/Content/Admin/LogOnCSS").Include(
                 "~/Content/Admin/css.css",

@@ -145,6 +145,61 @@ namespace FTIS.Domain.Impl
         [DataMember]
         public virtual string ReceiveEpaperInfo { get; set; }
 
+        public virtual string GetStr_CompanyNum
+        {
+            get
+            {
+                string result = string.Empty;
+                switch (this.Status)
+                {
+                    case "1":
+                        result = "大企業";
+                        break;
+                    case "2":
+                        result = "中小企業";
+                        break;
+                }
+
+                return result;
+            }
+        }
+
+        public virtual string GetStr_CompanyType
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (!string.IsNullOrEmpty(this.CompanyType.Trim()))
+                {
+                    string[] list = this.CompanyType.Split(',');
+                    if (list != null && list.Length > 0)
+                    {
+                        foreach (string s in list)
+                        {
+                            switch (s.Trim())
+                            {
+                                case "1":
+                                    result += string.Format("{0} ", "ODM(設計製造代工廠)");
+                                    break;
+                                case "2":
+                                    result += string.Format("{0} ", "OBM(品牌廠商)");
+                                    break;
+                                case "3":
+                                    result += string.Format("{0} ", "OEM(設備製造代工廠)");
+                                    break;
+                                case "4":
+                                    result += string.Format("{0}({1}) ", "其他", CompanyTypeOther);
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                return result;
+            }
+        }
+
         public virtual string GetStr_Status
         {
             get

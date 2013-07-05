@@ -51,7 +51,7 @@ namespace FTISWeb.Controllers
             return View(data.ToPagedList(pageIndex, AppSettings.InSitePageSize, total));
         }
 
-        public ActionResult Detail(string id, string cdts, int dataIndex, string keyWord, string newsClassId, string newsTypeId)
+        public ActionResult Detail(string id, string cdts, string keyWord, string newsClassId, string newsTypeId, int dataIndex = 0)
         {
             GetConditions(cdts);
             EntityCounter(id, "Vister");
@@ -68,7 +68,7 @@ namespace FTISWeb.Controllers
             return View(entityModel);
         }
 
-        public ActionResult EngDetail(string id, string cdts, int dataIndex, string keyWord, string newsClassId, string newsTypeId)
+        public ActionResult EngDetail(string id, string cdts, string keyWord, string newsClassId, string newsTypeId, int dataIndex = 0)
         {
             GetConditions(cdts);
             EntityCounter(id, "VisterENG");

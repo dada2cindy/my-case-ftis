@@ -169,6 +169,26 @@ namespace FTISWeb.Controllers
             return View("AdminGridList", new ParamaterModel("Edit", "EpaperEmail", (string)ViewData["Conditions"]));
         }
 
+        /// <summary>
+        /// 匯出
+        /// </summary>        
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Read)]
+        public ActionResult Export(string keyWord, string status)
+        {
+            SetConditions(keyWord, status);
+            return View("Export", GetGridData());
+        }
+
+        [HttpPost]
+        public ActionResult ExportExcel(FormCollection form)
+        {
+
+            string strHtml = form["exportHtml"];
+            strHtml = HttpUtility.HtmlDecode(strHtml);//Html解碼
+            byte[] b = System.Text.Encoding.Default.GetBytes(strHtml);//字串轉byte陣列
+            return File(b, "application/vnd.ms-excel", "電子報訂閱.xls");//輸出檔案給Client端
+        }
+
         private void AppendSortingCondition(KendoGridRequest request)
         {
             if (request.SortObjects.Count() == 1)

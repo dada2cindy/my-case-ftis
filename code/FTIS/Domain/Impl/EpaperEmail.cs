@@ -71,7 +71,7 @@ namespace FTIS.Domain.Impl
         /// 主要產品內容
         /// </summary>
         [DataMember]
-        public virtual string Address { get; set; }        
+        public virtual string Address { get; set; }
 
         /// <summary>
         /// 狀態. 0.退定 1.訂閱
@@ -89,7 +89,46 @@ namespace FTIS.Domain.Impl
         /// 是否同意獲得本會其他免費資訊. 0.否 1.是
         /// </summary>
         [DataMember]
-        public virtual string ReceiveOtherFreeInfo{ get; set; }
+        public virtual string ReceiveOtherFreeInfo { get; set; }
+
+        public virtual string GetStr_InType
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (!string.IsNullOrEmpty(this.InType.Trim()))
+                {
+                    string[] list = this.InType.Split(',');
+                    if (list != null && list.Length > 0)
+                    {
+                        foreach (string s in list)
+                        {
+                            switch (s.Trim())
+                            {
+                                case "1":
+                                    result += string.Format("{0} ", "製造業");
+                                    break;
+                                case "2":
+                                    result += string.Format("{0} ", "服務業");
+                                    break;
+                                case "3":
+                                    result += string.Format("{0} ", "政府機關");
+                                    break;
+                                case "4":
+                                    result += string.Format("{0} ", "學術/研究單位");
+                                    break;
+                                case "5":
+                                    result += string.Format("{0} ", "其他");
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                return result;
+            }
+        }
 
         public virtual string GetStr_ReceiveOtherFreeInfo
         {

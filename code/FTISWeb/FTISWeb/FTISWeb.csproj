@@ -788,6 +788,7 @@
     <Content Include="Scripts\ckfinder\userfiles\flash\秋.swf" />
     <Content Include="Scripts\ckfinder\userfiles\flash\端午.swf" />
     <Content Include="Scripts\ckfinder\userfiles\flash\聖誕.swf" />
+    <Content Include="Scripts\exportExcel.js" />
     <Content Include="swf\inTopflash.swf" />
     <Content Include="pp\adv.jpg" />
     <Content Include="pp\banner-1.gif" />
@@ -2302,6 +2303,8 @@
     <Content Include="Views\MasterMember\Save.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Green\NodeSingleEdit.cshtml" />
+    <Content Include="Views\EpaperEmail\Export.cshtml" />
+    <Content Include="Views\Member\Export.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />
