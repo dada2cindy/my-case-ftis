@@ -103,6 +103,29 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.GreenFactory, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.GreenFactory)]
+        public ActionResult SetSort(string entityId, string sortValue)
+        {
+            AjaxResult result = new AjaxResult(AjaxResultStatus.Success, string.Empty);
+            StringBuilder sbMsg = new StringBuilder();
+
+            try
+            {
+                GreenFactory entity = m_FTISService.GetGreenFactoryById(Convert.ToInt32(entityId));
+                entity.SortId = int.Parse(sortValue);
+                m_FTISService.UpdateGreenFactory(entity);
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = AjaxResultStatus.Fail;
+                sbMsg.AppendFormat(ex.Message + "<br/>");
+            }
+
+            result.Message = sbMsg.ToString();
+            return this.Json(result);
+        }
+
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.GreenFactory, Operation = SiteOperations.Delete)]
         [AuthorizationData(AppFunction = SiteEntities.GreenFactory)]
         public ActionResult MultiDelete(string allId)

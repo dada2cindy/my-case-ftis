@@ -99,6 +99,29 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Download, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.Download)]
+        public ActionResult SetSort(string entityId, string sortValue)
+        {
+            AjaxResult result = new AjaxResult(AjaxResultStatus.Success, string.Empty);
+            StringBuilder sbMsg = new StringBuilder();
+
+            try
+            {
+                Download entity = m_FTISService.GetDownloadById(Convert.ToInt32(entityId));
+                entity.SortId = int.Parse(sortValue);
+                m_FTISService.UpdateDownload(entity);
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = AjaxResultStatus.Fail;
+                sbMsg.AppendFormat(ex.Message + "<br/>");
+            }
+
+            result.Message = sbMsg.ToString();
+            return this.Json(result);
+        }
+
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Download, Operation = SiteOperations.Delete)]
         [AuthorizationData(AppFunction = SiteEntities.Download)]
         public ActionResult MultiDelete(string allId)

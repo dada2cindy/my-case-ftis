@@ -110,6 +110,29 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.Application, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.Application)]
+        public ActionResult SetSort(string entityId, string sortValue)
+        {
+            AjaxResult result = new AjaxResult(AjaxResultStatus.Success, string.Empty);
+            StringBuilder sbMsg = new StringBuilder();
+
+            try
+            {
+                Report entity = m_FTISService.GetReportById(Convert.ToInt32(entityId));
+                entity.SortId = int.Parse(sortValue);
+                m_FTISService.UpdateReport(entity);
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = AjaxResultStatus.Fail;
+                sbMsg.AppendFormat(ex.Message + "<br/>");
+            }
+
+            result.Message = sbMsg.ToString();
+            return this.Json(result);
+        }
+
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Application, Operation = SiteOperations.Delete)]
         [AuthorizationData(AppFunction = SiteEntities.Application)]
         public ActionResult MultiDelete(string allId)

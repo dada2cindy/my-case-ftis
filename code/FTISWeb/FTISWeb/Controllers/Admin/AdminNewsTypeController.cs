@@ -133,6 +133,29 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.News)]
+        public ActionResult SetSort(string entityId, string sortValue)
+        {
+            AjaxResult result = new AjaxResult(AjaxResultStatus.Success, string.Empty);
+            StringBuilder sbMsg = new StringBuilder();
+
+            try
+            {
+                NewsType entity = m_FTISService.GetNewsTypeById(Convert.ToInt32(entityId));
+                entity.SortId = int.Parse(sortValue);
+                m_FTISService.UpdateNewsType(entity);
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = AjaxResultStatus.Fail;
+                sbMsg.AppendFormat(ex.Message + "<br/>");
+            }
+
+            result.Message = sbMsg.ToString();
+            return this.Json(result);
+        }
+
         [AuthorizationData(AppFunction = SiteEntities.News)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Create)]
         [HttpPost]

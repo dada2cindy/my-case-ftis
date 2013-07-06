@@ -131,13 +131,12 @@
                         width: 80
                     },                    
                     {
-                        field: "@Model.GetColumnName("SortId")",
-                        title: "排序",
-                        sortable: true,
+                        headerTemplate: kendo.template($("#command-sortId").html()),
                         hidden: $.parseJSON("@(Model.Hidden("SortId"))"),
                         attributes: { "style": "text-align: center;" },
+                        template: kendo.template($("#content-sortId").html()),
                         width: 60
-                    },                    
+                    },
                     {
                         field: "@Model.GetColumnName("GetStr_Status")",
                         title: "狀態",
@@ -195,6 +194,23 @@
             }
         }
 
+        //設定排序
+        function SetSortId() {
+            var inputSortIdLength = $("#dvGrid input[name='SortId']").length;
+            var rowNum = 0;
+            $("#dvGrid input[name='SortId']").each(function () {
+                var entityId = $(this).attr("entityId");
+                var sortValue = $(this).val();
+                $.post('@Url.Action("SetSort", Model.ControllerName)', { entityId: entityId, sortValue: sortValue }, function (data) {
+                    rowNum++;
+                    if (rowNum == inputSortIdLength) {
+                        alert("設定完成");
+                        Query();
+                    }
+                });
+            });
+        }
+
     </script>
 
 <script id="command-template" type="text/x-kendo-template">
@@ -206,4 +222,13 @@
     {
         <div class="k-button k-grid-Delete" entityId="#: @Model.EntityId #" entityName="#: ReportName #"><span>刪除</span> </div>
     }   
+</script>
+<script id="command-sortId" type="text/x-kendo-template">
+    @if (AllowEdit)
+    {
+        <input type="button" value="設定排序" onclick="SetSortId();" name="button">
+    }
+</script>
+<script id="content-sortId" type="text/x-kendo-template">
+    <input type="text" value="#: SortId #" entityId="#: @Model.EntityId #" maxlength="5" size="5" name="SortId">   
 </script>
