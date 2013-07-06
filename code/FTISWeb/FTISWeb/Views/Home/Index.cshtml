@@ -50,20 +50,22 @@
     <ul class="Show-News-UL">
       <a href="@Url.Action("Index", "News")"><li class="more1"></li></a>
       @{
+          int dataIndex = 0;
           foreach(News news in Model.GetNewsList())
           {
-              <li class="Show-News-LI"><a href="@Url.Action("Detail", "News", new { id = Model.EncryptId(news.NewsId) })">@Model.SubString(news.Name, 24, true)</a>
+              <li class="Show-News-LI"><a href="@Url.Action("Detail", "News", new { id = Model.EncryptId(news.NewsId), dataIndex = dataIndex })">@Model.SubString(news.Name, 24, true)</a>
                   @if("1".Equals(news.IsNew)){<img src="image/newsicon.gif" width="30" height="13" alt="New" />}<span class="Show-News-Day">@news.GetStr_PostDate</span></li>
+              dataIndex++;
           }
       }
     </ul>    
     <ul class="Show-Act-UL">
       <a href="@Url.Action("Index", "Activity")"><li class="more1"></li></a>
-      @{
+      @{          
           foreach (Activity activity in Model.GetActivityList())
           {
               <li class="Show-News-LI"><a href="@Url.Action("Detail", "Activity", new { id = Model.EncryptId(activity.ActivityId) })">@Model.SubString(activity.Name, 24, true)</a>
-                  @if ("1".Equals(activity.IsNew)){<img src="image/newsicon.gif" width="30" height="13" alt="New" />}<span class="Show-News-Day">@activity.GetStr_PostDate</span></li>
+                  @if ("1".Equals(activity.IsNew)){<img src="image/newsicon.gif" width="30" height="13" alt="New" />}<span class="Show-News-Day">@activity.GetStr_PostDate</span></li>              
           }
       }
     </ul>    

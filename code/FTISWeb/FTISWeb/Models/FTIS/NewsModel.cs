@@ -300,6 +300,7 @@ namespace FTISWeb.Models
         {
             
             IDictionary<string, string> conditions = new Dictionary<string, string>();
+            conditions.Add("Status", "1");
             conditions.Add("KeyWord", keyWord);
             conditions.Add("NewsClassId", DecryptId(newsClassId));
             conditions.Add("NewsTypeId", DecryptId(newsTypeId));
