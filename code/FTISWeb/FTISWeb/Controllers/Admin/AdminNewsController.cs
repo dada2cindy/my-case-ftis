@@ -158,6 +158,52 @@ namespace FTISWeb.Controllers
             return this.Json(result);
         }
 
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.News)]
+        public ActionResult SetIsNew(string entityId, string checkedValue)
+        {
+            AjaxResult result = new AjaxResult(AjaxResultStatus.Success, string.Empty);
+            StringBuilder sbMsg = new StringBuilder();
+
+            try
+            {
+                News entity = m_FTISService.GetNewsById(Convert.ToInt32(entityId));
+                entity.IsNew = checkedValue;
+                m_FTISService.UpdateNews(entity);
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = AjaxResultStatus.Fail;
+                sbMsg.AppendFormat(ex.Message + "<br/>");
+            }
+
+            result.Message = sbMsg.ToString();
+            return this.Json(result);
+        }
+
+        [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Edit)]
+        [AuthorizationData(AppFunction = SiteEntities.News)]
+        public ActionResult SetIsHome(string entityId, string checkedValue)
+        {
+            AjaxResult result = new AjaxResult(AjaxResultStatus.Success, string.Empty);
+            StringBuilder sbMsg = new StringBuilder();
+
+            try
+            {
+                News entity = m_FTISService.GetNewsById(Convert.ToInt32(entityId));
+                entity.IsHome = checkedValue;
+                m_FTISService.UpdateNews(entity);
+            }
+            catch (Exception ex)
+            {
+                result.ErrorCode = AjaxResultStatus.Fail;
+                sbMsg.AppendFormat(ex.Message + "<br/>");
+            }
+
+            result.Message = sbMsg.ToString();
+            return this.Json(result);
+        }
+
         [ValidateInput(false)]
         [AuthorizationData(AppFunction = SiteEntities.News)]
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.News, Operation = SiteOperations.Create)]

@@ -309,19 +309,17 @@
                         sortable: false
                     },
                     {
-                        field: "@Model.GetColumnName("GetStr_IsHome")",
-                        title: "首頁顯示",
-                        sortable: true,
+                        headerTemplate: kendo.template($("#command-isHome").html()),
                         hidden: $.parseJSON("@(Model.Hidden("GetStr_IsHome"))"),
                         attributes: { "style": "text-align: center;" },
+                        template: kendo.template($("#content-isHome").html()),
                         width: 60
                     },
                     {
-                        field: "@Model.GetColumnName("GetStr_IsNew")",
-                        title: "New顯示",
-                        sortable: true,
+                        headerTemplate: kendo.template($("#command-isNew").html()),
                         hidden: $.parseJSON("@(Model.Hidden("GetStr_IsNew"))"),
                         attributes: { "style": "text-align: center;" },
+                        template: kendo.template($("#content-isNew").html()),
                         width: 60
                     },
                     {
@@ -404,6 +402,40 @@
                 });
             }
 
+    //設定IsNew
+    function SetIsNew() {
+        var checkboxIsNewLength = $("#dvGrid input:checkbox[name='IsNew']").length;
+        var rowNum = 0;
+        $("#dvGrid input:checkbox[name='IsNew']").each(function () {
+            var entityId = $(this).attr("entityId");
+            var checkedValue = $(this).prop("checked") ? "1" : "0"
+            $.post('@Url.Action("SetIsNew", Model.ControllerName)', { entityId: entityId, checkedValue: checkedValue }, function (data) {
+                rowNum++;
+                if (rowNum == checkboxIsNewLength) {
+                    alert("設定完成");
+                    Query();
+                }
+            });
+        });
+    }
+
+    //設定IsHome
+    function SetIsHome() {
+        var checkboxIsHomeLength = $("#dvGrid input:checkbox[name='IsHome']").length;
+        var rowNum = 0;
+        $("#dvGrid input:checkbox[name='IsHome']").each(function () {
+            var entityId = $(this).attr("entityId");
+            var checkedValue = $(this).prop("checked") ? "1" : "0"
+            $.post('@Url.Action("SetIsHome", Model.ControllerName)', { entityId: entityId, checkedValue: checkedValue }, function (data) {
+                rowNum++;
+                if (rowNum == checkboxIsHomeLength) {
+                    alert("設定完成");
+                    Query();
+                }
+            });
+        });
+    }
+
 </script>
 
 <script id="command-template" type="text/x-kendo-template">
@@ -426,5 +458,29 @@
     @if ("false".Equals(Model.Hidden("SortId")))
     {
         <input type="text" value="#: SortId #" entityId="#: @Model.EntityId #" maxlength="5" size="5" name="SortId">   
+    }
+</script>
+<script id="command-isNew" type="text/x-kendo-template">
+    @if (AllowEdit && "false".Equals(Model.Hidden("GetStr_IsNew")))
+    {
+        <input type="button" value="設定New顯示" onclick="SetIsNew();" name="button">
+    }
+</script>
+<script id="content-isNew" type="text/x-kendo-template">
+    @if ("false".Equals(Model.Hidden("GetStr_IsNew")))
+    {
+        <input type="checkbox" #= IsNew=="1" ? "checked=checked" : ""# entityId="#: @Model.EntityId #" name="IsNew">   
+    }
+</script>
+<script id="command-isHome" type="text/x-kendo-template">
+    @if (AllowEdit && "false".Equals(Model.Hidden("GetStr_IsHome")))
+    {
+        <input type="button" value="設定首頁顯示" onclick="SetIsHome();" name="button">
+    }
+</script>
+<script id="content-isHome" type="text/x-kendo-template">
+    @if ("false".Equals(Model.Hidden("GetStr_IsHome")))
+    {
+        <input type="checkbox" #= IsHome=="1" ? "checked=checked" : ""# entityId="#: @Model.EntityId #" name="IsHome">   
     }
 </script>
