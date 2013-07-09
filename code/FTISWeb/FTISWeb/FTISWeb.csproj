@@ -631,6 +631,7 @@
     <Content Include="in-image\news-menu-1-2-over.gif" />
     <Content Include="in-image\news-menu-1-2.gif" />
     <Content Include="in-image\news-next.gif" />
+    <Content Include="in-image\news-prev.gif" />
     <Content Include="in-image\news-slect.jpg" />
     <Content Include="in-image\news-slect1.jpg" />
     <Content Include="in-image\news-sslect.jpg" />

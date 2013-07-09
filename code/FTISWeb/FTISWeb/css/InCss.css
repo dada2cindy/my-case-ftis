@@ -1328,3 +1328,9 @@ a.btn-organ:active {
 	color: blue;
 	text-decoration: underline;
 }
+#In-left-e {
+	float: left;
+	width: 253px;
+	margin-left: -3px;
+	height: 800px;
+}
