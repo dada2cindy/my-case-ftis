@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EpaperEmail>
+@using FTIS.Domain.Impl
+ 
+    <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" id="ExpoerTable">
+  <tr align=center bgcolor="#CCCCCC"> 
+	@*<td nowrap>編　　號</td>*@
+	<td nowrap>姓名</td>
+	<td nowrap>產業別</td>
+	<td nowrap>電子郵件</td>
+	<td nowrap>公司名稱</td>
+	<td nowrap>聯絡電話</td>
+	<td nowrap>訂/退閱時間</td>
+	<td nowrap>訂/退閱狀態</td>
+  </tr>
+        @{
+            if(Model != null && Model.Count() > 0)
+            {
+                foreach(EpaperEmail entity in Model)
+                {
+            <tr align="center">
+                @*<td width="30" height="165">@entity.EpaperEmailId</td>*@
+                <td>@entity.Name</td>
+                <td>@entity.GetStr_InType</td>
+                <td>@entity.Email</td>
+                <td>@entity.Company</td>
+                <td>@entity.Tel</td>
+                <td>@entity.GetStr_RegDate</td>
+                <td>@entity.GetStr_Status</td>
+            </tr>
+                }
+            }    
+            
+        }
+        </table>
+
+@using (Html.BeginForm("ExportExcel", "EpaperEmail", FormMethod.Post, new { name="exportForm"}))
+{
+    @Html.Hidden("exportHtml")
+ 
+}
+<script type="text/javascript">
+        $(function () {
+            exportExcel();
+        });        
+    </script>
