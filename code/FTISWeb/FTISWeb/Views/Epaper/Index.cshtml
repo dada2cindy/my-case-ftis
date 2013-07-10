@@ -71,7 +71,7 @@
               {
                   <tr>
                     <td class="News-Sob01" style="text-align:center;">第@(entity.ENo)期</td>
-                    <td class="News-Sob01"><a href="@Url.Action("Detail", "Epaper", new { id = m_hsModel.EncryptId(entity.EpaperId), url = entity.AUrl })" target="_blank">@entity.Name</a></td>
+                    <td class="News-Sob01"><a href="@Url.Action("Detail", "Epaper", new { id = m_hsModel.EncryptId(entity.EpaperId)})" target="_blank">@entity.Name</a></td>
                     <td class="News-Sob01" style="text-align:center;">@entity.Vister</td>
                  </tr> 
               }

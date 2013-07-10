@@ -41,10 +41,12 @@ namespace FTISWeb.Controllers
             return View(data.ToPagedList(pageIndex, AppSettings.InSitePageSize, total));
         }
 
-        public ActionResult Detail(string id, string url)
+        public ActionResult Detail(string id)
         {
             EntityCounter(id, "Vister");
-            Response.Redirect(url);
+
+            Epaper entity = m_FTISService.GetEpaperById(int.Parse(DecryptId(id)));
+            Response.Redirect(entity.AUrl);
 
             return new EmptyResult();
         }

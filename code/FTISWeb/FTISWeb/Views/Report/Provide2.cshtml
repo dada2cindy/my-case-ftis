@@ -64,39 +64,7 @@
             $("#safecode").click(function () {
                 $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
             });
-        });
-
-        function SetFileField(fileUrl, data) {
-            var filepath = fileUrl.replace("@AppSettings.CKFinderFileHandler", "");
-            document.getElementById(data["selectActionData"]).value = filepath;
-        }
-
-        /***************************************************************************
-        CKFinder 單個Input使用的上傳圖片
-        ***************************************************************************/
-        function BrowseServer(startupPath, functionData) {
-            // You can use the "CKFinder" class to render CKFinder in a page:
-            var finder = new CKFinder();
-
-            // The path for the installation of CKFinder (default = "/ckfinder/").
-            //finder.basePath = '../';
-
-            //Startup path in a form: "Type:/path/to/directory/"
-            finder.startupPath = startupPath;
-
-            // Name of a function which is called when a file is selected in CKFinder.
-            finder.selectActionFunction = SetFileField;
-
-            // Additional data to be passed to the selectActionFunction in a second argument.
-            // We'll use this feature to pass the Id of a field that will be updated.
-            finder.selectActionData = functionData;
-
-            // Name of a function which is called when a thumbnail is selected in CKFinder.
-            //finder.selectThumbnailActionFunction = ShowThumbnails;
-
-            // Launch CKFinder
-            finder.popup();
-        }
+        });        
     </script>
 }
 <div id="In-Table">
@@ -157,9 +125,8 @@
       <li class="Epaper02-pp">GRI等級　：
         @Html.DropDownListFor(m => m.GRI, m_GRIList, "請選擇", new { @class = "csr-Order" })
       </li>
-      <li class="Epaper02-pp">報告書封面：@*@Html.TextBox("ReportPic", Model.ReportPic, new { id = "ReportPic", @class = "csr-Order2", @readonly = "readonly", onclick = "BrowseServer('WebUserImages:/', 'ReportPic');" })*@
-          <input type="file" name="picFile" id="picFile" />
-                    @*<input type="button" value="上傳圖片" onclick="BrowseServer('WebUserImages:/', 'ReportPic');" />*@</li>
+      <li class="Epaper02-pp">報告書封面：
+          <input type="file" name="picFile" id="picFile" /></li>
       <li class="Epaper02-pp">CSR網頁　：CSR網頁1
       　@Html.TextBox("CSRPage1", Model.CSRPage1, new { id = "CSRPage1", @class = "csr-Order", size = "22" })
                  　CSR網頁2       
