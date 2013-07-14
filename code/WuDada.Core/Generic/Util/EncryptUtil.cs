@@ -68,7 +68,8 @@ namespace WuDada.Core.Generic.Util
                 ICryptoTransform desencrypt = des.CreateDecryptor();
                 return Encoding.ASCII.GetString(desencrypt.TransformFinalBlock(s, 0, s.Length));
             }
-            catch { return hexString; }
+            //catch { return hexString; }
+            catch { return string.Empty; }
         }
 
 
