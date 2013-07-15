@@ -28,6 +28,7 @@ namespace FTISWeb.Controllers
             if (string.IsNullOrWhiteSpace(id))
             {
                 id = ((IList<NormClass>)ViewData["ParentNormClassList"])[0].NormClassId.ToString();
+                id = new NormClassModel().EncryptId(id);
             }
 
             return View(new NormClassModel(id));

@@ -27,6 +27,7 @@ namespace FTISWeb.Controllers
             if (string.IsNullOrWhiteSpace(id))
             {
                 id = ((IList<Node>)ViewData["NodeList"])[0].NodeId.ToString();
+                id = new NodeModel().EncryptId(id);
             }
 
             return View(new NodeModel(id));
