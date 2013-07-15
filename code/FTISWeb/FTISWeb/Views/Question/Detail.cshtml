@@ -23,7 +23,7 @@
         <div class="QA-Q-LI">@Model.Name<span class="QA-DAY">(上線日期：@m_hsModel.GetStr_Date(Model.PostDate))</span></div>
         <table border="0" cellpadding="0" cellspacing="0" class="QA-A">
           <tr>
-            <td style="width:43px; vertical-align:top;"><img src="/in-image/qa-A.gif" width="25" height="22" alt="Ans" /></td>
+            <td style="width:43px; vertical-align:top;"><img src="@Url.Content("~/in-image/qa-A.gif")" width="25" height="22" alt="Ans" /></td>
             <td style="width:607px; vertical-align:top;" class="QA-A-txt">@(new HtmlString(Model.Content))</td>
           </tr>
         </table>

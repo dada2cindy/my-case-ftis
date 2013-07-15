@@ -62,7 +62,7 @@
                 }
             }
         </select>
-        <img src="/in-image/com-icon-6.gif" width="13" height="12" /><a target="_blank" href="@Url.Action("Print", "Publication", new { publicationClassId =m_hsModel.EncryptId(m_Conditions["PublicationClassId"]) })">友善列印</a>
+        <img src="@Url.Content("~/in-image/com-icon-6.gif")" width="13" height="12" /><a target="_blank" href="@Url.Action("Print", "Publication", new { publicationClassId =m_hsModel.EncryptId(m_Conditions["PublicationClassId"]) })">友善列印</a>
       </div>
       <div id="InShow-INob">
           @{

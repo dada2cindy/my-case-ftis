@@ -10,7 +10,7 @@
 @using FTIS.Domain.Impl;
 @using FTISWeb.Models;
 
-<div id="In-leftTitle"><img src="/in-image/left-title-a3.png" alt="產品環境資訊揭露"/></div>
+<div id="In-leftTitle"><img src="@Url.Content("~/in-image/left-title-a3.png")" alt="產品環境資訊揭露"/></div>
 @if (m_NodeList != null && m_NodeList.Count > 0)
           {
               foreach (Node node in m_NodeList)

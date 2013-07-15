@@ -134,7 +134,7 @@ a.btn2:active
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #FFFFFF;
-	background-image: url(/Content/Admin/images/btn.gif);
+	background-image: url(../../Content/Admin/images/btn.gif);
 	text-align: center;
 	padding-top: 3px;
 	padding-bottom: 3px;
@@ -168,7 +168,7 @@ a.btn2:active
 .menuTd
 {
 	padding-left: 15px;
-	background: url(/Content/Admin/images/left_2.gif) repeat-y;
+	background: url(../../Content/Admin/images/left_2.gif) repeat-y;
 }
 .leftPosition
 {

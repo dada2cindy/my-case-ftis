@@ -10,7 +10,7 @@
   <div id="In-left"><!--左-->
     @Html.Partial("InFlash")
     
-    <div id="In-leftTitle"><img src="/in-image/left-title1.png" alt="關於我們"/></div>
+    <div id="In-leftTitle"><img src="@Url.Content("~/in-image/left-title1.png")" alt="關於我們"/></div>
     <a href="@Url.Action("Index", "AboutUs", new { id = Model.EncryptId(5) })"><div class="Left-sbtn">計畫介紹</div></a>
     <a href="@Url.Action("Index", "AboutUs", new { id = Model.EncryptId(6) })"><div class="Left-sbtn">服務窗口</div></a>
     <a href="@Url.Action("Index", "AboutUs", new { id = Model.EncryptId(7) })"><div class="Left-sbtn">經驗分享</div></a>

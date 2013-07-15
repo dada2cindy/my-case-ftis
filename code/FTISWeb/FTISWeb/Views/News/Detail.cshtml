@@ -18,7 +18,7 @@
   <div id="InShow"><!--內容-->
     @Html.Partial("InShowAdv")
     <h1>新聞動態<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 新聞動態</span>    </h1>
-    <div class="News-IN-3Function"><img src="/in-image/com-icon-4.gif" width="14" height="14" alt="瀏覽人數"/>瀏覽人數<span class="News-IN-3Function-txt">(@Model.Vister)</span><img src="/in-image/com-icon-5.gif" width="13" height="12" alt="轉寄"/><a target="_blank" href="@Url.Action("Email", "News", new { id =m_hsModel.EncryptId(Model.EntityId) })">轉寄</a><span class="News-IN-3Function-txt">(@Model.Emailer)</span><img src="/in-image/com-icon-6.gif" width="13" height="12" alt="列印"/><a target="_blank" href="@Url.Action("Print", "News", new { id =m_hsModel.EncryptId(Model.EntityId) })">列印</a><span class="News-IN-3Function-txt">(@Model.Printer)</span></div>
+    <div class="News-IN-3Function"><img src="@Url.Content("~/in-image/com-icon-4.gif")" width="14" height="14" alt="瀏覽人數"/>瀏覽人數<span class="News-IN-3Function-txt">(@Model.Vister)</span><img src="@Url.Content("~/in-image/com-icon-5.gif")" width="13" height="12" alt="轉寄"/><a target="_blank" href="@Url.Action("Email", "News", new { id =m_hsModel.EncryptId(Model.EntityId) })">轉寄</a><span class="News-IN-3Function-txt">(@Model.Emailer)</span><img src="@Url.Content("~/in-image/com-icon-6.gif")" width="13" height="12" alt="列印"/><a target="_blank" href="@Url.Action("Print", "News", new { id =m_hsModel.EncryptId(Model.EntityId) })">列印</a><span class="News-IN-3Function-txt">(@Model.Printer)</span></div>
     <div id="InShow-INob">
       <p class="News-IN-Title">@Model.Name</p>
       <p class="News-IN-Day">刊登日期：@m_hsModel.GetStr_Date(Model.PostDate)</p>

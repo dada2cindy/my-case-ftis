@@ -33,12 +33,12 @@
     <p class="Member-txt01">請輸入您的會員姓名、會員帳號及註冊時輸入的 E-mail，我們會將密碼 E-mail 至您的信箱！</p>
         <table border="0" cellpadding="0" cellspacing="0" class="Member-table01">
       <tr>
-        <td colspan="2"><img src="/in-image/member-table-U.gif" width="617" height="22" /></td>
+        <td colspan="2"><img src="@Url.Content("~/in-image/member-table-U.gif")" width="617" height="22" /></td>
       </tr>
       <tr>
-        <td width="209" align="center"><img src="/in-image/member-password-icon.gif" width="155" height="155" /></td>
+        <td width="209" align="center"><img src="@Url.Content("~/in-image/member-password-icon.gif")" width="155" height="155" /></td>
         <td width="408" valign="top">
-        <input type="image" name="Submit" class="forget-btn" src="/in-image/member-send-btn.gif" alt="忘記密碼"  />
+        <input type="image" name="Submit" class="forget-btn" src="@Url.Content("~/in-image/member-send-btn.gif")" alt="忘記密碼"  />
           <p class="Mem-txt01">請輸入姓名、會員帳號及 E-mail，按送出即可！</p>
           <ul class="Mem-txt02-UL">
             <li>會員帳號：
@@ -54,7 +54,7 @@
           </ul></td>
       </tr>
       <tr>
-        <td colspan="2" align="center"><img src="/in-image/member-table-D.gif" width="617" height="22" /></td>
+        <td colspan="2" align="center"><img src="@Url.Content("~/in-image/member-table-D.gif")" width="617" height="22" /></td>
       </tr>
     </table>
         <div class="txt-red"> @Html.ValidationSummary()</div>

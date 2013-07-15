@@ -341,7 +341,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Data\FTIS.SQLServer.xml" />
-    <Content Include="App_Data\objects.xml" />
+    <Content Include="App_Data\objects.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\WuDada.Core.AdoTemplate.xml" />
     <Content Include="App_Data\WuDada.Core.HibernateTemplate.xml" />
     <Content Include="Content\Admin\admin.css" />
@@ -2359,10 +2361,10 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>3368</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <DevelopmentServerVPath>/isdn</DevelopmentServerVPath>
           <IISUrl>http://localhost:13897/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>

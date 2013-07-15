@@ -27,9 +27,9 @@ namespace FTISWeb
                 "~/Scripts/jquery-1.9.1.js",
                 "~/Scripts/jquery.treeview.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/CKEditor").Include(
-                "~/Scripts/ckeditor/ckeditor.js",
-                "~/Scripts/ckfinder/ckfinder.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/CKEditor").Include(
+            //    "~/Scripts/ckeditor/ckeditor.js",
+            //    "~/Scripts/ckfinder/ckfinder.js"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/TreeView").Include(

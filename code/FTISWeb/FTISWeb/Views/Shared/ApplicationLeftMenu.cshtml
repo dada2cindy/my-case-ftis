@@ -10,7 +10,7 @@
 @using FTIS.Domain.Impl;
 @using FTISWeb.Models;
 
-<div id="In-leftTitle"><img src="/in-image/left-title-a1.png" alt="企業社會責任"/></div>
+<div id="In-leftTitle"><img src="@Url.Content("~/in-image/left-title-a1.png")" alt="企業社會責任"/></div>
 @if (m_ApplicationClassList != null && m_ApplicationClassList.Count > 0)
           {
               foreach (ApplicationClass applicationClass in m_ApplicationClassList)

@@ -55,7 +55,7 @@
       <h1>電子報<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Epaper")">電子報</a> &gt; 歷史電子報</span></h1>    
 @using (Html.BeginForm("SendOrder", "EpaperEmail", FormMethod.Post, new { id = "frmSendOrder" }))
 {      
-      <div id="InShow-INob"><img src="/in-image/epaper-pp.jpg" width="576" height="87" />
+      <div id="InShow-INob"><img src="@Url.Content("~/in-image/epaper-pp.jpg")" width="576" height="87" />
       <ul>
       <li class="Epaper02-pp">訂／退閱：
         <label>@Html.RadioButtonFor(m => m.UserStatus, "1") 訂閱</label>
@@ -94,8 +94,8 @@
         <img id="safecode" src="@Url.Action("CaptchaImg", "EpaperEmail")" width="100" height="30" alt="識別碼" /><span class="txt-red"><br />
         　　　　　　　( 請輸入 4 位字母數字組合驗證碼，如數字未標明清楚，請點擊更換圖片 )</span></li>
     </ul>
-    <div class="Epaper02-Btn"><input type="image" name="Submit" src="/in-image/com-sent-btn.gif" width="78" height="25" alt="填好送出" />
-           <a id="btnClear" href="#"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
+    <div class="Epaper02-Btn"><input type="image" name="Submit" src="@Url.Content("~/in-image/com-sent-btn.gif")" width="78" height="25" alt="填好送出" />
+           <a id="btnClear" href="#"><img src="@Url.Content("~/in-image/com-clear-btn.gif")" width="78" height="25" alt="清除" /></a></div>
     <div class="txt-red"> @Html.ValidationSummary()</div>
   </div>
 } 

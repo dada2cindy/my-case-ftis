@@ -164,7 +164,7 @@
       <div id="InShow-INob">
      <table border="0" cellpadding="0" cellspacing="0" class="Extend-table">
         <tr>
-          <td><img src="/in-image/com-related-report.gif" width="640" height="49" alt="icon" /></td>
+          <td><img src="@Url.Content("~/in-image/com-related-report.gif")" width="640" height="49" alt="icon" /></td>
         </tr>
         <tr>
           <td><table border="0" align="center" cellpadding="0" cellspacing="4" class="csr04c-orderTable">
@@ -199,12 +199,12 @@ AA1000　
 GRI</td>
             </tr>
             <tr>
-              <td colspan="2" align="right"><span class="txt-red">(共查詢 @Model.TotalItemCount 本報告書，搜尋結果如下)</span><a href="#" id="btnQuery"><img src="/in-image/csr-btn-7.gif" width="114" height="25" /></a></td>
+              <td colspan="2" align="right"><span class="txt-red">(共查詢 @Model.TotalItemCount 本報告書，搜尋結果如下)</span><a href="#" id="btnQuery"><img src="@Url.Content("~/in-image/csr-btn-7.gif")" width="114" height="25" /></a></td>
               </tr>
           </table></td>
         </tr>
         <tr>
-          <td><img src="/in-image/com-related-news-D.gif" width="640" height="12" /></td>
+          <td><img src="@Url.Content("~/in-image/com-related-news-D.gif")" width="640" height="12" /></td>
         </tr>
       </table>
      @{
@@ -213,7 +213,7 @@ GRI</td>
                   <table border="0" cellpadding="0" cellspacing="0" class="csr04c-BookTable">
         <tr>
           <td width="125" valign="top"><a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })"><img src="@m_hsModel.GetFile(entity.ReportPic)" width="100" height="138" class="csr04-pp" alt="@entity.ReportName" /></a></td>
-          <td width="475" valign="top"><span class="Txt-BBBBBB">公司名稱</span>　：<a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })" class="searchBtn">@entity.Company </a><a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })"><img src="/in-image/com-more3.gif" width="28" height="10" /></a><br />
+          <td width="475" valign="top"><span class="Txt-BBBBBB">公司名稱</span>　：<a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })" class="searchBtn">@entity.Company </a><a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })"><img src="@Url.Content("~/in-image/com-more3.gif")" width="28" height="10" /></a><br />
             <span class="Txt-BBBBBB">報告書名稱</span>：@entity.ReportName<br />
             <span class="Txt-BBBBBB">行業別</span>　　：@entity.GetStr_CompanyTrade<br />
             <span class="Txt-BBBBBB">發佈年份</span>　：@entity.PostYear<br />

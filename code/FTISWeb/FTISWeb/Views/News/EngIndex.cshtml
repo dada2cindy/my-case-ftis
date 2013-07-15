@@ -29,7 +29,7 @@
 <div id="In-Table">
   <div id="In-left-e"><!--左-->
     @Html.Partial("InFlash")    
-    <div id="In-leftTitle"><img src="/e-image/left-b1.png" alt="News"/></div>
+    <div id="In-leftTitle"><img src="@Url.Content("~/e-image/left-b1.png")" alt="News"/></div>
     <a href="@Url.Action("EngIndex", "News")"><div class="Left-sbtn">News</div></a>
   </div><!--左結尾-->
 
@@ -103,7 +103,7 @@
                       }
                       @if ("1".Equals(entity.IsNew))
                       {
-                        <img src="/image/newsicon.gif" width="30" height="13" alt="New" />
+                        <img src="@Url.Content("~/image/newsicon.gif")" width="30" height="13" alt="New" />
                       }
                   </td>
                   <td class="@rowClass">@entity.NewsClass.NameENG</td>

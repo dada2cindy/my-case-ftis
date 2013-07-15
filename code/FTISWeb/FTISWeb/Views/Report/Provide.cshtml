@@ -19,18 +19,18 @@
     @Html.Partial("InShowAdv")
       <h1>企業社會責任<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Application")">企業社會責任</a> &gt; CSR報告書查詢</span>    </h1>    
       <h2>報告書資訊提供</h2>
-      <div id="InShow-INob"><img src="/in-image/csr-step-1.gif" width="634" height="85" alt="Step1" /><br />
+      <div id="InShow-INob"><img src="@Url.Content("~/in-image/csr-step-1.gif")" width="634" height="85" alt="Step1" /><br />
       <br />
       <table width="635" border="0" cellpadding="0" cellspacing="0">
         <tr>
-          <td width="75" rowspan="3" valign="top"><img src="/in-image/csr-icon-1.gif" width="72" height="63" alt="Step1" /></td>
+          <td width="75" rowspan="3" valign="top"><img src="@Url.Content("~/in-image/csr-icon-1.gif")" width="72" height="63" alt="Step1" /></td>
           <td width="560" class="Pro02-Txt">網站聲明</td>
         </tr>
         <tr>
           <td class="Load03-txt3">產業永續發展整合資訊網 (以下簡稱本網站) 對　貴單位報告書保有審查權與最終決定權，若報告書不適合本網站主旨之內容精神，或包含非建設性的負面謾罵者，將不予採用。本網站保有文字修改與刊登權。</td>
         </tr>
         <tr>
-          <td height="42" align="right"><a href="@Url.Action("Provide2", "Report")"><img src="/in-image/yes.gif" width="54" height="25" alt="同意"/></a> <img src="/in-image/no.gif" width="66" height="25" alt="不同意" /></td>
+          <td height="42" align="right"><a href="@Url.Action("Provide2", "Report")"><img src="@Url.Content("~/in-image/yes.gif")" width="54" height="25" alt="同意"/></a> <img src="@Url.Content("~/in-image/no.gif")" width="66" height="25" alt="不同意" /></td>
         </tr>
       </table>
     </div>

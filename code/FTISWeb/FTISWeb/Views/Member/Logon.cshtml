@@ -34,12 +34,12 @@
     本網站保有審核通過之權利。</p>
     <table border="0" cellpadding="0" cellspacing="0" class="Member-table01">
       <tr>
-        <td colspan="2"><img src="/in-image/member-table-U.gif" width="617" height="22" alt="icon" /></td>
+        <td colspan="2"><img src="@Url.Content("~/in-image/member-table-U.gif")" width="617" height="22" alt="icon" /></td>
         </tr>
       <tr>
-        <td width="209" rowspan="2" align="center"><img src="/in-image/member-login-icon.gif" width="144" height="158" alt="會員登入" /></td>
+        <td width="209" rowspan="2" align="center"><img src="@Url.Content("~/in-image/member-login-icon.gif")" width="144" height="158" alt="會員登入" /></td>
         <td width="408" valign="top">            
-            <input type="image" name="Submit" class="Mem-btn" src="/in-image/member-login-btn.gif" alt="會員登入"  />
+            <input type="image" name="Submit" class="Mem-btn" src="@Url.Content("~/in-image/member-login-btn.gif")" alt="會員登入"  />
           <p class="Mem-txt01">請輸入會員帳號及密碼，按登入即可</p>
           <ul class="Mem-txt02-UL">
             <li>會員帳號：
@@ -57,7 +57,7 @@
         <td align="right" valign="top"><span class="News-IN-3Function-txt"><a href="@Url.Action("Join", "Member")" class="btn-organ">加入會員</a>　｜　<a href="@Url.Action("Forgetpass", "Member")" class="btn-organ">忘記密碼 　</a></span></td>
       </tr>
       <tr>
-        <td colspan="2" align="center"><img src="/in-image/member-table-D.gif" width="617" height="22" alt="icon" /></td>
+        <td colspan="2" align="center"><img src="@Url.Content("~/in-image/member-table-D.gif")" width="617" height="22" alt="icon" /></td>
         </tr>
     </table>
         <div class="txt-red"> @Html.ValidationSummary()</div>

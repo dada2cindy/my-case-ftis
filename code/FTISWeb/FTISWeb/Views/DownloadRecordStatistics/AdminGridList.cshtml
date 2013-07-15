@@ -17,7 +17,7 @@
                     read: {
                         //以下其實就是$.ajax的參數
                         type: "POST",
-                        url: "/@Model.ControllerName/AjaxBinding",
+                        url: "@Url.Action("AjaxBinding", Model.ControllerName)",
                         dataType: "json",
                         data: {
                             //額外傳至後方的參數

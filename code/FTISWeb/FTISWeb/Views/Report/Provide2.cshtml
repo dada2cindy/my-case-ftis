@@ -79,7 +79,7 @@
       <h2>報告書資訊提供</h2>
             @using (Html.BeginForm("SendOrder", "Report", FormMethod.Post, new { id = "frmSave", enctype = "multipart/form-data" }))
             {
-      <div id="InShow-INob"><img src="/in-image/csr-step-2.gif" width="634" height="85" alt="Step2" /><br />
+      <div id="InShow-INob"><img src="@Url.Content("~/in-image/csr-step-2.gif")" width="634" height="85" alt="Step2" /><br />
       <br />
         <span class="txt-red">皆為必填欄位</span><br />
       
@@ -166,8 +166,8 @@
         @Html.TextBox("ConfirmationCode", Model.ConfirmationCode, new { id = "ConfirmationCode", @class = "Epaper-Order2" })
         <img id="safecode" src="@Url.Action("CaptchaImg", "Report")" width="100" height="30"  alt="識別碼" /><span class="txt-red"><br />
         　　　　　　　( 請輸入 4 位字母數字組合驗證碼，如數字未標明清楚，請點擊更換圖片 )</span></li>
-      <div class="Epaper02-Btn"><input type="image" name="Submit" src="/in-image/com-sent-btn.gif" width="78" height="25" alt="填好送出" />
-           <a id="btnClear" href="@Url.Action("Provide2", "Report")"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
+      <div class="Epaper02-Btn"><input type="image" name="Submit" src="@Url.Content("~/in-image/com-sent-btn.gif")" width="78" height="25" alt="填好送出" />
+           <a id="btnClear" href="@Url.Action("Provide2", "Report")"><img src="@Url.Content("~/in-image/com-clear-btn.gif")" width="78" height="25" alt="清除" /></a></div>
       <div class="txt-red"> @Html.ValidationSummary()</div>
     </div>
             }      
