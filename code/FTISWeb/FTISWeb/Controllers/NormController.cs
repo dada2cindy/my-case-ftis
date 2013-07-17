@@ -19,7 +19,7 @@ using WuDada.Core.Generic.Util;
 using MvcPaging;
 
 namespace FTISWeb.Controllers
-{
+{   
     public partial class NormController : Controller
     {
         [NormClassData(OnlyOpen = true)]

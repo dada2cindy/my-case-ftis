@@ -46,15 +46,24 @@ namespace FTISWeb.Controllers
             return View(entityModel);
         }
 
-        public ActionResult DownloadFile(string id,string fileUrl, string name)
+        public ActionResult DownloadFile(string id, string fileNum, string name)
         {
             Member member = m_SessionHelper.WebMember;
             if (member != null)
             {
                 new MemberModel().AddDownloadRecord(name, "2", member.MemberId.ToString());
-            }            
-
-            Response.Redirect(fileUrl);
+            }
+            
+            CurriculumModel entityModel = new CurriculumModel(id);
+            switch (fileNum)
+            {
+                case ("1"):
+                    return Redirect(new HomeShowModel().GetFileByEncrypt(entityModel.AFile1));
+                case ("2"):
+                    return Redirect(new HomeShowModel().GetFileByEncrypt(entityModel.AFile2));
+                case ("3"):
+                    return Redirect(new HomeShowModel().GetFileByEncrypt(entityModel.AFile3));
+            }
 
             return new EmptyResult();
         }

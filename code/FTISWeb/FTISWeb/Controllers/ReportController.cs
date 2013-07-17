@@ -49,10 +49,20 @@ namespace FTISWeb.Controllers
             return View(entityModel);
         }
 
-        public ActionResult ReportFile(string id, string fileUrl, string type)
+        public ActionResult ReportFile(string id, string type)
         {
             EntityCounter(id, type);
-            Response.Redirect(fileUrl);
+
+            ReportModel entityModel = new ReportModel(id);
+            switch (type)
+            {
+                case ("CVister"):
+                    return Redirect(entityModel.CAUrl);
+                case ("EVister"):
+                    return Redirect(entityModel.EAUrl);
+                case ("DVister"):
+                    return Redirect(entityModel.DAUrl);
+            }
 
             return new EmptyResult();
         }
@@ -91,6 +101,10 @@ namespace FTISWeb.Controllers
             {
                 ModelState.AddModelError("ReportPic", "請選擇小於 1MB 的報告書封面圖片");
             }
+            else if (!IsImage(picFile))
+            {
+                ModelState.AddModelError("ReportPic", "請上傳圖片格式的報告書封面圖片");
+            }
             else if (!captcha.Equals(model.ConfirmationCode, StringComparison.OrdinalIgnoreCase))
             {
                 ModelState.AddModelError("ConfirmationCode", "驗證碼錯誤");
@@ -99,15 +113,10 @@ namespace FTISWeb.Controllers
             {
                 if (picFile.ContentLength > 0)
                 {
-
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(picFile.FileName);
-
                     var path = Path.Combine(AppSettings.CKFinderBaseDir, "webuser/images/", fileName);
-
                     picFile.SaveAs(path);
-
                     model.ReportPic = "webuser/images/" + fileName;
-
                 }
 
                 if (model.IsValid(ModelState))
@@ -121,6 +130,19 @@ namespace FTISWeb.Controllers
                 ModelState.Clear();
             }
             return View("Provide2", model);
+        }
+
+        private bool IsImage(HttpPostedFileBase file)
+        {
+            if (file.ContentType.Contains("image"))
+            {
+                return true;
+            }
+
+            string[] formats = new string[] { ".jpg", ".png", ".gif", ".jpeg" }; // add more if u like...
+
+            // linq from Henrik Stenbæk
+            return formats.Any(item => file.FileName.EndsWith(item, StringComparison.OrdinalIgnoreCase));
         }
 
         public ActionResult CaptchaImg()

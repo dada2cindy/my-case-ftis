@@ -1,14 +1,14 @@
 ﻿/***************************************************************************
 前台
 ***************************************************************************/
-function SiteSearch() {
+function SiteSearch(u) {
     var keyword = $("#txtSiteKeyWord").val();
     if (keyword.length <= 0) {
         alert("請輸入關鍵字!");
         return false;
     }
 
-    var searchUrl = "/Home/Search/?keyWord=" + encodeURIComponent(keyword);
+    var searchUrl = u + "?keyWord=" + encodeURIComponent(keyword);
     window.location.href = searchUrl;
 }
 

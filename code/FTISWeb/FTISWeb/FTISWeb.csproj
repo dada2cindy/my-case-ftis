@@ -224,6 +224,7 @@
     <Compile Include="Controllers\Admin\AdminDownloadRecordStatisticsController.cs" />
     <Compile Include="Controllers\Admin\AdminMasterLogController.cs" />
     <Compile Include="Controllers\Admin\AdminMasterMemberController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FileHandleController.cs" />
@@ -2263,7 +2264,6 @@
     <Content Include="Views\Report\Index2.cshtml" />
     <Content Include="Views\Report\Provide.cshtml" />
     <Content Include="Views\Report\Provide2.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\SubNormClass\AdminIndex.cshtml" />
     <Content Include="Views\SubNormClass\Save.cshtml" />
     <Content Include="Views\Norm\AdminIndex.cshtml" />
@@ -2308,6 +2308,7 @@
     <Content Include="Views\Green\NodeSingleEdit.cshtml" />
     <Content Include="Views\EpaperEmail\Export.cshtml" />
     <Content Include="Views\Member\Export.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />

@@ -33,7 +33,7 @@ namespace FTISWeb.Controllers
             }
         }
 
-        [IndustryData(OnlyOpen = true)]
+        [IndustryData(OnlyOpen = true)]        
         public ActionResult Join()
         {
             return View(new MemberModel());

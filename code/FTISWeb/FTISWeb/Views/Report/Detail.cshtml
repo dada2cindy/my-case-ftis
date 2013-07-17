@@ -26,15 +26,15 @@
               @{
                   if(!string.IsNullOrWhiteSpace(Model.CAUrl))
                   {
-          <div class="csr04c-Download"><a href="@Url.Action("ReportFile", "Report", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = Model.CAUrl, type = "CVister"})" target="_blank" >下載中文報告書<span class="Vistors-txt">(@Model.CVister)</span></a></div>
+          <div class="csr04c-Download"><a href="@Url.Action("ReportFile", "Report", new { id=m_hsModel.EncryptId(Model.EntityId), type = "CVister"})" target="_blank" >下載中文報告書<span class="Vistors-txt">(@Model.CVister)</span></a></div>
               }
               if(!string.IsNullOrWhiteSpace(Model.EAUrl))
                   {
-          <div class="csr04c-Download"><a href="@Url.Action("ReportFile", "Report", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = Model.EAUrl, type = "EVister"})" target="_blank" >下載英文文報告書<span class="Vistors-txt">(@Model.EVister)</span></a></div>
+          <div class="csr04c-Download"><a href="@Url.Action("ReportFile", "Report", new { id=m_hsModel.EncryptId(Model.EntityId), type = "EVister"})" target="_blank" >下載英文文報告書<span class="Vistors-txt">(@Model.EVister)</span></a></div>
               }
               if(!string.IsNullOrWhiteSpace(Model.DAUrl))
                   {
-          <div class="csr04c-Download"><a href="@Url.Action("ReportFile", "Report", new { id=m_hsModel.EncryptId(Model.EntityId), fileUrl = Model.DAUrl, type = "DVister"})" target="_blank" >下載雙語報告書<span class="Vistors-txt">(@Model.DVister)</span></a></div>
+          <div class="csr04c-Download"><a href="@Url.Action("ReportFile", "Report", new { id=m_hsModel.EncryptId(Model.EntityId), type = "DVister"})" target="_blank" >下載雙語報告書<span class="Vistors-txt">(@Model.DVister)</span></a></div>
               }
               }
           </td>

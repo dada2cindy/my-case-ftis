@@ -13,7 +13,7 @@
     <script type="text/javascript">
         $(function () {
             $("#txtSiteKeyWord").enterPressed(function () {
-                SiteSearch();
+                SiteSearch('@Url.Action("Search", "Home")');
             });
         });
     </script>
@@ -32,7 +32,7 @@
     <li class="Rubtn-icon2"><a href="@Url.Action("EngIndex", "Home")">English</a></li>
     <li class="Rubtn-Search">關鍵字搜尋
       <input name="textfield" type="text" class="Ru-searchOrder" id="txtSiteKeyWord" />
-      <a href="javascript:SiteSearch();"><div class="Ru-Search-Btn"></div></a>
+      <a href="#" onclick="SiteSearch('@Url.Action("Search", "Home")');"><div class="Ru-Search-Btn"></div></a>
     </li>
   </ul>
   <ul class="TopBtn-ul">
