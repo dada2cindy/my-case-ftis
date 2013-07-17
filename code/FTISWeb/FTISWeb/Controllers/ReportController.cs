@@ -89,8 +89,15 @@ namespace FTISWeb.Controllers
         [HttpPost]
         [ReportItemData]
         [ApplicationClassData(OnlyOpen = true)]
-        public ActionResult SendOrder(ReportModel model, HttpPostedFileBase picFile)
+        public ActionResult SendOrder(ReportModel model)
         {
+            HttpPostedFileBase picFile = null;
+            foreach (string file in Request.Files)
+            {
+
+                picFile = Request.Files[file] as HttpPostedFileBase;
+            }
+
             ModelState.Remove("Name");
             string captcha = AccountUtil.GetCaptcha();
             if (picFile == null || picFile.ContentLength <= 0)

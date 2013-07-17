@@ -140,7 +140,7 @@ namespace FTISWeb.Models
         /// 報告書封面
         /// </summary>
         [DisplayName("報告書封面")]
-        [Required]
+        //[Required]
         public string ReportPic { get; set; }
 
         /// <summary>
