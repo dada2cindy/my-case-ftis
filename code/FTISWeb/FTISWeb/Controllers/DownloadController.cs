@@ -42,23 +42,39 @@ namespace FTISWeb.Controllers
             DownloadModel entityModel = new DownloadModel(id);
             if ("1".Equals(entityModel.IsOut) && !string.IsNullOrWhiteSpace(entityModel.AUrl))
             {
-                Response.Redirect(entityModel.AUrl);
+                Member member = m_SessionHelper.WebMember;
+                if (member == null)
+                {
+                    return Redirect(Url.Action("Index", "Member"));
+                }
+                return Redirect(entityModel.AUrl);
             }
             return View(entityModel);
         }
 
-        public ActionResult DownLoadFile(string id,string fileUrl, string name)
+        public ActionResult DownLoadFile(string id, string fileNum, string name)
         {
             Member member = m_SessionHelper.WebMember;
             if (member == null)
             {
-                Response.Redirect(Url.Action("Index", "Member"));
+                return Redirect(Url.Action("Index", "Member"));
             }
 
             new MemberModel().AddDownloadRecord(name, "1", member.MemberId.ToString());
 
             EntityCounter(id, "Downer");
-            Response.Redirect(fileUrl);
+
+
+            DownloadModel entityModel = new DownloadModel(id);
+            switch (fileNum)
+            {
+                case ("1"):
+                    return Redirect(new HomeShowModel().GetFileByEncrypt(entityModel.AFile1));
+                case ("2"):
+                    return Redirect(new HomeShowModel().GetFileByEncrypt(entityModel.AFile2));
+                case ("3"):
+                    return Redirect(new HomeShowModel().GetFileByEncrypt(entityModel.AFile3));
+            }
 
             return new EmptyResult();
         }
