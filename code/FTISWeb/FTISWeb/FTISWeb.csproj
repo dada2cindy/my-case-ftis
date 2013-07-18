@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -2366,7 +2366,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>3368</DevelopmentServerPort>
           <DevelopmentServerVPath>/isdn</DevelopmentServerVPath>
-          <IISUrl>http://localhost:13897/</IISUrl>
+          <IISUrl>http://localhost:13897/isdn/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
