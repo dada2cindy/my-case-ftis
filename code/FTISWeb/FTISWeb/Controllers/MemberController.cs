@@ -21,7 +21,7 @@ namespace FTISWeb.Controllers
     {
         SessionHelper m_SessionHelper = new SessionHelper();
 
-        [RequireHttps]
+        //[RequireHttps]
         public ActionResult Index()
         {
             if (m_SessionHelper.WebMember == null)
@@ -34,14 +34,14 @@ namespace FTISWeb.Controllers
             }
         }
 
-        [RequireHttps]
+        //[RequireHttps]
         [IndustryData(OnlyOpen = true)]        
         public ActionResult Join()
         {
             return View(new MemberModel());
         }
 
-        [RequireHttps]
+        //[RequireHttps]
         [IndustryData(OnlyOpen = true)]
         [HttpPost]
         public ActionResult Join(MemberModel model)
@@ -75,7 +75,7 @@ namespace FTISWeb.Controllers
             }
         }
 
-        [RequireHttps]
+        //[RequireHttps]
         [HttpPost]
         public ActionResult Logon(MemberModel model)
         {

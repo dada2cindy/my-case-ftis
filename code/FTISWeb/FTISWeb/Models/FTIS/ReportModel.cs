@@ -21,7 +21,7 @@ namespace FTISWeb.Models
     public class ReportModel : AbstractEntityModel, ICheckFreeGO
     {
         public ReportModel()
-        {           
+        {
             this.SortId = 100;
             this.PostDate = DateTime.Today;
         }
@@ -198,42 +198,42 @@ namespace FTISWeb.Models
         /// 意見回饋-電話
         /// </summary>
         [DisplayName("意見回饋-電話")]
-        [Required]
+        //[Required]
         public string OpinionTel { get; set; }
 
         /// <summary>
         /// 意見回饋-E-mail
         /// </summary>
         [DisplayName("意見回饋-E-mail")]
-        [Required]
+        //[Required]
         public string OpinionEmail { get; set; }
 
         /// <summary>
         /// 聯絡方式-姓名
         /// </summary>
         [DisplayName("聯絡方式-姓名")]
-        [Required]
+        //[Required]
         public string ContactName { get; set; }
 
         /// <summary>
         /// 聯絡方式-職稱
         /// </summary>
         [DisplayName("聯絡方式-職稱")]
-        [Required]
+        //[Required]
         public string ContactDept { get; set; }
 
         /// <summary>
         /// 聯絡方式-電話
         /// </summary>
         [DisplayName("聯絡方式-電話")]
-        [Required]
+        //[Required]
         public string ContactTel { get; set; }
 
         /// <summary>
         /// 聯絡方式-E-mail
         /// </summary>
         [DisplayName("聯絡方式-E-mail")]
-        [Required]
+        //[Required]
         public string ContactEmail { get; set; }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace FTISWeb.Models
                 ReportName = entity.ReportName;
                 ReportYear = entity.ReportYear;
                 ReportType = entity.ReportType;
-                ReportPage = entity.ReportPage;                
+                ReportPage = entity.ReportPage;
                 AA1000 = entity.AA1000;
                 GRI = entity.GRI;
                 ReportPic = entity.ReportPic;
@@ -585,6 +585,28 @@ namespace FTISWeb.Models
                 case "2":
                     result = "無";
                     break;
+            }
+
+            return result;
+        }
+
+        public IList<Report> GetRelatedReports()
+        {
+            IList<Report> result = new List<Report>();
+
+            if (ReportYear > 0)
+            {
+                //查詢
+                IDictionary<string, string> conditions = new Dictionary<string, string>();
+                conditions.Add("ReportYearFrom", ReportYear.ToString());
+                conditions.Add("ReportYearTo", ReportYear.ToString());
+
+                result = m_FTISService.GetReportList(conditions).Where(r => r.ReportName != ReportName).ToList();
+            }
+
+            if (result == null)
+            {
+                result = new List<Report>();
             }
 
             return result;

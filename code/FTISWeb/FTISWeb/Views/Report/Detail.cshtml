@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 @using FTISWeb.Models;
+@using FTIS.Domain.Impl;
 @{
     HomeShowModel m_hsModel = new HomeShowModel(); 
 }
@@ -63,6 +64,27 @@
       
       <p class="csr04c-stitle">報告書簡介：</p>
       <p class="csr04c-stxt">@(new HtmlString(Model.Content))</p>      
+        @if(Model.EntityId > 0)
+        {
+            <table border="0" cellpadding="0" cellspacing="0" class="Extend-table">
+        <tr>
+          <td><img src="@Url.Content("~/in-image/com-related-report-2.gif")" width="640" height="49" alt="延伸閱讀" /></td>
+        </tr>
+        <tr>
+          <td><ul>
+              @{
+                foreach(Report report in Model.GetRelatedReports())
+                {
+                    <li class="csr-Extend-txt"><span class="csr-Extend-day">@(string.Format("{0} - {1} -", report.Company, report.ReportYear))</span><a href="@Url.Action("Detail", "Report", new { id= Model.EncryptId(report.ReportId) })">@(Model.SubString(report.ReportName, 35, true))</a></li>
+                }
+              }           
+          </ul></td>
+        </tr>
+        <tr>
+          <td><img src="@Url.Content("~/in-image/com-related-news-D.gif")" width="640" height="12" alt="icon" /></td>
+        </tr>
+      </table>
+        }
       <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
       </div>
     
