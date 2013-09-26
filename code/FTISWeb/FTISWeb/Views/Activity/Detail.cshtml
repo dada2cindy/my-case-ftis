@@ -65,15 +65,15 @@
                 @{
                     if(!string.IsNullOrWhiteSpace(Model.AFile1))
                     {
-                        <img src="@Url.Content("~/in-image/com-download-icon.gif")" alt="下載icon" width="18" height="16" align="absmiddle" /><a href="@m_hsModel.GetFileByEncrypt(Model.AFile1)" target="_blank">@m_hsModel.GetFileName(Model.AFile1Name)</a>
+                        <img src="@Url.Content("~/in-image/com-download-icon.gif")" alt="下載icon" width="18" height="16" align="absmiddle" /><a href="@m_hsModel.GetFile(Model.AFile1)" target="_blank">@m_hsModel.GetFileName(Model.AFile1Name)</a>
                     }
                     if(!string.IsNullOrWhiteSpace(Model.AFile2))
                     {
-                        <img src="@Url.Content("~/in-image/com-download-icon.gif")" alt="下載icon" width="18" height="16" align="absmiddle" /><a href="@m_hsModel.GetFileByEncrypt(Model.AFile2)" target="_blank">@m_hsModel.GetFileName(Model.AFile3Name)</a>
+                        <img src="@Url.Content("~/in-image/com-download-icon.gif")" alt="下載icon" width="18" height="16" align="absmiddle" /><a href="@m_hsModel.GetFile(Model.AFile2)" target="_blank">@m_hsModel.GetFileName(Model.AFile3Name)</a>
                     }
                     if(!string.IsNullOrWhiteSpace(Model.AFile3))
                     {
-                        <img src="@Url.Content("~/in-image/com-download-icon.gif")" alt="下載icon" width="18" height="16" align="absmiddle" /><a href="@m_hsModel.GetFileByEncrypt(Model.AFile3)" target="_blank">@m_hsModel.GetFileName(Model.AFile3Name)</a>
+                        <img src="@Url.Content("~/in-image/com-download-icon.gif")" alt="下載icon" width="18" height="16" align="absmiddle" /><a href="@m_hsModel.GetFile(Model.AFile3)" target="_blank">@m_hsModel.GetFileName(Model.AFile3Name)</a>
                     }
                 }                
             </td>
