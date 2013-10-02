@@ -378,9 +378,14 @@
                     $('html,body').scrollTop(0);
 
                     //抓取目前為第幾頁
-                    //var currentPage = $("#dvGrid").data("kendoGrid").dataSource.page();
+                    //var currentPage = $("#dvGrid").data("kendoGrid").dataSource.page();                    
                 }
             });
+
+        $("#gridTopPager").kendoPager({
+            autoBind: false,
+            dataSource: dataSrc
+        });        
         });
 
             //全選，全不選

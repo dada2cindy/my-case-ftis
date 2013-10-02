@@ -409,7 +409,7 @@
                         <input class="btn" type="submit" value="修改" />                        
                     }
                     <input id="btnClearCHT" class="btn" type="button" value="重填" />
-                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "News", new { cdts = m_Cdts }, new { @class = "btn" }))
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "News", new { cdts = m_Cdts, Page = Model.Page }, new { @class = "btn" }))
                 </td>
             </tr>
         </table>
