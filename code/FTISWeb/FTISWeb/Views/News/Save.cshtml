@@ -109,7 +109,8 @@
 
 @using (Html.BeginForm(Action.ToString(), "News", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
 {
-    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />     
+    <input id="Page" name="Page" type="hidden" value="@Model.Page" />    
     <fieldset class="fieldset">
         <h1>新聞動態管理</h1>
         <div style="width:100%; text-align:left; height:30px; padding-top:10px; font-size:12px; font-weight:bold;">切換語言：　<a href="#"><span id="ChangeToCHT">中文</span></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#"><span id="ChangeToENG">英文</span></a></div>
@@ -602,7 +603,7 @@
                         <input class="btn" type="submit" value="修改" />                        
                     }
                     <input id="btnClearENG" class="btn" type="button" value="重填" />
-                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "News", new { cdts = m_Cdts }, new { @class = "btn" }))
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "News", new { cdts = m_Cdts, Page = Model.Page }, new { @class = "btn" }))
                 </td>
             </tr>
         </table>

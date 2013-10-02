@@ -72,6 +72,7 @@
                     total: function (d) { return d.total; }
                 },
                 pageSize: Number('@AppSettings.AdminPageSize'),
+                page: Number('@(ViewData["CurrentPage"])'),
                 serverPaging: true,
                 serverSorting: true
             });
@@ -225,6 +226,7 @@
                         title: "@Model.GetDisplayName("Name")",
                         template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("Name") + "</span>" #',
                         hidden: $.parseJSON("@(Model.Hidden("Name"))"),
+                        width: '30%',
                         sortable: true
                     },
                     {
@@ -288,7 +290,7 @@
                     },
                     {
                         field: "@Model.GetColumnName("GetStr_IsOut")",
-                        title: "是否站外",
+                        title: "站外",
                         sortable: true,
                         hidden: $.parseJSON("@(Model.Hidden("GetStr_IsOut"))"),
                         attributes: { "style": "text-align: center;" },
@@ -349,7 +351,7 @@
                         title: "操作",
                         template: kendo.template($("#command-template").html()),
                         sortable: false,
-                        width: 160
+                        width: 60
                     }
                 ],
                 editable: "popup",
@@ -371,6 +373,12 @@
                            .replace(re, "<span class='hi-lite'>$&</span>"));
                         });
                     }
+
+                    ////換頁後跳到最上方
+                    $('html,body').scrollTop(0);
+
+                    //抓取目前為第幾頁
+                    //var currentPage = $("#dvGrid").data("kendoGrid").dataSource.page();
                 }
             });
         });
@@ -436,12 +444,17 @@
         });
     }
 
+    function GoEditPage(url) {
+        url += "&page=" + $("#dvGrid").data("kendoGrid").dataSource.page();
+        window.location = url;
+    }
+
 </script>
 
 <script id="command-template" type="text/x-kendo-template">
     @if (AllowEdit)
     {
-        <a class="k-button k-grid-Edit" href="@Url.Action(Model.ActionName, Model.ControllerName, new { cdts = Model.Conditions })&id=#: @Model.EntityId #"><span>編輯</span></a>
+        <a class="k-button k-grid-Edit" onclick="GoEditPage('@Url.Action(Model.ActionName, Model.ControllerName, new { cdts = Model.Conditions })&id=#: @Model.EntityId #')"><span>編輯</span></a>
     }
     @if (AllowDelete)
     {
@@ -451,19 +464,19 @@
 <script id="command-sortId" type="text/x-kendo-template">
     @if (AllowEdit && "false".Equals(Model.Hidden("SortId")))
     {
-        <input type="button" value="設定排序" onclick="SetSortId();" name="button">
+        <input type="button" value="排序" onclick="SetSortId();" name="button">
     }
 </script>
 <script id="content-sortId" type="text/x-kendo-template">
     @if ("false".Equals(Model.Hidden("SortId")))
     {
-        <input type="text" value="#: SortId #" entityId="#: @Model.EntityId #" maxlength="5" size="5" name="SortId">   
+        <input type="text" value="#: SortId #" entityId="#: @Model.EntityId #" maxlength="5" size="3" name="SortId">   
     }
 </script>
 <script id="command-isNew" type="text/x-kendo-template">
     @if (AllowEdit && "false".Equals(Model.Hidden("GetStr_IsNew")))
     {
-        <input type="button" value="設定New顯示" onclick="SetIsNew();" name="button">
+        <input type="button" value="New" onclick="SetIsNew();" name="button">
     }
 </script>
 <script id="content-isNew" type="text/x-kendo-template">
@@ -475,7 +488,7 @@
 <script id="command-isHome" type="text/x-kendo-template">
     @if (AllowEdit && "false".Equals(Model.Hidden("GetStr_IsHome")))
     {
-        <input type="button" value="設定首頁顯示" onclick="SetIsHome();" name="button">
+        <input type="button" value="首頁" onclick="SetIsHome();" name="button">
     }
 </script>
 <script id="content-isHome" type="text/x-kendo-template">

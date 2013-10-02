@@ -123,5 +123,7 @@ namespace FTISWeb.Models
         {
             return string.IsNullOrWhiteSpace(fileName) ? "附件" : fileName;
         }
+
+        public int Page { get; set; }
     }
 }
