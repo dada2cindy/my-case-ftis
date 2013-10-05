@@ -63,6 +63,7 @@
                     total: function (d) { return d.total; }
                 },
                 pageSize: Number('@AppSettings.AdminPageSize'),
+                page: Number('@(ViewData["CurrentPage"])'),
                 serverPaging: true,
                 serverSorting: true
             });
@@ -172,7 +173,11 @@
                         });
                     }
                 }
-            });            
+            });
+            $("#gridTopPager").kendoPager({
+                refresh: true,
+                dataSource: dataSrc
+            });
         });
 
         //全選，全不選
@@ -183,6 +188,11 @@
             } else {
                 ClearSelect('#dvGrid');
             }
+        }
+
+        function GoEditPage(url) {
+            url += "&page=" + $("#dvGrid").data("kendoGrid").dataSource.page();
+            window.location = url;
         }
 
         function GetCheckBoxValue(selector) {
@@ -215,8 +225,8 @@
 
 <script id="command-template" type="text/x-kendo-template">
     @if(AllowEdit)
-    {
-        <a class="k-button k-grid-Edit" href="@Url.Action(Model.ActionName, Model.ControllerName, new { cdts = Model.Conditions })&id=#: @Model.EntityId #"><span>編輯</span></a>
+    {        
+        <a class="k-button k-grid-Edit" onclick="GoEditPage('@Url.Action(Model.ActionName, Model.ControllerName, new { cdts = Model.Conditions })&id=#: @Model.EntityId #')"><span>編輯</span></a>
     }
     @if(AllowDelete)
     {

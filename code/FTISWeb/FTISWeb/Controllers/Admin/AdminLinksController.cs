@@ -29,19 +29,27 @@ namespace FTISWeb.Controllers
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Links, Operation = SiteOperations.Read)]
         [AuthorizationData(AppFunction = SiteEntities.Links)]
         [LinksClassData]
-        public ActionResult AdminIndex(string cdts)
+        public ActionResult AdminIndex(string cdts, string page)
         {
             GetConditions(cdts);
+            SetPage(page);
             return View();
+        }
+
+        private void SetPage(string page)
+        {
+            int currentPage = 1;
+            int.TryParse(page, out currentPage);
+            ViewData["CurrentPage"] = currentPage;
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Links, Operation = SiteOperations.Edit)]
         [AuthorizationData(AppFunction = SiteEntities.Links)]
         [LinksClassData]
-        public ActionResult Edit(int id, string cdts)
+        public ActionResult Edit(int id, string cdts, int page)
         {
             GetConditions(cdts);
-            return View("Save", new LinksModel(id));
+            return View("Save", new LinksModel(id) { Page = page });
         }
 
         [ValidateInput(false)]
@@ -53,7 +61,7 @@ namespace FTISWeb.Controllers
         {
             GetConditions(cdts);
             model.Update();
-            return View("AdminIndex");
+            return RedirectToAction("AdminIndex", new { Page = model.Page, Cdts = cdts });
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Links, Operation = SiteOperations.Create)]

@@ -58,10 +58,10 @@ namespace FTISWeb.Controllers
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Member, Operation = SiteOperations.Read)]
         public JsonResult AjaxBinding(KendoGridRequest request, string keyWord, string downloadClassId)
         {
-            SetConditions(keyWord, downloadClassId);            
+            SetConditions(keyWord, downloadClassId);
 
             var data = GetGridData();
-            var result = new KendoGrid<DownloadRecord>(request, data, data.Count());
+            var result = new KendoGrid<DownloadRecord>(request, data.Skip((request.Page - 1) * request.PageSize).Take(request.PageSize), data.Count());
             return Json(result);
         }
 

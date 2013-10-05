@@ -28,18 +28,26 @@ namespace FTISWeb.Controllers
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Read)]
         [AuthorizationData(AppFunction = SiteEntities.Epaper)]
-        public ActionResult AdminIndex(string cdts)
+        public ActionResult AdminIndex(string cdts, string page)
         {
             GetConditions(cdts);
+            SetPage(page);
             return View();
+        }
+
+        private void SetPage(string page)
+        {
+            int currentPage = 1;
+            int.TryParse(page, out currentPage);
+            ViewData["CurrentPage"] = currentPage;
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Edit)]
         [AuthorizationData(AppFunction = SiteEntities.Epaper)]
-        public ActionResult Edit(int id, string cdts)
+        public ActionResult Edit(int id, string cdts, int page)
         {
             GetConditions(cdts);
-            return View("Save", new EpaperEmailModel(id));
+            return View("Save", new EpaperEmailModel(id) { Page = page });
         }
 
         [ValidateInput(false)]
@@ -50,7 +58,7 @@ namespace FTISWeb.Controllers
         {
             GetConditions(cdts);
             model.Update();
-            return View("AdminIndex");
+            return RedirectToAction("AdminIndex", new { Page = model.Page, Cdts = cdts });
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Epaper, Operation = SiteOperations.Create)]

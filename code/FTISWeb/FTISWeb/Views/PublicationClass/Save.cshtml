@@ -35,7 +35,8 @@
 
 @using (Html.BeginForm(Action.ToString(), "PublicationClass", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
 {
-    @Html.HiddenFor(m => m.EntityId)         
+    @Html.HiddenFor(m => m.EntityId)       
+    <input id="Page" name="Page" type="hidden" value="@Model.Page" />      
     <fieldset class="fieldset">
         <h1>刊物年度管理</h1>
         <table style="width: 100%" class="FormTable">
@@ -74,7 +75,7 @@
                         <input id="btnEdit" class="btn" type="submit" value="修改" />                        
                     }
                     <input id="btnClear" class="btn" type="button" value="重填" />
-                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "PublicationClass", new { cdts = m_Cdts }, new { @class = "btn" }))
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "PublicationClass", new { cdts = m_Cdts, Page = Model.Page }, new { @class = "btn" }))
                 </td>
             </tr>
         </table>

@@ -71,8 +71,8 @@ namespace FTISWeb.Controllers
             {
                 return View("Save", model);
             }
-            
-            return RedirectToAction("AdminIndex", new { Page = model.Page });
+
+            return RedirectToAction("AdminIndex", new { Page = model.Page, Cdts = cdts });
         }
 
         [AdminAuthorizeAttribute(AppFunction = SiteEntities.Activity, Operation = SiteOperations.Create)]

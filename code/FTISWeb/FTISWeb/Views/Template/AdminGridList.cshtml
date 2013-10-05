@@ -35,6 +35,7 @@
                     total: function (d) { return d.total; }
                 },
                 pageSize: Number('@AppSettings.AdminPageSize'),
+                page: Number('@(ViewData["CurrentPage"])'),
                 serverPaging: true,
                 serverSorting: true
             });
@@ -91,7 +92,11 @@
                     //, pageSizes: true
                 },
                 scrollable: false
-            });            
+            });
+            $("#gridTopPager").kendoPager({
+                refresh: true,
+                dataSource: dataSrc
+            });
         });
 
         //全選，全不選

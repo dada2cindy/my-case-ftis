@@ -133,7 +133,7 @@ namespace FTISWeb.Controllers
         public JsonResult AjaxBinding(KendoGridRequest request, string templateType)
         {
             var data = GetGridData(templateType);
-            var result = new KendoGrid<TemplateVO>(request, data, data.Count());
+            var result = new KendoGrid<TemplateVO>(request, data.Skip((request.Page - 1) * request.PageSize).Take(request.PageSize), data.Count());
             return Json(result);
         }
 
