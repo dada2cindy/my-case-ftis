@@ -16,7 +16,7 @@ namespace FTISWeb.Controllers
             string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
             string filePath = Path.Combine(ckFinderBaseDir, path);
 
-            if (!new FileInfo(filePath).Exists)
+            if (!new FileInfo(filePath).Exists || !filePath.StartsWith(ckFinderBaseDir))
             {
                 return new EmptyResult();
             }
@@ -30,7 +30,7 @@ namespace FTISWeb.Controllers
             string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
             string filePath = Path.Combine(ckFinderBaseDir, path);
 
-            if (!new FileInfo(filePath).Exists)
+            if (!new FileInfo(filePath).Exists || !filePath.StartsWith(ckFinderBaseDir))
             {
                 return new EmptyResult();
             }
