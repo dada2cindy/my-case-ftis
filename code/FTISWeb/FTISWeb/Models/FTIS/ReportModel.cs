@@ -504,7 +504,7 @@ namespace FTISWeb.Models
         {
             string result = string.Empty;
 
-            switch (this.CompanyTrade)
+            switch (this.CompanyType)
             {
                 case "1":
                     result = "上市公司";
@@ -545,7 +545,7 @@ namespace FTISWeb.Models
         {
             string result = string.Empty;
 
-            switch (this.CompanyTrade)
+            switch (this.AA1000)
             {
                 case "1":
                     result = "A+";
@@ -577,7 +577,7 @@ namespace FTISWeb.Models
         {
             string result = string.Empty;
 
-            switch (this.CompanyTrade)
+            switch (this.GRI)
             {
                 case "1":
                     result = "通過";
@@ -598,6 +598,7 @@ namespace FTISWeb.Models
             {
                 //查詢
                 IDictionary<string, string> conditions = new Dictionary<string, string>();
+                conditions.Add("CompanyTrade", CompanyTrade);
                 conditions.Add("ReportYearFrom", ReportYear.ToString());
                 conditions.Add("ReportYearTo", ReportYear.ToString());
 
