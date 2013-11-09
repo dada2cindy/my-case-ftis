@@ -26,7 +26,7 @@ namespace FTIS.Domain.Impl
         public virtual int QuestionId { get; set; }
 
         /// <summary>
-        /// 新聞分類(議題)
+        /// Q&A分類(議題)
         /// </summary>
         [DataMember]
         public virtual QuestionClass QuestionClass { get; set; }

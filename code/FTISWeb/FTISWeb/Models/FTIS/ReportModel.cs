@@ -548,6 +548,23 @@ namespace FTISWeb.Models
             switch (this.AA1000)
             {
                 case "1":
+                    result = "通過";
+                    break;
+                case "2":
+                    result = "無";
+                    break;
+            }
+
+            return result;
+        }
+
+        public string GetStr_GRI()
+        {
+            string result = string.Empty;
+
+            switch (this.GRI)
+            {
+                case "1":
                     result = "A+";
                     break;
                 case "2":
@@ -566,23 +583,6 @@ namespace FTISWeb.Models
                     result = "C";
                     break;
                 case "7":
-                    result = "無";
-                    break;
-            }
-
-            return result;
-        }
-
-        public string GetStr_GRI()
-        {
-            string result = string.Empty;
-
-            switch (this.GRI)
-            {
-                case "1":
-                    result = "通過";
-                    break;
-                case "2":
                     result = "無";
                     break;
             }

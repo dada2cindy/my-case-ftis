@@ -1482,6 +1482,10 @@ namespace FTIS.Service.Impl
                     {
                         NHibernateUtil.Initialize(question.QuestionClass);
                     }
+                    else
+                    {
+                        question.QuestionClass = new QuestionClass();
+                    }
                 }
             }
 
