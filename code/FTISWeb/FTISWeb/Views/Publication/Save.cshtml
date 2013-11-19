@@ -54,6 +54,9 @@
             });
 
             $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+
+            CreateImgUploader("Pic1", '@Url.Action("BasicUpload", "FileHandle")');
+            CreateFileUploader("AFile1", '@Url.Action("BasicUpload", "FileHandle")');
         });        
 
         function SetFileField(fileUrl, data) {
@@ -128,9 +131,11 @@
                 <td style="text-align:right;">本期封面圖片：
                 </td>
                 <td>
-                    @Html.TextBox("Pic1", Model.Pic1, new { id = "Pic1", @readonly = "readonly", onclick = "BrowseServer('Images:/', 'Pic1');" })
-                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic1');" />
-                    <input type="button" value="清除" onclick="ClearFile('#Pic1');" />
+                    <input id="Pic1" name="Pic1" type="hidden" value="@Model.Pic1" />
+                    <div id="file-uploaderPic1">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.Pic1)? "display:none;" : "")" id="file-functionPic1"> <a href="javascript:OpenUploadImgFile('Pic1', '@Url.Action("ShowImgFile", "FileHandle")');" >瀏覽</a> <a href="javascript:ClearFileAndHide('Pic1');">清除</a> </div>
                 </td>
             </tr>
             @*<tr>
@@ -179,9 +184,11 @@
                 <td style="text-align:right;">A.本期刊物電子檔案上傳：
                 </td>
                 <td>
-                    @Html.TextBox("AFile1", Model.AFile1, new { id = "AFile1", @readonly = "readonly", onclick = "BrowseServer('Files:/', 'AFile1');" })
-                    <input type="button" value="上傳檔案" onclick="BrowseServer('Files:/', 'AFile1');" />
-                    <input type="button" value="清除" onclick="ClearFile('#AFile1');" />
+                    <input id="AFile1" name="AFile1" type="hidden" value="@Model.AFile1" />
+                    <div id="file-uploaderAFile1">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.AFile1)? "display:none;" : "")" id="file-functionAFile1"> <a href="javascript:OpenUploadFile('AFile1', '@(AppSettings.CKFinderFileHandler)');" >瀏覽</a> <a href="javascript:ClearFileAndHide('AFile1');">清除</a> </div>
                 </td>
             </tr>      
             <tr>

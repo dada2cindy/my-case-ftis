@@ -11,6 +11,12 @@ namespace FTISWeb.Controllers
 {
     public class FileHandleController : Controller
     {
+        public ActionResult ShowImgFile(string path)
+        {
+            ViewBag.FilePath = path;
+            return View();
+        }
+
         public ActionResult GetFromCKFinder(string path)
         {
             string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
@@ -45,6 +51,43 @@ namespace FTISWeb.Controllers
         public FileStream GetFile(string filePath)
         {
             return new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        }
+
+        /// <summary>
+        /// 上傳檔案
+        /// </summary>
+        /// <param name="qqfile"></param>
+        /// <returns></returns>
+        public ActionResult BasicUpload(string qqfile, string folder, string targetField)
+        {
+            string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
+            string path = Path.Combine(ckFinderBaseDir, folder);
+            if (!System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.CreateDirectory(path);
+            }
+            string fileName = string.Empty;
+
+            try
+            {
+                string originalName = qqfile;
+                fileName = string.Format("{0}{1}", Guid.NewGuid().ToString(), originalName.Substring(originalName.LastIndexOf('.')));
+
+                Stream stream = Request.Files.Count > 0
+                    ? Request.Files[0].InputStream
+                    : Request.InputStream;
+                string filePath = Request.Files.Count > 0
+                    ? Path.Combine(path, fileName)
+                    : Path.Combine(path, fileName);
+                var buffer = new byte[stream.Length];
+                stream.Read(buffer, 0, buffer.Length);
+                System.IO.File.WriteAllBytes(filePath, buffer);
+                return Json(new { success = true, targetField = targetField, filePath = string.Format("{0}/{1}", folder, fileName) }, "text/html");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { message = ex.Message }, "text/html");
+            }
         }
     }
 }

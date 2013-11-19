@@ -86,6 +86,8 @@
                 change: OnPostDateChange,
                 format: "yyyy/MM/dd"
             });
+
+            CreateImgUploader("ReportPic", '@Url.Action("BasicUpload", "FileHandle")');
         });
 
         function SetFileField(fileUrl, data) {
@@ -239,9 +241,11 @@
                 <td style="text-align:right;">報告書封面：
                 </td>
                 <td>
-                    @Html.TextBox("ReportPic", Model.ReportPic, new { id = "ReportPic", @readonly = "readonly" , onclick = "BrowseServer('WebUserImages:/', 'ReportPic');" })
-                    <input type="button" value="上傳圖片" onclick="BrowseServer('WebUserImages:/', 'ReportPic');" /> 
-                    <input type="button" value="清除" onclick="ClearFile('#ReportPic');" />
+                    <input id="ReportPic" name="ReportPic" type="hidden" value="@Model.ReportPic" />
+                    <div id="file-uploaderReportPic">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.ReportPic)? "display:none;" : "")" id="file-functionReportPic"> <a href="javascript:OpenUploadImgFile('ReportPic', '@Url.Action("ShowImgFile", "FileHandle")');" >瀏覽</a> <a href="javascript:ClearFileAndHide('ReportPic');">清除</a> </div>
                 </td>
             </tr>
             <tr>

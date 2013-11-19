@@ -47,7 +47,8 @@ namespace FTISWeb
             bundles.Add(new StyleBundle("~/Content/Admin/AdminCSS").Include(
                 "~/Content/Admin/admin.css",
                 "~/Content/Admin/css.css",
-                "~/Content/Validation.css"));
+                "~/Content/Validation.css",
+                "~/Content/fileuploader.css"));
 
             bundles.Add(new StyleBundle("~/Content/Admin/LeftMenuCSS").Include(
                 "~/Content/Admin/admin.css",
@@ -61,6 +62,9 @@ namespace FTISWeb
             bundles.Add(new StyleBundle("~/Content/kendo/KendoCSS").Include(
                 "~/Content/kendo/kendo.common.css",
                 "~/Content/kendo/kendo.blueopal.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/FileUploader").Include(
+               "~/Scripts/fileuploader.js"));
 
             /***************************************************************************
             前台

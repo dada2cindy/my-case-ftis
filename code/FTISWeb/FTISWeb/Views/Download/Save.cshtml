@@ -41,7 +41,9 @@
             $("#PostDate").kendoDatePicker({
                 change: OnPostDateChange,
                 format: "yyyy/MM/dd"
-            });            
+            });
+
+            CreateFileUploader("AFile1", '@Url.Action("BasicUpload", "FileHandle")');
         });        
 
         function SetFileField(fileUrl, data) {
@@ -115,9 +117,11 @@
                 <td style="text-align:right;">附件1：
                 </td>
                 <td>
-                    @Html.TextBox("AFile1", Model.AFile1, new { id = "AFile1", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile1');" })
-                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile1');" />
-                    <input type="button" value="清除" onclick="ClearFile('#AFile1');" />
+                    <input id="AFile1" name="AFile1" type="hidden" value="@Model.AFile1" />
+                    <div id="file-uploaderAFile1">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.AFile1)? "display:none;" : "")" id="file-functionAFile1"> <a href="javascript:OpenUploadFile('AFile1', '@(AppSettings.CKFinderFileHandler)');" >瀏覽</a> <a href="javascript:ClearFileAndHide('AFile1');">清除</a> </div>
                 </td>
             </tr>
             <tr>

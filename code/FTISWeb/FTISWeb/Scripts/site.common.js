@@ -223,3 +223,101 @@ function OnExpiredDateChange() {
         $("#ExpiredDate").val('');
     }
 }
+
+/***************************************************************************
+uu.upload CreateImgUploader
+***************************************************************************/
+function CreateImgUploader(targetField, url) {
+    var uploader = new qq.FileUploader(
+    {
+        element: $('#file-uploader' + targetField)[0],
+        action: url,
+        allowedExtensions: ["bmp", "gif", "jpeg", "jpg", "png"],
+        multiple: false,
+        params: { targetField: targetField, folder: 'imgs' },
+        template: '<div class="qq-uploader">' +
+      '<div class="qq-upload-drop-area"><span>拖曳檔案到這裡上傳</span></div>' +
+      '<div class="qq-upload-button">上傳圖片</div>' +
+      '<ul class="qq-upload-list" style="display:none;"></ul>' +
+  '</div>',
+        messages:
+        {
+            typeError: "{file} 檔案類型錯誤. 只允許上傳以下副檔名的檔案：\r\n{extensions}.",
+            sizeError: "{file} 超過檔案大小最大限制, 最大檔案大小為 {sizeLimit}.",
+            emptyError: "請選擇上傳的圖片."
+        },
+        showMessage: function (message) {
+            alert(message);
+        },
+        onComplete: function (id, fileName, responseJSON) {
+            $('#file-uploader' + targetField).show();
+            if (responseJSON.success) {
+                $('#' + targetField).val(responseJSON.filePath);
+                $('#file-function' + targetField).show();
+                alert(" 檔案上傳完成!");
+            }
+            else {
+                alert(" 檔案上傳錯誤! error: " + responseJSON.message);
+            }
+        },
+        onSubmit: function (id, fileName) {
+            $('#file-uploader' + targetField).hide();
+        }
+    });
+}
+
+function CreateFileUploader(targetField, url) {
+    var uploader = new qq.FileUploader(
+    {
+        element: $('#file-uploader' + targetField)[0],
+        action: url,
+        allowedExtensions: ["7z", "aiff", "asf", "avi", "bmp", "csv", "doc", "docx", "fla", "flv", "gif", "gz", "gzip", "jpeg", "jpg", "mid", "mov", "mp3", "mp4", "mpc", "mpeg", "mpg", "ods", "odt", "pdf", "png", "ppt", "pptx", "pxd", "qt", "ram", "rar", "rm", "rmi", "rmvb", "rtf", "sdc", "sitd", "swf", "sxc", "sxw", "tar", "tgz", "tif", "tiff", "txt", "vsd", "wav", "wma", "wmv", "xls", "xlsx", "zip"],
+        multiple: false,
+        params: { targetField: targetField, folder: 'files' },
+        template: '<div class="qq-uploader">' +
+      '<div class="qq-upload-drop-area"><span>拖曳檔案到這裡上傳</span></div>' +
+      '<div class="qq-upload-button">上傳檔案</div>' +
+      '<ul class="qq-upload-list" style="display:none;"></ul>' +
+  '</div>',
+        messages:
+        {
+            typeError: "{file} 檔案類型錯誤. 只允許上傳以下副檔名的檔案：\r\n{extensions}.",
+            sizeError: "{file} 超過檔案大小最大限制, 最大檔案大小為 {sizeLimit}.",
+            emptyError: "請選擇上傳的檔案."
+        },
+        showMessage: function (message) {
+            alert(message);
+        },
+        onComplete: function (id, fileName, responseJSON) {
+            $('#file-uploader' + targetField).show();
+            if (responseJSON.success) {
+                $('#' + targetField).val(responseJSON.filePath);
+                $('#file-function' + targetField).show();
+                alert(" 檔案上傳完成!");
+            }
+            else {
+                alert(" 檔案上傳錯誤! error: " + responseJSON.message);
+            }
+        },
+        onSubmit: function (id, fileName) {
+            $('#file-uploader' + targetField).hide();
+        }
+    });
+}
+
+function ClearFileAndHide(targetField) {
+    $('#' + targetField).val('');
+    $('#file-function' + targetField).hide();
+}
+
+function OpenUploadImgFile(targetField, url) {
+    var filePath = $('#' + targetField).val();
+    var fullFilePath = url + '/?path=' + filePath;
+    window.open(fullFilePath);
+}
+
+function OpenUploadFile(targetField, url) {
+    var filePath = $('#' + targetField).val();
+    var fullFilePath = url + filePath;
+    window.open(fullFilePath);
+}

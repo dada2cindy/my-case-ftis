@@ -389,6 +389,8 @@
     <Content Include="btn\b5a.gif" />
     <Content Include="btn\b6.gif" />
     <Content Include="btn\b6a.gif" />
+    <Content Include="Content\fileuploader.css" />
+    <Content Include="Content\loading.gif" />
     <Content Include="Content\MvcPaging.css" />
     <Content Include="css\AllCss.css" />
     <Content Include="css\Ecss.css" />
@@ -794,6 +796,7 @@
     <Content Include="Scripts\ckfinder\userfiles\flash\端午.swf" />
     <Content Include="Scripts\ckfinder\userfiles\flash\聖誕.swf" />
     <Content Include="Scripts\exportExcel.js" />
+    <Content Include="Scripts\fileuploader.js" />
     <Content Include="swf\inTopflash.swf" />
     <Content Include="pp\adv.jpg" />
     <Content Include="pp\banner-1.gif" />
@@ -2309,7 +2312,7 @@
     <Content Include="Views\Green\NodeSingleEdit.cshtml" />
     <Content Include="Views\EpaperEmail\Export.cshtml" />
     <Content Include="Views\Member\Export.cshtml" />
-    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Shared\ShowImgFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Unauthorized.cshtml" />
@@ -2338,7 +2341,9 @@
   <ItemGroup>
     <Content Include="Views\Admin\LeftMenu.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Error\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\AdminLayout.cshtml" />
   </ItemGroup>
