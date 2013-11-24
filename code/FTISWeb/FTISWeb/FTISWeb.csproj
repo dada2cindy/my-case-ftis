@@ -389,11 +389,11 @@
     <Content Include="btn\b5a.gif" />
     <Content Include="btn\b6.gif" />
     <Content Include="btn\b6a.gif" />
-    <Content Include="Content\fileuploader.css" />
     <Content Include="Content\loading.gif" />
     <Content Include="Content\MvcPaging.css" />
     <Content Include="css\AllCss.css" />
     <Content Include="css\Ecss.css" />
+    <Content Include="Content\fileuploader.css" />
     <Content Include="css\In-Style.css" />
     <Content Include="css\InCss.css" />
     <Content Include="css\Index-Sdyle.css" />
