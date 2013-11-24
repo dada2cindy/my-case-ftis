@@ -59,6 +59,13 @@
                 change: OnPostDateChange,
                 format: "yyyy/MM/dd"
             });
+
+            CreateImgUploader("Pic1", '@Url.Action("BasicUpload", "FileHandle")');
+            CreateImgUploader("Pic2", '@Url.Action("BasicUpload", "FileHandle")');
+            CreateImgUploader("Pic3", '@Url.Action("BasicUpload", "FileHandle")');
+            CreateFileUploader("AFile1", '@Url.Action("BasicUpload", "FileHandle")');
+            CreateFileUploader("AFile2", '@Url.Action("BasicUpload", "FileHandle")');
+            CreateFileUploader("AFile3", '@Url.Action("BasicUpload", "FileHandle")');
         });        
 
         function SetFileField(fileUrl, data) {
@@ -147,9 +154,11 @@
                 <td style="text-align:right;">圖片1：
                 </td>
                 <td>
-                    @Html.TextBox("Pic1", Model.Pic1, new { id = "Pic1", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic1');" })
-                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic1');" />
-                    <input type="button" value="清除" onclick="ClearFile('#Pic1');" />
+                    <input id="Pic1" name="Pic1" type="hidden" value="@Model.Pic1" />
+                    <div id="file-uploaderPic1">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.Pic1)? "display:none;" : "")" id="file-functionPic1"> <a href="javascript:OpenUploadImgFile('Pic1', '@Url.Action("ShowImgFile", "FileHandle")');" >瀏覽</a> <a href="javascript:ClearFileAndHide('Pic1');">清除</a> </div>
                 </td>
             </tr>
             <tr>
@@ -163,9 +172,11 @@
                 <td style="text-align:right;">圖片2：
                 </td>
                 <td>
-                    @Html.TextBox("Pic2", Model.Pic2, new { id = "Pic2", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic2');" })
-                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic2');" />
-                    <input type="button" value="清除" onclick="ClearFile('#Pic2');" />
+                    <input id="Pic2" name="Pic2" type="hidden" value="@Model.Pic2" />
+                    <div id="file-uploaderPic2">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.Pic2)? "display:none;" : "")" id="file-functionPic2"> <a href="javascript:OpenUploadImgFile('Pic2', '@Url.Action("ShowImgFile", "FileHandle")');" >瀏覽</a> <a href="javascript:ClearFileAndHide('Pic2');">清除</a> </div>
                 </td>
             </tr>
             <tr>
@@ -179,9 +190,11 @@
                 <td style="text-align:right;">圖片3：
                 </td>
                 <td>
-                    @Html.TextBox("Pic3", Model.Pic3, new { id = "Pic3", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic3');" })
-                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic3');" />
-                    <input type="button" value="清除" onclick="ClearFile('#Pic3');" />
+                    <input id="Pic3" name="Pic3" type="hidden" value="@Model.Pic3" />
+                    <div id="file-uploaderPic3">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.Pic3)? "display:none;" : "")" id="file-functionPic3"> <a href="javascript:OpenUploadImgFile('Pic3', '@Url.Action("ShowImgFile", "FileHandle")');" >瀏覽</a> <a href="javascript:ClearFileAndHide('Pic3');">清除</a> </div>
                 </td>
             </tr>
             <tr>
@@ -195,9 +208,11 @@
                 <td style="text-align:right;">附件1：
                 </td>
                 <td>
-                    @Html.TextBox("AFile1", Model.AFile1, new { id = "AFile1", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile1');" })
-                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile1');" />
-                    <input type="button" value="清除" onclick="ClearFile('#AFile1');" />
+                    <input id="AFile1" name="AFile1" type="hidden" value="@Model.AFile1" />
+                    <div id="file-uploaderAFile1">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.AFile1)? "display:none;" : "")" id="file-functionAFile1"> <a href="javascript:OpenUploadFile('AFile1', '@(AppSettings.CKFinderFileHandler)');" >瀏覽</a> <a href="javascript:ClearFileAndHide('AFile1');">清除</a> </div>
                 </td>
             </tr>
             <tr>
@@ -211,9 +226,11 @@
                 <td style="text-align:right;">附件2：
                 </td>
                 <td>
-                    @Html.TextBox("AFile2", Model.AFile2, new { id = "AFile2", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile2');" })
-                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile2');" />
-                    <input type="button" value="清除" onclick="ClearFile('#AFile2');" />
+                    <input id="AFile2" name="AFile2" type="hidden" value="@Model.AFile2" />
+                    <div id="file-uploaderAFile2">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.AFile2)? "display:none;" : "")" id="file-functionAFile2"> <a href="javascript:OpenUploadFile('AFile2', '@(AppSettings.CKFinderFileHandler)');" >瀏覽</a> <a href="javascript:ClearFileAndHide('AFile2');">清除</a> </div>
                 </td>
             </tr>
             <tr>
@@ -227,9 +244,11 @@
                 <td style="text-align:right;">附件3：
                 </td>
                 <td>
-                    @Html.TextBox("AFile3", Model.AFile3, new { id = "AFile3", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile3');" })
-                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile3');" />
-                    <input type="button" value="清除" onclick="ClearFile('#AFile3');" />
+                    <input id="AFile3" name="AFile3" type="hidden" value="@Model.AFile3" />
+                    <div id="file-uploaderAFile3">
+                        <noscript><p>上傳檔案必須啟用 JavaScript.</p></noscript>
+                    </div>
+                    <div style="float:left; @(string.IsNullOrEmpty(Model.AFile3)? "display:none;" : "")" id="file-functionAFile3"> <a href="javascript:OpenUploadFile('AFile3', '@(AppSettings.CKFinderFileHandler)');" >瀏覽</a> <a href="javascript:ClearFileAndHide('AFile3');">清除</a> </div>
                 </td>
             </tr>
             <tr>

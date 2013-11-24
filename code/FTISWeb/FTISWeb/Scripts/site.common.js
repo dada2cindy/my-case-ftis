@@ -321,3 +321,42 @@ function OpenUploadFile(targetField, url) {
     var fullFilePath = url + filePath;
     window.open(fullFilePath);
 }
+
+function CreateFlashUploader(targetField, url) {
+    var uploader = new qq.FileUploader(
+    {
+        element: $('#file-uploader' + targetField)[0],
+        action: url,
+        allowedExtensions: ["swf", "flv"],
+        multiple: false,
+        params: { targetField: targetField, folder: 'Scripts/ckfinder/userfiles/flash' },
+        template: '<div class="qq-uploader">' +
+      '<div class="qq-upload-drop-area"><span>拖曳檔案到這裡上傳</span></div>' +
+      '<div class="qq-upload-button">上傳檔案</div>' +
+      '<ul class="qq-upload-list" style="display:none;"></ul>' +
+  '</div>',
+        messages:
+        {
+            typeError: "{file} 檔案類型錯誤. 只允許上傳以下副檔名的檔案：\r\n{extensions}.",
+            sizeError: "{file} 超過檔案大小最大限制, 最大檔案大小為 {sizeLimit}.",
+            emptyError: "請選擇上傳的檔案."
+        },
+        showMessage: function (message) {
+            alert(message);
+        },
+        onComplete: function (id, fileName, responseJSON) {
+            $('#file-uploader' + targetField).show();
+            if (responseJSON.success) {
+                $('#' + targetField).val(responseJSON.filePath);
+                $('#file-function' + targetField).show();
+                alert(" 檔案上傳完成!");
+            }
+            else {
+                alert(" 檔案上傳錯誤! error: " + responseJSON.message);
+            }
+        },
+        onSubmit: function (id, fileName) {
+            $('#file-uploader' + targetField).hide();
+        }
+    });
+}
