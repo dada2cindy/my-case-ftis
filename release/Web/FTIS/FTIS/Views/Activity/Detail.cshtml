@@ -1,0 +1,107 @@
+﻿@model FTISWeb.Models.ActivityModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel(); 
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")
+    @Html.Partial("ActivityLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>活動訊息<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 活動訊息</span>    </h1>
+    <div class="News-IN-3Function"><img src="@Url.Content("~/in-image/com-icon-4.gif")" width="14" height="14" alt="瀏覽人數"/>瀏覽人數<span class="News-IN-3Function-txt">(@Model.Vister)</span><img src="@Url.Content("~/in-image/com-icon-5.gif")" width="13" height="12" alt="轉寄"/><a target="_blank" href="@Url.Action("Email", "Activity", new { id =m_hsModel.EncryptId(Model.EntityId) })">轉寄</a><span class="News-IN-3Function-txt">(@Model.Emailer)</span><img src="@Url.Content("~/in-image/com-icon-6.gif")" width="13" height="12" alt="列印"/><a target="_blank" href="@Url.Action("Print", "Activity", new { id =m_hsModel.EncryptId(Model.EntityId) })">列印</a><span class="News-IN-3Function-txt">(@Model.Printer)</span></div>
+    <div id="InShow-INob">
+      <p class="News-IN-Title">@Model.Name</p>
+      <p class="News-IN-Day">刊登日期：@m_hsModel.GetStr_Date(Model.PostDate)</p>
+      <table border="0" cellpadding="5" cellspacing="1" class="Act-table">
+        <tbody>
+          <tr></tr>
+          <tr>
+            <td width="80" class="Pro03-title">主辦單位</td>
+            <td class="Pro03-txt02">@Model.MCompany</td>
+            <td width="90" class="Pro03-title">聯絡人姓名</td>
+            <td class="Pro03-txt02">@Model.Contact</td>
+          </tr>
+          <tr>
+            <td class="Pro03-title">辦理日期</td>
+            <td class="Pro03-txt02" >@Model.ActDate</td>
+            <td class="Pro03-title">聯絡人電話</td>
+            <td class="Pro03-txt02" >@Model.Tel</td>
+          </tr>
+          <tr>
+            <td class="Pro03-title">活動地點</td>
+            <td class="Pro03-txt02" >@Model.Address</td>
+            <td class="Pro03-title">聯絡人傳真</td>
+            <td class="Pro03-txt02" >@Model.Fax</td>
+          </tr>
+          <tr>
+            <td class="Pro03-title">報名費用</td>
+            <td class="Pro03-txt02" >@Model.ActFee</td>
+            <td class="Pro03-title">報名方式</td>
+            <td class="Pro03-txt02" >@Model.ActType</td>
+          </tr>
+          <tr>
+            <td class="Pro03-title">相關連結</td>
+            <td colspan="3" class="Pro03-txt02" ><a href="@Model.AUrl" target="_blank">@Model.AUrl</a></td>
+          </tr>
+          <tr>
+            <td class="Pro03-title">報名狀態</td>
+            <td class="Pro03-txt02" >@Model.JoinStatus</td>
+            <td class="Pro03-title">活動狀態</td>
+            <td class="Pro03-txt02" >@Model.ActStatus</td>
+          </tr>
+          <tr>
+            <td class="Pro03-title">附件檔案</td>
+            <td colspan="3" class="Pro03-txt02" >
+                @{
+                    if(!string.IsNullOrWhiteSpace(Model.AFile1))
+                    {
+                        <img src="@Url.Content("~/in-image/com-download-icon.gif")" alt="下載icon" width="18" height="16" align="absmiddle" /><a href="@m_hsModel.GetFileByEncrypt(Model.AFile1)" target="_blank">@m_hsModel.GetFileName(Model.AFile1Name)</a>
+                    }
+                    if(!string.IsNullOrWhiteSpace(Model.AFile2))
+                    {
+                        <img src="@Url.Content("~/in-image/com-download-icon.gif")" alt="下載icon" width="18" height="16" align="absmiddle" /><a href="@m_hsModel.GetFileByEncrypt(Model.AFile2)" target="_blank">@m_hsModel.GetFileName(Model.AFile3Name)</a>
+                    }
+                    if(!string.IsNullOrWhiteSpace(Model.AFile3))
+                    {
+                        <img src="@Url.Content("~/in-image/com-download-icon.gif")" alt="下載icon" width="18" height="16" align="absmiddle" /><a href="@m_hsModel.GetFileByEncrypt(Model.AFile3)" target="_blank">@m_hsModel.GetFileName(Model.AFile3Name)</a>
+                    }
+                }                
+            </td>
+          </tr>
+          <tr>
+            <td class="Pro03-title">資料來源</td>
+            <td colspan="3" class="Pro03-txt02" >
+                @{
+                    if(!string.IsNullOrWhiteSpace(Model.AUrl1))
+                    {
+                        <a href="@Model.AUrl1" target="_blank">@Model.AUrl1</a><br />
+                    }
+                    if(!string.IsNullOrWhiteSpace(Model.AUrl2))
+                    {
+                        <a href="@Model.AUrl2" target="_blank">@Model.AUrl2</a><br />
+                    }
+                    if(!string.IsNullOrWhiteSpace(Model.AUrl3))
+                    {
+                        <a href="@Model.AUrl3" target="_blank">@Model.AUrl3</a><br />
+                    }
+                }
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      @(new HtmlString(Model.Content))
+      <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
+      </div>
+    
+  </div><!--內容結尾-->
+</div>

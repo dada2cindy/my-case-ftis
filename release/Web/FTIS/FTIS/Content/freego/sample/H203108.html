@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H203108 確保q和blockquote標籤只是用來當引用語而不是用來縮排</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H203108 確保q和blockquote標籤只是用來當引用語而不是用來縮排</span><br /><br />
+<fieldset>
+
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>在網頁文章中將BLOCKQUOTE標籤用來縮排的不良設計。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+            &lt;P&gt;無障礙網路空間
+            &lt;BLOCKQUOTE&gt; 
+            提供網站的「無障礙空間」，不但是一種社會的趨勢與道德精神的表現， 
+            同時更是管理者應採取的積極商業策略......
+            &lt;/BLOCKQUOTE&gt;
+            &lt;/P&gt;
+            </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+	    <h2>正確示範</h2>
+	    <p>正確的使用BLOCKQUOTE及Q標籤標示引用語，而不是將BLOCKQUOTE標籤用來縮排。</p>
+	    <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+            &lt;P&gt;一個成功的領導者都有著領導潛在素質。何謂&lt;Q&gt;領導潛在素質&lt;/Q&gt;？雷蒙卡特爾曾說： &lt;/P&gt;
+            &lt;BLOCKQUOTE&gt;&quot;優秀領導者所具備之品格特征包括如下幾個方面： 
+               情緒穩定、主導能力富有熱情、勤勤懇懇、處世大膽、意志堅強、自信、自制力。&quot;
+            &lt;/BLOCKQUOTE&gt;            
+            </pre>
+            <p class="invisible">範例結束</p>                </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

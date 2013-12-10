@@ -1,0 +1,159 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@using System.Web.Optimization
+@using FTIS.Domain;
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using WuDada.Core.Generic.Extension;
+@{
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();    
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    string m_Cdts = (string)ViewData["Conditions"];
+
+    @*權限*@
+    bool AllowRead = (bool)ViewData["AllowRead"];
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];
+    
+    @*種類、議題*@
+    IList<NewsType> m_NewsTypeList = new List<NewsType>();
+    if (ViewData["NewsTypeList"] != null)
+    {
+        m_NewsTypeList = (List<NewsType>)ViewData["NewsTypeList"];
+    } 
+    
+    IList<NewsClass> m_NewsClassList = new List<NewsClass>();
+    if (ViewData["NewsClassList"] != null)
+    {
+        m_NewsClassList = (List<NewsClass>)ViewData["NewsClassList"];
+    } 
+ }
+
+@section TitleContent{}
+@section HeadContent{        
+    <script>
+        $(function () {
+            //按下查詢鈕
+            $("#btnQuery").click(function () {
+                Query();
+            });
+
+            //按下刪除鈕
+            $("#btnDeleteAll").click(function () {
+                DeleteItems('所選項目');
+            });
+
+            $("#KeyWord").enterPressed(function () {
+                Query();
+            });
+
+            $("#NewsClassId").enterPressed(function () {
+                Query();
+            });
+
+            $("#NewsTypeId").enterPressed(function () {
+                Query();
+            });
+
+            //Grid的刪除
+            $("#dvGrid").on("click", ".k-grid-Delete", function () {
+                var entityId = $(this).attr('entityId');
+                var entityName = $(this).attr('entityName');
+                DeleteItem(entityId, entityName);
+            });
+        });
+
+        function Query() {
+            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "News")', {
+                keyWord: $("#KeyWord").val(),
+                newsClassId: $("#NewsClassId").val(),
+                newsTypeId: $("#NewsTypeId").val()
+            });
+        }                      
+
+        //刪除1筆動作(留在頁面寫)
+        function OnDeleteItem(id) {            
+            $.post('@Url.Action("Delete", "News")', { id: id }, function (data) {                
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+
+        //刪除多筆動作(留在頁面寫)
+        function OnDeleteItems(allId) {
+            $.post('@Url.Action("MultiDelete", "News")', { allId: allId }, function (data) {
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+    </script>
+}
+
+<fieldset class="fieldset">
+    <h1>新聞動態管理</h1>
+    <table style="width: 100%" class="FormTable">
+        <tr>
+            <td style="width:100px; text-align:right;">關鍵字：
+            </td>
+            <td >
+                @Html.TextBox("KeyWord", m_Conditions["KeyWord"])
+                <select id="NewsTypeId" name="NewsTypeId">    
+                    <option selected="selected" value="">種類</option>                                        
+                @if (m_NewsTypeList != null && m_NewsTypeList.Count > 0)
+                {
+                    foreach (NewsType newsType in m_NewsTypeList)
+                    {
+                        string selected = string.Empty;
+                        if (m_Conditions.IsContainsValue("NewsTypeId") && m_Conditions["NewsTypeId"] == newsType.NewsTypeId.ToString())
+                        {
+                            selected = "selected='selected'";
+                        }
+                        <option value="@newsType.NewsTypeId" @selected>@newsType.Name</option>                                
+                    }
+                }
+                </select>
+                <select id="NewsClassId" name="NewsClassId">    
+                    <option selected="selected" value="">議題</option>                                        
+                @if (m_NewsClassList != null && m_NewsClassList.Count > 0)
+                {
+                    foreach (NewsClass newsClass in m_NewsClassList)
+                    {
+                        string selected = string.Empty;
+                        if (m_Conditions.IsContainsValue("NewsClassId") && m_Conditions["NewsClassId"] == newsClass.NewsClassId.ToString())
+                        {
+                            selected = "selected='selected'";
+                        }
+                        <option value="@newsClass.NewsClassId" @selected>@newsClass.Name</option>                                
+                    }
+                }
+                </select>
+                <input type="button" class="btn" value="查詢" id="btnQuery" />
+            </td>
+        </tr>        
+    </table>
+    <br />
+    <table>
+        <tr>            
+            <td style="text-align:left;">
+                @Html.Raw(Url.ButtonLink("新增", "Create", "News", AllowCreate, new { cdts = m_Cdts }, new { @class = "btn" }))
+                @if (AllowDelete)
+                {
+                    <input type="button" class="btn" value="刪除" id="btnDeleteAll" />                
+                }
+            </td>
+        </tr>  
+    </table>
+    <div id="dvGrid">
+        @Html.Partial("AdminGridList", new ParamaterModel("Edit", "News", m_Cdts))
+    </div>    
+    <div class="deleteMsgFail"></div>
+</fieldset>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H309204 對經常使用的超連結，增加快速鍵的操作</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H309204 對經常使用的超連結，增加快速鍵的操作</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>例子中沒有對[回首頁]此最常用的超連結提供便捷鍵的設定。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;P&gt;壯壯通訊行&lt;/P&gt;
+  &lt;P&gt;[&lt;A href=&quot;linkto/ex.jsp&quot;&gt;回首頁&lt;/A&gt;][&lt;A href=&quot;linkto/ex.jsp&quot;&gt;手機資訊&lt;/A&gt;]
+     [&lt;A href=&quot;linkto/ex.jsp&quot;&gt;手機配件&lt;/A&gt;][&lt;A href=&quot;linkto/ex.jsp&quot;&gt;保固資訊&lt;/A&gt;]
+  &lt;/P&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>在A標籤中使用accesskey屬性提供便捷鍵，設定alt+C為壯壯通訊行中[回首頁]的便捷鍵。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;P&gt;壯壯通訊行&lt;/P&gt;
+  &lt;P&gt;[&lt;A accesskey=&quot;C&quot; href=&quot;linkto/ex.jsp&quot;&gt;回首頁&lt;/A&gt;][&lt;A href=&quot;linkto/ex.jsp&quot;&gt;手機資訊&lt;/A&gt;]
+     [&lt;A href=&quot;linkto/ex.jsp&quot;&gt;手機配件&lt;/A&gt;][&lt;A href=&quot;linkto/ex.jsp&quot;&gt;保固資訊&lt;/A&gt;]
+  &lt;/P&gt;
+          </pre>
+            <p class="invisible">範例結束</p>          
+                                              </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

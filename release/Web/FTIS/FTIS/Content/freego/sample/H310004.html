@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H310004 在網頁文字輸入區中須有預設值</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H310004 在網頁文字輸入區中須有預設值</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>在文字輸入區中，沒有預設的文字提示。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;FORM&gt;
+  &lt;LABEL for=&quot;username1&quot;&gt;姓名：&lt;/LABEL&gt;
+  &lt;INPUT type=&quot;text&quot; name=&quot;yourname&quot; id=&quot;username1&quot;&gt;
+  &lt;LABEL for=&quot;jobdesc1&quot;&gt;工作經歷：&lt;/LABEL&gt;
+  &lt;TEXTAREA name=&quot;jobdescription&quot; id=&quot;jobdesc1&quot; rows=&quot;5&quot; cols=&quot;60&quot;&gt;
+  &lt;/TEXTAREA&gt;
+  &lt;INPUT type=&quot;submit&quot; value=&quot;送出資料&quot;&gt;
+  &lt;INPUT type=&quot;reset&quot; value=&quot;重新輸入&quot;&gt;
+  &lt;/FORM&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		
+		  <h2>正確示範</h2>
+		  <p>在文字輸入區中，提示文字讓使用者知道該文字輸入區需輸入何種資訊。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;FORM&gt;
+  &lt;LABEL for=&quot;username2&quot;&gt;姓名：&lt;/LABEL&gt;
+  &lt;INPUT type=&quot;text&quot; name=&quot;yourname&quot; id=&quot;username2&quot; value=&quot;輸入您的姓名&quot;&gt;
+  &lt;LABEL for=&quot;jobdesc2&quot;&gt;工作經歷：&lt;/LABEL&gt;
+  &lt;TEXTAREA name=&quot;jobdescription&quot; id=&quot;jobdesc2&quot; rows=&quot;5&quot; cols=&quot;60&quot;&gt;
+  -- 請輸入您的工作經歷--
+  &lt;/TEXTAREA&gt;
+  &lt;INPUT type=&quot;submit&quot; value=&quot;送出資料&quot;&gt;
+  &lt;INPUT type=&quot;reset&quot; value=&quot;重新輸入&quot;&gt;
+  &lt;/FORM&gt;
+          </pre>
+            <p class="invisible">範例結束</p>                                              </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

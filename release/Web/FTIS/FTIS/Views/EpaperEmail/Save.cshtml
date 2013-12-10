@@ -1,0 +1,135 @@
+﻿@model FTISWeb.Models.EpaperEmailModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+@using FTIS.Domain.Impl;
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if (Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+    
+    @*產業別*@
+    IList<string> m_InType = new List<string>();
+    if(!string.IsNullOrEmpty(Model.InType))
+    {
+        
+        foreach(string s in Model.InType.Split(','))
+        {
+            m_InType.Add(s.Trim());
+        }       
+    }
+    string inType1 = m_InType.Contains("1") ? "checked='checked'" : string.Empty;
+    string inType2 = m_InType.Contains("2") ? "checked='checked'" : string.Empty;
+    string inType3 = m_InType.Contains("3") ? "checked='checked'" : string.Empty;
+    string inType4 = m_InType.Contains("4") ? "checked='checked'" : string.Empty;
+    string inType5 = m_InType.Contains("5") ? "checked='checked'" : string.Empty;
+}
+@section TitleContent{}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+                $("#SortId").val('0');
+            });
+        });        
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "EpaperEmail", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
+    <fieldset class="fieldset">
+        <h1>電子報訂閱管理</h1>
+        <table style="width: 100%" class="FormTable">            
+            <tr>
+                <td style="text-align:right;">產業別：
+                </td>
+                <td>
+                    <input @inType1 name="InTypeList" type="checkbox" value="1" />製造業
+                    <input @inType2 name="InTypeList" type="checkbox" value="2" />服務業
+                    <input @inType3 name="InTypeList" type="checkbox" value="3" />政府機關
+                    <input @inType4 name="InTypeList" type="checkbox" value="4" />學術 / 研究單位
+                    <input @inType5 name="InTypeList" type="checkbox" value="5" />其他
+                </td>
+            </tr>           
+            <tr>
+                <td style="text-align:right;">*電子郵件：
+                </td>
+                <td>
+                    @Html.TextBox("Email", Model.Email, new { id = "Email", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*公司名稱：
+                </td>
+                <td>
+                    @Html.TextBox("Company", Model.Company, new { id = "Company", @style = "width: 600px;" })
+                </td>
+            </tr>                                                          
+            <tr>
+                <td style="text-align:right;">*姓名：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name", @style = "width: 600px;" })
+                </td>
+            </tr> 
+            <tr>
+                <td style="text-align:right;">*性別：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Sex, "男")男</label>
+                    <label>@Html.RadioButtonFor(m => m.Sex, "女")女</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*是否同意獲得本會其他免費資訊：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.ReceiveOtherFreeInfo, "1") 是</label>
+                    <label>@Html.RadioButtonFor(m => m.ReceiveOtherFreeInfo, "0") 否</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*訂/退閱：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")訂閱</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")退閱</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input id="btnCreate" class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input id="btnEdit" class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "EpaperEmail", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />

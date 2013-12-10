@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H212101 如果頁框名稱無法描述頁框中的內容的話，應加上額外敘述</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H212101 如果頁框名稱無法描述頁框中的內容的話，應加上額外敘述</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>下面設計是當頁框名稱不足描述頁框內容時，也沒有使用longdesc屬性替提供頁框的補充說明，讓使用者更了解該頁框的主要功能。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;FRAMESET cols=&quot;150,*&quot; frameborder=&quot;yes&quot; border=&quot;2&quot; framespacing=&quot;0&quot;&gt;
+  &lt;FRAME src=&quot;navigate.jsp&quot;&gt;
+  &lt;FRAME src=&quot;content.jsp&quot;&gt;
+  &lt;/FRAMESET&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		
+		  <h2>正確示範</h2>
+		  <p>當title屬性不足以說明頁框的內容時，使用longdesc屬性提供額外的說明文字檔 <br>
+  (navigatepurpose.txt、contentpurpose.txt)，針對頁框內容來作補充說明。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+&lt;FRAMESET cols=&quot;150,*&quot; frameborder=&quot;yes&quot; border=&quot;2&quot; framespacing=&quot;0&quot;&gt;
+&lt;FRAME src=&quot;navigate.jsp&quot; title=&quot;網站功能導覽列&quot; longdesc=&quot;linkto/navigatepurpose.txt&quot;&gt;
+&lt;FRAME src=&quot;content.jsp&quot; title=&quot;主要內容頁框&quot; longdesc=&quot;linkto/contentpurpose.txt&quot;&gt;
+&lt;/FRAMESET&gt;
+          </pre>
+            <p class="invisible">範例結束</p>                                   </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

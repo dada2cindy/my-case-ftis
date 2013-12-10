@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H205105 資料表格須提供標題說明</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H205105 資料表格須提供標題說明</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+ 		  <p>沒有使用CAPTION標籤提供表格標題說明，使用者無法在第一時間了解表格中提供的資料。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;TABLE border=&quot;1&quot; summary=".....(摘要說明)...."&gt;
+  &lt;TR&gt;
+  &lt;TH&gt;主要城市&lt;/TH&gt;
+  &lt;TH&gt;7月12日&lt;/TH&gt;
+  &lt;TH&gt;7月13日&lt;/TH&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台北&lt;/TD&gt;
+  &lt;TD&gt;多雲&lt;/TD&gt;
+  &lt;TD&gt;雷雨&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台中&lt;/TD&gt;
+  &lt;TD&gt;多雲&lt;/TD&gt;
+  &lt;TD&gt;多雲&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;高雄&lt;/TD&gt;
+  &lt;TD&gt;多雲&lt;/TD&gt;
+  &lt;TD&gt;陣雨&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>提供表格標題說明，使用者可以在第一時間了解表格所提供的資訊。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;TABLE border=&quot;1&quot; summary=".....(摘要說明)...."&gt;
+  &lt;CAPTION&gt;
+  台灣主要城市週末天氣概況
+  &lt;/CAPTION&gt;
+  &lt;TR&gt;
+  &lt;TH&gt;主要城市&lt;/TH&gt;
+  &lt;TH&gt;7月12日&lt;/TH&gt;
+  &lt;TH&gt;7月13日&lt;/TH&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台北&lt;/TD&gt;
+  &lt;TD&gt;多雲&lt;/TD&gt;
+  &lt;TD&gt;雷雨&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台中&lt;/TD&gt;
+  &lt;TD&gt;晴天&lt;/TD&gt;
+  &lt;TD&gt;多雲&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;高雄&lt;/TD&gt;
+  &lt;TD&gt;晴天&lt;/TD&gt;
+  &lt;TD&gt;晴天&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+                                       </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

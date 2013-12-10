@@ -1,0 +1,69 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Activity>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("ActivityLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>活動訊息<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 活動訊息</span></h1>    
+      @{
+          if(m_Conditions.IsContainsValue("KeyWord"))
+          {
+            <h2 style="color:green">找到有關 "<span style="color:blue;">@m_Conditions["KeyWord"]</span>" 的資料如下： </h2>
+          }
+      }
+      <div id="InShow-INob">
+      <table width="650" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+            <td class="News-Stitle">辦理日期</td>
+            <td class="News-Stitle">活動名稱</td>
+            <td class="News-Stitle">辦理單位</td>
+            <td class="News-Stitle">活動狀況</td>
+          </tr>
+          @{
+              int i = 1;
+              foreach (var entity in Model)
+              {
+                  string rowClass = (i % 2 == 0) ? "News-Sob02" : "News-Sob01";
+                  string actStatusClass = "結束".Equals(entity.ActStatus) ? "Act-Status-End" : "Act-Status";
+                  <tr>
+                    <td class="@rowClass">@entity.GetStr_PostDate</td>
+                    <td class="@rowClass"><a href="@Url.Action("Detail", "Activity", new { id= m_hsModel.EncryptId(entity.ActivityId)})">@m_hsModel.SubString(entity.Name, 30, true)</a>
+                        @if("1".Equals(entity.IsNew))
+                        {
+                            <img src="image/newsicon.gif" width="30" height="13" alt="New"/>
+                        }
+                    </td>
+                    <td class="@rowClass" style="width:90px;">@entity.MCompany</td>
+                    <td class="@rowClass"><span class="@actStatusClass">@entity.ActStatus</span></td>
+                 </tr>
+                  i++; 
+              }
+          }                   
+      </table>
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o=>o
+       .AddRouteValue("keyWord", m_Conditions["KeyWord"]))
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Activity", new { keyWord = m_Conditions["KeyWord"] })')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->
+</div>

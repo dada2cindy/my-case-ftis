@@ -1,0 +1,237 @@
+﻿@model FTISWeb.Models.PublicationModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+@using FTIS.Domain.Impl;
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if (Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+    
+    @*期刊年度*@    
+    IList<SelectListItem> m_PublicationClassSelectListItem =new List<SelectListItem>();
+    if (ViewData["PublicationClassList"] != null)
+    {
+        IList<PublicationClass> m_PublicationClassList = (List<PublicationClass>)ViewData["PublicationClassList"];
+
+        foreach (PublicationClass publicationClass in m_PublicationClassList)
+        {
+            SelectListItem selectListItem = new SelectListItem();
+            selectListItem.Text = publicationClass.Name;
+            selectListItem.Value = publicationClass.PublicationClassId.ToString();
+            if (Model.PublicationClassId == publicationClass.PublicationClassId)
+            {
+                selectListItem.Selected = true;
+            }
+            m_PublicationClassSelectListItem.Add(selectListItem);
+        }
+    } 
+}
+@section TitleContent{}
+@section HeadContent{
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ckfinder/ckfinder.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+                CKEDITOR.instances.Content.setData('');
+                $("#SortId").val('0');
+            });
+
+            $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+        });        
+
+        function SetFileField(fileUrl, data) {
+            var filepath = fileUrl.replace("@AppSettings.CKFinderFileHandler", "");
+            document.getElementById(data["selectActionData"]).value = filepath;
+        }
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "Publication", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
+    <fieldset class="fieldset">
+        <h1>永續產業發展雙月刊管理</h1>
+        <table style="width: 100%" class="FormTable">
+            @*<tr>
+                <td style="text-align:right;">主題分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("MainCode", Model.MainCode, new { id = "MainCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("MainName", Model.MainName, new { id = "MainName" })
+                    <select id="ddlMainCode" onchange="GetSelInfo('ddlMainCode','MainCode','MainName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">農業環保</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">施政分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("AdminCode", Model.AdminCode, new { id = "AdminCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("AdminName", Model.AdminName, new { id = "AdminName" })
+                    <select id="ddlAdminCode" onchange="GetSelInfo('ddlAdminCode','AdminCode','AdminName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">經濟貿易</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">服務分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("ServiceCode", Model.ServiceCode, new { id = "ServiceCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("ServiceName", Model.ServiceName, new { id = "ServiceName" })
+                    <select id="ddlServiceCode" onchange="GetSelInfo('ddlServiceCode','ServiceCode','ServiceName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">生活安全及品質</option>
+                    </select>
+                </td>
+            </tr>*@
+             <tr>
+                <td style="text-align:right;">*選擇年度：
+                </td>
+                <td>
+                    @Html.DropDownList("PublicationClassId", m_PublicationClassSelectListItem, "請選擇")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*名稱：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+             <tr>
+                <td style="text-align:right;">期別：
+                </td>
+                <td>
+                    @Html.TextBox("PubNo", Model.PubNo, new { id = "PubNo" })
+                </td>
+            </tr>     
+            <tr>
+                <td style="text-align:right;">本期封面圖片：
+                </td>
+                <td>
+                    @Html.TextBox("Pic1", Model.Pic1, new { id = "Pic1", @readonly = "readonly", onclick = "BrowseServer('Images:/', 'Pic1');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic1');" />
+                    <input type="button" value="清除" onclick="ClearFile('#Pic1');" />
+                </td>
+            </tr>
+            @*<tr>
+                <td style="text-align:right;">特別企劃項目1：
+                </td>
+                <td>
+                    @Html.TextBox("Spec1", Model.Spec1, new { id = "Spec1", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">特別企劃項目2：
+                </td>
+                <td>
+                    @Html.TextBox("Spec2", Model.Spec2, new { id = "Spec2", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">特別企劃項目3：
+                </td>
+                <td>
+                    @Html.TextBox("Spec3", Model.Spec3, new { id = "Spec3", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">特別企劃項目4：
+                </td>
+                <td>
+                    @Html.TextBox("Spec4", Model.Spec4, new { id = "Spec4", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">特別企劃項目5：
+                </td>
+                <td>
+                    @Html.TextBox("Spec5", Model.Spec5, new { id = "Spec5", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">特別企劃項目6：
+                </td>
+                <td>
+                    @Html.TextBox("Spec6", Model.Spec6, new { id = "Spec6", @style = "width: 600px;" })
+                </td>
+            </tr>*@
+            <tr>
+                <td style="text-align:right;">A.本期刊物電子檔案上傳：
+                </td>
+                <td>
+                    @Html.TextBox("AFile1", Model.AFile1, new { id = "AFile1", @readonly = "readonly", onclick = "BrowseServer('Files:/', 'AFile1');" })
+                    <input type="button" value="上傳檔案" onclick="BrowseServer('Files:/', 'AFile1');" />
+                    <input type="button" value="清除" onclick="ClearFile('#AFile1');" />
+                </td>
+            </tr>      
+            <tr>
+                <td style="text-align:right;">B.本期刊物電子檔案遠端連結網址：
+                </td>
+                <td>
+                    @Html.TextBox("LinkFile", Model.LinkFile, new { id = "LinkFile", @style = "width: 600px;" })                    
+                    <div class="psMsg">[註]A與B選擇一種使用</div>
+                </td>
+            </tr>  
+            <tr>
+                <td style="text-align:right; vertical-align:top;">簡述：
+                </td>
+                <td>
+                    @Html.TextArea("Content", Model.Content, new { id = "Content" })
+                    <div class="psMsg">[註] 建議 300 字以內</div>
+                </td>
+            </tr>                                                           
+            <tr>
+                <td style="text-align:right;">*排序：
+                </td>
+                <td>
+                    @Html.TextBox("SortId", Model.SortId, new { id = "SortId", @style = "width: 50px;" })排列順序︰越小越前面。
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input id="btnCreate" class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input id="btnEdit" class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "Publication", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />

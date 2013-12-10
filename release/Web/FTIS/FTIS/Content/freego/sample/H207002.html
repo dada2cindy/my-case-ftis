@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H207002 避免使用marquee標籤移動文字</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H207002 避免使用marquee標籤移動文字</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+		  <p>使用BLINK標籤會造成字體的閃爍，不利於使用者了解文字內容。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+ 		  <p>使用跑馬燈(marquee標籤)的文字顯示方式，來突顯文字的內容。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;MARQUEE BGCOLOR=&quot;YELLOW&quot; BEHAVIOR=&quot;SLIDE&quot;&gt;
+  &lt;FONT size=&quot;5em&quot;&gt;&lt;STRONG&gt;注意薇薇安颱風即將由花蓮登陸台灣&lt;/STRONG&gt;&lt;/FONT&gt;
+  &lt;/MARQUEE&gt; 
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		
+		  <h2>正確示範</h2>
+		  <p>我們可以使用EM標籤、動態文字的gif檔或是 APPLET來代替marquee標籤。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;EM&gt;&lt;FONT size=&quot;5em&quot;&gt;注意薇薇安颱風即將由花蓮登陸台灣&lt;/FONT&gt;&lt;/EM&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;APPLET code=&quot;RainbowText.class&quot; codebase=&quot;script/&quot; width=&quot;80%&quot; height=&quot;40&quot; 
+  align=&quot;baseline&quot; alt=&quot;注意薇薇安颱風即將來襲&quot;&gt;
+  &lt;param name=&quot;text&quot; value=&quot;注意薇薇安颱風即將由花蓮登陸台灣&quot;&gt;
+  &lt;/APPLET&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+                                       </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿@model IList<Publication>
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@using FTIS.Domain.Impl;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel(); 
+    
+    @*年度分類*@
+    IList<PublicationClass> m_PublicationClassList = new List<PublicationClass>();
+    if (ViewData["PublicationClassList"] != null)
+    {
+        m_PublicationClassList = (List<PublicationClass>)ViewData["PublicationClassList"];
+    } 
+    
+    PublicationClass m_PublicationClass = new PublicationClass();
+    if (ViewData["PublicationClass"] != null)
+    {
+        m_PublicationClass = (PublicationClass)ViewData["PublicationClass"];
+    }
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>產業永續發展整合資訊網</title>
+<link href="~/css/InCss.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        h1 {
+	background-image: url(/in-image/alltitle.jpg);
+	font-family: "微軟正黑體";
+	font-size: 18px;
+	font-weight: bold;
+	color: #464646;
+	margin-bottom: 20px;
+	margin-top: 25px;
+	margin-right: 0px;
+	margin-left: 20px;
+	height: 31px;
+	width: 663px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 25px;
+}
+        h2 {
+	background-image: url(../in-image/in-icon.gif);
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 30px;
+	padding-left: 20px;
+	font-family: "微軟正黑體";
+	font-size: 17px;
+	font-weight: bold;
+	color: #F77B02;
+	background-repeat: no-repeat;
+	background-position: left 5px;
+	clear: left;
+}
+    </style>
+</head>
+<body>
+    <div style="width:720px;margin-left: auto;
+	margin-right: auto;">
+<h1>下載專區<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Download")">下載專區</a> &gt; 永續產業發展期刊</span>    </h1>    
+<h2>永續產業發展期刊@("-" + m_PublicationClass.Name)</h2>
+    <div class="News-IN-3Function"><img src="@Url.Content("~/in-image/com-icon-6.gif")" width="13" height="12" alt="列印"/><a target="_blank" href="javascript:print();">我要列印</a></div>
+        </div>
+<div id="Print-INob">    
+    @{
+              foreach (var entity in Model)
+              {
+                  string fileUrl = entity.LinkFile;
+                  if(string.IsNullOrWhiteSpace(fileUrl) & !string.IsNullOrWhiteSpace(entity.AFile1))
+                  {
+                      fileUrl = m_hsModel.GetFileByEncrypt(entity.AFile1);
+                  }
+        <table border="0" cellpadding="0" cellspacing="0" class="Load03-stable">
+        <tr>
+          <td style="width:132px; vertical-align:top;"><img src="@m_hsModel.GetFileByEncrypt(entity.Pic1)" width="100" height="138" class="Load03-pp" alt="封面" /></td>
+          <td style="width:518px; vertical-align:top;">
+          <p class="Load03-txt1"><span class="Load03-txt2">第 @entity.PubNo 期</span>@entity.Name</p>
+          <p class="Load03-txt3">@m_hsModel.FilterHtml(entity.Content,1000,false)</p>
+              
+          <a target="_blank" href="@fileUrl"><p class="Load03-btn"></p></a>
+          </td>
+        </tr>
+       </table>
+              }
+    }
+</div>
+</body>
+</html>

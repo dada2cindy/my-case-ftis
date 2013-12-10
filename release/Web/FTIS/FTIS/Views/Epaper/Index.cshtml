@@ -1,0 +1,89 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Epaper>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+
+    IList<string> m_EpaperYearList = new List<string>();
+    if (ViewData["EpaperYearList"] != null)
+    {
+        m_EpaperYearList = (IList<string>)ViewData["EpaperYearList"];
+    }
+}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {
+            $("#Year").change(function () {
+                var year = $("#Year").val();
+                window.location.href = "@Url.Action("Index", "Epaper")" + "?year=" + year;
+            });
+        });        
+    </script>
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("EpaperLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>電子報<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Epaper")">電子報</a> &gt; 歷史電子報</span></h1>    
+      <h2> <strong>@m_Conditions["ByYear"]年電子報</strong></h2>
+      <div class="News-IN-3Function">
+          歷年資料：
+            <select name="Year" class="Load03-order" id="Year">
+                @if (m_EpaperYearList != null && m_EpaperYearList.Count > 0)
+                {
+                    foreach (string year in m_EpaperYearList)
+                    {
+                        string selected = string.Empty;
+                        if (m_Conditions.IsContainsValue("ByYear") && m_Conditions["ByYear"] == year)
+                        {
+                            selected = "selected='selected'";
+                        }
+                    <option value="@year" @selected>@year</option>                                
+                    }
+                }
+            </select>
+      </div>
+      <div id="InShow-INob">
+          <br />
+      <table width="650" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="News-Stitle">期數</td>
+          <td class="News-Stitle">標題</td>
+          <td class="News-Stitle">瀏灠次數</td>
+        </tr>
+          @{
+              foreach (var entity in Model)
+              {
+                  <tr>
+                    <td class="News-Sob01" style="text-align:center;">第@(entity.ENo)期</td>
+                    <td class="News-Sob01"><a href="@Url.Action("Detail", "Epaper", new { id = m_hsModel.EncryptId(entity.EpaperId)})" target="_blank">@entity.Name</a></td>
+                    <td class="News-Sob01" style="text-align:center;">@entity.Vister</td>
+                 </tr> 
+              }
+          }                 
+      </table>
+      <p class="Pro02-Txt">&nbsp;</p>
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o => o
+       .AddRouteValue("year", m_Conditions["ByYear"]))
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Epaper", new { Year = m_Conditions["ByYear"] })')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->
+</div>

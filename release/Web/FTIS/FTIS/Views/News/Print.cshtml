@@ -1,0 +1,60 @@
+﻿@model FTISWeb.Models.NewsModel
+@using FTISWeb.Models;
+@using System.Web.Optimization
+@{
+    HomeShowModel m_hsModel = new HomeShowModel(); 
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>產業永續發展整合資訊網</title>
+<link href="~/css/InCss.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        h1 {
+	background-image: url(/in-image/alltitle.jpg);
+	font-family: "微軟正黑體";
+	font-size: 18px;
+	font-weight: bold;
+	color: #464646;
+	margin-bottom: 20px;
+	margin-top: 25px;
+	margin-right: 0px;
+	margin-left: 20px;
+	height: 31px;
+	width: 663px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 25px;
+}
+    </style>
+</head>
+<body>
+    <div style="width:720px;margin-left: auto;
+	margin-right: auto;">
+<h1>新聞動態</h1>
+    <div class="News-IN-3Function"><img src="/in-image/com-icon-6.gif" width="13" height="12" alt="列印"/><a target="_blank" href="javascript:print();">我要列印</a></div>
+        </div>
+<div id="Print-INob">    
+  <p class="News-IN-Title">@Model.Name</p>
+  <p class="News-IN-Day">刊登日期：@m_hsModel.GetStr_Date(Model.PostDate)</p>  
+  @(new HtmlString(Model.Content))
+  <br />
+        <table border="0" cellpadding="5" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td style="text-align:left;vertical-align:top;width:80px;">
+                        <span class="News-IN-Source">資料來源：</span>
+                    </td>
+                    <td style="vertical-align:top">
+                        <div class="News-IN-Source2"><a href="@Model.AUrl1Link" target="_blank">@Model.AUrl1</a></div>
+                        <div class="News-IN-Source2"><a href="@Model.AUrl2Link" target="_blank">@Model.AUrl2</a></div>
+                        <div class="News-IN-Source2"><a href="@Model.AUrl3Link" target="_blank">@Model.AUrl3</a></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+</body>
+</html>

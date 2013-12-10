@@ -1,0 +1,75 @@
+﻿@model NormModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@using FTIS.Domain.Impl;
+@using MvcPaging;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+    IList<Norm> m_NormList = new List<Norm>();
+    NormClass m_NormClass = (NormClass)ViewData["NormClass"];
+    if(ViewData["NormList"] != null)
+    {
+        m_NormList = (IList<Norm>)ViewData["NormList"];
+    }
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("NormLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>國際環保標準 / 規範介紹<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Norm")">國際環保標準 / 規範介紹</a> &gt; 各地區標準／規範</span></h1>
+      <h2>@m_NormClass.Name </h2>
+      <div id="InShow-INob">
+          @{
+              foreach (Norm entity in m_NormList)
+              {
+                  string selectClass = (entity.NormId == Model.EntityId) ? "NormIn-Slect" : "NormIn-Slect2";
+                  string selectClass2 = (entity.NormId == Model.EntityId) ? "NormIn-right" : "NormIn-right2";
+              <div class="@selectClass">
+        <div class="NormIn-txt"><a class="NormIn-slect-btn" href="@Url.Action("Detail", "Norm", new { id = m_hsModel.EncryptId(entity.NormId), parentId = m_hsModel.EncryptId(m_NormClass.NormClassId) })">@entity.Name</a></div>
+        <div class="@selectClass2"></div>
+      </div>
+              }
+          }    
+      
+          @{ 
+    <div class="NormIN-html">
+          @if(Model.EntityId>0)
+             {
+        @(new HtmlString(Model.Content))
+      <table border="0" cellpadding="0" cellspacing="0" class="Extend-table">
+        <tr>
+          <td><img src="@Url.Content("~/in-image/com-related-news.gif")" width="640" height="49" alt="延伸閱讀" /></td>
+        </tr>
+        <tr>
+          <td><ul>
+              @{
+                foreach(News news in Model.GetNewsByTags())
+                {
+                    <li class="csr-Extend-txt"><span class="csr-Extend-day">@news.GetStr_PostDate</span><a href="@Url.Action("Detail", "News", new { id= Model.EncryptId(news.NewsId) })">@(Model.SubString(news.Name, 35, true))</a></li>
+                }
+              }           
+          </ul></td>
+        </tr>
+        <tr>
+          <td><img src="@Url.Content("~/in-image/com-related-news-D.gif")" width="640" height="12" alt="icon" /></td>
+        </tr>
+      </table>
+           }
+       <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
+      </div>
+         
+          }          
+    </div>
+  </div><!--內容結尾-->
+</div>

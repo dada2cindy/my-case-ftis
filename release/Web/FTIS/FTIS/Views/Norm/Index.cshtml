@@ -1,0 +1,40 @@
+﻿@model NormClassModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@using FTIS.Domain.Impl;
+@using MvcPaging;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();    
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("NormLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>國際環保標準 / 規範介紹<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Norm")">國際環保標準 / 規範介紹</a> &gt; 各地區標準／規範</span></h1>
+      <h2>@Model.Name </h2>
+      <div id="InShow-INob">
+          @{
+              foreach (var entity in Model.GetNormClassList(true, Model.EntityId))
+              {
+              <a href="@Url.Action("Detail", "Norm", new { parentId = m_hsModel.EncryptId(entity.NormClassId) })"><div class="Norm-flag-Table">
+        <div class="Norm-flag-pp"><img src="@m_hsModel.GetFileByEncrypt(entity.Pic1)" width="48" height="48" alt="@entity.Name" /></div>
+        <div class="Norm-stitle">@entity.Name</div>
+        <div class="Norm-GO"></div>
+        <div class="Norm-stxt">@entity.NameENG</div>
+      </div></a>
+              }
+          }                   
+    </div>
+  </div><!--內容結尾-->
+</div>

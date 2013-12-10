@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/EngLayout.cshtml";
+}
+
+@{
+    
+}
+<div id="In-Table">
+  <div id="In-left-e"><!--左-->
+    @Html.Partial("InFlash")
+    
+    <div id="In-leftTitle"><img src="/e-image/left-b4.png" alt="Sitemap"/></div>
+    <a href="@Url.Action("EngSiteMap", "Home")">
+      <div class="Left-sbtn">Sitemap      </div>
+    </a>
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="500">&nbsp;</td>
+      </tr>
+    </table>
+    <a href="#">    </a>
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>Sitemap<span class="Pon"><a href="@Url.Action("EngIndex", "Home")">Home</a> &gt; Sitemap</span></h1>
+    <div id="InShow-INob-e">
+      <div class="Map-t01"><a href="@Url.Action("EngIndex", "Home")">Introduction</a></div>
+      <ul class="Map-UL">
+        <a href="@Url.Action("EngIndex", "Home")">
+          <li class="Map-t02-li">Introduction</li>
+        </a>
+      </ul>
+      <div class="Map-t01"><a href="@Url.Action("EngIndex", "News")">News</a></div>
+      <div class="Map-t01"><a href="@Url.Action("EngIndex", "Brief")">Sustainable Industrial Development Newsletter</a></div>
+      <div class="Map-t01"><a href="@Url.Action("EngIndex", "Links")">Link</a></div>
+    </div>
+    
+  </div><!--內容結尾-->
+</div>

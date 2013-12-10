@@ -1,0 +1,60 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Links>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+
+    LinksClass m_LinksClass = new LinksClass();
+    if (ViewData["LinksClass"] != null)
+    {
+        m_LinksClass = (LinksClass)ViewData["LinksClass"];
+    }
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("LinksLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>網路資源<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Links")">網路資源</a> &gt; @m_LinksClass.Name</span></h1>    
+      <div id="InShow-INob">
+        <ul>
+          @{
+              foreach (var entity in Model)
+              {
+                  <li class="Web-txt">
+                      <table>
+                          <tr>
+                              <td style="width:300px;word-wrap: break-word;word-break: normal;">
+                                  @entity.Name
+                              </td>
+                              <td>
+                                  <span class="Web-txt2"><a href="@entity.AUrl" target="_blank">@entity.AUrl</a></span>
+                              </td>
+                          </tr>
+                      </table>
+                      </li>
+              }
+          }                   
+        </ul>
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o=>o
+       .AddRouteValue("linksClassId",m_hsModel.EncryptId(m_Conditions["LinksClassId"])))
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Links", new { linksClassId = m_hsModel.EncryptId(m_Conditions["LinksClassId"]) })')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->
+</div>

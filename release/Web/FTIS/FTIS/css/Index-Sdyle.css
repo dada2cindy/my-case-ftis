@@ -1,0 +1,39 @@
+body {
+	background-color: #E8F4EC;
+	background-image: url(../image/index-down.jpg);
+	background-repeat: repeat-y;
+	background-position: center top;
+	margin: 0px;
+	padding: 0px;
+}
+img , p, ul, li  {
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	list-style-image: none;
+	list-style-type: none;
+}
+a:link {
+	color: #555555;
+	text-decoration: none;
+}
+a:visited {
+	color: #555555;
+	text-decoration: none;
+}
+a:active {
+	color: #555555;
+	text-decoration: none;
+}
+a:hover {
+	color: #E67628;
+	text-decoration: none;
+}

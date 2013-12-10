@@ -1,0 +1,118 @@
+﻿@model FTISWeb.Models.ParamaterModel
+
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@{
+    @*權限*@
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];
+
+    string m_TemplateType = (string)ViewData["TemplateType"];
+ }
+<script>
+        $(function () {
+            //建立資料來源物件
+            var dataSrc = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        //以下其實就是$.ajax的參數
+                        type: "POST",
+                        url: "@Url.Action("AjaxBinding", Model.ControllerName)",
+                        dataType: "json",
+                        data: {
+                            //額外傳至後方的參數
+                            templateType: function () {
+                                return $("#TemplateType").val();
+                            }
+                        }
+                    }
+                },
+                schema: {
+                    //取出資料陣列
+                    data: function (d) { return d.data; },
+                    //取出資料總筆數(計算頁數用)
+                    total: function (d) { return d.total; }
+                },
+                pageSize: Number('@AppSettings.AdminPageSize'),
+                serverPaging: true,
+                serverSorting: true
+            });
+            //JSON日期轉換
+            //var dateRegExp = /^\/Date\((.*?)\)\/$/;
+            //window.toDate = function (value) {
+            //    var date = dateRegExp.exec(value);
+            //    return new Date(parseInt(date[1]));
+            //}
+            $("#dvGrid").kendoGrid({
+                dataSource: dataSrc,
+                columns: [
+                    {
+                        fiels: "@Model.EntityId",
+                        headerTemplate: "<input type='checkbox' onchange='ToggleAll(this);' id='ToggleCheckbox'/>",
+                        template: "<input type='checkbox' value='#= @Model.EntityId#' name='IsDelete' class='IsDelete' />",
+                        sortable: false,
+                        attributes: { "style": "text-align: center;" },
+                        width: 50
+                    },                    
+                    {
+                        field: "Name",
+                        title: "名稱",                                                
+                        sortable: false
+                    },
+                    {
+                        field: "StartDate",
+                        title: "開始日期",
+                        sortable: false
+                    },
+                    {
+                        field: "EndDate",
+                        title: "結束日期",
+                        sortable: false
+                    },                    
+                    {
+                        field: "GetStr_Status",
+                        title: "狀態",
+                        sortable: false,                        
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        title: "操作",
+                        template: kendo.template($("#command-template").html()),
+                        sortable: false,
+                        width: 160
+                    }
+                ],
+                editable: "popup",
+                sortable: true,
+                pageable: {
+                    refresh: true
+                    //, pageSizes: true
+                },
+                scrollable: false
+            });            
+        });
+
+        //全選，全不選
+        function ToggleAll(sender) {
+            if ($(sender).prop('checked')) {
+                SelectAll('#dvGrid');
+                return;
+            } else {
+                ClearSelect('#dvGrid');
+            }
+        }
+
+    </script>
+
+<script id="command-template" type="text/x-kendo-template">
+    @if (AllowEdit)
+    {
+        <a class="k-button k-grid-Edit" href="@Url.Action(Model.ActionName, Model.ControllerName, new { templateType = m_TemplateType })&id=#: @Model.EntityId #"><span>編輯</span></a>
+    }
+    @if (AllowDelete)
+    {
+        <div class="k-button k-grid-Delete" entityId="#: @Model.EntityId #" entityName="#: @Model.EntityName #"><span>刪除</span> </div>
+    }   
+</script>

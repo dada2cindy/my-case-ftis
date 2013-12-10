@@ -1,0 +1,91 @@
+﻿@model IList<Publication>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@using FTIS.Domain.Impl;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    
+    @*年度分類*@
+    IList<PublicationClass> m_PublicationClassList = new List<PublicationClass>();
+    if (ViewData["PublicationClassList"] != null)
+    {
+        m_PublicationClassList = (List<PublicationClass>)ViewData["PublicationClassList"];
+    } 
+    
+    PublicationClass m_PublicationClass = new PublicationClass();
+    if(m_Conditions.IsContainsValue("PublicationClassId"))
+    {
+        m_PublicationClass = (PublicationClass)ViewData["PublicationClass"];
+    }
+}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {
+            $("#PublicationClassId").change(function () {
+                var publicationClassId = $("#PublicationClassId").val();
+                window.location.href = "@Url.Action("Index", "Publication")" + "?publicationClassId=" + publicationClassId;
+            });
+        });        
+    </script>
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("DownloadLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>下載專區<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Download")">下載專區</a> &gt; 永續產業發展期刊</span>    </h1>    
+      <h2>永續產業發展期刊@("-" + m_PublicationClass.Name)</h2>
+      <div class="News-IN-3Function">歷年資料：
+        <select name="PublicationClassId" class="Load03-order" id="PublicationClassId">
+            @if (m_PublicationClassList != null && m_PublicationClassList.Count > 0)
+            {
+                foreach (PublicationClass publicationClass in m_PublicationClassList)
+                {
+                    string selected = string.Empty;
+                    if (m_Conditions.IsContainsValue("PublicationClassId") && m_Conditions["PublicationClassId"] == publicationClass.PublicationClassId.ToString())
+                    {
+                        selected = "selected='selected'";
+                    }
+                <option value="@m_hsModel.EncryptId(publicationClass.PublicationClassId)" @selected>@publicationClass.Name</option>                                
+                }
+            }
+        </select>
+        <img src="@Url.Content("~/in-image/com-icon-6.gif")" width="13" height="12" /><a target="_blank" href="@Url.Action("Print", "Publication", new { publicationClassId =m_hsModel.EncryptId(m_Conditions["PublicationClassId"]) })">友善列印</a>
+      </div>
+      <div id="InShow-INob">
+          @{
+              foreach (var entity in Model)
+              {
+                  string fileUrl = entity.LinkFile;
+                  if(string.IsNullOrWhiteSpace(fileUrl) & !string.IsNullOrWhiteSpace(entity.AFile1))
+                  {
+                      fileUrl = m_hsModel.GetFileByEncrypt(entity.AFile1);
+                  }
+        <table border="0" cellpadding="0" cellspacing="0" class="Load03-stable">
+        <tr>
+          <td style="width:132px; vertical-align:top;"><img src="@m_hsModel.GetFileByEncrypt(entity.Pic1)" width="100" height="138" class="Load03-pp" alt="封面" /></td>
+          <td style="width:518px; vertical-align:top;">
+          <p class="Load03-txt1"><span class="Load03-txt2">第 @entity.PubNo 期</span>@entity.Name</p>
+          <p class="Load03-txt3">@m_hsModel.FilterHtml(entity.Content,1000,false)</p>
+              
+          <a target="_blank" href="@fileUrl"><p class="Load03-btn"></p></a>
+          </td>
+        </tr>
+       </table>
+              }
+          }
+      </div>
+  </div><!--內容結尾-->
+</div>

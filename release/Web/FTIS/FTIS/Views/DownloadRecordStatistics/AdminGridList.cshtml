@@ -1,0 +1,127 @@
+﻿@model FTISWeb.Models.ParamaterModel
+
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@{
+    @*權限*@
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];
+    bool AllowRead = (bool)ViewData["AllowRead"];
+ }
+<script>
+        $(function () {
+            //建立資料來源物件
+            var dataSrc = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        //以下其實就是$.ajax的參數
+                        type: "POST",
+                        url: "@Url.Action("AjaxBinding", Model.ControllerName)",
+                        dataType: "json",
+                        data: {
+                            //額外傳至後方的參數
+                            keyWord: function () {
+                                return $("#KeyWord").val();
+                            },
+                            downloadClassId: function () {
+                                return $("#ClassId").val();
+                            }
+                        }
+                    }
+                },
+                schema: {
+                    //取出資料陣列
+                    data: function (d) { return d.data; },
+                    //取出資料總筆數(計算頁數用)
+                    total: function (d) { return d.total; }
+                },
+                pageSize: Number('@AppSettings.AdminPageSize'),
+                serverPaging: true,
+                serverSorting: true
+            });
+            //JSON日期轉換
+            //var dateRegExp = /^\/Date\((.*?)\)\/$/;
+            //window.toDate = function (value) {
+            //    var date = dateRegExp.exec(value);
+            //    return new Date(parseInt(date[1]));
+            //}
+            $("#dvGrid").kendoGrid({
+                dataSource: dataSrc,
+                columns: [
+                    @*{
+                        fiels: "@Model.EntityId",
+                        headerTemplate: "<input type='checkbox' onchange='ToggleAll(this);' id='ToggleCheckbox'/>",
+                        template: "<input type='checkbox' value='#= @Model.EntityId#' name='IsDelete' class='IsDelete' />",
+                        sortable: false,
+                        attributes: { "style": "text-align: center;" },
+                        width: 50
+                    },*@
+                    {
+                        field: "GetStr_Class",
+                        title: "下載單元",
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true,
+                        width: 200
+                    },
+                    {
+                        field: "Name",
+                        title: "文件名稱",
+                        template: '#= "<span class=\\"u-keyword\\">" + Name + "</span>" #',
+                        sortable: true
+                    },
+                    {
+                        field: "Downer",
+                        title: "下載次數",                        
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true,
+                        width: 100
+                    },
+                    {
+                        title: "操作",
+                        template: kendo.template($("#command-template").html()),
+                        sortable: false,
+                        width: 100
+                    }
+                ],
+                editable: "popup",
+                sortable: true,
+                pageable: {
+                    refresh: true
+                    //, pageSizes: true
+                },
+                scrollable: false,
+                dataBound: function () {
+                    //AJAX資料Bind完成後觸發
+                    var kw = $("#KeyWord").val();
+                    //若有設關鍵字，做Highlight處理
+                    if (kw.length > 0) {
+                        var re = new RegExp(kw, "g");
+                        $(".u-keyword").each(function () {
+                            var $td = $(this);
+                            $td.html($td.text()
+                           .replace(re, "<span class='hi-lite'>$&</span>"));
+                        });
+                    }
+                }
+            });            
+        });
+
+        //全選，全不選
+        function ToggleAll(sender) {
+            if ($(sender).prop('checked')) {
+                SelectAll('#dvGrid');
+                return;
+            } else {
+                ClearSelect('#dvGrid');
+            }
+        }
+
+    </script>
+
+<script id="command-template" type="text/x-kendo-template">
+    @if(AllowRead)
+    {
+        <a class="k-button k-grid-Edit" href="@Url.Action("AdminIndex", "DownloadRecord")?keyWord=#: Name #"><span>瀏覽詳細</span></a>        
+    } 
+</script>

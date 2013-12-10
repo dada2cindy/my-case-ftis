@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H301015 客戶端影像地圖中的超連結必須在網頁中有額外對應的可及性超連結</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H301015 客戶端影像地圖中的超連結必須在網頁中有額外對應的可及性超連結</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>下面的例子為網頁上一個包含台灣三大入口網站的影像地圖，雖然有使用客戶端影像地圖的設計，但是沒有在網頁上分別針對三大入口網站提供對應的文字連結。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+&lt;P&gt;
+&lt;IMG src=&quot;map2.gif&quot; width=&quot;472&quot; height=&quot;94&quot; usemap=&quot;#Map&quot; border=&quot;0&quot; alt=&quot;台灣三大入口網站&quot;&gt; 
+&lt;/P&gt;
+&lt;MAP name=&quot;Map&quot;&gt;
+    &lt;AREA shape=&quot;rect&quot; coords=&quot;10,8,158,86&quot; href=&quot;http://www.yahoo.com.tw&quot; alt=&quot;Yahoo!奇摩網&quot;&gt;
+    &lt;AREA shape=&quot;rect&quot; coords=&quot;161,8,309,86&quot; href=&quot;http://www.pchome.com.tw&quot; alt=&quot;PChome&quot;&gt;
+    &lt;AREA shape=&quot;rect&quot; coords=&quot;311,8,460,86&quot; href=&quot;http://www.yam.com.tw&quot; alt=&quot;蕃薯藤&quot;&gt;
+&lt;/MAP&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>正確的設計是針對伺服器端影像地圖中的各個超連結，在網頁上提供額外對應的文字連結。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;P&gt;
+    &lt;IMG src=&quot;map2.gif&quot; width=&quot;472&quot; height=&quot;94&quot; usemap=&quot;#Map1&quot; border=&quot;0&quot; alt=&quot;台灣三大入口網站&quot;&gt;
+  &lt;/P&gt;
+  &lt;MAP name=&quot;Map1&quot;&gt;
+   &lt;AREA shape=&quot;rect&quot; coords=&quot;10,8,158,86&quot; href=&quot;http://www.yahoo.com.tw&quot; alt=&quot;Yahoo!奇摩網&quot;&gt;
+   &lt;AREA shape=&quot;rect&quot; coords=&quot;161,8,309,86&quot; href=&quot;http://www.pchome.com.tw&quot; alt=&quot;PChome&quot;&gt;<br>	 &lt;AREA shape=&quot;rect&quot; coords=&quot;311,8,460,86&quot; href=&quot;http://www.yam.com.tw&quot; alt=&quot;蕃薯藤&quot;&gt;
+  &lt;/MAP&gt;
+  &lt;P&gt;
+  【&lt;A href=&quot; http://www.yahoo.com.tw &quot;&gt;Yahoo!奇摩網&lt;/A&gt;】
+  【&lt;A href=&quot;http://www.pchome.com.tw&quot;&gt; PChome &lt;/A&gt;】
+  【&lt;A href=&quot;http://www.yam.com.tw&quot;&gt;蕃薯藤&lt;/A&gt;】
+  &lt;/P&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+            
+                                              </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿@model FTISWeb.Models.QuestionModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel(); 
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")
+    @Html.Partial("QuestionLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>產業服務專區<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Question")">永續產業資訊FAQ</a> &gt; @Model.QuestionClass.Name</span></h1>    
+      <h2>@Model.QuestionClass.Name </h2>    
+      <div id="InShow-INob">
+        <div class="QA-Q-LI">@Model.Name<span class="QA-DAY">(上線日期：@m_hsModel.GetStr_Date(Model.PostDate))</span></div>
+        <table border="0" cellpadding="0" cellspacing="0" class="QA-A">
+          <tr>
+            <td style="width:43px; vertical-align:top;"><img src="@Url.Content("~/in-image/qa-A.gif")" width="25" height="22" alt="Ans" /></td>
+            <td style="width:607px; vertical-align:top;" class="QA-A-txt">@(new HtmlString(Model.Content))</td>
+          </tr>
+        </table>
+        
+      <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
+    </div>    
+  </div><!--內容結尾-->
+</div>

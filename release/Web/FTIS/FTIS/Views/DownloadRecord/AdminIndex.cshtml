@@ -1,0 +1,122 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@using System.Web.Optimization
+@using FTIS.Domain;
+@using FTISWeb.Models;
+@using WuDada.Core.Generic.Extension;
+
+@{
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();    
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    string m_Cdts = (string)ViewData["Conditions"];
+
+    @*權限*@
+    bool AllowRead = (bool)ViewData["AllowRead"];
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];
+    
+    @*分類*@
+    IList<SelectListItem> m_DownloadClassListItem = new List<SelectListItem>();
+    if (ViewData["DownloadClassList"] != null)
+    {
+        m_DownloadClassListItem = (List<SelectListItem>)ViewData["DownloadClassList"];
+
+        foreach (SelectListItem item in m_DownloadClassListItem)
+        {
+            if (m_Conditions.IsContainsValue("ClassId") && m_Conditions["ClassId"] == item.Value.ToString())
+            {
+                item.Selected = true;
+            }
+        }
+    }
+ }
+
+@section TitleContent{}
+@section HeadContent{        
+    <script>
+        $(function () {
+            //按下查詢鈕
+            $("#btnQuery").click(function () {
+                Query();
+            });
+
+            //按下刪除鈕
+            $("#btnDeleteAll").click(function () {
+                DeleteItems('所選項目');
+            });
+
+            $("#KeyWord").enterPressed(function () {
+                Query();
+            });
+
+            $("#MemberLoginId").enterPressed(function () {
+                Query();
+            });
+
+            $("#ClassId").enterPressed(function () {
+                Query();
+            });
+
+            //Grid的刪除
+            $("#dvGrid").on("click", ".k-grid-Delete", function () {
+                var entityId = $(this).attr('entityId');
+                var entityName = $(this).attr('entityName');
+                DeleteItem(entityId, entityName);
+            });
+        });
+
+        function Query() {
+            $("#dvGrid").load('@Url.Action("RefreshAdminGrid", "DownloadRecord")', {
+                keyWord: $("#KeyWord").val(),
+                downloadClassId: $("#ClassId").val(),
+                memberLoginId: $("#MemberLoginId").val()
+            });
+        }                      
+
+        //刪除1筆動作(留在頁面寫)
+        function OnDeleteItem(id) {            
+            $.post('@Url.Action("Delete", "DownloadRecord")', { id: id }, function (data) {                
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+
+        //刪除多筆動作(留在頁面寫)
+        function OnDeleteItems(allId) {
+            $.post('@Url.Action("MultiDelete", "DownloadRecord")', { allId: allId }, function (data) {
+                if (data.ErrorCode != '@((int)AjaxResultStatus.Success)') {
+                    $(".deleteMsgFail").append(data.Message + '<br/>')
+                }                
+                OnDelete_Complete();
+            });
+        }
+    </script>
+}
+
+<fieldset class="fieldset">
+    <h1>下載記錄管理</h1>
+    <table style="width: 100%" class="FormTable">
+        <tr>
+            <td style="width:100px; text-align:right;">文件名稱：
+            </td>
+            <td >
+                @Html.TextBox("KeyWord", m_Conditions["KeyWord"])
+                會員帳號：@Html.TextBox("MemberLoginId", m_Conditions["LoginId"])
+                @Html.DropDownList("ClassId", m_DownloadClassListItem, "下載單元")
+                <input type="button" class="btn" value="查詢" id="btnQuery" />                
+            </td>
+        </tr>        
+    </table>
+    <br />
+    <div id="dvGrid">
+        @Html.Partial("AdminGridList", new ParamaterModel("Edit", "DownloadRecord", m_Cdts))
+    </div>    
+    <div class="deleteMsgFail"></div>
+</fieldset>

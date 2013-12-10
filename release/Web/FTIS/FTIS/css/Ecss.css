@@ -1,0 +1,57 @@
+@charset "utf-8";
+.e-btn1 {
+	background-image: url(../e-image/b01a.png);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 99px;
+	float: left;
+}
+.e-btn2 {
+	background-image: url(../e-image/b02a.png);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 99px;
+	float: left;
+}
+.e-btn3 {
+	background-image: url(../e-image/b04a.png);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 334px;
+	float: left;
+}
+.e-btn4 {
+	background-image: url(../e-image/b03a.png);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 99px;
+	float: left;
+}
+.e-btn1:hover {
+	background-image: url(../e-image/b01.png);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 99px;
+	float: left;
+}
+.e-btn2:hover {
+	background-image: url(../e-image/b02.png);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 99px;
+	float: left;
+}
+.e-btn3:hover {
+	background-image: url(../e-image/b04.png);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 334px;
+	float: left;
+}
+.e-btn4:hover {
+	background-image: url(../e-image/b03.png);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 99px;
+	float: left;
+}

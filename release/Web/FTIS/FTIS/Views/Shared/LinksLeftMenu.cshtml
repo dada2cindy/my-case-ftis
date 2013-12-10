@@ -1,0 +1,20 @@
+﻿@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+    @*分類*@
+    IList<LinksClass> m_LinksClassList = new List<LinksClass>();
+    if (ViewData["LinksClassList"] != null)
+    {
+        m_LinksClassList = (List<LinksClass>)ViewData["LinksClassList"];
+    } 
+}
+@using FTIS.Domain.Impl;
+@using FTISWeb.Models;
+
+<div id="In-leftTitle"><img src="@Url.Content("~/in-image/left-title6.png")" alt="網路資源"/></div>
+@if (m_LinksClassList != null && m_LinksClassList.Count > 0)
+          {
+              foreach (LinksClass linksClass in m_LinksClassList)
+              {
+                  <a href="@Url.Action("Index", "Links", new { linksClassId = m_hsModel.EncryptId(linksClass.LinksClassId) })"><div class="Left-sbtn">@linksClass.Name</div></a>                         
+              }
+          } 

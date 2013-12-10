@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@section HeadContent{  
+    <script>
+        //設定倒數秒數
+        var t = Number('3');
+
+        window.onload = function () {
+            DoRederict();
+        }
+
+        //顯示倒數秒收
+        function DoRederict() {
+            t -= 1;
+
+            if (t <= 0) {
+                top.document.location.href = '@Url.Action("Index", "Home")';
+            }
+
+            //每秒執行一次
+            setTimeout("DoRederict()", 1000);
+        }
+    </script>
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+  </div><!--左結尾-->
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <p class="logintips" style="font-size:medium;margin-bottom:20px;">您所執行的動作發生錯誤，將於3秒鐘後回首頁。</p>
+      
+  </div><!--內容結尾-->
+</div>

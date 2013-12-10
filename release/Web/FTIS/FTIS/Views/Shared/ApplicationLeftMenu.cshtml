@@ -1,0 +1,24 @@
+﻿@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+    @*分類*@
+    IList<ApplicationClass> m_ApplicationClassList = new List<ApplicationClass>();
+    if (ViewData["ApplicationClassList"] != null)
+    {
+        m_ApplicationClassList = (List<ApplicationClass>)ViewData["ApplicationClassList"];
+    } 
+}
+@using FTIS.Domain.Impl;
+@using FTISWeb.Models;
+
+<div id="In-leftTitle"><img src="@Url.Content("~/in-image/left-title-a1.png")" alt="企業社會責任"/></div>
+@if (m_ApplicationClassList != null && m_ApplicationClassList.Count > 0)
+          {
+              foreach (ApplicationClass applicationClass in m_ApplicationClassList)
+              {
+                  <a href="@Url.Action("Index", "Application", new { applicationClassId = m_hsModel.EncryptId(applicationClass.ApplicationClassId) })"><div class="Left-sbtn">@applicationClass.Name</div></a>                         
+              }
+          } 
+<a href="@Url.Action("Index2", "Report")"><div class="Left-sbtn">CSR報告書查詢</div></a>
+<div class="Left-ssbtn"><a href="@Url.Action("Index2", "Report")">國內外報告書現況</a></div>
+<div class="Left-ssbtn"><a href="@Url.Action("Provide", "Report")">報告書資訊提供</a></div>
+<div class="Left-ssbtn"><a href="@Url.Action("Index", "Report")">報告書資訊查詢</a></div>

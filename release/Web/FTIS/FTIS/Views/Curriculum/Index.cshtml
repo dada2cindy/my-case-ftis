@@ -1,0 +1,54 @@
+﻿@model IPagedList<FTIS.Domain.Impl.Curriculum>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("DownloadLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>下載專區<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Download")">下載專區</a> &gt; 課程講義</span>    </h1>    
+      <h2>課程講義</h2>
+      <div id="InShow-INob">
+      <table width="650" border="0" cellpadding="0" cellspacing="0">
+         <tr>
+          <td class="News-Stitle">標題</td>
+          <td style="width:88px;" class="News-Stitle">瀏灠次數</td>
+        </tr>
+          @{
+              int i = 1;
+              foreach (var entity in Model)
+              {
+                  string rowClass = (i % 2 == 0) ? "News-Sob02" : "News-Sob01";
+              <tr>
+                  <td class="@rowClass">
+                      <a href="@Url.Action("Detail", "Curriculum", new { id= m_hsModel.EncryptId(entity.CurriculumId)})">@m_hsModel.SubString(entity.Name, 40, true)</a>                      
+                      @if ("1".Equals(entity.IsNew))
+                      {
+                        <img src="image/newsicon.gif" width="30" height="13" alt="New" />
+                      }
+                  </td>
+                  <td class="@rowClass" style="text-align:center">@entity.Vister</td>
+              </tr>
+                  i++; 
+              }
+          }                
+      </table>
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "Curriculum")')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->
+</div>

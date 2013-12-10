@@ -1,0 +1,625 @@
+﻿@model FTISWeb.Models.NewsModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+@using FTIS.Domain.Impl;
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if (Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+    
+    @*種類、議題*@    
+    IList<SelectListItem> m_NewsClassSelectListItem =new List<SelectListItem>();
+    if (ViewData["NewsClassList"] != null)
+    {
+        IList<NewsClass> m_NewsClassList = (List<NewsClass>)ViewData["NewsClassList"];
+
+        foreach (NewsClass newsClass in m_NewsClassList)
+        {
+            SelectListItem selectListItem = new SelectListItem();
+            selectListItem.Text = newsClass.Name;
+            selectListItem.Value = newsClass.NewsClassId.ToString();
+            if (Model.NewsClassId == newsClass.NewsClassId)
+            {
+                selectListItem.Selected = true;
+            }
+            m_NewsClassSelectListItem.Add(selectListItem);
+        }
+    }
+    IList<SelectListItem> m_NewsTypeSelectListItem = new List<SelectListItem>();
+    if (ViewData["NewsTypeList"] != null)
+    {
+        IList<NewsType> m_NewsTypeList = (List<NewsType>)ViewData["NewsTypeList"];
+
+        foreach (NewsType newsType in m_NewsTypeList)
+        {
+            SelectListItem selectListItem = new SelectListItem();
+            selectListItem.Text = newsType.Name;
+            selectListItem.Value = newsType.NewsTypeId.ToString();
+            if (Model.NewsTypeId == newsType.NewsTypeId)
+            {
+                selectListItem.Selected = true;
+            }
+            m_NewsTypeSelectListItem.Add(selectListItem);
+        }
+    }  
+}
+@section TitleContent{}
+@section HeadContent{
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ckfinder/ckfinder.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClearCHT").click(function () {
+                ClearUI('#dvCHT');
+                CKEDITOR.instances.Content.setData('');
+                $("#Vister").val('0');
+                $("#Emailer").val('0');
+                $("#Printer").val('0');
+                $("#SortId").val('0');
+            });
+
+            $("#btnClearENG").click(function () {
+                ClearUI('#dvENG');
+                CKEDITOR.instances.ContentENG.setData('');
+                $("#VisterENG").val('0');
+                $("#EmailerENG").val('0');
+                $("#PrinterENG").val('0');
+            });
+
+            $("#ChangeToCHT").click(function () {
+                $("#dvCHT").show();
+                $("#dvENG").hide();
+            });
+
+            $("#ChangeToENG").click(function () {
+                $("#dvCHT").hide();
+                $("#dvENG").show();
+            });
+
+            $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+            $('#ContentENG').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+
+            $("#PostDate").kendoDatePicker({
+                change: OnPostDateChange,
+                format: "yyyy/MM/dd"
+            });
+        });        
+
+        function SetFileField(fileUrl, data) {
+            var filepath = fileUrl.replace("@AppSettings.CKFinderFileHandler", "");
+            document.getElementById(data["selectActionData"]).value = filepath;
+        }
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "News", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
+    <fieldset class="fieldset">
+        <h1>新聞動態管理</h1>
+        <div style="width:100%; text-align:left; height:30px; padding-top:10px; font-size:12px; font-weight:bold;">切換語言：　<a href="#"><span id="ChangeToCHT">中文</span></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#"><span id="ChangeToENG">英文</span></a></div>
+        <div id="dvCHT">
+        <table style="width: 100%" class="FormTable">
+            <tr>
+                <td style="text-align:right;">主題分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("MainCode", Model.MainCode, new { id = "MainCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("MainName", Model.MainName, new { id = "MainName" })
+                    <select id="ddlMainCode" onchange="GetSelInfo('ddlMainCode','MainCode','MainName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">農業環保</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">施政分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("AdminCode", Model.AdminCode, new { id = "AdminCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("AdminName", Model.AdminName, new { id = "AdminName" })
+                    <select id="ddlAdminCode" onchange="GetSelInfo('ddlAdminCode','AdminCode','AdminName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">經濟貿易</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">服務分類：
+                </td>
+                <td>
+                    編號：@Html.TextBox("ServiceCode", Model.ServiceCode, new { id = "ServiceCode", @style = "width: 50px;" }) 名稱：@Html.TextBox("ServiceName", Model.ServiceName, new { id = "ServiceName" })
+                    <select id="ddlServiceCode" onchange="GetSelInfo('ddlServiceCode','ServiceCode','ServiceName');" style="width: 164px">
+                        <option selected="selected" value=""></option>
+                        <option value="700">生活安全及品質</option>
+                    </select>
+                </td>
+            </tr>
+             <tr>
+                <td style="text-align:right;">*選擇種類：
+                </td>
+                <td>
+                    @Html.DropDownList("NewsTypeId", m_NewsTypeSelectListItem, "請選擇")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*選擇議題：
+                </td>
+                <td>
+                    @Html.DropDownList("NewsClassId", m_NewsClassSelectListItem, "請選擇")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">Tag：
+                </td>
+                <td>
+                    @Html.TextBox("Tag", Model.Tag, new { id = "Tag", @style = "width: 600px;" }) 注：和國際環保標準 / 規範介紹相關聯
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*標題：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*刊登日期：
+                </td>
+                <td>
+                    @Html.TextBox("PostDate", Model.PostDate, new { id = "PostDate" })
+                </td>
+            </tr>   
+            <tr>
+                <td style="text-align:right;">資料來源標題1：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl1", Model.AUrl1, new { id = "AUrl1", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源-連結網址1：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl1Link", Model.AUrl1Link, new { id = "AUrl1Link", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源標題2：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl2", Model.AUrl2, new { id = "AUrl2", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源-連結網址2：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl2Link", Model.AUrl2Link, new { id = "AUrl2Link", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源標題3：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl3", Model.AUrl3, new { id = "AUrl3", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源-連結網址3：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl3Link", Model.AUrl3Link, new { id = "AUrl3Link", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">內容：
+                </td>
+                <td>
+                    @Html.TextArea("Content", Model.Content, new { id = "Content" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片1：
+                </td>
+                <td>
+                    @Html.TextBox("Pic1", Model.Pic1, new { id = "Pic1", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic1');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic1');" />
+                    <input type="button" value="清除" onclick="ClearFile('#Pic1');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片1名稱：
+                </td>
+                <td>
+                    @Html.TextBox("Pic1Name", Model.Pic1Name, new { id = "Pic1Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片2：
+                </td>
+                <td>
+                    @Html.TextBox("Pic2", Model.Pic2, new { id = "Pic2", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic2');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic2');" />
+                    <input type="button" value="清除" onclick="ClearFile('#Pic2');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片2名稱：
+                </td>
+                <td>
+                    @Html.TextBox("Pic2Name", Model.Pic2Name, new { id = "Pic2Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片3：
+                </td>
+                <td>
+                    @Html.TextBox("Pic3", Model.Pic3, new { id = "Pic3", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic3');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic3');" />
+                    <input type="button" value="清除" onclick="ClearFile('#Pic3');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片3名稱：
+                </td>
+                <td>
+                    @Html.TextBox("Pic3Name", Model.Pic3Name, new { id = "Pic3Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件1：
+                </td>
+                <td>
+                    @Html.TextBox("AFile1", Model.AFile1, new { id = "AFile1", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile1');" })
+                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile1');" />
+                    <input type="button" value="清除" onclick="ClearFile('#AFile1');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件1名稱：
+                </td>
+                <td>
+                    @Html.TextBox("AFile1Name", Model.AFile1Name, new { id = "AFile1Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件2：
+                </td>
+                <td>
+                    @Html.TextBox("AFile2", Model.AFile2, new { id = "AFile2", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile2');" })
+                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile2');" />
+                    <input type="button" value="清除" onclick="ClearFile('#AFile2');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件2名稱：
+                </td>
+                <td>
+                    @Html.TextBox("AFile2Name", Model.AFile2Name, new { id = "AFile2Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件3：
+                </td>
+                <td>
+                    @Html.TextBox("AFile3", Model.AFile3, new { id = "AFile3", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile3');" })
+                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile3');" />
+                    <input type="button" value="清除" onclick="ClearFile('#AFile3');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件3名稱：
+                </td>
+                <td>
+                    @Html.TextBox("AFile3Name", Model.AFile3Name, new { id = "AFile3Name", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*是否首頁顯示：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.IsHome, "1")是</label>
+                    <label>@Html.RadioButtonFor(m => m.IsHome, "0")否</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*是否顯示new：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.IsNew, "1")是</label>
+                    <label>@Html.RadioButtonFor(m => m.IsNew, "0")否</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">瀏覽人數：
+                </td>
+                <td>
+                    @Html.TextBox("Vister", Model.Vister, new { id = "Vister" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">轉寄：
+                </td>
+                <td>
+                    @Html.TextBox("Emailer", Model.Emailer, new { id = "Emailer" })
+                </td>
+            </tr>
+             <tr>
+                <td style="text-align:right;">列印：
+                </td>
+                <td>
+                    @Html.TextBox("Printer", Model.Printer, new { id = "Printer" })
+                </td>
+            </tr>    
+            <tr>
+                <td style="text-align:right;">*是否站外：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.IsOut, "1")是</label>
+                    <label>@Html.RadioButtonFor(m => m.IsOut, "0")否</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">站外連結網址：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl", Model.AUrl, new { id = "AUrl", @style = "width: 600px;" })
+                </td>
+            </tr>                                                      
+            <tr>
+                <td style="text-align:right;">*排序：
+                </td>
+                <td>
+                    @Html.TextBox("SortId", Model.SortId, new { id = "SortId", @style = "width: 50px;" })排列順序︰越小越前面。
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClearCHT" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "News", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+        </div>
+        <div id="dvENG" style="display:none;">
+            <table style="width: 100%" class="FormTable">
+            <tr>
+                <td style="text-align:right;">標題(英)：
+                </td>
+                <td>
+                    @Html.TextBox("NameENG", Model.NameENG, new { id = "NameENG", @style = "width: 600px;" })
+                </td>
+            </tr>  
+            <tr>
+                <td style="text-align:right;">資料來源標題1(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl1ENG", Model.AUrl1ENG, new { id = "AUrl1ENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源-連結網址1(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl1LinkENG", Model.AUrl1LinkENG, new { id = "AUrl1LinkENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源標題2(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl2ENG", Model.AUrl2ENG, new { id = "AUrl2ENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源-連結網址2(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl2LinkENG", Model.AUrl2LinkENG, new { id = "AUrl2LinkENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源標題3(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl3ENG", Model.AUrl3ENG, new { id = "AUrl3ENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">資料來源-連結網址3(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AUrl3LinkENG", Model.AUrl3LinkENG, new { id = "AUrl3LinkENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right; vertical-align:top;">內容(英)：
+                </td>
+                <td>
+                    @Html.TextArea("ContentENG", Model.ContentENG, new { id = "ContentENG" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片1(英)：
+                </td>
+                <td>
+                    @Html.TextBox("Pic1ENG", Model.Pic1ENG, new { id = "Pic1ENG", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic1ENG');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic1ENG');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片1名稱(英)：
+                </td>
+                <td>
+                    @Html.TextBox("Pic1NameENG", Model.Pic1NameENG, new { id = "Pic1NameENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片2(英)：
+                </td>
+                <td>
+                    @Html.TextBox("Pic2ENG", Model.Pic2ENG, new { id = "Pic2ENG", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic2ENG');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic2ENG');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片2名稱(英)：
+                </td>
+                <td>
+                    @Html.TextBox("Pic2NameENG", Model.Pic2NameENG, new { id = "Pic2NameENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片3(英)：
+                </td>
+                <td>
+                    @Html.TextBox("Pic3", Model.Pic3ENG, new { id = "Pic3ENG", @readonly = "readonly" , onclick = "BrowseServer('Images:/', 'Pic3ENG');" })
+                    <input type="button" value="上傳圖片" onclick="BrowseServer('Images:/', 'Pic3ENG');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">圖片3名稱(英)：
+                </td>
+                <td>
+                    @Html.TextBox("Pic3NameENG", Model.Pic3NameENG, new { id = "Pic3NameENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件1(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AFile1ENG", Model.AFile1ENG, new { id = "AFile1ENG", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile1ENG');" })
+                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile1ENG');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件1名稱(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AFile1NameENG", Model.AFile1NameENG, new { id = "AFile1NameENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件2(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AFile2ENG", Model.AFile2ENG, new { id = "AFile2ENG", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile2ENG');" })
+                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile2ENG');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件2名稱(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AFile2NameENG", Model.AFile2NameENG, new { id = "AFile2NameENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件3(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AFile3ENG", Model.AFile3ENG, new { id = "AFile3ENG", @readonly = "readonly" , onclick = "BrowseServer('Files:/', 'AFile3ENG');" })
+                    <input type="button" value="上傳附件" onclick="BrowseServer('Files:/', 'AFile3ENG');" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">附件3名稱(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AFile3NameENG", Model.AFile3NameENG, new { id = "AFile3NameENG", @style = "width: 600px;" })
+                </td>
+            </tr>            
+            <tr>
+                <td style="text-align:right;">瀏覽人數(英)：
+                </td>
+                <td>
+                    @Html.TextBox("VisterENG", Model.VisterENG, new { id = "VisterENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">轉寄(英)：
+                </td>
+                <td>
+                    @Html.TextBox("EmailerENG", Model.EmailerENG, new { id = "EmailerENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+             <tr>
+                <td style="text-align:right;">列印(英)：
+                </td>
+                <td>
+                    @Html.TextBox("PrinterENG", Model.PrinterENG, new { id = "PrinterENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">站外連結網址(英)：
+                </td>
+                <td>
+                    @Html.TextBox("AUrlENG", Model.AUrlENG, new { id = "AUrlENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClearENG" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "News", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+        </div>
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />
+@if (Model.ShowFreeGOMsg)
+{
+    switch (Model.FreeGOColumnName)
+    {
+        case "Content":
+            Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel("內容", Model.Content));
+            break;
+        case "ContentENG":
+            Html.RenderPartial("FreeGoMsgScriptView", new FreeGOModel("內容(英)", Model.ContentENG));
+            break;    
+    }
+}

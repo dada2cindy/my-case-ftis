@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H210101 如果使用Script語言開啟新視窗或改變目前視窗的網址，要讓使用者能事先知道</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H210101 如果使用Script語言開啟新視窗或改變目前視窗的網址，要讓使用者能事先知道</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>不良設計中自動跳出新視窗，將容易造成視覺障礙者或認知障礙者迷失在網頁瀏覽中。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>&lt;BODY bgcolor=&quot;#FFFFFF&quot; text=&quot;#000000&quot; onLoad=&quot;openwin();&quot;&gt;
+  &lt;SCRIPT language=&quot;javascript&quot;&gt;
+  function openwin(){
+  window.open(&quot;linkto/210101.jsp&quot;,&quot;NewWindow&quot;,
+              &quot;toolbar=no,status=no,directories=0,
+               status=0,menubar=no,scrollbars=no,
+               resizable=no,width=300,height=200&quot;)
+  }
+  &lt;/SCRIPT&gt;
+  &lt;/BODY&gt;</pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>正確的範例中讓使用者自行啟動新的視窗，而不是在使用者未知情的狀況下自動跳出視窗。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>&lt;FORM&gt;
+  &lt;INPUT type=&quot;submit&quot; name=&quot;Submit&quot; value=&quot;優惠消息&quot; 
+   onClick=&quot;MM_openBrWindow('/linkto/210101b.jsp','','width=300px,height=200px')&quot;&gt;
+  [按鈕將會開啟新視窗]
+&lt;/FORM&gt;
+  
+          </pre>
+            <p class="invisible">範例結束</p>                                    </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

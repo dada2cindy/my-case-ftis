@@ -1,0 +1,75 @@
+﻿@model MemberModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {
+            $("#safecode").click(function () {
+                $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
+            });
+        });
+    </script>
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("MemberLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>會員登入</h1>
+      @using (Html.BeginForm("Logon", "Member", FormMethod.Post, new { id = "frmSendOrder" }))
+{  
+    <div id="InShow-INob">
+    <p class="Member-txt01">歡迎您踴躍加入成為『產業永續發展整合資訊網 』會員，以使用網站相關服務。<br />
+    本網站保有審核通過之權利。</p>
+    <table border="0" cellpadding="0" cellspacing="0" class="Member-table01">
+      <tr>
+        <td colspan="2"><img src="@Url.Content("~/in-image/member-table-U.gif")" width="617" height="22" alt="icon" /></td>
+        </tr>
+      <tr>
+        <td width="209" rowspan="2" align="center"><img src="@Url.Content("~/in-image/member-login-icon.gif")" width="144" height="158" alt="會員登入" /></td>
+        <td width="408" valign="top">            
+            <input type="image" name="Submit" class="Mem-btn" src="@Url.Content("~/in-image/member-login-btn.gif")" alt="會員登入"  />
+          <p class="Mem-txt01">請輸入會員帳號及密碼，按登入即可</p>
+          <ul class="Mem-txt02-UL">
+            <li>會員帳號：
+                @Html.TextBox("LoginId", Model.LoginId, new { id = "LoginId", @class = "csr-Order", size = "25" })              
+            </li>
+            <li>會員密碼：
+                @Html.Password("Password", Model.Password, new { id = "Password", @class = "csr-Order", size = "25" })
+            </li>
+            <li>驗證碼　：
+                @Html.TextBox("ConfirmationCode", Model.ConfirmationCode, new { id = "ConfirmationCode", @class = "csr-Order", size = "10" })
+        <img id="safecode" src="@Url.Action("CaptchaImg", "Member")" width="100" height="25" alt="識別碼" /></li>
+          </ul></td>
+      </tr>
+      <tr>
+        <td align="right" valign="top"><span class="News-IN-3Function-txt"><a href="@Url.Action("Join", "Member")" class="btn-organ">加入會員</a>　｜　<a href="@Url.Action("Forgetpass", "Member")" class="btn-organ">忘記密碼 　</a></span></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center"><img src="@Url.Content("~/in-image/member-table-D.gif")" width="617" height="22" alt="icon" /></td>
+        </tr>
+    </table>
+        <div class="txt-red"> @Html.ValidationSummary()</div>
+    </div>      
+      }
+  </div><!--內容結尾-->
+</div>
+@if (!Model.SendOrderOk && !string.IsNullOrWhiteSpace(Model.ErrorMsg))
+{
+    string msg = Model.ErrorMsg;
+    <script type="text/javascript">
+        alert("@msg!");
+    </script>
+
+}

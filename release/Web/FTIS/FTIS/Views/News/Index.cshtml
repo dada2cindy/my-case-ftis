@@ -1,0 +1,135 @@
+﻿@model IPagedList<FTIS.Domain.Impl.News>
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using MvcPaging
+@using FTISWeb.Models;
+@using FTIS.Domain.Impl;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+
+    JavaScriptSerializer m_JsonConvert = new JavaScriptSerializer();
+    IDictionary<string, string> m_Conditions = m_JsonConvert.Deserialize<IDictionary<string, string>>((string)ViewData["Conditions"]);
+    
+    @*種類、議題*@
+    IList<NewsType> m_NewsTypeList = new List<NewsType>();
+    if (ViewData["NewsTypeList"] != null)
+    {
+        m_NewsTypeList = (List<NewsType>)ViewData["NewsTypeList"];
+    } 
+    
+    IList<NewsClass> m_NewsClassList = new List<NewsClass>();
+    if (ViewData["NewsClassList"] != null)
+    {
+        m_NewsClassList = (List<NewsClass>)ViewData["NewsClassList"];
+    } 
+}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")    
+    @Html.Partial("NewsLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+      @Html.Partial("InShowAdv")
+      <h1>新聞動態<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; 新聞動態</span></h1>
+      @{
+          if(m_Conditions.IsContainsValue("KeyWord"))
+          {
+            <h2 style="color:green">找到有關 "<span style="color:blue;">@m_Conditions["KeyWord"]</span>" 的資料如下： </h2>
+          }
+      }
+      <div id="News-Slect-table">
+          @{
+              string allSelected = string.Empty;
+                if (!m_Conditions.IsContainsValue("NewsTypeId") && !m_Conditions.IsContainsValue("NewsClassId"))
+                {
+                    allSelected = "-Selected";
+                }
+              <a href="@Url.Action("Index", "News", new { keyWord = m_Conditions["KeyWord"] })"><div class="News-Slect@(allSelected)">全部</div></a>  
+          }
+          @if (m_NewsTypeList != null && m_NewsTypeList.Count > 0)
+          {
+              foreach (NewsType newsType in m_NewsTypeList)
+              {
+                  string selected = string.Empty;
+                  if (m_Conditions.IsContainsValue("NewsTypeId") && m_Conditions["NewsTypeId"] == newsType.NewsTypeId.ToString())
+                  {
+                      selected = "-Selected";
+                  }
+                <a href="@Url.Action("Index", "News", new { newsTypeId = m_hsModel.EncryptId(newsType.NewsTypeId), newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]), keyWord = m_Conditions["KeyWord"] })">
+                    <div class="News-Slect@(selected)">@newsType.Name</div>
+                </a>                                
+              }
+          } 
+          @if (m_NewsClassList != null && m_NewsClassList.Count > 0)
+          {
+              foreach (NewsClass newsClass in m_NewsClassList)
+              {
+                  string selected = string.Empty;
+                  if (m_Conditions.IsContainsValue("NewsClassId") && m_Conditions["NewsClassId"] == newsClass.NewsClassId.ToString())
+                  {
+                      selected = "-Selected";
+                  }
+                <a href="@Url.Action("Index", "News", new { newsClassId = m_hsModel.EncryptId(newsClass.NewsClassId), newsTypeId = m_hsModel.EncryptId(m_Conditions["NewsTypeId"]) })">
+                    <div class="News-SSlect@(selected)">@newsClass.Name</div>
+                </a>                                
+              }
+          }         
+      </div>
+
+      <div id="InShow-INob">
+      <table width="650" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="News-Stitle">刊登日期</td>
+            <td class="News-Stitle">新聞標題</td>
+            <td class="News-Stitle" style="width:80px;">議題</td>
+            <td class="News-Stitle" style="width:60px;">種類</td>
+            <td class="News-Stitle" style="width:60px;">瀏灠次數</td>
+          </tr>
+          @{
+              int i = 1;
+              int dataIndex = Model.PageIndex * Model.PageSize;
+              foreach (var entity in Model)
+              {
+                  string rowClass = (i % 2 == 0) ? "News-Sob02" : "News-Sob01";
+              <tr>
+                  <td class="@rowClass">@entity.GetStr_PostDate</td>
+                  <td class="@rowClass">
+                      @if ("1".Equals(entity.IsOut) && !string.IsNullOrWhiteSpace(entity.AUrl))
+                      {
+                          <a target="_blank" href="@Url.Action("Detail", "News", new { id= m_hsModel.EncryptId(entity.NewsId)})">@m_hsModel.SubString(entity.Name, 28, true)</a>
+                      }
+                      else
+                      {
+                        <a href="@Url.Action("Detail", "News", new { id= m_hsModel.EncryptId(entity.NewsId), dataIndex = dataIndex, newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]), newsTypeId = m_hsModel.EncryptId(m_Conditions["NewsTypeId"]), keyWord = m_Conditions["KeyWord"]})">@m_hsModel.SubString(entity.Name, 28, true)</a>
+                      }
+                      @if ("1".Equals(entity.IsNew))
+                      {
+                        <img src="image/newsicon.gif" width="30" height="13" alt="New" />
+                      }
+                  </td>
+                  <td class="@rowClass">@entity.NewsClass.Name</td>
+                  <td class="@rowClass">@entity.NewsType.Name</td>
+                  <td class="@rowClass" style="text-align:center">@entity.Vister</td>
+              </tr>
+                  i++;
+                  dataIndex++;
+              }
+          }                   
+      </table>
+    </div>
+      <div class="PageNumber pager">
+          <span class="PageNumber-txt2">第@(Model.PageIndex + 1)頁，共@(Model.TotalItemCount)筆</span>
+        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount).Options(o=>o
+       .AddRouteValue("newsClassId", m_hsModel.EncryptId(m_Conditions["NewsClassId"]))
+       .AddRouteValue("newsTypeId", m_hsModel.EncryptId(m_Conditions["NewsTypeId"]))
+       .AddRouteValue("keyWord", m_Conditions["KeyWord"]))
+          <span class="PageNumber-txt3">第<input id="txtPage" type="text" size="1" />頁 <a href="javascript:GoPage('@Url.Action("Index", "News", new { newsClassId = m_hsModel.EncryptId(m_Conditions["NewsClassId"]), newsTypeId = m_hsModel.EncryptId(m_Conditions["NewsTypeId"]), keyWord = m_Conditions["KeyWord"] })')">GO</a></span>
+      </div>
+  </div><!--內容結尾-->    
+</div>

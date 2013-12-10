@@ -1,0 +1,186 @@
+﻿@model FTISWeb.Models.PostModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+@using FTIS.Domain.Impl;
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    string m_FuncName = ViewData["FuncName"] == null ? "資料管理" : (string)ViewData["FuncName"];
+    string m_ControllerName = (string)ViewData["ControllerName"];
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if (Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }
+    
+    @*分類*@    
+    IList<SelectListItem> m_NodeSelectListItem =new List<SelectListItem>();
+    if (ViewData["NodeList"] != null)
+    {
+        IList<Node> m_NodeList = (List<Node>)ViewData["NodeList"];
+
+        foreach (Node node in m_NodeList)
+        {
+            SelectListItem selectListItem = new SelectListItem();
+            selectListItem.Text = node.Name;
+            selectListItem.Value = node.NodeId.ToString();
+            if (Model.NodeId == node.NodeId)
+            {
+                selectListItem.Selected = true;
+            }
+            m_NodeSelectListItem.Add(selectListItem);
+        }
+    }    
+}
+@section TitleContent{}
+@section HeadContent{
+    <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ckfinder/ckfinder.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+                CKEDITOR.instances.Content.setData('');
+            });
+
+            $('#Content').CKEditorInit("@Url.Content("~/Scripts/ckfinder/")");
+
+            $("#ExpiredDate").kendoDatePicker({
+                change: OnExpiredDateChange,
+                format: "yyyy/MM/dd"
+            });
+        });        
+    </script>
+}
+
+@using (Html.BeginForm("Post" + (Action.ToString()), m_ControllerName, new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
+    <fieldset class="fieldset">
+        <h1>@m_FuncName</h1>
+        <table style="width: 100%" class="FormTable">            
+             <tr>
+                <td style="text-align:right;">*選擇分類：
+                </td>
+                <td>
+                    @Html.DropDownList("NodeId", m_NodeSelectListItem, "請選擇")
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">編號：
+                </td>
+                <td>
+                    @Html.TextBox("No", Model.No, new { id = "No", @style = "width: 100px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*公司：
+                </td>
+                <td>
+                    @Html.TextBox("Company", Model.Company, new { id = "Company", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*公司(英)：
+                </td>
+                <td>
+                    @Html.TextBox("CompanyENG", Model.CompanyENG, new { id = "CompanyENG", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*登錄效期：
+                </td>
+                <td>
+                    @Html.TextBox("ExpiredDate", Model.ExpiredDate, new { id = "ExpiredDate" })
+                </td>
+            </tr>   
+            <tr>
+                <td style="text-align:right;">負責人：
+                </td>
+                <td>
+                    @Html.TextBox("Charge", Model.Charge, new { id = "Charge" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">連絡人：
+                </td>
+                <td>
+                    @Html.TextBox("Contact", Model.Contact, new { id = "Contact" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">電話：
+                </td>
+                <td>
+                    @Html.TextBox("Tel", Model.Tel, new { id = "Tel" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">傳真：
+                </td>
+                <td>
+                    @Html.TextBox("Fax", Model.Fax, new { id = "Fax" })
+                </td>
+            </tr>
+
+            <tr>
+                <td style="text-align:right;">地址：
+                </td>
+                <td>
+                    @Html.TextBox("Address", Model.Address, new { id = "Address", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">電子郵件：
+                </td>
+                <td>
+                    @Html.TextBox("Email", Model.Email, new { id = "Email", @style = "width: 600px;" })
+                </td>
+            </tr>            
+            <tr>
+                <td style="text-align:right; vertical-align:top;">內容：
+                </td>
+                <td>
+                    @Html.TextArea("Content", Model.Content, new { id = "Content" })
+                </td>
+            </tr>                                                                             
+            <tr>
+                <td style="text-align:right;">*狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "PostAdminIndex", m_ControllerName, new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>      
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />

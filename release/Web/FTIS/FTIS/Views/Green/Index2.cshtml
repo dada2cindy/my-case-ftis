@@ -1,0 +1,23 @@
+﻿@model FTISWeb.Models.PostModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@using FTIS.Domain.Impl;
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash") 
+    @Html.Partial("GreenLeftMenu")    
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>企業永續發展應用<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Green")">產品環境資訊揭露</a> &gt; @Model.Node.Name</span></h1>
+      <h2>@Model.Node.Name - @Model.Name </h2>
+    <div id="InShow-INob">       
+        @(new HtmlString(Model.Content))
+    </div>
+  </div><!--內容結尾-->
+</div>

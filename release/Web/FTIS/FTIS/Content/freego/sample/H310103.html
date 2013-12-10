@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H310103 若有以表格直欄格式呈現的網頁文字內容時，提供線性文字替代</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H310103 若有以表格直欄格式呈現的網頁文字內容時，提供線性文字替代</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>表格直欄格式呈現的網頁文字內容時，沒有線性文字替代。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+&lt;TABLE border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;10&quot;&gt;
+&lt;TR&gt;
+  &lt;TD&gt;&lt;P&gt;台北地區今天天氣涼爽，午後出現溫和陽光，氣溫在攝氏二十二至二十五度之間。&lt;/P&gt;
+  &lt;/TD&gt;
+  &lt;TD&gt;&lt;P&gt;各地未來一週天氣炎熱，午後都會出現雷震雨，各地應做防範豪雨準備。&lt;/P&gt;
+  &lt;/TD&gt;
+&lt;/TR&gt;
+&lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		 
+		  <h2>正確示範</h2>
+		  <p>當有表格直欄格式呈現的網頁文字內容時，需在該網頁上提供連結連至線性文字網頁。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+&lt;A href=&quot;linkto/weather_tai.jsp&quot;&gt;台北地區今日以及未來一週天氣狀況&lt;/A&gt;
+&lt;TABLE border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;10&quot;&gt;
+&lt;TR&gt;
+  &lt;TD&gt;&lt;P&gt;台北地區今天天氣涼爽，午後出現溫和陽光，氣溫在攝氏二十二至二十五度之間。&lt;/P&gt;
+  &lt;/TD&gt;
+  &lt;TD&gt;&lt;P&gt;各地未來一週天氣炎熱，午後都會出現雷震雨，各地應做防範豪雨準備。&lt;/P&gt;
+  &lt;/TD&gt;
+&lt;/TR&gt;
+&lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>                                              </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

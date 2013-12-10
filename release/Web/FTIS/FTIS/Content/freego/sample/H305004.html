@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H305004 表格須提供表格摘要說明(如summary屬性)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H305004 表格須提供表格摘要說明(如summary屬性)</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>沒有在TABLE標籤中使用summary屬性提供表格摘要說明。</p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;TABLE border=&quot;1&quot;&gt;
+  &lt;CAPTION&gt;
+  台灣主要城市氣溫與紫外線強度
+  &lt;/CAPTION&gt;
+  &lt;TR&gt;
+  &lt;TH&gt;主要城市&lt;/TH&gt;
+  &lt;TH&gt;氣溫溫度&lt;/TH&gt;
+  &lt;TH&gt;紫外線強度&lt;/TH&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台北&lt;/TD&gt;
+  &lt;TD&gt;35度&lt;/TD&gt;
+  &lt;TD&gt;普通&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;!--表格內容略--&gt;
+  &lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>有使用summary屬性來為提供詳細的表格說明。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;TABLE border=&quot;1&quot; summary=&quot;此台灣主要城市氣溫與紫外線強度表格中，
+  第一直欄是主要城市，第二直欄是氣溫溫度，第三直欄是紫外線強度。&quot;&gt;
+  &lt;CAPTION&gt;
+  台灣主要城市氣溫與紫外線強度
+  &lt;/CAPTION&gt;
+  &lt;TR&gt;
+  &lt;TH&gt;主要城市&lt;/TH&gt;
+  &lt;TH&gt;氣溫溫度&lt;/TH&gt;
+  &lt;TH&gt;紫外線強度&lt;/TH&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;台北&lt;/TD&gt;
+  &lt;TD&gt;35度&lt;/TD&gt;
+  &lt;TD&gt;普通&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;!--表格內容略--&gt;
+  &lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		 
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;TABLE border=&quot;1&quot; summary=&quot;此表格是王小強與李大明的旅行開支表，表格分為
+  五直欄，第一直欄標示兩人的消費日期，第二三四五直欄則依序為該日期的餐飲
+  費、住宿費、交通費以及小計，而在最後一橫列有總計資料。&quot;&gt;
+  &lt;CAPTION&gt;旅行開支表&lt;/CAPTION&gt;
+  &lt;TR&gt;
+  &lt;TH&gt;&lt;/TH&gt;
+  &lt;TH id=&quot;a2&quot; axis=&quot;費用&quot;&gt;餐飲費&lt;/TH&gt;
+  &lt;TH id=&quot;a3&quot; axis=&quot;費用&quot;&gt;住宿費&lt;/TH&gt;
+  &lt;TH id=&quot;a4&quot; axis=&quot;費用&quot;&gt;交通費&lt;/TH&gt;
+  &lt;TD&gt;小計&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TH id=&quot;a6&quot; axis=&quot;姓名&quot;&gt;王小強&lt;/TH&gt;
+  &lt;TH&gt;&lt;/TH&gt;
+  &lt;TH&gt;&lt;/TH&gt;
+  &lt;TH&gt;&lt;/TH&gt;
+  &lt;TD&gt;&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD id=&quot;a7&quot; axis=&quot;日期&quot;&gt;92年10月18日&lt;/TD&gt;
+  &lt;TD headers=&quot;a6 a7 a2&quot;&gt;350&lt;/TD&gt;
+  &lt;TD headers=&quot;a6 a7 a3&quot;&gt;1200&lt;/TD&gt;
+  &lt;TD headers=&quot;a6 a7 a4&quot;&gt;240&lt;/TD&gt;
+  &lt;TD&gt;&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD id=&quot;a8&quot; axis=&quot;日期&quot;&gt;92年10月19日&lt;/TD&gt;
+  &lt;TD headers=&quot;a6 a8 a2&quot;&gt;400&lt;/TD&gt;
+  &lt;TD headers=&quot;a6 a8 a3&quot;&gt;1500&lt;/TD&gt;
+  &lt;TD headers=&quot;a6 a8 a4&quot;&gt;300&lt;/TD&gt;
+  &lt;TD&gt;&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;小計&lt;/TD&gt;
+  &lt;TD&gt;750&lt;/TD&gt;
+  &lt;TD&gt;2700&lt;/TD&gt;
+  &lt;TD&gt;540&lt;/TD&gt;
+  &lt;TD&gt;3990&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TH id=&quot;a10&quot; axis=&quot;姓名&quot;&gt;李大明&lt;/TH&gt;
+  &lt;TH&gt;&lt;/TH&gt;
+  &lt;TH&gt;&lt;/TH&gt;
+  &lt;TH&gt;&lt;/TH&gt;
+  &lt;TD&gt;&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD id=&quot;a11&quot; axis=&quot;日期&quot;&gt;92年10月20日&lt;/TD&gt;
+  &lt;TD headers=&quot;a10 a11 a2&quot;&gt;310&lt;/TD&gt;
+  &lt;TD headers=&quot;a10 a11 a3&quot;&gt;1350&lt;/TD&gt;
+  &lt;TD headers=&quot;a10 a11 a4&quot;&gt;320&lt;/TD&gt;
+  &lt;TD&gt;&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD id=&quot;a12&quot; axis=&quot;日期&quot;&gt;92年10月21日&lt;/TD&gt;
+  &lt;TD headers=&quot;a10 a12 a2&quot;&gt;440&lt;/TD&gt;
+  &lt;TD headers=&quot;a10 a12 a3&quot;&gt;1740&lt;/TD&gt;
+  &lt;TD headers=&quot;a10 a12 a4&quot;&gt;230&lt;/TD&gt;
+  &lt;TD&gt;&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;小計&lt;/TD&gt;
+  &lt;TD&gt;750&lt;/TD&gt;
+  &lt;TD&gt;3090 &lt;/TD&gt;
+  &lt;TD&gt;550&lt;/TD&gt;
+  &lt;TD&gt;4390&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TH&gt;總計&lt;/TH&gt;
+  &lt;TD&gt;1500&lt;/TD&gt;
+  &lt;TD&gt;5790&lt;/TD&gt;
+  &lt;TD&gt;1090&lt;/TD&gt;
+  &lt;TD&gt;8380&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;/TABLE&gt;
+          </pre>
+            <p class="invisible">範例結束</p>            
+                                              </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H309103 具體指出按下Tab鍵在表單控制項，超連結及物件間移動的順序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H309103 具體指出按下Tab鍵在表單控制項，超連結及物件間移動的順序</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+		  <p>未使用tabindex屬性設定TAB鍵在表單控制項的移動順序。 </p>
+		  <div class="deprecated-example">
+            <p><strong>不良設計：</strong></p>
+            <pre>
+  &lt;TEXTAREA name=&quot;field1&quot;&gt;輸入您第一題答案&lt;/TEXTAREA&gt;
+  &lt;TEXTAREA name=&quot;field2&quot;&gt;輸入您第二題答案&lt;/TEXTAREA&gt;
+  &lt;INPUT type=&quot;submit&quot; value=&quot;送出答案&quot;&gt;
+  &lt;A href=&quot;#top&quot;&gt;回到頁首&lt;/A&gt;
+          </pre>
+            <p class="invisible">範例結束</p>
+	    </div>
+		  
+		  <h2>正確示範</h2>
+		  <p>使用tabindex屬性設定TAB鍵在表單控制項的移動順序，使用者按下TAB鍵時，控制鍵的順序將會依照連結中tabindex的設定值大小決定移動順序。</p>
+		  <div class="example">
+            <p><strong>正確範例：</strong></p>
+            <pre>
+  &lt;TEXTAREA name=&quot;field1&quot; tabindex=&quot;2&quot;&gt;輸入您第一題答案&lt;/TEXTAREA&gt;
+  &lt;TEXTAREA name=&quot;field2&quot; tabindex=&quot;3&quot;&gt;輸入您第二題答案&lt;/TEXTAREA&gt;
+  &lt;INPUT type=&quot;submit&quot; tabindex=&quot;4&quot; value=&quot;送出答案&quot;&gt;
+  &lt;A href=&quot;#top&quot; tabindex=&quot;1&quot;&gt;回到頁首&lt;/A&gt;
+          </pre>
+            <p class="invisible">範例結束</p>           
+                                              </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

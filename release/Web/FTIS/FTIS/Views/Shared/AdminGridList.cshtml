@@ -1,0 +1,486 @@
+﻿@model FTISWeb.Models.ParamaterModel
+
+@using FTISWeb.Helper;
+@using System.Web.Script.Serialization
+@using FTISWeb.Utility;
+@{
+@*權限*@
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+    bool AllowDelete = (bool)ViewData["AllowDelete"];    
+}
+<script>
+    $(function () {
+        //建立資料來源物件
+        var dataSrc = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    //以下其實就是$.ajax的參數
+                    type: "POST",
+                    url: "@Url.Action("AjaxBinding", Model.ControllerName)",
+                        dataType: "json",
+                        data: {
+                            //額外傳至後方的參數
+                            keyWord: function () {
+                                return $("#KeyWord").val();
+                            },
+                            publicationClassId: function () {
+                                return $("#PublicationClassId").val();
+                            },
+                            newsClassId: function () {
+                                return $("#NewsClassId").val();
+                            },
+                            newsTypeId: function () {
+                                return $("#NewsTypeId").val();
+                            },
+                            applicationClassId: function () {
+                                return $("#ApplicationClassId").val();
+                            },
+                            linksClassId: function () {
+                                return $("#LinksClassId").val();
+                            },
+                            langId: function () {
+                                return $("#LangId").val();
+                            },
+                            status: function () {
+                                return $("#EStatus").val();
+                            },
+                            questionClassId: function () {
+                                return $("#QuestionClassId").val();
+                            },
+                            greenFactoryClassId: function () {
+                                return $("#GreenFactoryClassId").val();
+                            },
+                            parentNormClassId: function () {
+                                return $("#ParentNormClassId").val();
+                            },
+                            normClassId: function () {
+                                return $("#NormClassId").val();
+                            },
+                            normClassParentId: function () {
+                                return $("#NormClassParentId").val();
+                            },
+                            industryId: function () {
+                                return $("#IndustryId").val();
+                            }
+                        }
+                    }
+                },
+                schema: {
+                    //取出資料陣列
+                    data: function (d) { return d.data; },
+                    //取出資料總筆數(計算頁數用)
+                    total: function (d) { return d.total; }
+                },
+                pageSize: Number('@AppSettings.AdminPageSize'),
+                serverPaging: true,
+                serverSorting: true
+            });
+            //JSON日期轉換
+            //var dateRegExp = /^\/Date\((.*?)\)\/$/;
+            //window.toDate = function (value) {
+            //    var date = dateRegExp.exec(value);
+            //    return new Date(parseInt(date[1]));
+            //}
+            $("#dvGrid").kendoGrid({
+                dataSource: dataSrc,
+                columns: [
+                    {
+                        fiels: "@Model.EntityId",
+                        headerTemplate: "<input type='checkbox' onchange='ToggleAll(this);' id='ToggleCheckbox'/>",
+                        template: "<input type='checkbox' value='#= @Model.EntityId#' name='IsDelete' class='IsDelete' />",
+                        sortable: false,
+                        attributes: { "style": "text-align: center;" },
+                        width: 50
+                    },
+                    {
+                        field: "@Model.GetColumnName("ActDate")",
+                        title: "舉辦日期",
+                        template: '#= "<span>" + @Model.GetColumnName("ActDate") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("ActDate"))"),
+                        sortable: false
+                    },
+                    {
+                        field: "@Model.GetColumnName("AYear")",
+                        title: "年份",
+                        template: '#= "<span>" + @Model.GetColumnName("AYear") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("AYear"))"),
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true
+                    },
+                    {
+                        field: "@Model.GetColumnName("ENo")",
+                        title: "期數",
+                        hidden: $.parseJSON("@(Model.Hidden("ENo"))"),
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true,
+                        width: 50
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_PostDate")",
+                        title: "@Model.GetDisplayName("GetStr_PostDate")",
+                        template: '#= "<span>" + @Model.GetColumnName("GetStr_PostDate") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_PostDate"))"),
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true,
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("PubNo")",
+                        title: "期別",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("PubNo"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 50
+                    },
+                    {
+                        field: "@Model.GetColumnName("PublicationClass.Name")",
+                        title: "年度",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("PublicationClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("NewsType.Name")",
+                        title: "種類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("NewsType.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("NewsClass.Name")",
+                        title: "議題",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("NewsClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("NormClass.Name")",
+                        title: "地區分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("NormClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("NormClassParent.Name")",
+                        title: "國家分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("NormClassParent.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("GreenFactoryClass.Name")",
+                        title: "分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("GreenFactoryClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 200
+                    },
+                    {
+                        field: "@Model.GetColumnName("QuestionClass.Name")",
+                        title: "分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("QuestionClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 200
+                    },
+                    {
+                        field: "@Model.GetColumnName("ApplicationClass.Name")",
+                        title: "分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("ApplicationClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 200
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_LangId")",
+                        title: "版本",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_LangId"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 50
+                    },
+                    {
+                        field: "@Model.GetColumnName("LinksClass.Name")",
+                        title: "分類",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("LinksClass.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("LoginId")",
+                        title: "登入帳號",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("LoginId"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        field: "@Model.GetColumnName("Name")",
+                        title: "@Model.GetDisplayName("Name")",
+                        template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("Name") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("Name"))"),
+                        sortable: true
+                    },
+                    {
+                        field: "@Model.GetColumnName("NameENG")",
+                        title: "@Model.GetDisplayName("NameENG")",
+                        template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("NameENG") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("NameENG"))"),
+                        sortable: true
+                    },
+                    {
+                        field: "@Model.GetColumnName("Industry.Name")",
+                        title: "行業別",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Industry.Name"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 300
+                    },
+                    {
+                        field: "@Model.GetColumnName("Company")",
+                        title: "公司",
+                        hidden: $.parseJSON("@(Model.Hidden("Company"))"),
+                        sortable: true,
+                    },
+                    {
+                        field: "@Model.GetColumnName("Email")",
+                        title: "電子郵件",
+                        hidden: $.parseJSON("@(Model.Hidden("Email"))"),
+                        sortable: true,
+                    },
+                    {
+                        field: "@Model.GetColumnName("Vister")",
+                        title: "瀏覽人數",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Vister"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("Emailer")",
+                        title: "轉寄",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Emailer"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("Printer")",
+                        title: "列印",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Printer"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("Downer")",
+                        title: "下載人數",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("Downer"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 80
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_IsOut")",
+                        title: "是否站外",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_IsOut"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 60
+                    },
+                    {
+                        field: "@Model.GetColumnName("Content")",
+                        title: "內容",
+                        template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("Content") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("Content"))"),
+                        sortable: true
+                    },
+                    {
+                        field: "@Model.GetColumnName("AUrl")",
+                        title: "連結網址",
+                        template: '#= "<span class=\\"u-name\\">" + @Model.GetColumnName("AUrl") + "</span>" #',
+                        hidden: $.parseJSON("@(Model.Hidden("AUrl"))"),
+                        sortable: false
+                    },
+                    {
+                        headerTemplate: kendo.template($("#command-isHome").html()),
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_IsHome"))"),
+                        attributes: { "style": "text-align: center;" },
+                        template: kendo.template($("#content-isHome").html()),
+                        width: 60
+                    },
+                    {
+                        headerTemplate: kendo.template($("#command-isNew").html()),
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_IsNew"))"),
+                        attributes: { "style": "text-align: center;" },
+                        template: kendo.template($("#content-isNew").html()),
+                        width: 60
+                    },
+                    {
+                        headerTemplate: kendo.template($("#command-sortId").html()),
+                        hidden: $.parseJSON("@(Model.Hidden("SortId"))"),
+                        attributes: { "style": "text-align: center;" },
+                        template: kendo.template($("#content-sortId").html()),
+                        width: 60
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_RegDate")",
+                        title: "@Model.GetDisplayName("GetStr_RegDate")",
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_RegDate"))"),
+                        attributes: { "style": "text-align: center;" },
+                        sortable: true,
+                        width: 90
+                    },
+                    {
+                        field: "@Model.GetColumnName("GetStr_Status")",
+                        title: "狀態",
+                        sortable: true,
+                        hidden: $.parseJSON("@(Model.Hidden("GetStr_Status"))"),
+                        attributes: { "style": "text-align: center;" },
+                        width: 100
+                    },
+                    {
+                        title: "操作",
+                        template: kendo.template($("#command-template").html()),
+                        sortable: false,
+                        width: 160
+                    }
+                ],
+                editable: "popup",
+                sortable: true,
+                pageable: {
+                    refresh: true
+                    //, pageSizes: true
+                },
+                scrollable: false,
+                dataBound: function () {
+                    //AJAX資料Bind完成後觸發
+                    var kw = $("#KeyWord").val();
+                    //若有設關鍵字，做Highlight處理
+                    if (kw.length > 0) {
+                        var re = new RegExp(kw, "g");
+                        $(".u-name").each(function () {
+                            var $td = $(this);
+                            $td.html($td.text()
+                           .replace(re, "<span class='hi-lite'>$&</span>"));
+                        });
+                    }
+                }
+            });
+        });
+
+            //全選，全不選
+            function ToggleAll(sender) {
+                if ($(sender).prop('checked')) {
+                    SelectAll('#dvGrid');
+                    return;
+                } else {
+                    ClearSelect('#dvGrid');
+                }
+            }
+
+            //設定排序
+            function SetSortId() {
+                var inputSortIdLength = $("#dvGrid input[name='SortId']").length;
+                var rowNum = 0;
+                $("#dvGrid input[name='SortId']").each(function () {
+                    var entityId = $(this).attr("entityId");
+                    var sortValue = $(this).val();
+                    $.post('@Url.Action("SetSort", Model.ControllerName)', { entityId: entityId, sortValue: sortValue }, function (data) {
+                        rowNum++;
+                        if (rowNum == inputSortIdLength) {
+                            alert("設定完成");
+                            Query();
+                        }
+                    });
+                });
+            }
+
+    //設定IsNew
+    function SetIsNew() {
+        var checkboxIsNewLength = $("#dvGrid input:checkbox[name='IsNew']").length;
+        var rowNum = 0;
+        $("#dvGrid input:checkbox[name='IsNew']").each(function () {
+            var entityId = $(this).attr("entityId");
+            var checkedValue = $(this).prop("checked") ? "1" : "0"
+            $.post('@Url.Action("SetIsNew", Model.ControllerName)', { entityId: entityId, checkedValue: checkedValue }, function (data) {
+                rowNum++;
+                if (rowNum == checkboxIsNewLength) {
+                    alert("設定完成");
+                    Query();
+                }
+            });
+        });
+    }
+
+    //設定IsHome
+    function SetIsHome() {
+        var checkboxIsHomeLength = $("#dvGrid input:checkbox[name='IsHome']").length;
+        var rowNum = 0;
+        $("#dvGrid input:checkbox[name='IsHome']").each(function () {
+            var entityId = $(this).attr("entityId");
+            var checkedValue = $(this).prop("checked") ? "1" : "0"
+            $.post('@Url.Action("SetIsHome", Model.ControllerName)', { entityId: entityId, checkedValue: checkedValue }, function (data) {
+                rowNum++;
+                if (rowNum == checkboxIsHomeLength) {
+                    alert("設定完成");
+                    Query();
+                }
+            });
+        });
+    }
+
+</script>
+
+<script id="command-template" type="text/x-kendo-template">
+    @if (AllowEdit)
+    {
+        <a class="k-button k-grid-Edit" href="@Url.Action(Model.ActionName, Model.ControllerName, new { cdts = Model.Conditions })&id=#: @Model.EntityId #"><span>編輯</span></a>
+    }
+    @if (AllowDelete)
+    {
+        <div class="k-button k-grid-Delete" entityId="#: @Model.EntityId #" entityName="#: @Model.EntityName #"><span>刪除</span> </div>
+    }   
+</script>
+<script id="command-sortId" type="text/x-kendo-template">
+    @if (AllowEdit && "false".Equals(Model.Hidden("SortId")))
+    {
+        <input type="button" value="設定排序" onclick="SetSortId();" name="button">
+    }
+</script>
+<script id="content-sortId" type="text/x-kendo-template">
+    @if ("false".Equals(Model.Hidden("SortId")))
+    {
+        <input type="text" value="#: SortId #" entityId="#: @Model.EntityId #" maxlength="5" size="5" name="SortId">   
+    }
+</script>
+<script id="command-isNew" type="text/x-kendo-template">
+    @if (AllowEdit && "false".Equals(Model.Hidden("GetStr_IsNew")))
+    {
+        <input type="button" value="設定New顯示" onclick="SetIsNew();" name="button">
+    }
+</script>
+<script id="content-isNew" type="text/x-kendo-template">
+    @if ("false".Equals(Model.Hidden("GetStr_IsNew")))
+    {
+        <input type="checkbox" #= IsNew=="1" ? "checked=checked" : ""# entityId="#: @Model.EntityId #" name="IsNew">   
+    }
+</script>
+<script id="command-isHome" type="text/x-kendo-template">
+    @if (AllowEdit && "false".Equals(Model.Hidden("GetStr_IsHome")))
+    {
+        <input type="button" value="設定首頁顯示" onclick="SetIsHome();" name="button">
+    }
+</script>
+<script id="content-isHome" type="text/x-kendo-template">
+    @if ("false".Equals(Model.Hidden("GetStr_IsHome")))
+    {
+        <input type="checkbox" #= IsHome=="1" ? "checked=checked" : ""# entityId="#: @Model.EntityId #" name="IsHome">   
+    }
+</script>

@@ -1,0 +1,94 @@
+﻿@model FTISWeb.Models.NewsModel
+@using FTISWeb.Models;
+@using System.Web.Optimization
+@{    
+    SendMailModel m_SendMailModel = new SendMailModel();
+    if(ViewData["SendMailOk"]!=null)
+    {
+        m_SendMailModel.SendMailOk = (bool)ViewData["SendMailOk"];
+    }
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>產業永續發展整合資訊網</title>
+<link href="~/css/InCss.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        h1 {
+	background-image: url(/in-image/alltitle.jpg);
+	font-family: "微軟正黑體";
+	font-size: 18px;
+	font-weight: bold;
+	color: #464646;
+	margin-bottom: 20px;
+	margin-top: 25px;
+	margin-right: 0px;
+	margin-left: 20px;
+	height: 31px;
+	width: 663px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 25px;
+}
+    </style>
+    @Scripts.Render("~/bundles/JQuery", "~/bundles/SiteHome")
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSendEmail');
+            });
+            $("#safecode").click(function () {
+                $("#safecode").attr("src", $("#safecode").attr('src') + '?' + Math.random());
+            });            
+            
+        });
+    </script>
+</head>
+<body>
+    <div style="width:720px;margin-left: auto;
+	margin-right: auto;">
+<h1>新聞動態</h1>            
+        </div>
+@using (Html.BeginForm("SendMail", "News", new { id = Model.EncryptId(Model.EntityId) }, FormMethod.Post, new { id = "frmSendEmail" }))
+{
+<div id="Print-INob">
+<span class="txt-red">將以下這則訊息寄給朋友</span>        
+  <p class="News-IN-Title">@Model.Name</p>
+  <p class="News-IN-Day">刊登日期：@Model.GetStr_Date(Model.PostDate)</p>
+<div class="Vote01-txt">@Model.FilterHtml(Model.Content, 300, true)
+      (<a href="@Url.Action("Detail", "News", new { id = Model.EncryptId(Model.EntityId) })"><span class="Vote01-txt-txt">詳全文</span></a>) </div>
+      <p class="Vote01-stxt">你的暱稱：
+          @Html.TextBox("SendMailName", m_SendMailModel.SendMailName, new { id = "SendMailName", @class = "csr-Order2" })
+      </p>
+      <p class="Vote01-stxt">你的Email：
+          @Html.TextBox("SendMailFrom", m_SendMailModel.SendMailFrom, new { id = "SendMailFrom", @class = "csr-Order2" })        
+      </p>
+      <p class="Vote01-stxt">好友Email：
+          @Html.TextBox("SendMailTo", m_SendMailModel.SendMailTo, new { id = "SendMailTo", @class = "csr-Order2" })
+          <span class="txt-red">※ 多筆收件人請使用 ; 區隔</span>
+      </p>
+      <p class="Vote01-stxt">你的留言：
+          @Html.TextArea("SendMailContent", m_SendMailModel.SendMailContent, new { id = "SendMailContent", @class = "csr-Order3", cols = "45", rows = "3" })
+      </p>       
+      <p class="Vote01-stxt">驗證碼：
+        <span class="Epaper02-pp">
+            @Html.TextBox("SendMailConfirmationCode", m_SendMailModel.SendMailConfirmationCode, new { id = "SendMailConfirmationCode", @class = "Epaper-Order2" })
+          <span class="Epaper02-pp"><img id="safecode" src="@Url.Action("CaptchaImg", "News")" width="100" height="30" /></span>
+      </p>
+      <div class="Epaper02-Btn"><input type="image" name="Submit" src="/in-image/com-sent-btn.gif" width="78" height="25" alt="填好送出" />
+           <a id="btnClear" href="#"><img src="/in-image/com-clear-btn.gif" width="78" height="25" alt="清除" /></a></div>
+    <div class="txt-red"> @Html.ValidationSummary()</div>
+</div>
+<input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />
+}
+    @if (m_SendMailModel.SendMailOk)
+    {
+        <script type="text/javascript">
+            alert("已送出!");
+        </script>
+
+    }
+</body>
+</html>

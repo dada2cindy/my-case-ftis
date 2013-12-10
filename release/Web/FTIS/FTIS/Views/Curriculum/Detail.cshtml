@@ -1,0 +1,44 @@
+﻿@model FTISWeb.Models.CurriculumModel
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using FTISWeb.Models;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel(); 
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left"><!--左-->
+    @Html.Partial("InFlash")
+    @Html.Partial("DownloadLeftMenu")
+    @Html.Partial("InSiteLeftMenu")
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+    <h1>下載專區<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Download")">下載專區</a> &gt; 課程講義</span>    </h1>
+    <h2>課程講義</h2>
+    <div id="InShow-INob">
+      <p class="News-IN-Title">@Model.Name</p>
+      <p class="News-IN-Day">刊登日期：@m_hsModel.GetStr_Date(Model.PostDate)　瀏覽次數：@Model.Vister      
+      @(new HtmlString(Model.Content))
+        @{
+            if(!string.IsNullOrWhiteSpace(Model.AFile1))
+            {
+                <a target="_blank" href="@Url.Action("DownloadFile", "Curriculum", new { id=m_hsModel.EncryptId(Model.EntityId), fileNum = "1", name = Model.Name})"><p class="News-IN-Next"><strong>附件檔案1</strong>：@m_hsModel.GetFileName(Model.AFile1Name)</p></a>
+            }
+            if(!string.IsNullOrWhiteSpace(Model.AFile2))
+            {
+                <a target="_blank" href="@Url.Action("DownloadFile", "Curriculum", new { id=m_hsModel.EncryptId(Model.EntityId), fileNum = "2", name = Model.Name})"><p class="News-IN-Next"><strong>附件檔案2</strong>：@m_hsModel.GetFileName(Model.AFile2Name)</p></a>
+            }
+            if(!string.IsNullOrWhiteSpace(Model.AFile3))
+            {
+                <a target="_blank" href="@Url.Action("DownloadFile", "Curriculum", new { id=m_hsModel.EncryptId(Model.EntityId), fileNum = "3", name = Model.Name})"><p class="News-IN-Next"><strong>附件檔案3</strong>：@m_hsModel.GetFileName(Model.AFile3Name)</p></a>
+            }      
+        }
+      <a href="javascript:history.back();"><p class="News-IN-Back"></p></a>
+      </div>
+    
+  </div><!--內容結尾-->
+</div>

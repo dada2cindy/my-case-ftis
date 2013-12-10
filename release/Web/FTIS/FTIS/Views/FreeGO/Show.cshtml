@@ -1,0 +1,18 @@
+﻿@model FTISWeb.Models.FreeGOModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Title</title>
+</head>
+<body>
+    <div>              
+        @(new HtmlString(Model.Msg))
+    </div>
+</body>
+</html>

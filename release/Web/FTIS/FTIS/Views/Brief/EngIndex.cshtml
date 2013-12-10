@@ -1,0 +1,54 @@
+﻿@model IDictionary<string, IList<Brief>>
+@{
+    Layout = "~/Views/Shared/EngLayout.cshtml";
+}
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@using FTIS.Domain.Impl;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+}
+@section HeadContent{}
+<div id="In-Table">
+  <div id="In-left-e"><!--左-->
+    @Html.Partial("InFlash")    
+    <div id="In-leftTitle"><img src="@Url.Content("~/e-image/left-b2.png")" alt="Sustainable Industrial Development Newsletter"/></div>
+    <a href="@Url.Action("EngIndex", "Brief")">
+      <div class="Left-sbtn">Sustainable Industrial Development Newsletter</div>
+    </a>
+  </div><!--左結尾-->
+
+
+  <div id="InShow"><!--內容-->
+    @Html.Partial("InShowAdv")
+      <h1>Sustainable Industrial Development Newsletter<span class="Pon"><a href="@Url.Action("EngIndex", "Home")">Home</a> &gt; SIDN</span>    </h1>    
+      <div id="InShow-INob">
+          @{
+              foreach (var groupList in Model)
+              {
+                  <div class="Download03a-stitle">
+        <p>@(groupList.Key) </p>
+      </div>
+      <div class="Download03a-stable">
+          @{
+              foreach (var data in groupList.Value)
+              {
+                  string fileUrl = m_hsModel.GetFileByEncrypt(data.AFile1);
+                  if (!string.IsNullOrWhiteSpace(data.AUrl) & "1".Equals(data.IsUrl))
+                  {
+                      fileUrl = data.AUrl;
+                  }
+          <a target="_blank" href="@fileUrl">
+        <div class="Download03a-4table"> @data.Name
+        </div>
+        </a>
+          }
+          }
+
+      </div>
+              }
+          }
+      </div>
+  </div><!--內容結尾-->
+</div>

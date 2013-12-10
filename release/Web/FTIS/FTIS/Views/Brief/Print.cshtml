@@ -1,0 +1,84 @@
+﻿@model IDictionary<string, IList<Brief>>
+@using FTISWeb.Models;
+@using System.Web.Script.Serialization;
+@using WuDada.Core.Generic.Extension;
+@using FTIS.Domain.Impl;
+@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>產業永續發展整合資訊網</title>
+<link href="~/css/InCss.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        h1 {
+	background-image: url(/in-image/alltitle.jpg);
+	font-family: "微軟正黑體";
+	font-size: 18px;
+	font-weight: bold;
+	color: #464646;
+	margin-bottom: 20px;
+	margin-top: 25px;
+	margin-right: 0px;
+	margin-left: 20px;
+	height: 31px;
+	width: 663px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 25px;
+}
+        h2 {
+	background-image: url(../in-image/in-icon.gif);
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 30px;
+	padding-left: 20px;
+	font-family: "微軟正黑體";
+	font-size: 17px;
+	font-weight: bold;
+	color: #F77B02;
+	background-repeat: no-repeat;
+	background-position: left 5px;
+	clear: left;
+}
+    </style>
+</head>
+<body>
+    <div style="width:720px;margin-left: auto;
+	margin-right: auto;">
+<h1>下載專區<span class="Pon"><a href="@Url.Action("Index", "Home")">首頁</a> &gt; <a href="@Url.Action("Index", "Download")">下載專區</a> &gt; 永續產業發展簡訊</span>    </h1>    
+<h2>永續產業發展簡訊</h2>
+    <div class="News-IN-3Function" style="margin-top:initial;"><img src="/in-image/com-icon-6.gif" width="13" height="12" alt="列印"/><a target="_blank" href="javascript:print();">我要列印</a></div>
+        <br />
+        </div>
+<div id="Print-INob">    
+    @{
+              foreach (var groupList in Model)
+              {
+                  <div class="Download03a-stitle"><p style="margin:0;">@(groupList.Key)年 </p></div>
+      <div class="Download03a-stable">
+          @{
+              foreach (var data in groupList.Value)
+              {
+                  string fileUrl = m_hsModel.GetFileByEncrypt(data.AFile1);
+                  if (!string.IsNullOrWhiteSpace(data.AUrl) & "1".Equals(data.IsUrl))
+                  {
+                      fileUrl = data.AUrl;
+                  }
+          <a target="_blank" href="@fileUrl">
+        <div class="Download03a-4table"> @data.Name
+        </div>
+        </a>
+          }
+          }
+
+      </div>
+              }
+          }
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿@{
+    HomeShowModel m_hsModel = new HomeShowModel();
+    NodeModel m_NodeModel = new NodeModel();
+    @*分類*@
+    IList<NormClass> m_ParentNormClassList = new List<NormClass>();
+    if (ViewData["ParentNormClassList"] != null)
+    {
+        m_ParentNormClassList = (List<NormClass>)ViewData["ParentNormClassList"];
+    } 
+}
+@using FTIS.Domain.Impl;
+@using FTISWeb.Models;
+@using System.Collections;
+
+<div id="In-leftTitle">
+    <img src="@Url.Content("~/in-image/left-title-a2.png")" alt="國際環保標準規範介紹" /></div>
+@{
+    <a href="@Url.Action("Index", "Norm")"><div class="Left-sbtn">各地區標準／規範</div></a>
+    if (m_ParentNormClassList != null && m_ParentNormClassList.Count > 0)
+    {
+        foreach (NormClass normClass in m_ParentNormClassList)
+        {            
+            <div class="Left-ssbtn"><a href="@Url.Action("Index", "Norm", new { id = m_hsModel.EncryptId(normClass.NormClassId) })">@normClass.Name</a></div>
+        }
+    }     
+    <br />
+    <a href="@Url.Action("Index", "MNorm")"><div class="Left-sbtn">國際組織標準/系統動態</div></a>
+}

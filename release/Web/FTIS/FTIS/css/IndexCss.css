@@ -1,0 +1,237 @@
+@charset "utf-8";
+#Index-table {
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#Index-Left {
+	float: left;
+	width: 260px;
+	margin-bottom: 20px;
+	margin-left: -3px;
+	margin-right: 5px;
+	margin-top: -10px;
+}
+#Ind-Left-BtnTable {
+	width: 208px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 10px;
+}
+.Left-Btn {
+	margin-bottom: 6px;
+}
+#Index-Show {
+	float: left;
+	width: 445px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	margin-top: 15px;
+	margin-right: 15px;
+}
+.Show-News-UL {
+	background-image: url(../image/stitle01.jpg);
+	background-repeat: no-repeat;
+	width: 412px;
+	margin-bottom: 15px;
+	padding-top: 10px;
+	padding-left: 30px;
+}
+
+.more1 {
+	background-image: url(../image/more01.png);
+	height: 7px;
+	width: 38px;
+	background-repeat: no-repeat;
+	margin-bottom: 30px;
+	margin-left: 370px;
+}
+.more1:hover {
+	background-image: url(../image/more01a.png);
+	height: 7px;
+	width: 38px;
+	background-repeat: no-repeat;
+	margin-bottom: 30px;
+	margin-left: 370px;
+}
+
+.Show-News-LI {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #5C5C5C;
+	margin-bottom: 10px;
+	list-style-image: url(../image/icon01.gif);
+	padding-left: 1px;
+}
+.Show-News-Day {
+	float: right;
+	margin-right: 3px;
+}
+
+.Show-Act-UL {
+	background-image: url(../image/stitle02.jpg);
+	background-repeat: no-repeat;
+	width: 412px;
+	margin-bottom: 30px;
+	padding-top: 10px;
+	padding-left: 30px;
+}
+#Show-Flash {
+	height: 100px;
+	width: 445px;
+	margin-bottom: 14px;
+}
+#Periodical-Down {
+	background-image: url(../image/periodical-down.gif);
+	height: 408px;
+	width: 400px;
+	margin-bottom: 15px;
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-right: 25px;
+}
+.Peridoical-more {
+	background-image: url(../image/more02.png);
+	height: 11px;
+	width: 34px;
+	margin-right: 20px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	margin-left: 375px;
+}
+.Perid-pp01 {
+	margin-right: 10px;
+	border: 1px solid #CCCCCC;
+}
+.perid-txt01 {
+	background-image: url(../image/stitle03.jpg);
+	height: 15px;
+	width: 70px;
+	margin-bottom: 10px;
+}
+.perid-txt02 {
+	background-image: url(../image/stitle04.jpg);
+	height: 15px;
+	width: 70px;
+	margin-bottom: 10px;
+}
+
+.perid-stitle {
+	font-size: 12px;
+	color: #2474BF;
+	margin-bottom: 6px;
+}
+.perid-stxt {
+	font-size: 12px;
+	color: #555555;
+	line-height: 19px;
+}
+.Perid-line {
+	margin-top: 13px;
+	margin-bottom: 13px;
+	border-top-width: 1px;
+	border-top-style: dotted;
+	border-top-color: #BBBBBB;
+}
+.Perid-stxt2 {
+	list-style-type: disc;
+	font-size: 12px;
+	color: #555;
+	margin-bottom: 4px;
+	margin-left: 20px;
+}
+.Perid-more-UL {
+	background-image: url(../image/periodical-more.gif);
+	height: 72px;
+	width: 90px;
+	margin-right: 10px;
+	padding-top: 30px;
+	padding-left: 12px;
+	font-size: 12px;
+	line-height: 21px;
+	color: #5C5C5C;
+}
+#Index-right {
+	float: left;
+	width: 200px;
+	margin-top: 15px;
+	margin-left: 15px;
+}
+.Right-Down-UL {
+	background-image: url(../image/message-down.png);
+	height: 240px;
+	width: 170px;
+	padding-top: 56px;
+	padding-left: 15px;
+	font-size: 12px;
+	color: #739C20;
+	padding-right: 15px;
+	margin-bottom: 10px;
+}
+.Right-message-LI {
+	font-size: 12px;
+	color: #5F8E01;
+	margin-bottom: 10px;
+}
+a.message:link {
+	font-size: 12px;
+	color: #5F8E01;
+	text-decoration: none;
+}
+a.message:visited {
+	font-size: 12px;
+	color: #5F8E01;
+	text-decoration: none;
+}
+a.message:active {
+	font-size: 12px;
+	color: #5F8E01;
+	text-decoration: none;
+}
+a.message:hover {
+	font-size: 12px;
+	color: #E67628;
+	text-decoration: underline;
+}
+#Csr-report {
+	background-image: url(../image/rbtn1.png);
+	height: 70px;
+	width: 200px;
+	margin-bottom: 10px;
+}
+#Right2-down {
+	background-image: url(../image/rdown.png);
+	height: 354px;
+	width: 190px;
+	padding-top: 10px;
+	padding-left: 10px;
+	margin-bottom: 20px;
+}
+.Right2-table {
+	padding-bottom: 6px;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #A7A7A7;
+	margin-bottom: 6px;
+	padding-top: 6px;
+}
+.Right2-Vote {
+	font-size: 12px;
+	font-weight: bold;
+	color: #5F8E01;
+	margin-bottom: 3px;
+	margin-left: 20px;
+	margin-top: 5px;
+}
+.Right2-Vote2 {
+	font-size: 12px;
+	color: #F87E04;
+	margin-left: 20px;
+}
+.Show-adv {
+	float: left;
+	height: 39px;
+	width: 133px;
+	margin-left: 12px;
+	margin-bottom: 12px;
+}

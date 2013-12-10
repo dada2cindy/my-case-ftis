@@ -1,0 +1,385 @@
+﻿@model FTISWeb.Models.MasterMemberModel
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using FTISWeb.Helper;
+@using System.Web.Optimization
+@using FTISWeb.Models;
+@using FTIS.ACUtility;
+@using FTIS.Domain;
+@using FTISWeb.Utility;
+@using FTIS.Domain.Impl;
+@{
+    string m_Cdts = (string)ViewData["Conditions"];
+    
+    @*權限*@
+    bool AllowCreate = (bool)ViewData["AllowCreate"];
+    bool AllowEdit = (bool)ViewData["AllowEdit"];
+
+    SiteOperations Action = SiteOperations.Create;
+    if (Model.EntityId != 0)
+    {
+        Action = SiteOperations.Edit;
+    }   
+}
+@section TitleContent{}
+@section HeadContent{
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClear").click(function () {
+                ClearUI('#frmSave');
+            });
+        });        
+    </script>
+}
+
+@using (Html.BeginForm(Action.ToString(), "MasterMember", new { cdts = (string)ViewData["Conditions"] }, FormMethod.Post, new { id = "frmSave" }))
+{
+    <input id="EntityId" name="EntityId" type="hidden" value="@Model.EntityId" />       
+    <fieldset class="fieldset">
+        <h1>管理員設定 </h1>
+        <table style="width: 100%" class="FormTable">       
+            <tr>
+                <td style="text-align:right;">*登入帳號：
+                </td>
+                <td>
+                    @Html.TextBox("Account", Model.Account, new { id = "Account", @style = "width: 600px;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*姓名：
+                </td>
+                <td>
+                    @Html.TextBox("Name", Model.Name, new { id = "Name" })
+                </td>
+            </tr>  
+            <tr>
+                <td style="text-align:right;">*登入密碼：
+                </td>
+                <td>
+                    @Html.Password("Password", Model.Password, new { id = "Password", @style = "width: 600px;" })
+                </td>
+            </tr>                           
+            <tr>
+                <td style="text-align:right;">電子郵件：
+                </td>
+                <td>
+                    @Html.TextBox("Email", Model.Email, new { id = "Email", @style = "width: 600px;" })
+                </td>
+            </tr>                                        
+            <tr>
+                <td style="text-align:right;">電話 ：
+                </td>
+                <td>
+                    @Html.TextBox("Tel", Model.Tel, new { id = "Tel" })
+                </td>
+            </tr>                                                                                           
+            <tr>
+                <td style="text-align:right;">備註：
+                </td>
+                <td>
+                    @Html.TextArea("Memo", Model.Memo, new { id = "Memo", cols="45", rows="10" })  
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">*狀態：
+                </td>
+                <td>
+                    <label>@Html.RadioButtonFor(m => m.Status, "1")開啟</label>
+                    <label>@Html.RadioButtonFor(m => m.Status, "0")關閉</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">權限設定：
+                </td>
+                <td>
+                    <table cellspacing="1" cellpadding="2" border="0" align="left" class="border">
+              <tbody><tr>
+                <td width="150">&nbsp;</td>
+                <td width="40" bgcolor="#efefef" align="center" >查看</td>
+                <td width="40" bgcolor="#efefef" align="center" >新增</td>
+                <td width="40" bgcolor="#efefef" align="center" >修改</td>
+                <td width="40" bgcolor="#efefef" align="center" >刪除</td>
+                <td width="40" bgcolor="#efefef" align="center" >&nbsp;</td>
+              </tr>              
+              <tr id="Bar1">
+                <td align="center" style="color:blue">網站管理</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList1.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList1">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList1.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList1">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList1.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList1">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList1.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList1">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar1');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar1');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar2">
+                <td align="center" style="color:blue">關於我們</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList2.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList2">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList2.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList2">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList2.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList2">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList2.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList2">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar2');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar2');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar3">
+                <td align="center" style="color:blue">新聞動態</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList3.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList3">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList3.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList3">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList3.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList3">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList3.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList3">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar3');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar3');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar4">
+                <td align="center" style="color:blue">即時訊息</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList4.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList4">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList4.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList4">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList4.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList4">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList4.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList4">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar4');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar4');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar5">
+                <td align="center" style="color:blue">活動訊息</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList5.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList5">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList5.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList5">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList5.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList5">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList5.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList5">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar5');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar5');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar6">
+                <td align="center" style="color:blue">會員專區</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList6.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList6">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList6.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList6">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList6.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList6">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList6.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList6">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar6');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar6');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar7">
+                <td align="center" style="color:blue">下載專區</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList7.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList7">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList7.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList7">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList7.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList7">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList7.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList7">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar7');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar7');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar8">
+                <td align="center" style="color:blue">標準/規範管理</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList8.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList8">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList8.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList8">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList8.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList8">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList8.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList8">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar8');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar8');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar9">
+                <td align="center" style="color:blue">產品環境資訊揭露管理</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList9.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList9">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList9.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList9">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList9.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList9">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList9.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList9">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar9');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar9');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar10">
+                <td align="center" style="color:blue">企業永續發展應用<br />/企業社會責任管理</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList10.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList10">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList10.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList10">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList10.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList10">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList10.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList10">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar10');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar10');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar12">
+                <td align="center" style="color:blue">評比介紹管理</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList12.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList12">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList12.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList12">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList12.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList12">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList12.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList12">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar12');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar12');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar13">
+                <td align="center" style="color:blue">網路資源管理</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList13.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList13">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList13.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList13">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList13.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList13">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList13.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList13">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar13');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar13');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar14">
+                <td align="center" style="color:blue">電子報管理</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList14.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList14">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList14.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList14">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList14.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList14">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList14.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList14">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar14');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar14');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar15">
+                <td align="center" style="color:blue">首頁四季節慶設置</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList15.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList15">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList15.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList15">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList15.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList15">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList15.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList15">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar15');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar15');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar16">
+                <td align="center" style="color:blue">滿意度問卷管理</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList16.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList16">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList16.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList16">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList16.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList16">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList16.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList16">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar16');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar16');" style="text-decoration:none;">-</a> </td>
+              </tr>
+              <tr id="Bar17">
+                <td align="center" style="color:blue">綠色工廠</td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList17.Contains("1")? "checked" :string.Empty) value="1" name="RolesBarList17">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList17.Contains("8")? "checked" :string.Empty) value="8" name="RolesBarList17">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList17.Contains("2")? "checked" :string.Empty) value="2" name="RolesBarList17">
+                </td>
+                <td bgcolor="#efefef" align="center" >
+                  <input type="checkbox" @(Model.RolesBarList17.Contains("4")? "checked" :string.Empty) value="4" name="RolesBarList17">
+                </td>
+                <td bgcolor="#efefef" align="center" style="text-decoration:none;" > <a href="javascript:SelectAll('#Bar17');" style="text-decoration:none;">+</a> <a href="javascript:ClearSelect('#Bar17');" style="text-decoration:none;">-</a> </td>
+              </tr>
+                                             
+          </tbody></table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:left; height:30px;">
+                    @if (SiteOperations.Create.Equals(Action) && AllowCreate)
+                    {
+                        <input id="btnCreate" class="btn" type="submit" value="新增" />                        
+                    }
+                    @if (SiteOperations.Edit.Equals(Action) && AllowEdit)
+                    {
+                        <input id="btnEdit" class="btn" type="submit" value="修改" />                        
+                    }
+                    <input id="btnClear" class="btn" type="button" value="重填" />
+                    @Html.Raw(Url.ButtonLink("回清單", "AdminIndex", "MasterMember", new { cdts = m_Cdts }, new { @class = "btn" }))
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+@Html.ValidationSummary()
+}
+<br />

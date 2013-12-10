@@ -1,0 +1,49 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@RenderSection("TitleContent", false)</title>
+    @Styles.Render("~/Content/Admin/AdminCSS")
+    @Scripts.Render("~/bundles/JQuery", "~/bundles/SiteCommon")
+    @Styles.Render("~/Content/kendo/KendoCSS")
+    @Scripts.Render("~/bundles/KendoUI")
+    <style>
+        body { font-size: 8pt; }
+        #dvGrid { width: 100%; }
+        span.hi-lite { color: red; }
+        #dvGrid th.k-header { text-align: center; }
+    </style>
+    <script>
+        kendo.culture("zh-TW");
+        @*這裡要設定，因為預設應該是/ckeditor/，再發佈到iis後會抓錯路徑*@
+        var CKEDITOR_BASEPATH = '@Url.Content("~/Scripts/ckeditor/")';
+    </script>
+    @RenderSection("HeadContent", false)
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="left">
+        <tr>
+            <td valign="top">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr id="htmlTableRowCell" runat="server" valign="top">
+                        <td width="87%" valign="top" id="htmlRightCell" runat="server" height="600">
+                            <table style="width: 100%" border="0" cellpadding="0" class="tablenoleftmargin">
+                                <tr>
+                                    <td valign="top" style="padding: 5px" colspan="2" width="100%">                                        
+                                        @RenderBody()
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" style="padding: 5px" colspan="2">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

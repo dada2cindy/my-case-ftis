@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H106100 使用 CSS 樣式表編排的文件需確保在除去樣式表後仍然能夠閱讀</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H106100 使用 CSS 樣式表編排的文件需確保在除去樣式表後仍然能夠閱讀</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+            <div>
+                <p>
+                    <strong>不良設計：</strong></p>
+                <pre>
+  &lt;DIV class=&quot;box&quot;&gt;
+  &lt;SPAN class=&quot;menu1&quot;&gt;DVD出租排行榜&lt;/SPAN&gt;
+  &lt;SPAN class=&quot;menu2&quot;&gt;VCD出租排行榜&lt;/SPAN&gt;
+  &lt;SPAN class=&quot;item1&quot;&gt;綠巨人浩克&lt;/SPAN&gt;
+  &lt;SPAN class=&quot;item2&quot;&gt;魔鬼終結者3&lt;/SPAN&gt;
+  &lt;SPAN class=&quot;item3&quot;&gt;王牌天神&lt;/SPAN&gt;
+  &lt;SPAN class=&quot;item4&quot;&gt;海底總動員&lt;/SPAN&gt;
+  &lt;SPAN class=&quot;item5&quot;&gt;霹靂嬌娃2&lt;/SPAN&gt;
+  &lt;SPAN class=&quot;item6&quot;&gt;綠巨人浩克&lt;/SPAN&gt;
+  &lt;/DIV&gt;
+          </pre>
+                <p class="invisible">
+                    範例結束</p>
+                </div>
+                <h2>
+                    正確示範</h2>
+                <p>
+                    配合使用DL、DT、DD標籤，可以避免CSS樣式表無法正常顯示時，內容依然可以依正確的排版方式顯示，如下：</p>
+                <div class="example">
+                    <p>
+                        <strong>正確範例：</strong></p>
+                    <pre>
+  &lt;DIV class=&quot;box&quot;&gt;
+  &lt;DL&gt;
+  &lt;DT class=&quot;menu1&quot;&gt;DVD出租排行榜&lt;/DT&gt;
+  &lt;DD class=&quot;item1&quot;&gt;綠巨人浩克&lt;/DD&gt;
+  &lt;DD class=&quot;item2&quot;&gt;魔鬼終結者3&lt;/DD&gt;
+  &lt;DD class=&quot;item3&quot;&gt;王牌天神&lt;/DD&gt;
+  &lt;DT class=&quot;menu2&quot;&gt;VCD出租排行榜&lt;/DT&gt;
+  &lt;DD class=&quot;item4&quot;&gt;海底總動員&lt;/DD&gt;
+  &lt;DD class=&quot;item5&quot;&gt;霹靂嬌娃2&lt;/DD&gt;
+  &lt;DD class=&quot;item6&quot;&gt;綠巨人浩克&lt;/DD&gt;
+ &lt;/DL&gt;
+  &lt;/DIV&gt;
+          </pre>
+                    <p class="invisible">
+                        範例結束</p>
+                </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>

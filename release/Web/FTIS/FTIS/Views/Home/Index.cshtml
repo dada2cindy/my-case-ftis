@@ -1,0 +1,176 @@
+﻿@{
+    Layout = "~/Views/Shared/HomeLayout.cshtml";
+}
+@model FTISWeb.Models.HomeShowModel
+@using FTIS.Domain.Impl
+@{
+    TemplateVO templateVO = Model.GetCurrentTemplate();
+}
+@{    
+<div id="Index-table"><!--內容區-->
+
+  <div id="Index-Left"><!--左-->
+    <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="260" height="384">
+      <param name="movie" value="/isdn@(Url.Content(templateVO.FileName2))" />
+      <param name="quality" value="high" />
+      <param name="wmode" value="opaque" />
+      <param name="swfversion" value="9.0.45.0" />
+      <!-- 此 param 標籤會提示使用 Flash Player 6.0 r65 和更新版本的使用者下載最新版本的 Flash Player。如果您不想讓使用者看到這項提示，請將其刪除。 -->
+      <param name="expressinstall" value="Scripts/expressInstall.swf" />
+      <!-- 下一個物件標籤僅供非 IE 瀏覽器使用。因此，請使用 IECC 將其自 IE 隱藏。 -->
+      <!--[if !IE]>-->
+      <object type="application/x-shockwave-flash" data="/isdn@(Url.Content(templateVO.FileName2))" width="260" height="384">
+        <!--<![endif]-->
+        <param name="quality" value="high" />
+        <param name="wmode" value="opaque" />
+        <param name="swfversion" value="9.0.45.0" />
+        <param name="expressinstall" value="Scripts/expressInstall.swf" />
+        <!-- 瀏覽器會為使用 Flash Player 6.0 和更早版本的使用者顯示下列替代內容。 -->
+        <div>
+          <h4>這個頁面上的內容需要較新版本的 Adobe Flash Player。</h4>
+          <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="取得 Adobe Flash Player" width="112" height="33" /></a></p>
+        </div>
+        <!--[if !IE]>-->
+      </object>
+      <!--<![endif]-->
+    </object>
+    <div id="Ind-Left-BtnTable"> <a href="@Url.Action("Index", "Application")"><img src="@Url.Content("~/image/lbtn01.png")" class="Left-Btn" alt="企業社會責任"/></a>
+      <a href="@Url.Action("Index", "Norm")"><img src="@Url.Content("~/image/lbtn02.png")" class="Left-Btn" alt="國際環保標準規範介紹"/></a>
+      <a href="@Url.Action("Index", "Carbon")"><img src="@Url.Content("~/image/lbtn03.png")" class="Left-Btn" alt="產品環境資訊揭露"/></a>
+      <a href="@Url.Action("Index", "GreenFactory")"><img src="@Url.Content("~/image/lbtn04.png")" class="Left-Btn" alt="綠色工廠"/></a>
+      <a href="@Url.Action("Index", "Green")"><img src="@Url.Content("~/image/lbtn05.png")" class="Left-Btn" alt="企業永續發展"/></a>
+      <a href="@Url.Action("Index", "Technology")"><img src="@Url.Content("~/image/lbtn06.png")" class="Left-Btn" alt="技術服務能量登錄"/></a>
+      <a href="@Url.Action("Index", "Question")"><img src="@Url.Content("~/image/lbtn07.png")" class="Left-Btn" alt="產業服務專區"/></a>
+     <a href="@Url.Action("Index", "Examination")"><img src="@Url.Content("~/image/lbtn08.png")" class="Left-Btn" alt="問卷調查"/></a>
+    
+    </div>
+  </div><!--左結尾-->
+  
+  <div id="Index-Show"><!--中-->
+    <ul class="Show-News-UL">
+      <a href="@Url.Action("Index", "News")"><li class="more1"></li></a>
+      @{
+          int dataIndex = 0;
+          foreach(News news in Model.GetNewsList())
+          {
+              <li class="Show-News-LI"><a href="@Url.Action("Detail", "News", new { id = Model.EncryptId(news.NewsId), dataIndex = dataIndex })">@Model.SubString(news.Name, 24, true)</a>
+                  @if("1".Equals(news.IsNew)){<img src="image/newsicon.gif" width="30" height="13" alt="New" />}<span class="Show-News-Day">@news.GetStr_PostDate</span></li>
+              dataIndex++;
+          }
+      }
+    </ul>    
+    <ul class="Show-Act-UL">
+      <a href="@Url.Action("Index", "Activity")"><li class="more1"></li></a>
+      @{          
+          foreach (Activity activity in Model.GetActivityList())
+          {
+              <li class="Show-News-LI"><a href="@Url.Action("Detail", "Activity", new { id = Model.EncryptId(activity.ActivityId) })">@Model.SubString(activity.Name, 24, true)</a>
+                  @if ("1".Equals(activity.IsNew)){<img src="image/newsicon.gif" width="30" height="13" alt="New" />}<span class="Show-News-Day">@activity.GetStr_PostDate</span></li>              
+          }
+      }
+    </ul>    
+    <div id="Show-Flash">
+    <img src="@Url.Content("~/pp/adv.jpg")" width="445" height="100" alt="圖片" usemap="#ADVMAP" />
+        <map name="ADVMAP">
+            <area alt="企業永續評比介紹" href="@Url.Action("Index", "Application", new { applicationClassId = "DEFBE4EBFFC1C431" })" coords="20,20,142,32">
+            <area alt="企業社會投資介紹" href="@Url.Action("Index", "Application", new { applicationClassId = "2B8508DCA18D2159" })" coords="20,40,142,52">
+            <area alt="企業社會責任規範與標準介紹" href="@Url.Action("Index", "Application", new { applicationClassId = "068316C20F59730E" })" coords="162,20,357,32">
+            <area alt="企業社會責任報告書查詢" href="@Url.Action("Index2", "Report")" coords="162,40,330,52">
+        </map>
+    </div>
+    <div id="Periodical-Down">
+      <a href="@Url.Action("Index", "Publication")"><div class="Peridoical-more"></div></a>
+      <table border="0" cellspacing="0" cellpadding="0">
+          @{
+              foreach (Publication publication in Model.GetPublication())
+            {
+  <tr>
+    <td><a href="@Url.Action("Index", "Publication")"><img src="@Model.GetFile(publication.Pic1)" width="100" height="138" class="Perid-pp01" alt="@publication.Name" /></a></td>
+    <td valign="top">
+      <p class="perid-txt01"></p>
+      <p class="perid-stitle">@publication.Name</p>
+      <p class="perid-stxt"><a href="@Url.Action("Index", "Publication")">@Model.FilterHtml(publication.Content, 115, true)</a></p>
+      </td>
+      </tr>
+            }
+          }
+      </table>
+      <div class="Perid-line"></div>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="top">
+            <ul class="Perid-more-UL">
+              <li><a href="@Url.Action("Index", "Publication")">企業永續</a></li>
+              <li><a href="@Url.Action("Index", "Publication")">專術專欄</a></li>
+              <li><a href="@Url.Action("Index", "Publication")">永續視野</a></li>
+            </ul>
+          </td>
+          <td valign="top">
+            <p class="perid-txt02"></p>
+            <ul>
+              <li class="Perid-stxt2">企業永續性揭露之國內現況與國際發展趨勢介紹</li>
+              <li class="Perid-stxt2">光寶科技參與道瓊永續指數之經驗分享</li>
+              <li class="Perid-stxt2">企業整合性報告(Integrated Reporting)國際發展趨勢與案例研究</li> 
+              <li class="Perid-stxt2">產品碳足跡國際發展與國內推動現況</li>
+              <li class="Perid-stxt2">「ISO 14045產品生態效率(Eco-efficiency)」與「ISO 14051物質流成本會計」之標準制定精神與實施效益</li>
+            <li class="Perid-stxt2">綠色鋼材在生命週期之減碳效益</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="Show-adv"><a target="_blank" href="http://www.gov.tw/"><img src="@Url.Content("~/pp/banner-1.gif")" width="133" height="39" alt="我的E政府" /></a></div>
+    <div class="Show-adv"><a target="_blank" href="http://www.moea.gov.tw"><img src="@Url.Content("~/pp/banner-2.gif")" width="133" height="39" alt="經濟部全球資訊網" /></a></div>    
+    <div class="Show-adv"><a target="_blank" href="http://assist.nat.gov.tw/GIP/wSite/index.jsp"><img src="@Url.Content("~/pp/banner-3.gif")" width="133" height="39" alt="企業輔導網" /></a></div>
+    <div class="Show-adv"><a target="_blank" href="http://greenliving.epa.gov.tw/GreenLife/"><img src="@Url.Content("~/pp/banner-4.gif")" width="133" height="39" alt="全民綠色消費" /></a></div>
+    <div class="Show-adv"><a target="_blank" href="http://www.moeaidb.gov.tw/"><img src="@Url.Content("~/pp/banner-5.gif")" width="133" height="39" alt="經濟部工業局" /></a></div>
+    <div class="Show-adv"><a target="_blank" href="http://www.ftis.org.tw/isdn/"><img src="@Url.Content("~/pp/banner-6.gif")" width="133" height="39" alt="永續計畫資料庫查詢" /></a></div>
+    <div class="Show-adv"><a target="_blank" href="http://www.ftis.org.tw/"><img src="@Url.Content("~/pp/banner-7.gif")" width="133" height="39" alt="台灣產業服務基金會" /></a></div>
+    <div class="Show-adv"><a target="_blank" href="http://proj.moeaidb.gov.tw/isea/"><img src="@Url.Content("~/pp/banner-9.gif")" width="133" height="39" alt="工業精銳獎 工業標竿 盡在精銳" /></a></div>
+    <div class="Show-adv"><a target="_blank" href="http://www.gec.ey.gov.tw"><img src="@Url.Content("~/pp/banner-10.gif")" width="133" height="39" alt="行政院性別平等會" /></a></div>
+  </div><!--中結尾-->
+  
+  <div id="Index-right"><!--右-->
+    <ul class="Right-Down-UL">
+        @{
+            foreach (HomeNews homeNews in Model.GetHomeNews())
+            {
+                <li class="Right-message-LI"><a href="@homeNews.AUrl" target="_blank" class="message">@homeNews.Name</a></li>
+            }
+         }
+    </ul>
+    <div id="Right2-down">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="top"><img src="@Url.Content("~/image/rtitle1.png")" width="178" height="38" /></td>
+        </tr>
+        <tr>
+          <td class="Right2-table"><a href="http://www.ftis.org.tw/Consultation/index.aspx" target="_blank" onmouseover="MM_swapImage('Image15','','@Url.Content("~/image/home-banner-title-5-over.gif")',1)" onmouseout="MM_swapImgRestore()"><img src="@Url.Content("~/image/home-banner-title-5.gif")" name="Image15" width="126" height="34" border="0" id="Image15" /></a></td>
+        </tr>
+        <tr>
+          <td class="Right2-table"><a href="@Url.Action("Index", "AboutUs", new { id = Model.EncryptId(6) })" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image16','','@Url.Content("~/image/home-banner-title-8-over.gif")',1)"><img src="@Url.Content("~/image/home-banner-title-8.gif")" name="Image16" width="105" height="34" border="0" id="Image16" /></a></td>
+        </tr>
+        <tr>
+          <td class="Right2-table"><a href="@Url.Action("Index", "Question")" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image17','','@Url.Content("~/image/home-banner-title-7-over.gif")',1)"><img src="@Url.Content("~/image/home-banner-title-7.gif")" name="Image17" width="159" height="34" border="0" id="Image17" /></a></td>
+        </tr>
+        <tr>
+          <td height="56"><img src="@Url.Content("~/image/rtitle2.png")" width="178" height="39" /></td>
+        </tr>
+        <tr>
+          <td class="Right2-table">
+           <p class="Right2-Vote"><a href="@Url.Action("Index", "Examination")" class="message">網站滿意度調查</a></p>
+           <p class="Right2-Vote2">前往填寫問卷</p> 
+          </td>
+        </tr>
+        <tr>
+          <td class="Right2-table"><p class="Right2-Vote"><a href="@Url.Action("Index", "EpaperExamination")" class="message">電子報滿意度調查</a></p>
+            <p class="Right2-Vote2">前往填寫問卷</p></td>
+        </tr>
+      </table>
+    </div>
+  </div><!--右結尾-->
+  
+  
+</div><!--內容區結尾-->
+
+}

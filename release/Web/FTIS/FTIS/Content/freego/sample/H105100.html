@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>H105100 對於每一個存放資料的表格（不是用來排版），標示出行和列的標題</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<span style='color: #ff0000; text-decoration: underline'>H105100 對於每一個存放資料的表格（不是用來排版），標示出行和列的標題</span><br /><br />
+<fieldset>
+<table width="50%" border="0" cellspacing="0" cellpadding="8">
+        <tr valign="top">
+            <td>
+                <p>
+                    <strong>不良設計：</strong></p>
+                <p>
+                    以下是不良設計，沒有使用TH標籤標示出表格行列標題。</p>
+                <div class="deprecated-example">
+                    <p>
+                        <strong>不良設計：</strong></p>
+                    <pre>
+  &lt;TABLE border=&quot;1&quot;
+  summary=&quot;李小安國會議員每天約飲用10杯加糖的摩卡咖啡，吳大義國會議員每天約飲用5杯不加糖的拿鐵咖啡&quot;&gt;
+  &lt;CAPTION&gt;
+  李小安、吳大義國會議員每天所飲用的咖啡數量
+  &lt;/CAPTION&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;議員姓名&lt;/TD&gt;
+  &lt;TD&gt;飲用咖啡數量(杯)&lt;/TD&gt;
+  &lt;TD abbr=&quot;Type&quot;&gt;咖啡種類&lt;/TD&gt;
+  &lt;TD&gt;是否加糖?&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;李小安&lt;/TD&gt;
+  &lt;TD&gt;10&lt;/TD&gt;
+  &lt;TD&gt;摩卡&lt;/TD&gt;
+  &lt;TD&gt;是&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;吳大義&lt;/TD&gt;
+  &lt;TD&gt;5&lt;/TD&gt;
+  &lt;TD&gt;拿鐵&lt;/TD&gt;
+  &lt;TD&gt;否&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;/TABLE&gt;
+          </pre>
+                    <p class="invisible">
+                        範例結束</p>
+                </div>
+                <h2>
+                    正確示範</h2>
+                <p>
+                    以下是正確範例，使用TH標籤替表格行列標示出標題。</p>
+                <div class="example">
+                    <p>
+                        <strong>正確範例：</strong></p>
+                    <pre>
+  &lt;TABLE border=&quot;1&quot;
+  summary=&quot;李小安國會議員每天約飲用10杯加糖的摩卡咖啡，吳大義國會議員每天約飲用5杯不加糖的拿鐵咖啡。&quot;&gt;
+  &lt;CAPTION&gt;
+  李小安、吳大義國會議員每天所飲用的咖啡數量
+  &lt;/CAPTION&gt;
+  &lt;TR&gt;
+  &lt;TH&gt;議員姓名&lt;/TH&gt;
+  &lt;TH&gt;飲用咖啡數量(杯)&lt;/TH&gt;
+  &lt;TH abbr=&quot;Type&quot;&gt;咖啡種類&lt;/TH&gt;
+  &lt;TH&gt;是否加糖?&lt;/TH&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;李小安&lt;/TD&gt;
+  &lt;TD&gt;10&lt;/TD&gt;
+  &lt;TD&gt;摩卡&lt;/TD&gt;
+  &lt;TD&gt;是&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;TR&gt;
+  &lt;TD&gt;吳大義&lt;/TD&gt;
+  &lt;TD&gt;5&lt;/TD&gt;
+  &lt;TD&gt;拿鐵&lt;/TD&gt;
+  &lt;TD&gt;否&lt;/TD&gt;
+  &lt;/TR&gt;
+  &lt;/TABLE&gt;
+          </pre>
+                    <p class="invisible">
+                        範例結束</p>
+                </div>
+            </td>
+        </tr>
+    </table></fieldset>
+</body>
+</html>
