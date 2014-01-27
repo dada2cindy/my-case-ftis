@@ -28,7 +28,7 @@
               foreach (var entity in Model.GetNormClassList(true, Model.EntityId))
               {
               <a href="@Url.Action("Detail", "Norm", new { parentId = m_hsModel.EncryptId(entity.NormClassId) })"><div class="Norm-flag-Table">
-        <div class="Norm-flag-pp"><img src="@m_hsModel.GetFile(entity.Pic1)" width="48" height="48" alt="@entity.Name" /></div>
+        <div class="Norm-flag-pp"><img src="@m_hsModel.GetFile(entity.Pic1, string.Empty)" width="48" height="48" alt="@entity.Name" /></div>
         <div class="Norm-stitle">@entity.Name</div>
         <div class="Norm-GO"></div>
         <div class="Norm-stxt">@entity.NameENG</div>

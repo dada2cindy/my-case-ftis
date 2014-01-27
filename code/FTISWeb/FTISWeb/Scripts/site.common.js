@@ -311,14 +311,16 @@ function ClearFileAndHide(targetField) {
 }
 
 function OpenUploadImgFile(targetField, url) {
+    var fileName = $('#' + targetField + 'Name').val();
     var filePath = $('#' + targetField).val();
-    var fullFilePath = url + '/?path=' + filePath;
+    var fullFilePath = url + '/?path=' + filePath + '&fileName=' + fileName;
     window.open(fullFilePath);
 }
 
 function OpenUploadFile(targetField, url) {
+    var fileName = $('#' + targetField + 'Name').val();
     var filePath = $('#' + targetField).val();
-    var fullFilePath = url + filePath;
+    var fullFilePath = url + filePath + '&fileName=' + fileName;
     window.open(fullFilePath);
 }
 

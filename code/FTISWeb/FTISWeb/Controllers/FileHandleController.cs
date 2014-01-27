@@ -29,7 +29,7 @@ namespace FTISWeb.Controllers
             return File(GetFile(filePath), FileUtil.GetMIMEfromExtension(System.IO.Path.GetExtension(filePath)), System.IO.Path.GetFileName(filePath));
         }
 
-        public ActionResult GetFromCKFinder(string path)
+        public ActionResult GetFromCKFinder(string path, string fileName)
         {
             string ckFinderBaseDir = AppSettings.CKFinderBaseDir.Replace('/', '\\');
             string filePath = Path.Combine(ckFinderBaseDir, path);
@@ -39,7 +39,16 @@ namespace FTISWeb.Controllers
                 return new EmptyResult();
             }
 
-            return File(GetFile(filePath), FileUtil.GetMIMEfromExtension(System.IO.Path.GetExtension(filePath)), System.IO.Path.GetFileName(filePath));
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                fileName = System.IO.Path.GetFileName(filePath);
+            }
+            else
+            {
+                fileName += System.IO.Path.GetExtension(filePath);
+            }
+
+            return File(GetFile(filePath), FileUtil.GetMIMEfromExtension(System.IO.Path.GetExtension(filePath)), fileName);
         }
 
         public ActionResult GetFromCKFinderByEncrypt(string encryptPath)

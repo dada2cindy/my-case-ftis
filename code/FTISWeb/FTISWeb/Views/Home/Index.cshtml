@@ -85,7 +85,7 @@
               foreach (Publication publication in Model.GetPublication())
             {
   <tr>
-    <td><a href="@Url.Action("Index", "Publication")"><img src="@Model.GetFile(publication.Pic1)" width="100" height="138" class="Perid-pp01" alt="@publication.Name" /></a></td>
+    <td><a href="@Url.Action("Index", "Publication")"><img src="@Model.GetFile(publication.Pic1, string.Empty)" width="100" height="138" class="Perid-pp01" alt="@publication.Name" /></a></td>
     <td valign="top">
       <p class="perid-txt01"></p>
       <p class="perid-stitle">@publication.Name</p>

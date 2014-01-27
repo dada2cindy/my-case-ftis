@@ -87,13 +87,19 @@ namespace FTISWeb.Models
             return EncryptUtil.DecryptDES(id, AppSettings.EncryptKey, AppSettings.EncryptIV);
         }
 
-        public string GetFile(string fileName)
+        public string GetFile(string filePath, string fileName)
         {
-            if (string.IsNullOrWhiteSpace(fileName))
+            if (string.IsNullOrWhiteSpace(filePath))
             {
                 return string.Empty;
             }
-            return AppSettings.CKFinderFileHandler + fileName;
+
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                filePath += ("&fileName=" + fileName);
+            }
+            
+            return AppSettings.CKFinderFileHandler + filePath;
         }
 
         public string GetFileByEncrypt(string fileName)

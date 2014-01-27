@@ -64,7 +64,7 @@
           @{
               foreach (var data in groupList.Value)
               {
-                  string fileUrl = m_hsModel.GetFile(data.AFile1);
+                  string fileUrl = m_hsModel.GetFile(data.AFile1, string.Empty);
                   if (!string.IsNullOrWhiteSpace(data.AUrl) & "1".Equals(data.IsUrl))
                   {
                       fileUrl = data.AUrl;

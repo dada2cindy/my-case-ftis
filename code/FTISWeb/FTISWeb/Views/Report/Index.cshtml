@@ -212,7 +212,7 @@ GRI</td>
          {
                   <table border="0" cellpadding="0" cellspacing="0" class="csr04c-BookTable">
         <tr>
-          <td width="125" valign="top"><a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })"><img src="@m_hsModel.GetFile(entity.ReportPic)" width="100" height="138" class="csr04-pp" alt="@entity.ReportName" /></a></td>
+          <td width="125" valign="top"><a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })"><img src="@m_hsModel.GetFile(entity.ReportPic, string.Empty)" width="100" height="138" class="csr04-pp" alt="@entity.ReportName" /></a></td>
           <td width="475" valign="top"><span class="Txt-BBBBBB">公司名稱</span>　：<a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })" class="searchBtn">@entity.Company </a><a href="@Url.Action("Detail", "Report", new { id = m_hsModel.EncryptId(entity.ReportId) })"><img src="@Url.Content("~/in-image/com-more3.gif")" width="28" height="10" /></a><br />
             <span class="Txt-BBBBBB">報告書名稱</span>：@entity.ReportName<br />
             <span class="Txt-BBBBBB">行業別</span>　　：@entity.GetStr_CompanyTrade<br />
