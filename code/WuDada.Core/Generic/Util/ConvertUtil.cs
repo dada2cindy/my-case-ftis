@@ -465,11 +465,6 @@ namespace WuDada.Core.Generic.Util
             if (!string.IsNullOrEmpty(html))
             {
                 //html = Regex.Replace(p, "<[^>]+>", "");
-                //html = html.Replace(";&nbsp", "");
-                //html = html.Replace("&nbsp;", "");
-                //html = html.Replace("&amp;", "");
-                //html = html.Replace("nbsp;", "");
-                //return p;
                 System.Text.RegularExpressions.Regex regex1 = new System.Text.RegularExpressions.Regex(@"<script[\s\S]+</script *>", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
                 System.Text.RegularExpressions.Regex regex2 = new System.Text.RegularExpressions.Regex(@" href *= *[\s\S]*script *:", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
                 System.Text.RegularExpressions.Regex regex3 = new System.Text.RegularExpressions.Regex(@" no[\s\S]*=", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
@@ -493,6 +488,10 @@ namespace WuDada.Core.Generic.Util
                 html = html.Replace(" ", "");
                 html = html.Replace("</strong>", "");
                 html = html.Replace("<strong>", "");
+                html = html.Replace(";&nbsp", "");
+                html = html.Replace("&nbsp;", "");
+                html = html.Replace("&amp;", "");
+                html = html.Replace("nbsp;", "");
                 return html;
             }
             else
