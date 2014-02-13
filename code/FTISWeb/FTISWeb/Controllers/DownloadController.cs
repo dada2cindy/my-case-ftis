@@ -69,11 +69,11 @@ namespace FTISWeb.Controllers
             switch (fileNum)
             {
                 case ("1"):
-                    return Redirect(new HomeShowModel().GetFileByEncrypt(entityModel.AFile1));
+                    return Redirect(new HomeShowModel().GetFile(entityModel.AFile1, string.IsNullOrWhiteSpace(entityModel.AFile1Name) ? entityModel.Name : entityModel.AFile1Name));
                 case ("2"):
-                    return Redirect(new HomeShowModel().GetFileByEncrypt(entityModel.AFile2));
+                    return Redirect(new HomeShowModel().GetFile(entityModel.AFile2, string.IsNullOrWhiteSpace(entityModel.AFile2Name) ? entityModel.Name : entityModel.AFile1Name));
                 case ("3"):
-                    return Redirect(new HomeShowModel().GetFileByEncrypt(entityModel.AFile3));
+                    return Redirect(new HomeShowModel().GetFile(entityModel.AFile3, string.IsNullOrWhiteSpace(entityModel.AFile3Name) ? entityModel.Name : entityModel.AFile1Name));
             }
 
             return new EmptyResult();

@@ -39,7 +39,7 @@ namespace FTISWeb.Controllers
                 return new EmptyResult();
             }
 
-            if (string.IsNullOrWhiteSpace(fileName))
+            if (string.IsNullOrWhiteSpace(fileName) || "undefined".Equals(fileName,StringComparison.OrdinalIgnoreCase))
             {
                 fileName = System.IO.Path.GetFileName(filePath);
             }
@@ -107,7 +107,7 @@ namespace FTISWeb.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { message = ex.Message }, "text/html");
+                return Json(new { error = ex.Message }, "text/html");
             }
         }
 
@@ -144,7 +144,7 @@ namespace FTISWeb.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { message = ex.Message }, "text/html");
+                return Json(new { error = ex.Message }, "text/html");
             }
         }
     }

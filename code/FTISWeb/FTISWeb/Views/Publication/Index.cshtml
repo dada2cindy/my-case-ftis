@@ -71,7 +71,7 @@
                   string fileUrl = entity.LinkFile;
                   if(string.IsNullOrWhiteSpace(fileUrl) & !string.IsNullOrWhiteSpace(entity.AFile1))
                   {
-                      fileUrl = m_hsModel.GetFile(entity.AFile1, string.Empty);
+                      fileUrl = m_hsModel.GetFile(entity.AFile1, string.Format("isdn-{0}", entity.PubNo.PadLeft(3, '0')));
                   }
         <table border="0" cellpadding="0" cellspacing="0" class="Load03-stable">
         <tr>

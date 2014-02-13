@@ -257,7 +257,8 @@ function CreateImgUploader(targetField, url) {
                 alert(" 檔案上傳完成!");
             }
             else {
-                alert(" 檔案上傳錯誤! error: " + responseJSON.message);
+                alert(" 檔案上傳錯誤! ");
+                //alert(" 檔案上傳錯誤! error: " + responseJSON.error);
             }
         },
         onSubmit: function (id, fileName) {
@@ -296,7 +297,8 @@ function CreateFileUploader(targetField, url) {
                 alert(" 檔案上傳完成!");
             }
             else {
-                alert(" 檔案上傳錯誤! error: " + responseJSON.message);
+                alert(" 檔案上傳錯誤! ");
+                //alert(" 檔案上傳錯誤! error: " + responseJSON.error);
             }
         },
         onSubmit: function (id, fileName) {
@@ -354,7 +356,8 @@ function CreateFlashUploader(targetField, url) {
                 alert(" 檔案上傳完成!");
             }
             else {
-                alert(" 檔案上傳錯誤! error: " + responseJSON.message);
+                alert(" 檔案上傳錯誤! ");
+                //alert(" 檔案上傳錯誤! error: " + responseJSON.error);
             }
         },
         onSubmit: function (id, fileName) {
