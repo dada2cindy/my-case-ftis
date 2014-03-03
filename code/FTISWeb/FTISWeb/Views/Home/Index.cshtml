@@ -132,12 +132,16 @@
   
   <div id="Index-right"><!--右-->
     <ul class="Right-Down-UL">
+        <li>
+            <ul style="overflow:hidden;height:219px;">
         @{
             foreach (HomeNews homeNews in Model.GetHomeNews())
             {
                 <li class="Right-message-LI"><a href="@homeNews.AUrl" target="_blank" class="message">@homeNews.Name</a></li>
             }
          }
+                </ul>
+        </li>
     </ul>
     <div id="Right2-down">
       <table border="0" cellspacing="0" cellpadding="0">

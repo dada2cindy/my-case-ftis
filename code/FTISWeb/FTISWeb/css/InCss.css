@@ -286,11 +286,11 @@
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #FFF;
-	background-image: url(../in-image/news-sslect.jpg);
+	background-image: url(../in-image/news-slect.jpg);
 	height: 19px;
 	padding-top: 5px;
 	float: left;
-	width: 93px;
+	width: 162px;
 	text-align: center;
 	margin-bottom: 4px;
 }
@@ -298,11 +298,11 @@
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #FFF;
-	background-image: url(../in-image/news-sslect1.jpg);
+	background-image: url(../in-image/news-slect1.jpg);
 	height: 19px;
 	padding-top: 5px;
 	float: left;
-	width: 93px;
+	width: 162px;
 	text-align: center;
 	margin-bottom: 4px;
 	text-decoration: underline;
@@ -311,11 +311,11 @@
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #FFF;
-	background-image: url(../in-image/news-sslect1.jpg);
+	background-image: url(../in-image/news-slect1.jpg);
 	height: 19px;
 	padding-top: 5px;
 	float: left;
-	width: 93px;
+	width: 162px;
 	text-align: center;
 	margin-bottom: 4px;
 	text-decoration: underline;
