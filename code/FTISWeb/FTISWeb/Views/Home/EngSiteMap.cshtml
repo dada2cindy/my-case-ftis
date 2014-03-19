@@ -8,8 +8,7 @@
 <div id="In-Table">
   <div id="In-left-e"><!--左-->
     @Html.Partial("InFlash")
-    
-    <div id="In-leftTitle"><img src="/e-image/left-b4.png" alt="Sitemap"/></div>
+    <div id="In-leftTitle"><img src="@Url.Content("~/e-image/left-b4.png")" alt="Sitemap"/></div>
     <a href="@Url.Action("EngSiteMap", "Home")">
       <div class="Left-sbtn">Sitemap      </div>
     </a>
