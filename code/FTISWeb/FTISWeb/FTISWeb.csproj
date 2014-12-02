@@ -511,6 +511,8 @@
     <Content Include="image\aplus.gif" />
     <Content Include="image\btn-icon.gif" />
     <Content Include="image\com-logo.gif" />
+    <Content Include="pp\banner-zz.gif" />
+    <Content Include="pp\fb.jpg" />
     <Content Include="image\foot.png" />
     <Content Include="image\home-banner-title-5-over.gif" />
     <Content Include="image\home-banner-title-5.gif" />
@@ -2369,10 +2371,11 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>3368</DevelopmentServerPort>
-          <DevelopmentServerVPath>/isdn</DevelopmentServerVPath>
-          <IISUrl>http://localhost:13897/isdn/</IISUrl>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63980</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
